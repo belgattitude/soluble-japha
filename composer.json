@@ -1,6 +1,6 @@
 {
-	"name": "soluble/spreadsheet",
-	"description": "Soluble spreadsheet",
+	"name": "soluble/japha",
+	"description": "Soluble Japha",
     "license": "MIT",
 	"keywords": [
         "LibXL", 
@@ -8,7 +8,7 @@
         "Excel", 
         "FlexStore"
     ],
-	"homepage": "https://github.com/belgattitude/soluble-spreadsheet",
+	"homepage": "https://github.com/belgattitude/soluble-japha",
 	"type": "library",
 	"authors": [
 		{
@@ -18,13 +18,10 @@
 	],
     "autoload": {
         "psr-4": {
-            "Soluble\\Spreadsheet\\": ""
+            "Soluble\\Japha\\": ""
         }
     },
     "require": {
         "php": ">=5.3.3"
-    },    
-	"suggest": {
-		"soluble/flexstore": "Super easy query data"
-	}
+    }
 }
