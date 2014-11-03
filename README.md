@@ -1,4 +1,4 @@
-# Soluble\Spreadsheet
+# Soluble\Japha
 
 [![Build Status](https://travis-ci.org/belgattitude/solublecomponents.png?branch=master)](https://travis-ci.org/belgattitude/solublecomponents)
 [![Code Coverage](https://scrutinizer-ci.com/g/belgattitude/solublecomponents/badges/coverage.png?s=aaa552f6313a3a50145f0e87b252c84677c22aa9)](https://scrutinizer-ci.com/g/belgattitude/solublecomponents/)
