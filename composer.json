@@ -1,0 +1,30 @@
+{
+	"name": "soluble/spreadsheet",
+	"description": "Soluble spreadsheet",
+    "license": "MIT",
+	"keywords": [
+        "LibXL", 
+        "Spreadsheet", 
+        "Excel", 
+        "FlexStore"
+    ],
+	"homepage": "https://github.com/belgattitude/soluble-spreadsheet",
+	"type": "library",
+	"authors": [
+		{
+			"name": "Sébastien Vanvelthem",
+			"homepage": "http://www.nuvolia.com/"
+		}
+	],
+    "autoload": {
+        "psr-4": {
+            "Soluble\\Spreadsheet\\": ""
+        }
+    },
+    "require": {
+        "php": ">=5.3.3"
+    },    
+	"suggest": {
+		"soluble/flexstore": "Super easy query data"
+	}
+}
