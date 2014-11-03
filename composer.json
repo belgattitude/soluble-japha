@@ -3,10 +3,8 @@
 	"description": "Soluble Japha",
     "license": "MIT",
 	"keywords": [
-        "LibXL", 
-        "Spreadsheet", 
-        "Excel", 
-        "FlexStore"
+        "Java", 
+        "Bridge"
     ],
 	"homepage": "https://github.com/belgattitude/soluble-japha",
 	"type": "library",
