@@ -38,17 +38,24 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class Parser
 {
+    /**
+     *
+     * @var NativeParser
+     */
     public $parser;
 
     public function __construct($handler)
     {
+        $this->parser = new NativeParser($handler);
+        $handler->RUNTIME["PARSER"] = "NATIVE";
+        /*
         if (function_exists("xml_parser_create")) {
             $this->parser = new NativeParser($handler);
             $handler->RUNTIME["PARSER"] = "NATIVE";
         } else {
             $this->parser = new SimpleParser($handler);
             $handler->RUNTIME["PARSER"] = "SIMPLE";
-        }
+        }*/
     }
 
     public function parse()
