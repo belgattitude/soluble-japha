@@ -47,10 +47,6 @@ class ExceptionProxyFactory extends SimpleFactory
         return new ExceptionProxy($result, $signature);
     }
 
-    /**
-     *
-     * @return Exception\InternalException
-     */
     public function getProxy($result, $signature, $exception, $wrap)
     {
         $proxy = $this->create($result, $signature);

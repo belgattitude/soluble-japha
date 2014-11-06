@@ -54,6 +54,10 @@ class SimpleFactory
     }
 
 
+    /**
+     * 
+     * @return JavaProxy|JavaType|Exception\InternalException
+     */
     public function getProxy($result, $signature, $exception, $wrap)
     {
         return $result;
