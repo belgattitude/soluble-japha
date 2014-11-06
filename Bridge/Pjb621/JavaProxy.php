@@ -38,8 +38,13 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class JavaProxy implements JavaType
 {
-    public $__serialID, $__java;
+    public $__serialID;
+    public $__java;
     public $__signature;
+    /**
+     *
+     * @var Client
+     */
     public $__client;
     public $__tempGlobalRef;
 
@@ -105,4 +110,21 @@ class JavaProxy implements JavaType
             return "";
         }
     }
+    
+    /**
+     * @return integer
+     */
+    function get__java()
+    {
+        return $this->__java;
+    }
+    
+    /**
+     * @return string
+     */
+    function get__signature()
+    {
+        return $this->__signature;
+    }
+    
 }

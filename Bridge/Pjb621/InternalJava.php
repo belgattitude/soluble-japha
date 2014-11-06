@@ -38,6 +38,10 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class InternalJava extends Java
 {
+    /**
+     * 
+     * @param Simple $proxy
+     */
     public function __construct($proxy)
     {
         $this->__delegate = $proxy;

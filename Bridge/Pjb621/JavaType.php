@@ -38,4 +38,42 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 interface JavaType
 {
+    
+    /**
+     * @return integer
+     */
+    function get__java();
+    
+    /**
+     * @return string
+     */
+    function get__signature();
+    
+    public function __get($key);
+
+    /**
+     * 
+     */
+    public function __set($key, $val);
+
+    /**
+     * @param string $method
+     * @param array $args
+     */
+    public function __call($method, $args);
+    
+    
+    public function __cast($type);
+
+    public function __sleep();
+
+    public function __wakeup();
+
+    /**
+     * 
+     * @return string
+     */
+    public function __toString();
+    
+    
 }

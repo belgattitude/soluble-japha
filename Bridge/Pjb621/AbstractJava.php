@@ -38,13 +38,29 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaType
 {
+    /**
+     *
+     * @var Client
+     */
     public $__client;
+    
+    /**
+     *
+     * @var SimpleProxy
+     */
     public $__delegate;
     public $__serialID;
     public $__factory;
-    public $__java, $__signature;
+    
+    /**
+     *
+     * @var int
+     */
+    public $__java;
+    public $__signature;
     public $__cancelProxyCreationTag;
 
+    
     public function __createDelegate()
     {
         $proxy = $this->__delegate = $this->__factory->create($this->__java, $this->__signature);
@@ -194,5 +210,21 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         }
         $args = func_get_args();
         return $this->__call("offsetUnset", $args);
+    }
+    
+    /**
+     * @return integer
+     */
+    function get__java()
+    {
+        return $this->__java;
+    }
+    
+    /**
+     * @return string
+     */
+    function get__signature()
+    {
+        return $this->__signature;
     }
 }

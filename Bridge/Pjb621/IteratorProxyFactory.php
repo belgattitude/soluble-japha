@@ -38,7 +38,11 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class IteratorProxyFactory extends ProxyFactory
 {
-    public function create($result, $signature)
+    /**
+     * 
+     * @return IteratorProxy
+     */
+    public static function create($result, $signature)
     {
         return new IteratorProxy($result, $signature);
     }

@@ -41,7 +41,14 @@ use Soluble\Japha\Bridge\Pjb621\JavaType;
 
 class JavaException extends Exception implements JavaType
 {
-    public $__serialID, $__java, $__client;
+    public $__serialID; 
+    public $__java;
+    
+    /**
+     *
+     * @var Client
+     */
+    public $__client;
     public $__delegate;
     public $__signature;
     public $__hasDeclaredExceptions;
@@ -54,11 +61,16 @@ class JavaException extends Exception implements JavaType
         if (is_array($name)) {
             $args = $name;
             $name = array_shift($args);
-        }         if (count($args) == 0) {
-            Exception::__construct($name);
-        } else {
-            Exception::__construct($args[0]);
         }
+        
+        if (count($args) == 0) {
+            
+            parent::__construct($name);
+        } else {
+            
+            parent::__construct($args[0]);
+        }
+        
         $delegate = $this->__delegate = $this->__client->createObject($name, $args);
         $this->__java = $delegate->__java;
         $this->__signature = $delegate->__signature;
@@ -102,4 +114,21 @@ class JavaException extends Exception implements JavaType
     {
         return $this->__delegate->__toExceptionString($this->getTraceAsString());
     }
+    
+    /**
+     * @return integer
+     */
+    function get__java()
+    {
+        return $this->__java;
+    }
+    
+    /**
+     * @return string
+     */
+    function get__signature()
+    {
+        return $this->__signature;
+    }
+    
 }

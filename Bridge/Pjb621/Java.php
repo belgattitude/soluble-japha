@@ -70,8 +70,8 @@ class Java extends AbstractJava
                     break;
                 case 'object':
                     if ($val instanceof JavaType) {
-                        array_push($args2, $val->__java);
-                        $sig.="@o{$val->__signature}";
+                        array_push($args2, $val->get__java());
+                        $sig.="@o{$val->get__signature()}";
                     } else {
                         $sig = "~INVALID";
                     }
@@ -155,8 +155,8 @@ class Java extends AbstractJava
                     break;
                 case 'object':
                     if ($val instanceof JavaType) {
-                        array_push($args2, $val->__java);
-                        $sig.="@o{$val->__signature}";
+                        array_push($args2, $val->get__java());
+                        $sig.="@o{$val->get__signature()}";
                     } else {
                         $sig = "~INVALID";
                     }

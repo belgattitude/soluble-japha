@@ -38,7 +38,11 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class ArrayProxyFactory extends ProxyFactory
 {
-    public function create($result, $signature)
+    /**
+     * 
+     * @return ArrayProxy
+     */
+    public static function create($result, $signature)
     {
         return new ArrayProxy($result, $signature);
     }

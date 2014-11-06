@@ -365,6 +365,24 @@ namespace Soluble\Japha\Bridge\Pjb621 {
         return $client->invokeMethod(0, "getValues", array($object));
     }
 
+    
+    /**
+     * Invoke a method dynamically.
+
+     * Example:
+     * <code>
+     * java_invoke(new java("java.lang.String","hello"), "toString", array())
+     * </code>
+     *
+     *<br> Any declared exception can be caught by PHP code. <br>
+     * Exceptions derived from java.lang.RuntimeException or Error should
+     * not be caught unless declared in the methods throws clause -- OutOfMemoryErrors cannot be caught at all,
+     * even if declared.
+     *
+     * @param JavaType A java object or type
+     * @param string A method string
+     * @param array An argument array
+     */    
     function java_invoke($object, $method, $args)
     {
         $client = __javaproxy_Client_getClient();
@@ -372,16 +390,58 @@ namespace Soluble\Japha\Bridge\Pjb621 {
         return $client->invokeMethod($id, $method, $args);
     }
 
-    function java_unwrap($object)
+
+    /**
+     * Unwrap a Java object.
+     * 
+     * Fetches the PHP object which has been wrapped by java_closure(). Example:
+     * <code>
+     * class foo { function __toString() {return "php"; } function toString() {return "java";} }
+     * $foo = java_closure(new foo());
+     * echo $foo;
+     * => java;
+     * $foo = java_unwrap($foo);
+     * echo $foo;
+     * => php
+     * </code>
+     * @param JavaType $object
+     */    
+    function java_unwrap(JavaType $object)
     {
-        if (!$object instanceof JavaType) {
-            throw new Exception\IllegalArgumentException($object);
-        }
         $client = __javaproxy_Client_getClient();
         return $client->globalRef->get($client->invokeMethod(0, "unwrapClosure", array($object)));
     }
 
-    function java_values($object)
+    /**
+     * Evaluate a Java object.
+     * 
+     * Evaluate a object and fetch its content, if possible. Use java_values() to convert a Java object into an equivalent PHP value.
+     *
+     * A java array, Map or Collection object is returned
+     * as a php array. An array, Map or Collection proxy is returned as a java array, Map or Collection object, and a null proxy is returned as null. All values of java types for which a primitive php type exists are returned as php values. Everything else is returned unevaluated. Please make sure that the values do not not exceed
+     * php's memory limit. Example:
+     *
+     * 
+     * <code>
+     * $str = new java("java.lang.String", "hello");
+     * echo java_values($str);
+     * => hello
+     * $chr = $str->toCharArray();
+     * echo $chr;
+     * => [o(array_of-C):"[C@1b10d42"]
+     * $ar = java_values($chr);
+     * print $ar;
+     * => Array
+     * print $ar[0];
+     * => [o(Character):"h"]
+     * print java_values($ar[0]);
+     * => h
+     * </code>
+     * 
+     * @see java_closure()
+     * @param JavaType $object
+     */    
+    function java_values(JavaType $object)
     {
         return java_values_internal($object);
     }
@@ -390,13 +450,9 @@ namespace Soluble\Japha\Bridge\Pjb621 {
      * 
      * @param JavaType $object
      * @return string
-     * @throws Exception\IllegalArgumentException
      */
-    function java_inspect_internal($object)
+    function java_inspect_internal(JavaType $object)
     {
-        if (!$object instanceof JavaType) {
-            throw new Exception\IllegalArgumentException($object);
-        }
         $client = __javaproxy_Client_getClient();
         return $client->invokeMethod(0, "inspect", array($object));
     }
@@ -407,7 +463,7 @@ namespace Soluble\Japha\Bridge\Pjb621 {
      * @return string
      * @throws Exception\IllegalArgumentException
      */
-    function java_inspect($object)
+    function java_inspect(JavaType $object)
     {
         return java_inspect_internal($object);
     }
@@ -424,16 +480,9 @@ namespace Soluble\Japha\Bridge\Pjb621 {
      * @param JavaType $ob
      * @param JavaType $clazz
      * @return boolean
-     * @throws Exception\IllegalArgumentException
      */
-    function java_instanceof_internal($ob, $clazz)
+    function java_instanceof_internal(JavaType $ob, JavaType $clazz)
     {
-        if (!$ob instanceof JavaType) {
-            throw new Exception\IllegalArgumentException($ob);
-        }
-        if (!$clazz instanceof JavaType) {
-            throw new Exception\IllegalArgumentException($clazz);
-        }
         $client = __javaproxy_Client_getClient();
         return $client->invokeMethod(0, "instanceOf", array($ob, $clazz));
     }
@@ -518,12 +567,16 @@ namespace Soluble\Japha\Bridge\Pjb621 {
         return java_session_array(func_get_args());
     }
 
+    /**
+     * 
+     * @return string|null
+     */
     function java_server_name()
     {
         try {
             $client = __javaproxy_Client_getClient();
             return $client->getServerName();
-        } catch (Exeption\ConnectException $ex) {
+        } catch (Exception\ConnectException $ex) {
             return null;
         }
     }

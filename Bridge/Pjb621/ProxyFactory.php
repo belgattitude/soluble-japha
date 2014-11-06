@@ -38,11 +38,19 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class ProxyFactory extends SimpleFactory
 {
-    public function create($result, $signature)
+    /**
+     * 
+     * @return JavaProxy
+     */
+    public static function create($result, $signature)
     {
         return new JavaProxy($result, $signature);
     }
 
+    /**
+     * 
+     * @return InternalJava
+     */
     public function createInternal($proxy)
     {
         return new InternalJava($proxy);

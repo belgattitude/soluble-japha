@@ -43,7 +43,12 @@ class CompositeArg extends Arg
     public $type;
     public $counter;
 
-    public function __construct($client, $type)
+    /**
+     * 
+     * @param Client $client
+     * @param string $type
+     */
+    public function __construct(Client $client, $type)
     {
         parent::__construct($client);
         $this->type = $type;

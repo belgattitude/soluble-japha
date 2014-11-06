@@ -38,12 +38,21 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class SimpleFactory
 {
+    /**
+     *
+     * @var Client 
+     */
     public $client;
 
-    public function __construct($client)
+    /**
+     * 
+     * @param Client $client
+     */
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
+
 
     public function getProxy($result, $signature, $exception, $wrap)
     {

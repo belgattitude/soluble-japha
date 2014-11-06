@@ -38,6 +38,10 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class GlobalRef
 {
+    /**
+     *
+     * @var array
+     */
     public $map;
 
     public function __construct()
@@ -45,6 +49,11 @@ class GlobalRef
         $this->map = array();
     }
 
+    /**
+     * 
+     * @param JavaType|null $object
+     * @return int|JavaType
+     */
     public function add($object)
     {
         if (is_null($object)) {

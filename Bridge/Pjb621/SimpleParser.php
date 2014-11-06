@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Soluble Japha / PhpJavaBridge
  *
@@ -34,10 +35,12 @@
  * THE SOFTWARE.
  *
  */
+
 namespace Soluble\Japha\Bridge\Pjb621;
 
 class SimpleParser
 {
+
     public $SLEN = 256;
     public $handler;
     public $tag, $buf, $len, $s;
@@ -129,59 +132,68 @@ class SimpleParser
                 $this->c = 0;
             }
             switch (($ch = $this->buf[$this->c])) {
-                case '<': if ($this->in_dquote) {
+                case '<': 
+                    if ($this->in_dquote) {
                         $this->APPEND($ch);
                         break;
-                }
+                    }
                     $this->level+=1;
                     $this->type = $this->BEGIN;
                     break;
-                case '\t': case '\f': case '\n': case '\r': case ' ': if ($this->in_dquote) {
-                                        $this->APPEND($ch);
-                                        break;
-                }
-                if ($this->type == $this->BEGIN) {
-                    $this->PUSH($this->type);
-                    $this->type = $this->KEY;
-                }
-                    break;
-                case '=': if ($this->in_dquote) {
+                case '\t': 
+                case '\f': 
+                case '\n': 
+                case '\r': 
+                case ' ': 
+                    if ($this->in_dquote) {
                         $this->APPEND($ch);
                         break;
-                }
+                    }
+                    if ($this->type == $this->BEGIN) {
+                        $this->PUSH($this->type);
+                        $this->type = $this->KEY;
+                    }
+                    break;
+                case '=': 
+                    if ($this->in_dquote) {
+                        $this->APPEND($ch);
+                        break;
+                    }
                     $this->PUSH($this->type);
                     $this->type = $this->VAL;
                     break;
-                case '/': if ($this->in_dquote) {
+                case '/': 
+                    if ($this->in_dquote) {
                         $this->APPEND($ch);
                         break;
-                }
-                if ($this->type == $this->BEGIN) {
-                    $this->type = $this->END;
-                    $this->level-=1;
-                }
+                    }
+                    if ($this->type == $this->BEGIN) {
+                        $this->type = $this->END;
+                        $this->level-=1;
+                    }
                     $this->level-=1;
                     $this->eot = true;
                     break;
-                case '>': if ($this->in_dquote) {
+                case '>': 
+                    if ($this->in_dquote) {
                         $this->APPEND($ch);
                         break;
-                }
-                if ($this->type == $this->END) {
-                    $this->PUSH($this->BEGIN);
-                    $this->CALL_END();
-                } else {
-                    if ($this->type == $this->VAL) {
-                        $this->PUSH($this->type);
                     }
-                    $this->CALL_BEGIN();
-                }
+                    if ($this->type == $this->END) {
+                        $this->PUSH($this->BEGIN);
+                        $this->CALL_END();
+                    } else {
+                        if ($this->type == $this->VAL) {
+                            $this->PUSH($this->type);
+                        }
+                        $this->CALL_BEGIN();
+                    }
                     $this->tag[0]->n = $this->tag[1]->n = $this->tag[2]->n = 0;
                     $this->i0 = $this->i = 0;
                     $this->type = $this->VOJD;
-                if ($this->level == 0) {
-                    $this->eor = 1;
-                }
+                    if ($this->level == 0) {
+                        $this->eor = 1;
+                    }
                     break;
                 case ';':
                     if ($this->type == $this->ENTITY) {
@@ -233,7 +245,8 @@ class SimpleParser
     public function parserError()
     {
         $this->handler->protocol->handler->shutdownBrokenConnection(
-            sprintf("protocol error: %s. Check the back end log for details.", $this->s)
+                sprintf("protocol error: %s. Check the back end log for details.", $this->s)
         );
     }
+
 }

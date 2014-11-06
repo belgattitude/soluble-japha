@@ -158,6 +158,7 @@ class Client
     {
         $tail_call = false;
         do {
+            //$this->arg = $this->simpleArg;
             $this->stack = array($this->arg = $this->simpleArg);
             $this->idx = 0;
             $this->parser->parse();
@@ -205,8 +206,8 @@ class Client
             case 'A':
                 $factory = $this->arrayProxyFactory;
                 break;
-            default:
             case 'O':
+            default:
                 $factory = $this->proxyFactory;
         }
         return $factory;
@@ -339,7 +340,7 @@ class Client
                 trigger_error("argument '" . get_class($arg) . "' is not a Java object,using NULL instead", E_USER_WARNING);
                 $this->protocol->writeObject(null);
             } else {
-                $this->protocol->writeObject($arg->__java);
+                $this->protocol->writeObject($arg->get__java());
             }
         } elseif (is_null($arg)) {
             $this->protocol->writeObject(null);
@@ -387,6 +388,12 @@ class Client
         $this->inArgs = false;
     }
 
+    /**
+     * 
+     * @param string $name
+     * @param array $args
+     * @return JavaType
+     */
     public function createObject($name, $args)
     {
         $this->protocol->createObjectBegin($name);
@@ -396,6 +403,12 @@ class Client
         return $val;
     }
 
+    /**
+     * 
+     * @param string $name
+     * @param array $args
+     * @return JavaType
+     */
     public function referenceObject($name, $args)
     {
         $this->protocol->referenceBegin($name);

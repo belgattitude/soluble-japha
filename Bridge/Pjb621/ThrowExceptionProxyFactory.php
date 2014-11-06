@@ -38,12 +38,16 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class ThrowExceptionProxyFactory extends ExceptionProxyFactory
 {
+    /**
+     * 
+     * @return Exception\InternalException
+     */
     public function getProxy($result, $signature, $exception, $wrap)
     {
         $proxy = $this->create($result, $signature);
-        $proxy = new Exception\InternalException($proxy, $exception);
-        return $proxy;
+        return new Exception\InternalException($proxy, $exception);
     }
+    
     public function checkResult($result)
     {
         if (JAVA_PREFER_VALUES || ($result->__hasDeclaredExceptions == 'T')) {

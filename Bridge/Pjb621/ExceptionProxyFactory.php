@@ -38,16 +38,24 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class ExceptionProxyFactory extends SimpleFactory
 {
-    public function create($result, $signature)
+    /**
+     * 
+     * @return ExceptionProxy
+     */
+    public static function create($result, $signature)
     {
         return new ExceptionProxy($result, $signature);
     }
 
+    /**
+     *
+     * @return Exception\InternalException
+     */
     public function getProxy($result, $signature, $exception, $wrap)
     {
         $proxy = $this->create($result, $signature);
         if ($wrap) {
-            $proxy = new InternalException($proxy, $exception);
+            $proxy = new Exception\InternalException($proxy, $exception);
         }
         return $proxy;
     }
