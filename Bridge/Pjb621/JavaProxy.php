@@ -41,7 +41,7 @@ class JavaProxy implements JavaType
     public $__serialID;
     /**
      *
-     * @var double
+     * @var int
      */
     public $__java;
     public $__signature;
@@ -116,7 +116,7 @@ class JavaProxy implements JavaType
     }
     
     /**
-     * @return double
+     * @return int
      */
     function get__java()
     {

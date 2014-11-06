@@ -100,6 +100,7 @@ class Java extends AbstractJava
             }
             $client->preparedToSendBuffer = vsprintf($cacheEntry->fmt, $args2);
             $this->__java = ++$client->asyncCtx;
+
             $this->__factory = $cacheEntry->factory;
             $this->__signature = $cacheEntry->signature;
             $this->__cancelProxyCreationTag = ++$client->cancelProxyCreationTag;

@@ -38,7 +38,11 @@ namespace Soluble\Japha\Bridge\Pjb621;
 
 class JavaProxyProxy extends Java
 {
-    public function __construct($client)
+    /**
+     * 
+     * @param Client $client
+     */
+    public function __construct(Client $client)
     {
         $this->__client = $client;
     }

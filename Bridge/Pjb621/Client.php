@@ -91,6 +91,10 @@ class Client
      * @var Arg
      */
     public $arg;
+    /**
+     *
+     * @var integer
+     */
     public $asyncCtx;
     public $cancelProxyCreationCounter;
     
