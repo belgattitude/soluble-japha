@@ -386,6 +386,12 @@ namespace Soluble\Japha\Bridge\Pjb621 {
         return java_values_internal($object);
     }
 
+    /**
+     * 
+     * @param JavaType $object
+     * @return string
+     * @throws Exception\IllegalArgumentException
+     */
     function java_inspect_internal($object)
     {
         if (!$object instanceof JavaType) {
@@ -395,6 +401,12 @@ namespace Soluble\Japha\Bridge\Pjb621 {
         return $client->invokeMethod(0, "inspect", array($object));
     }
 
+    /**
+     * 
+     * @param JavaType $object
+     * @return string
+     * @throws Exception\IllegalArgumentException
+     */
     function java_inspect($object)
     {
         return java_inspect_internal($object);
@@ -406,6 +418,14 @@ namespace Soluble\Japha\Bridge\Pjb621 {
         return $client->invokeMethod(0, "setFileEncoding", array($enc));
     }
 
+
+    /**
+     * 
+     * @param JavaType $ob
+     * @param JavaType $clazz
+     * @return boolean
+     * @throws Exception\IllegalArgumentException
+     */
     function java_instanceof_internal($ob, $clazz)
     {
         if (!$ob instanceof JavaType) {
@@ -418,11 +438,24 @@ namespace Soluble\Japha\Bridge\Pjb621 {
         return $client->invokeMethod(0, "instanceOf", array($ob, $clazz));
     }
 
+    /**
+     * 
+     * @param JavaType $ob
+     * @param JavaType $clazz
+     * @return boolean
+     * @throws Exception\IllegalArgumentException
+     */
     function java_instanceof($ob, $clazz)
     {
         return java_instanceof_internal($ob, $clazz);
     }
 
+    /**
+     * 
+     * @param JavaType $object
+     * @param mixed $type
+     * @return JavaType
+     */
     function java_cast_internal($object, $type)
     {
         if (!$object instanceof JavaType) {
