@@ -40,9 +40,9 @@ class InternalJava extends Java
 {
     /**
      * 
-     * @param Simple $proxy
+     * @param JavaProxy $proxy
      */
-    public function __construct($proxy)
+    public function __construct(JavaProxy $proxy)
     {
         $this->__delegate = $proxy;
         $this->__java = $proxy->__java;

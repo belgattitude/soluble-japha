@@ -40,7 +40,7 @@ interface JavaType
 {
     
     /**
-     * @return integer
+     * @return double
      */
     function get__java();
     

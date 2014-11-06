@@ -46,7 +46,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     
     /**
      *
-     * @var SimpleProxy
+     * @var JavaProxy
      */
     public $__delegate;
     public $__serialID;
@@ -54,7 +54,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     
     /**
      *
-     * @var int
+     * @var double
      */
     public $__java;
     public $__signature;
@@ -213,7 +213,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
     
     /**
-     * @return integer
+     * @return double
      */
     function get__java()
     {
