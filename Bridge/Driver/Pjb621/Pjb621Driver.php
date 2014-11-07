@@ -52,14 +52,16 @@ class Pjb621Driver extends AbstractDriver
      * @param string $class_name
      * @return JavaClass
      */
-    function javaClass($class_name)
+    function getJavaClass($class_name)
     {
         /*
         if (!array_key_exists($java_class_name, self::$classMap)) {
             self::$classMap[$java_class_name] = new Pjb\JavaClass($java_class_name);
         }
         return self::$classMap[$java_class_name];         
-        */
+
+         */
+
         return java($class_name);
     }
     
@@ -71,7 +73,7 @@ class Pjb621Driver extends AbstractDriver
      * @param array $args
      * @return Java
      */
-    function java($class_name, $args=array())
+    function instanciate($class_name, $args=array())
     {
         return new Java($class_name, $args);
     }
