@@ -2,77 +2,74 @@
 
 namespace Soluble\Japha\Bridge;
 
-use Soluble\Japha\Bridge\Pjb621 as Pjb;
+use Soluble\Japha\Bridge\Driver;
+
+
 
 class PhpJavaBridge
 {
-
-    /**
-     *
-     * @var Pjb\Client 
-     */
-    static protected $client;
+    const DRIVER_PJB621 = 'Pjb621';
     
     /**
-     *
      * @var array
      */
-    static protected $classMap = array();
+    protected static $drivers = array(
+        self::DRIVER_PJB621 => 'Soluble\Japha\Bridge\Driver\Pjb621\Pjb621Driver'
+    );
+    
+    
+    protected static $default_driver = self::DRIVER_PJB621;
     
     /**
-     * @return Pjb\Client
-     */
-    static function getClient()
-    {
-        if (!self::$client) {
-            self::$client = new Pjb\Client();
-        }
-        return self::$client;
-    }
-    
-    /**
-     * Return a new java class object
-     * @param string Java class full qualified name 
-     * @return Pjb\JavaClass
-     */
-    static function java($java_class_name)
-    {
-        if (!array_key_exists($java_class_name, self::$classMap)) {
-            self::$classMap[$java_class_name] = new Pjb\JavaClass($java_class_name);
-        }
-        return self::$classMap[$java_class_name];     
-    }
-    
-    
-    
-    /**
-	 * @var boolean 
+	 * @var array
 	 */
-	protected static $bridge_loaded;
+	protected static $driver_loaded = array(
+        self::DRIVER_PJB621 => false
+    );
 
+    
+    /**
+     *
+     * @var Driver\AbstractDriver
+     */
+    static protected $driver;
+    
 
+    
 	/**
 	 * Include remote javabridge and check if it's available
 	 *
 	 * @throws Exception\NotAvailableException
-	 * @param string $bridge_address "ip:port"
+     * @throws Exception\UnsupportedDriverException
+	 * @param string $server_url
+     * @param string $driver
 	 * @return void
 	 */
-	static function includeBridge($bridge_address)
+	static function includeBridge($server_url, $driver=null)
 	{
-		if (!self::$bridge_loaded) {
-			//self::checkBridge($bridge_address);
-			//require_once($bridge_address);
+        if ($driver === null) {
+            $driver = self::$default_driver;
+        }
+        
+        if (!isset(self::$drivers[$driver])) {
+            throw new Exception\UnsupportedDriverException(__METHOD__ . " Unsupported driver '$driver'");
+        }
+        
+		if (!self::$driver_loaded[$driver]) {
+            $driver_class = self::$drivers[$driver];
+            self::$driver = new $driver_class($server_url);
             
-           // define ("JAVA_PREFER_VALUES", false); <- a bug see, functions.php
-            define ("JAVA_HOSTS", "192.125.12.1:8083");
-            define ("JAVA_DISABLE_AUTOLOAD", true);
-            define('JAVA_PREFER_VALUES', false);
-            require dirname(__FILE__) . '/Pjb621/functions.php';
-            
-			self::$bridge_loaded = true;
+			self::$driver_loaded[$driver] = true;
 		}
 	}
+    
+    /**
+     * @return Driver\DriverInterface
+     */
+    static function getDriver()
+    {
+        return self::$driver;
+    }
     
     
 
