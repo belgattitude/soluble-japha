@@ -65,39 +65,15 @@ class PhpJavaBridge
 			//require_once($bridge_address);
             
            // define ("JAVA_PREFER_VALUES", false); <- a bug see, functions.php
-            define ("JAVA_HOSTS", "127.0.0.1:8083");
+            define ("JAVA_HOSTS", "192.125.12.1:8083");
             define ("JAVA_DISABLE_AUTOLOAD", true);
-            define('JAVA_PREFER_VALUES', true);
+            define('JAVA_PREFER_VALUES', false);
             require dirname(__FILE__) . '/Pjb621/functions.php';
             
 			self::$bridge_loaded = true;
 		}
 	}
+    
+    
 
-	/**
-	 * Check if bridge is available
-	 *
-	 * @throws Exception\NotAvailableException
-	 * @param string $bridge_address "ip:port"
-	 * @return void
-	 */
-	static protected function checkBridge($bridge_address) 
-	{
-        /*
-		$ch = curl_init();
-		// set URL and other appropriate options
-		curl_setopt($ch, CURLOPT_URL, $bridge_address);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // no output
-		curl_setopt($ch, CURLOPT_FAILONERROR, true); // fail if a http error is received
-		// grab URL and pass it to the browser
-		curl_exec($ch);
-		$errno = curl_errno($ch);
-		if ($errno > 0) {
-			throw new Exception\NotAvailableException(__METHOD__ . " [JavaBridgeError] Java bridge server cannot be reached on '$bridge_address' [Curl error code: $errno], contact our webmaster.");
-		}
-		curl_close($ch);
-		return true;
-         * 
-         */
-	}
 }

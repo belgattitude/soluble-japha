@@ -52,6 +52,11 @@ class JavaProxy implements JavaType
     public $__client;
     public $__tempGlobalRef;
 
+    /**
+     * 
+     * @param int $java
+     * @param string $signature
+     */
     public function __construct($java, $signature)
     {
         $this->__java = $java;

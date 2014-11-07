@@ -332,12 +332,9 @@ namespace Soluble\Japha\Bridge\Pjb621 {
             return $client;
         }
         if (function_exists("java_create_client")) {
-            
             $client = java_create_client();
         } else {
-            
             global $java_initialized;
-            
             $client = new Client();
             $java_initialized = true;
         }

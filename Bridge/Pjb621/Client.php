@@ -42,6 +42,11 @@ class Client
     public $result;
     public $exception;
     public $parser;
+    
+    /**
+     *
+     * @var Arg
+     */
     public $simpleArg;
     
     /**
@@ -96,6 +101,11 @@ class Client
      * @var integer
      */
     public $asyncCtx;
+    
+    /**
+     * @var int
+     */
+    public $cancelProxyCreationTag;    
     public $cancelProxyCreationCounter;
     
     /**
@@ -120,7 +130,6 @@ class Client
      * @var Protocol
      */
     public $protocol;
-    
 
     
     public function __construct()
@@ -178,9 +187,14 @@ class Client
         return 1;
     }
 
+    /**
+     * 
+     * @param boolean $wrap
+     */
     public function getWrappedResult($wrap)
     {
-        return $this->simpleArg->getResult($wrap);
+        $result = $this->simpleArg->getResult($wrap);
+        return $result;
     }
 
     public function getInternalResult()
@@ -400,6 +414,7 @@ class Client
      */
     public function createObject($name, $args)
     {
+
         $this->protocol->createObjectBegin($name);
         $this->writeArgs($args);
         $this->protocol->createObjectEnd();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Soluble Japha / PhpJavaBridge
  *
@@ -36,24 +37,33 @@
  * 
  * @method string getBufferContents()
  */
+
 namespace Soluble\Japha\Bridge\Pjb621;
 
 class Java extends AbstractJava
 {
+
+    //public function __construct($java_fqdn, $java_args=null)
     public function __construct()
     {
         $client = $this->__client = __javaproxy_Client_getClient();
         $args = func_get_args();
+
+
         $name = array_shift($args);
         if (is_array($name)) {
             $args = $name;
             $name = array_shift($args);
         }
+
+
+
         $sig = "&{$this->__signature}@{$name}";
         $len = count($args);
         $args2 = array();
         for ($i = 0; $i < $len; $i++) {
-            switch (gettype($val = $args[$i])) {
+            $val = $args[$i];
+            switch (gettype($val)) {
                 case 'boolean': array_push($args2, $val);
                     $sig.='@b';
                     break;
@@ -89,9 +99,10 @@ class Java extends AbstractJava
                     throw new Exception\IllegalArgumentException($val);
             }
         }
+        
         if (array_key_exists($sig, $client->methodCache)) {
             $cacheEntry = &$client->methodCache[$sig];
-            $client->sendBuffer.=$client->preparedToSendBuffer;
+            $client->sendBuffer.= $client->preparedToSendBuffer;
             if (strlen($client->sendBuffer) >= JAVA_SEND_SIZE) {
                 if ($client->protocol->handler->write($client->sendBuffer) <= 0) {
                     throw new Exception\IllegalStateException("Connection out of sync,check backend log for details.");
@@ -105,8 +116,11 @@ class Java extends AbstractJava
             $this->__signature = $cacheEntry->signature;
             $this->__cancelProxyCreationTag = ++$client->cancelProxyCreationTag;
         } else {
+            
             $client->currentCacheKey = $sig;
-            $delegate = $this->__delegate = $client->createObject($name, $args);
+            $this->__delegate = $client->createObject($name, $args);
+            $delegate = $this->__delegate;
+            
             $this->__java = $delegate->__java;
             $this->__signature = $delegate->__signature;
         }
@@ -202,4 +216,5 @@ class Java extends AbstractJava
             return $retval;
         }
     }
+
 }

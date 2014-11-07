@@ -82,6 +82,10 @@ class Arg
         $this->val = &$val;
     }
 
+    /**
+     * 
+     * @param boolean $wrap
+     */
     public function getResult($wrap)
     {
         $rc = $this->factory->getProxy($this->val, $this->signature, $this->exception, $wrap);
