@@ -36,7 +36,9 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
-abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaType
+use Soluble\Japha\Bridge\JavaObjectInterface;
+
+abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaType, JavaObjectInterface
 {
     /**
      *

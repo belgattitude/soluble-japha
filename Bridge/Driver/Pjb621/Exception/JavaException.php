@@ -38,8 +38,9 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621\Exception;
 
 use Exception;
 use Soluble\Japha\Bridge\Driver\Pjb621\JavaType;
+use Soluble\Japha\Bridge\JavaObjectInterface;
 
-class JavaException extends Exception implements JavaType
+class JavaException extends Exception implements JavaType, JavaObjectInterface
 {
     public $__serialID; 
     public $__java;

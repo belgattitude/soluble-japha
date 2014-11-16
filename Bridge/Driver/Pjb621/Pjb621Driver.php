@@ -3,6 +3,7 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 use Soluble\Japha\Bridge\Driver\AbstractDriver;
+use Soluble\Japha\Bridge\JavaObjectInterface;
 
 class Pjb621Driver extends AbstractDriver
 {
@@ -35,7 +36,7 @@ class Pjb621Driver extends AbstractDriver
         if ($this->client === null) {
             $this->client = new Client();
         }
-        return self::$client;        
+        return $this->client;        
     }
 
     function connect()
@@ -69,7 +70,7 @@ class Pjb621Driver extends AbstractDriver
     /**
      * Instanciate a java object
      * 
-     * @param type $class_name
+     * @param string $class_name
      * @param array $args
      * @return Java
      */
@@ -77,5 +78,68 @@ class Pjb621Driver extends AbstractDriver
     {
         return new Java($class_name, $args);
     }
+    
+    
+
+    /**
+     * 
+     * 
+     * @param JavaObjectInterface $javaObject
+     * @return string
+     */
+    function inspect(JavaObjectInterface $javaObject)
+    {
+        return java_inspect($javaObject);
+    }
+    
+    
+    /**
+     * Checks 
+     * 
+     * @param JavaObjectInterface $javaObject
+     * @param string $className
+     * @return boolean
+     */
+    function isInstanceOf(JavaObjectInterface $javaObject, $className)
+    {
+        return java_instanceof($javaObject, $className);
+    }
+    
+    /**
+     * 
+     * 
+     * @param JavaObjectInterface $javaObject
+     * @return mixed
+     */
+    function values(JavaObjectInterface $javaObject)
+    {
+        return java_values($javaObject);
+    }
+    
+    
+    
+    /**
+     * Return object java class name
+     * 
+     * @param JavaObjectInterface $javaObject
+     * @return string
+     */
+    function getClassName(JavaObjectInterface $javaObject)
+    {
+        $inspect = $this->inspect($javaObject);
+        // [class java.sql.DriverManager:
+        $matches = array();
+        preg_match('/^\[class (.+)\:/', $inspect, $matches);
+        if (!isset($matches[1]) || $matches[1] == '') {
+            throw new \Exception(__METHOD__ . " Cannot determine class name");
+        }
+        return $matches[1];
+        
+        
+    }
+    
+    
+    
+    
 
 }

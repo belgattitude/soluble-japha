@@ -86,5 +86,6 @@ class PhpJavaBridge
     static function instanciate($class, $arguments)
     {
         return self::getDriver()->instanciate($class, $arguments);
-    }    
+    }
+    
 }

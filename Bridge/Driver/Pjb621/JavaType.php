@@ -36,23 +36,29 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
-interface JavaType
+interface JavaType 
 {
     
     /**
      * @return int
      */
-    function get__java();
+    public function get__java();
     
     /**
      * @return string
      */
-    function get__signature();
+    public function get__signature();
     
+    /**
+     * 
+     * @param mixed $key
+     * @return mixed
+     */
     public function __get($key);
 
     /**
-     * 
+     * @param mixed $key
+     * @param mixed $val
      */
     public function __set($key, $val);
 
