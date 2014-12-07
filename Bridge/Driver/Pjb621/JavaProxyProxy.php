@@ -39,7 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 class JavaProxyProxy extends Java
 {
     /**
-     * 
+     *
      * @param Client $client
      */
     public function __construct(Client $client)

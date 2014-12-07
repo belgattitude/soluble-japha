@@ -58,7 +58,7 @@ class PhpJavaBridge
     }
 
     /**
-     * 
+     *
      * @return Driver\AbstractDriver
      * @throws Exception\InvalidUsageException
      */
@@ -71,7 +71,7 @@ class PhpJavaBridge
     }
 
     /**
-     * 
+     *
      * @param string $class
      */
     static function getJavaClass($class)
@@ -80,12 +80,11 @@ class PhpJavaBridge
     }
     
     /**
-     * 
+     *
      * @param string $class
      */
     static function instanciate($class, $arguments)
     {
         return self::getDriver()->instanciate($class, $arguments);
     }
-    
 }

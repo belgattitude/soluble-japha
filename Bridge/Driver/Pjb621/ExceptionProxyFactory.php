@@ -39,7 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 class ExceptionProxyFactory extends SimpleFactory
 {
     /**
-     * 
+     *
      * @return ExceptionProxy
      */
     public static function create($result, $signature)

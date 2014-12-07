@@ -36,7 +36,7 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
-interface JavaType 
+interface JavaType
 {
     
     /**
@@ -50,7 +50,7 @@ interface JavaType
     public function get__signature();
     
     /**
-     * 
+     *
      * @param mixed $key
      * @return mixed
      */
@@ -76,10 +76,8 @@ interface JavaType
     public function __wakeup();
 
     /**
-     * 
+     *
      * @return string
      */
     public function __toString();
-    
-    
 }

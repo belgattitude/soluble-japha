@@ -260,14 +260,14 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
                 define("JAVA_HOSTS", "127.0.0.1:8080");
             }
         }
-    }     
+    }
     if (!defined("JAVA_SERVLET")) {
         if (!(($java_ini = get_cfg_var("java.servlet")) === false)) {
             define("JAVA_SERVLET", $java_ini);
         } else {
             define("JAVA_SERVLET", 1);
         }
-    }     
+    }
     if (!defined("JAVA_LOG_LEVEL")) {
         if (!(($java_ini = get_cfg_var("java.log_level")) === false)) {
             define("JAVA_LOG_LEVEL", (int) $java_ini);
@@ -279,7 +279,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
         if ($java_ini = get_cfg_var("java.prefer_values")) {
             define("JAVA_PREFER_VALUES", $java_ini);
         }
-    } 
+    }
 
     function java_shutdown()
     {
@@ -293,10 +293,10 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
         $client = __javaproxy_Client_getClient();
         if (!isset($client->protocol) || $client->inArgs) {
             return;
-            }
+        }
         if ($client->preparedToSendBuffer) {
             $client->sendBuffer.=$client->preparedToSendBuffer;
-            }
+        }
         $client->sendBuffer.=$client->protocol->getKeepAlive();
         $client->protocol->flush();
         $client->protocol->keepAlive();
@@ -392,7 +392,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
      * @param JavaType A java object or type
      * @param string A method string
      * @param array An argument array
-     */    
+     */
     function java_invoke($object, $method, $args)
     {
         $client = __javaproxy_Client_getClient();
@@ -403,7 +403,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
 
     /**
      * Unwrap a Java object.
-     * 
+     *
      * Fetches the PHP object which has been wrapped by java_closure(). Example:
      * <code>
      * class foo { function __toString() {return "php"; } function toString() {return "java";} }
@@ -415,7 +415,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
      * => php
      * </code>
      * @param JavaType $object
-     */    
+     */
     function java_unwrap(JavaType $object)
     {
         $client = __javaproxy_Client_getClient();
@@ -424,14 +424,14 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
 
     /**
      * Evaluate a Java object.
-     * 
+     *
      * Evaluate a object and fetch its content, if possible. Use java_values() to convert a Java object into an equivalent PHP value.
      *
      * A java array, Map or Collection object is returned
      * as a php array. An array, Map or Collection proxy is returned as a java array, Map or Collection object, and a null proxy is returned as null. All values of java types for which a primitive php type exists are returned as php values. Everything else is returned unevaluated. Please make sure that the values do not not exceed
      * php's memory limit. Example:
      *
-     * 
+     *
      * <code>
      * $str = new java("java.lang.String", "hello");
      * echo java_values($str);
@@ -447,17 +447,17 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
      * print java_values($ar[0]);
      * => h
      * </code>
-     * 
+     *
      * @see java_closure()
      * @param JavaType $object
-     */    
+     */
     function java_values(JavaType $object)
     {
         return java_values_internal($object);
     }
 
     /**
-     * 
+     *
      * @param JavaType $object
      * @return string
      */
@@ -468,7 +468,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
     }
 
     /**
-     * 
+     *
      * @param JavaType $object
      * @return string
      * @throws Exception\IllegalArgumentException
@@ -486,7 +486,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
 
 
     /**
-     * 
+     *
      * @param JavaType $ob
      * @param JavaType $clazz
      * @return boolean
@@ -498,7 +498,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
     }
 
     /**
-     * 
+     *
      * @param JavaType $ob
      * @param JavaType $clazz
      * @return boolean
@@ -510,7 +510,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
     }
 
     /**
-     * 
+     *
      * @param JavaType $object
      * @param mixed $type
      * @return JavaType
@@ -578,7 +578,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
     }
 
     /**
-     * 
+     *
      * @return string|null
      */
     function java_server_name()

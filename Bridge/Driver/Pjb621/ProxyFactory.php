@@ -39,7 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 class ProxyFactory extends SimpleFactory
 {
     /**
-     * 
+     *
      * @return JavaProxy
      */
     public static function create($result, $signature)
@@ -48,7 +48,7 @@ class ProxyFactory extends SimpleFactory
     }
 
     /**
-     * 
+     *
      * @return InternalJava
      */
     public function createInternal($proxy)

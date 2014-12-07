@@ -404,7 +404,7 @@ class Protocol
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getServerName()

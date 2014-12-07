@@ -39,7 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 class InternalJava extends Java
 {
     /**
-     * 
+     *
      * @param JavaProxy $proxy
      */
     public function __construct(JavaProxy $proxy)

@@ -42,7 +42,7 @@ use Soluble\Japha\Bridge\JavaObjectInterface;
 
 class JavaException extends Exception implements JavaType, JavaObjectInterface
 {
-    public $__serialID; 
+    public $__serialID;
     public $__java;
     
     /**
@@ -65,10 +65,8 @@ class JavaException extends Exception implements JavaType, JavaObjectInterface
         }
         
         if (count($args) == 0) {
-            
             parent::__construct($name);
         } else {
-            
             parent::__construct($args[0]);
         }
         
@@ -131,5 +129,4 @@ class JavaException extends Exception implements JavaType, JavaObjectInterface
     {
         return $this->__signature;
     }
-    
 }

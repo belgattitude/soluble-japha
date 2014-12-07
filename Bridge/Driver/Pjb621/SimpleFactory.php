@@ -40,12 +40,12 @@ class SimpleFactory
 {
     /**
      *
-     * @var Client 
+     * @var Client
      */
     public $client;
 
     /**
-     * 
+     *
      * @param Client $client
      */
     public function __construct(Client $client)
@@ -55,7 +55,7 @@ class SimpleFactory
 
 
     /**
-     * 
+     *
      * @return JavaProxy|JavaType|Exception\InternalException
      */
     public function getProxy($result, $signature, $exception, $wrap)

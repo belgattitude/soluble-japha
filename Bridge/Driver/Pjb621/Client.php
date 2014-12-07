@@ -105,7 +105,7 @@ class Client
     /**
      * @var int
      */
-    public $cancelProxyCreationTag;    
+    public $cancelProxyCreationTag;
     public $cancelProxyCreationCounter;
     
     /**
@@ -188,7 +188,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param boolean $wrap
      */
     public function getWrappedResult($wrap)
@@ -208,7 +208,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param array $type
      * @return SimpleFactory
      */
@@ -250,7 +250,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param array $name
      * @param array $st
      */
@@ -303,8 +303,8 @@ class Client
                 if ($st['n'] != 'T') {
                     $arg->setVoidSignature();
                 }
-                case 'N':
-                    $arg->setResult(null);
+            case 'N':
+                $arg->setResult(null);
                 break;
             case 'F':
                 break;
@@ -326,7 +326,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param array $name
      */
     public function end($name)
@@ -340,7 +340,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @return ParserString
      */
     public function createParserString()
@@ -407,7 +407,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param string $name
      * @param array $args
      * @return JavaType
@@ -423,7 +423,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param string $name
      * @param array $args
      * @return JavaType
@@ -469,7 +469,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param Arg $arg
      * @throws JavaException
      */
@@ -513,7 +513,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param mixed $object
      * @param array $type
      * @return mixed

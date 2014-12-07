@@ -39,7 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 class IteratorProxyFactory extends ProxyFactory
 {
     /**
-     * 
+     *
      * @return IteratorProxy
      */
     public static function create($result, $signature)

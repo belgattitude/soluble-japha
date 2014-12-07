@@ -122,7 +122,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function __toString()
@@ -134,7 +134,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
 
     /**
-     * 
+     *
      * @return ObjectIterator
      */
     public function getIterator()
@@ -150,7 +150,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
 
     /**
-     * 
+     *
      * @param string|integer $idx
      * @return boolean
      */
@@ -167,7 +167,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
 
     /**
-     * 
+     *
      * @param string|integer $idx
      * @return mixed
      */
@@ -184,7 +184,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
 
     /**
-     * 
+     *
      * @param string|integer $idx
      * @param mixed $val
      * @return mixed

@@ -50,7 +50,7 @@ class GlobalRef
     }
 
     /**
-     * 
+     *
      * @param JavaType|null $object
      * @return int|JavaType
      */

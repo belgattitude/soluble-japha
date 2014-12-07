@@ -44,7 +44,7 @@ class CompositeArg extends Arg
     public $counter;
 
     /**
-     * 
+     *
      * @param Client $client
      * @param string $type
      */

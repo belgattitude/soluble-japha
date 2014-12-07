@@ -34,7 +34,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * 
+ *
  * @method string getBufferContents()
  */
 
@@ -116,7 +116,6 @@ class Java extends AbstractJava
             $this->__signature = $cacheEntry->signature;
             $this->__cancelProxyCreationTag = ++$client->cancelProxyCreationTag;
         } else {
-            
             $client->currentCacheKey = $sig;
             $this->__delegate = $client->createObject($name, $args);
             $delegate = $this->__delegate;
@@ -216,5 +215,4 @@ class Java extends AbstractJava
             return $retval;
         }
     }
-
 }

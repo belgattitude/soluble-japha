@@ -63,7 +63,7 @@ class Arg
     
 
     /**
-     * 
+     *
      * @param Client $client
      */
     public function __construct(Client $client)
@@ -83,7 +83,7 @@ class Arg
     }
 
     /**
-     * 
+     *
      * @param boolean $wrap
      */
     public function getResult($wrap)
@@ -96,7 +96,7 @@ class Arg
     }
 
     /**
-     * 
+     *
      * @param SimpleFactory $factory
      */
     public function setFactory(SimpleFactory $factory)
@@ -105,7 +105,7 @@ class Arg
     }
 
     /**
-     * 
+     *
      * @param string $string
      */
     public function setException($string)
@@ -125,7 +125,7 @@ class Arg
     }
 
     /**
-     * 
+     *
      * @param string $signature
      */
     public function setSignature($signature)

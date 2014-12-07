@@ -53,7 +53,7 @@ class JavaProxy implements JavaType
     public $__tempGlobalRef;
 
     /**
-     * 
+     *
      * @param int $java
      * @param string $signature
      */
@@ -135,5 +135,4 @@ class JavaProxy implements JavaType
     {
         return $this->__signature;
     }
-    
 }

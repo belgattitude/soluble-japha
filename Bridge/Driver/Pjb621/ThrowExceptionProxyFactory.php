@@ -39,7 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 class ThrowExceptionProxyFactory extends ExceptionProxyFactory
 {
     /**
-     * 
+     *
      * @return Exception\InternalException
      */
     public function getProxy($result, $signature, $exception, $wrap)

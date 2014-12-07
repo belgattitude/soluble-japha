@@ -17,10 +17,10 @@ class Pjb621Driver extends AbstractDriver
     protected $client;
     
     /**
-     * 
+     *
      * @var string $java_server_url i.e. 127.0.0.1
      */
-    function __construct($java_server_url) 
+    function __construct($java_server_url)
     {
         define("JAVA_HOSTS", "$java_server_url");
         define("JAVA_DISABLE_AUTOLOAD", true);
@@ -36,7 +36,7 @@ class Pjb621Driver extends AbstractDriver
         if ($this->client === null) {
             $this->client = new Client();
         }
-        return $this->client;        
+        return $this->client;
     }
 
     function connect()
@@ -49,7 +49,7 @@ class Pjb621Driver extends AbstractDriver
     
     /**
      * Return a new java class
-     * 
+     *
      * @param string $class_name
      * @return JavaClass
      */
@@ -69,12 +69,12 @@ class Pjb621Driver extends AbstractDriver
     
     /**
      * Instanciate a java object
-     * 
+     *
      * @param string $class_name
      * @param array $args
      * @return Java
      */
-    function instanciate($class_name, $args=array())
+    function instanciate($class_name, $args = array())
     {
         return new Java($class_name, $args);
     }
@@ -82,8 +82,8 @@ class Pjb621Driver extends AbstractDriver
     
 
     /**
-     * 
-     * 
+     *
+     *
      * @param JavaObjectInterface $javaObject
      * @return string
      */
@@ -94,8 +94,8 @@ class Pjb621Driver extends AbstractDriver
     
     
     /**
-     * Checks 
-     * 
+     * Checks
+     *
      * @param JavaObjectInterface $javaObject
      * @param string $className
      * @return boolean
@@ -106,8 +106,8 @@ class Pjb621Driver extends AbstractDriver
     }
     
     /**
-     * 
-     * 
+     *
+     *
      * @param JavaObjectInterface $javaObject
      * @return mixed
      */
@@ -120,7 +120,7 @@ class Pjb621Driver extends AbstractDriver
     
     /**
      * Return object java class name
-     * 
+     *
      * @param JavaObjectInterface $javaObject
      * @return string
      */
@@ -137,9 +137,4 @@ class Pjb621Driver extends AbstractDriver
         
         
     }
-    
-    
-    
-    
-
 }

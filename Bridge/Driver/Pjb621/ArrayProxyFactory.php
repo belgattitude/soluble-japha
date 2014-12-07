@@ -39,7 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 class ArrayProxyFactory extends ProxyFactory
 {
     /**
-     * 
+     *
      * @return ArrayProxy
      */
     public static function create($result, $signature)
