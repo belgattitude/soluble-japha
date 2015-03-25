@@ -237,17 +237,31 @@ class Client
         return $factory;
     }
 
+    /**
+     * 
+     * @param Arg $arg
+     * @param CompositeArg $newArg
+     */
     public function link(&$arg, &$newArg)
     {
         $arg->linkResult($newArg->val);
         $newArg->parentArg = $arg;
     }
 
+    /**
+     * 
+     * @param string $str
+     * @return integer
+     */
     public function getExact($str)
     {
         return hexdec($str);
     }
 
+    /**
+     * 
+     * @param string $str
+     */
     public function getInexact($str)
     {
         $val = null;
