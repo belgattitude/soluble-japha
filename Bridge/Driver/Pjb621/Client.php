@@ -414,7 +414,6 @@ class Client
      */
     public function createObject($name, $args)
     {
-
         $this->protocol->createObjectBegin($name);
         $this->writeArgs($args);
         $this->protocol->createObjectEnd();

@@ -16,7 +16,6 @@ class DriverManager
 
     public function __construct()
     {
-        
     }
     
     /**
@@ -58,7 +57,6 @@ class DriverManager
             $opts->getPassword(),
             $driverType
         );
-
     }
     
 
@@ -71,7 +69,6 @@ class DriverManager
      */
     public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
     {
-        
         $class = Pjb::getJavaClass("java.lang.Class");
         $c = Pjb::getDriver()->getClassName($class);
         try {

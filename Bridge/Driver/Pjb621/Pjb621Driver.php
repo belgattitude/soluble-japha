@@ -59,7 +59,7 @@ class Pjb621Driver extends AbstractDriver
         if (!array_key_exists($java_class_name, self::$classMap)) {
             self::$classMap[$java_class_name] = new Pjb\JavaClass($java_class_name);
         }
-        return self::$classMap[$java_class_name];         
+        return self::$classMap[$java_class_name];
 
          */
 
@@ -134,7 +134,5 @@ class Pjb621Driver extends AbstractDriver
             throw new \Exception(__METHOD__ . " Cannot determine class name");
         }
         return $matches[1];
-        
-        
     }
 }

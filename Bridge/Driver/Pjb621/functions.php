@@ -51,7 +51,6 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
 
     function bootstrap()
     {
-        
     }
     
     function java_get_base()
@@ -212,11 +211,11 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
         if (java_getHeader("X_JAVABRIDGE_INCLUDE", $_SERVER) && !java_getHeader("X_JAVABRIDGE_INCLUDE_ONLY", $_SERVER)) {
             if (is_null($kontinuation)) {
                 java_context()->call(java_closure());
-            } elseif (is_string($kontinuation))
-            java_context()->call(call_user_func($kontinuation));
-            elseif ($kontinuation instanceof JavaType)
-            java_context()->call($kontinuation);
-            else {
+            } elseif (is_string($kontinuation)) {
+                java_context()->call(call_user_func($kontinuation));
+            } elseif ($kontinuation instanceof JavaType) {
+                java_context()->call($kontinuation);
+            } else {
                 java_context()->call(java_closure($kontinuation));
             }
         }
@@ -561,9 +560,9 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
         }
         if (!isset($args[1])) {
             $args[1] = 0;
-        } elseif ($args[1] === true)
-        $args[1] = 1;
-        else {
+        } elseif ($args[1] === true) {
+            $args[1] = 1;
+        } else {
             $args[1] = 2;
         }
         if (!isset($args[2])) {

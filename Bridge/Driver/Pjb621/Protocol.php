@@ -94,7 +94,8 @@ class Protocol
                     $ssl = "ssl://";
                 }
                 $s = substr($s, 2);
-            }             $webCtx = strpos($s, "//");
+            }
+            $webCtx = strpos($s, "//");
             if ($webCtx) {
                 $host = substr($s, 0, $webCtx);
             } else {

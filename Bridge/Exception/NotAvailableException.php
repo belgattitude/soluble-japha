@@ -6,5 +6,4 @@ use DomainException;
 
 class NotAvailableException extends DomainException implements ExceptionInterface
 {
-    
 }
