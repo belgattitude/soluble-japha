@@ -127,6 +127,12 @@ class Client
     
     /**
      *
+     * @var int
+     */
+    protected $idx;
+    
+    /**
+     *
      * @var Protocol
      */
     public $protocol;
