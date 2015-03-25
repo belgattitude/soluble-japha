@@ -14,7 +14,7 @@ class DriverManager
     protected $driverManager;
     
 
-    function __construct()
+    public function __construct()
     {
         
     }
@@ -30,7 +30,7 @@ class DriverManager
      *
      * @return string
      */
-    static function getJdbcDsn($db, $host, $user, $password, $driverType = 'mysql')
+    public static function getJdbcDsn($db, $host, $user, $password, $driverType = 'mysql')
     {
         return "jdbc:$driverType://$host/$db?user=$user&password=$password";
     }
@@ -42,7 +42,7 @@ class DriverManager
      * @param string $driverType default to mysql
      * @return string i.e jdbc:mysql://localhost/dbname?user=root&password=mypassword
      */
-    static function getJdbcDsnFromDoctrine(Doctrine_Connection $conn = null, $driverType = 'mysql')
+    public static function getJdbcDsnFromDoctrine(Doctrine_Connection $conn = null, $driverType = 'mysql')
     {
         if ($conn === null) {
             $conn = Doctrine_Manager::getInstance()->getCurrentConnection();
@@ -69,7 +69,7 @@ class DriverManager
      * @param string $driverClass
      * @return Java(java.sql.Connection)
      */
-    function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
+    public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
     {
         
         $class = Pjb::getJavaClass("java.lang.Class");
@@ -100,7 +100,7 @@ class DriverManager
      *
      * @return Java(java.sql.DriverManager)
      */
-    function getDriverManager()
+    public function getDriverManager()
     {
         if ($this->driverManager === null) {
             $this->driverManager = Pjb::getJavaClass('java.sql.DriverManager');

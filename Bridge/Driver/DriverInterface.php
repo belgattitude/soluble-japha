@@ -9,5 +9,5 @@ interface DriverInterface
      *
      * @param string $class_name
      */
-    function getJavaClass($class_name);
+    public function getJavaClass($class_name);
 }

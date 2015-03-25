@@ -217,7 +217,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     /**
      * @return integer
      */
-    function get__java()
+    public function get__java()
     {
         return $this->__java;
     }
@@ -225,7 +225,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     /**
      * @return string
      */
-    function get__signature()
+    public function get__signature()
     {
         return $this->__signature;
     }

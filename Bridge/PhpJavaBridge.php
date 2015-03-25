@@ -28,7 +28,7 @@ class PhpJavaBridge
      *
      * @var Driver\AbstractDriver
      */
-    static protected $driver;
+    protected static $driver;
 
     /**
      * Include remote javabridge and check if it's available
@@ -39,7 +39,7 @@ class PhpJavaBridge
      * @param string $driver
      * @return void
      */
-    static function includeBridge($server_url, $driver = null)
+    public static function includeBridge($server_url, $driver = null)
     {
         if ($driver === null) {
             $driver = self::$default_driver;
@@ -62,7 +62,7 @@ class PhpJavaBridge
      * @return Driver\AbstractDriver
      * @throws Exception\InvalidUsageException
      */
-    static function getDriver()
+    public static function getDriver()
     {
         if (self::$driver === null) {
             throw new Exception\InvalidUsageException(__METHOD__ . " PhpJavaBridge must be loaded prior to getDriver.");
@@ -74,7 +74,7 @@ class PhpJavaBridge
      *
      * @param string $class
      */
-    static function getJavaClass($class)
+    public static function getJavaClass($class)
     {
         return self::getDriver()->getJavaClass($class);
     }
@@ -83,7 +83,7 @@ class PhpJavaBridge
      *
      * @param string $class
      */
-    static function instanciate($class, $arguments)
+    public static function instanciate($class, $arguments)
     {
         return self::getDriver()->instanciate($class, $arguments);
     }

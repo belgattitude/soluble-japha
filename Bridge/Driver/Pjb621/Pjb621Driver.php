@@ -20,7 +20,7 @@ class Pjb621Driver extends AbstractDriver
      *
      * @var string $java_server_url i.e. 127.0.0.1
      */
-    function __construct($java_server_url)
+    public function __construct($java_server_url)
     {
         define("JAVA_HOSTS", "$java_server_url");
         define("JAVA_DISABLE_AUTOLOAD", true);
@@ -28,7 +28,7 @@ class Pjb621Driver extends AbstractDriver
         require_once dirname(__FILE__) . "/functions.php";
     }
 
-    function getClient()
+    public function getClient()
     {
         if (!$this->connected) {
             $this->connect();
@@ -39,7 +39,7 @@ class Pjb621Driver extends AbstractDriver
         return $this->client;
     }
 
-    function connect()
+    public function connect()
     {
         if (!$this->connected) {
             $this->connected = true;
@@ -53,7 +53,7 @@ class Pjb621Driver extends AbstractDriver
      * @param string $class_name
      * @return JavaClass
      */
-    function getJavaClass($class_name)
+    public function getJavaClass($class_name)
     {
         /*
         if (!array_key_exists($java_class_name, self::$classMap)) {
@@ -74,7 +74,7 @@ class Pjb621Driver extends AbstractDriver
      * @param array $args
      * @return Java
      */
-    function instanciate($class_name, $args = array())
+    public function instanciate($class_name, $args = array())
     {
         return new Java($class_name, $args);
     }
@@ -87,7 +87,7 @@ class Pjb621Driver extends AbstractDriver
      * @param JavaObjectInterface $javaObject
      * @return string
      */
-    function inspect(JavaObjectInterface $javaObject)
+    public function inspect(JavaObjectInterface $javaObject)
     {
         return java_inspect($javaObject);
     }
@@ -100,7 +100,7 @@ class Pjb621Driver extends AbstractDriver
      * @param string $className
      * @return boolean
      */
-    function isInstanceOf(JavaObjectInterface $javaObject, $className)
+    public function isInstanceOf(JavaObjectInterface $javaObject, $className)
     {
         return java_instanceof($javaObject, $className);
     }
@@ -111,7 +111,7 @@ class Pjb621Driver extends AbstractDriver
      * @param JavaObjectInterface $javaObject
      * @return mixed
      */
-    function values(JavaObjectInterface $javaObject)
+    public function values(JavaObjectInterface $javaObject)
     {
         return java_values($javaObject);
     }
@@ -124,7 +124,7 @@ class Pjb621Driver extends AbstractDriver
      * @param JavaObjectInterface $javaObject
      * @return string
      */
-    function getClassName(JavaObjectInterface $javaObject)
+    public function getClassName(JavaObjectInterface $javaObject)
     {
         $inspect = $this->inspect($javaObject);
         // [class java.sql.DriverManager:

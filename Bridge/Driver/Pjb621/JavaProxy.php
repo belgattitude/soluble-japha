@@ -123,7 +123,7 @@ class JavaProxy implements JavaType
     /**
      * @return int
      */
-    function get__java()
+    public function get__java()
     {
         return $this->__java;
     }
@@ -131,7 +131,7 @@ class JavaProxy implements JavaType
     /**
      * @return string
      */
-    function get__signature()
+    public function get__signature()
     {
         return $this->__signature;
     }
