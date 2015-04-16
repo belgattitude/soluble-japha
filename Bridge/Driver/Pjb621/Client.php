@@ -238,7 +238,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param Arg $arg
      * @param CompositeArg $newArg
      */
@@ -249,7 +249,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param string $str
      * @return integer
      */
@@ -259,7 +259,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @param string $str
      */
     public function getInexact($str)
