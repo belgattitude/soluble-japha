@@ -36,7 +36,9 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
-class InternalJava extends Java
+use Soluble\Japha\Interfaces;
+
+class InternalJava extends Java implements Interfaces\JavaObject
 {
     /**
      *
@@ -49,4 +51,5 @@ class InternalJava extends Java
         $this->__signature = $proxy->__signature;
         $this->__client = $proxy->__client;
     }
+    
 }

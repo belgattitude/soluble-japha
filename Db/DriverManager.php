@@ -34,30 +34,6 @@ class DriverManager
         return "jdbc:$driverType://$host/$db?user=$user&password=$password";
     }
 
-    /**
-     * Return JDBC dsn from doctrine connection
-     *
-     * @param Doctrine_Connection $conn if null takes the current opened connection
-     * @param string $driverType default to mysql
-     * @return string i.e jdbc:mysql://localhost/dbname?user=root&password=mypassword
-     */
-    public static function getJdbcDsnFromDoctrine(Doctrine_Connection $conn = null, $driverType = 'mysql')
-    {
-        if ($conn === null) {
-            $conn = Doctrine_Manager::getInstance()->getCurrentConnection();
-        }
-        if ($driverType != 'mysql') {
-            throw new Vision_Exception("Currently only mysql is supported");
-        }
-        $opts = new Vision_Doctrine_Connection_Options($conn);
-        return self::getJdbcDsn(
-            $opts->getDatabase(),
-            $opts->getHost(),
-            $opts->getUsername(),
-            $opts->getPassword(),
-            $driverType
-        );
-    }
     
 
     /**
@@ -69,17 +45,42 @@ class DriverManager
      */
     public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
     {
-        $class = Pjb::getJavaClass("java.lang.Class");
+        /*
+        $class = Pjb::getJavaClass("java.io.System");
         $c = Pjb::getDriver()->getClassName($class);
+        var_dump($c);
+        echo $class->getName();
+        die();
+        */
+        $class = Pjb::getJavaClass("java.lang.Class");
         try {
             $class->forName($driverClass);
         } catch (\Exception $e) {
             // Here testing class not found error
+            /*
+            var_dump(get_class($e));
+            die();
+            
+            echo "\n\n";
+            echo $e->getClass();
+            echo "\n\n";
+            echo $e->toString();
+            echo "\n\n";
+            echo $e->getCause();
+            
+            die();
+            echo \Soluble\Japha\Bridge\Driver\Pjb621\java_inspect($e);
+            die();
+            echo \Soluble\Japha\Bridge\Driver\Pjb621\java_values($e);
+            dump($e);
+            die();
             var_dump($e->__toString());
             die();
             $a = Pjb::getDriver()->inspect($e);
             var_dump($a);
             die();
+             * 
+             */
         }
         
         try {

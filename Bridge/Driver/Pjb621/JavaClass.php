@@ -36,7 +36,9 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
-class JavaClass extends Java
+use Soluble\Japha\Interfaces;
+
+class JavaClass extends Java implements Interfaces\JavaClass
 {
     public function __construct()
     {
@@ -47,8 +49,30 @@ class JavaClass extends Java
             $args = $name;
             $name = array_shift($args);
         }
-        $delegate = $this->__delegate = $this->__client->referenceObject($name, $args);
-        $this->__java = $delegate->__java;
-        $this->__signature = $delegate->__signature;
+        $this->__delegate = $this->__client->referenceObject($name, $args);
+        $this->__java = $this->__delegate->__java;
+        $this->__signature = $this->__delegate->__signature;
     }
+    
+    
+    /**
+     * 
+     * @return Interfaces\JavaClass Java(java.lang.Class)
+     */
+    public function getClass()
+    {
+        return $this->__delegate->getClass();
+    }
+    
+    /**
+     * Return class name
+     * 
+     * @return Interfaces\JavaObject Java(java.lang.String)
+     */
+    public function getName()
+    {
+        return $this->__delegate->getName();
+    }
+    
+    
 }

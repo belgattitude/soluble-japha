@@ -36,9 +36,9 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
-use Soluble\Japha\Bridge\JavaObjectInterface;
+use Soluble\Japha\Interfaces;
 
-abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaType, JavaObjectInterface
+abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaType, Interfaces\JavaObject
 {
     /**
      *
@@ -121,17 +121,6 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         return $this->__delegate->__call($method, $args);
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (!isset($this->__delegate)) {
-            $this->__createDelegate();
-        }
-        return $this->__delegate->__toString();
-    }
 
     /**
      *
@@ -229,4 +218,29 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     {
         return $this->__signature;
     }
+    
+    /**
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (!isset($this->__delegate)) {
+            $this->__createDelegate();
+        }
+        return $this->__delegate->__toString();
+    }
+
+
+    /**
+     * Returns the runtime class of this Object. 
+     * The returned Class object is the object that is locked by static synchronized methods of the represented class. 
+     * @return JavaObject Java(java.lang.Object)
+     */
+    public function getClass()
+    {
+        return $this->__delegate->getClass();
+    }
+    
+    
 }

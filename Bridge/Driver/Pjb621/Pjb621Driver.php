@@ -3,7 +3,8 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 use Soluble\Japha\Bridge\Driver\AbstractDriver;
-use Soluble\Japha\Bridge\JavaObjectInterface;
+
+use Soluble\Japha\Interfaces;
 
 class Pjb621Driver extends AbstractDriver
 {
@@ -84,10 +85,10 @@ class Pjb621Driver extends AbstractDriver
     /**
      *
      *
-     * @param JavaObjectInterface $javaObject
+     * @param Interfaces\JavaObject $javaObject
      * @return string
      */
-    public function inspect(JavaObjectInterface $javaObject)
+    public function inspect(Interfaces\JavaObject $javaObject)
     {
         return java_inspect($javaObject);
     }
@@ -96,11 +97,11 @@ class Pjb621Driver extends AbstractDriver
     /**
      * Checks
      *
-     * @param JavaObjectInterface $javaObject
+     * @param Interfaces\JavaObject $javaObject
      * @param string $className
      * @return boolean
      */
-    public function isInstanceOf(JavaObjectInterface $javaObject, $className)
+    public function isInstanceOf(Interfaces\JavaObject $javaObject, $className)
     {
         return java_instanceof($javaObject, $className);
     }
@@ -108,10 +109,10 @@ class Pjb621Driver extends AbstractDriver
     /**
      *
      *
-     * @param JavaObjectInterface $javaObject
+     * @param Interfaces\JavaObject $javaObject
      * @return mixed
      */
-    public function values(JavaObjectInterface $javaObject)
+    public function values(Interfaces\JavaObject $javaObject)
     {
         return java_values($javaObject);
     }
@@ -121,10 +122,10 @@ class Pjb621Driver extends AbstractDriver
     /**
      * Return object java class name
      *
-     * @param JavaObjectInterface $javaObject
+     * @param Interfaces\JavaObject $javaObject
      * @return string
      */
-    public function getClassName(JavaObjectInterface $javaObject)
+    public function getClassName(Interfaces\JavaObject $javaObject)
     {
         $inspect = $this->inspect($javaObject);
         // [class java.sql.DriverManager:
