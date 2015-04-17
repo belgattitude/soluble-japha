@@ -3,7 +3,6 @@
 namespace Soluble\Japha\Bridge;
 
 use Soluble\Japha\Bridge\Driver;
-
 use Soluble\Japha\Interfaces;
 
 class PhpJavaBridge
@@ -65,8 +64,6 @@ class PhpJavaBridge
      */
     public static function getDriver()
     {
-        
-        
         if (self::$driver === null) {
             throw new Exception\InvalidUsageException(__METHOD__ . " PhpJavaBridge must be loaded prior to getDriver.");
         }

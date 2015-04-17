@@ -51,5 +51,4 @@ class InternalJava extends Java implements Interfaces\JavaObject
         $this->__signature = $proxy->__signature;
         $this->__client = $proxy->__client;
     }
-    
 }

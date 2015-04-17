@@ -39,7 +39,6 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621\Exception;
 use Exception;
 use Soluble\Japha\Bridge\Driver\Pjb621\JavaType;
 
-
 class JavaException extends Exception implements JavaType
 {
     public $__serialID;
@@ -129,5 +128,4 @@ class JavaException extends Exception implements JavaType
     {
         return $this->__signature;
     }
-    
 }

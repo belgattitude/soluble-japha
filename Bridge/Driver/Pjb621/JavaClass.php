@@ -56,7 +56,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
     
     
     /**
-     * 
+     *
      * @return Interfaces\JavaClass Java(java.lang.Class)
      */
     public function getClass()
@@ -66,13 +66,11 @@ class JavaClass extends Java implements Interfaces\JavaClass
     
     /**
      * Return class name
-     * 
+     *
      * @return Interfaces\JavaObject Java(java.lang.String)
      */
     public function getName()
     {
         return $this->__delegate->getName();
     }
-    
-    
 }

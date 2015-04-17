@@ -79,7 +79,7 @@ class DriverManager
             $a = Pjb::getDriver()->inspect($e);
             var_dump($a);
             die();
-             * 
+             *
              */
         }
         

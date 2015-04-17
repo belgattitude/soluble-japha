@@ -3,7 +3,6 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 use Soluble\Japha\Bridge\Driver\AbstractDriver;
-
 use Soluble\Japha\Interfaces;
 
 class Pjb621Driver extends AbstractDriver
