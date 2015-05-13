@@ -37,7 +37,7 @@
  * Magical methods
  *
  * @method string getName()
- *
+ * @method string forName()
  */
 
 namespace Soluble\Japha\Bridge\Driver\Pjb621;

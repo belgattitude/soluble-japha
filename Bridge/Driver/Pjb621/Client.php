@@ -45,7 +45,7 @@ class Client
     
     /**
      *
-     * @var Arg
+     * @var Arg|CompositeArg
      */
     public $simpleArg;
     
