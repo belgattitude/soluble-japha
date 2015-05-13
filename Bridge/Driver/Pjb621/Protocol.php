@@ -83,6 +83,10 @@ class Protocol
         return $host;
     }
 
+    /**
+     *
+     * @return \Soluble\Japha\Bridge\Driver\Pjb621\SimpleHttpHandler|\Soluble\Japha\Bridge\Driver\Pjb621\HttpTunnelHandler
+     */
     public function createHttpHandler()
     {
         $overrideHosts = $this->getOverrideHosts();
@@ -132,6 +136,14 @@ class Protocol
         return new HttpTunnelHandler($this, $ssl, $host, $port);
     }
 
+    /**
+     *
+     * @param string $name
+     * @param boolean $again
+     * @return \Soluble\Japha\Bridge\Driver\Pjb621\SocketHandler
+     * @throws Exception\ConnectException
+     * @throws Exception\IOException
+     */
     public function createSimpleHandler($name, $again = true)
     {
         $channelName = $name;

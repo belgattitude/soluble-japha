@@ -77,10 +77,10 @@ class JavaClass extends Java implements Interfaces\JavaClass
     /**
      * Returns the Class object associated with the class or interface with the given string name.
      *
-     * @return \Soluble\Japha\Interfaces\JavaObject Java(java.lang.Object)
+     * @return Interfaces\JavaObject Java(java.lang.Object)
      */
     public function forName()
     {
-        return $this->__delegate->getName();
+        return $this->__delegate->forName();
     }
 }

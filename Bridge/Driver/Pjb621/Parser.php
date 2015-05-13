@@ -40,22 +40,23 @@ class Parser
 {
     /**
      *
-     * @var NativeParser
+     * @var NativeParser|SimpleParser
      */
     public $parser;
 
     public function __construct($handler)
     {
-        $this->parser = new NativeParser($handler);
-        $handler->RUNTIME["PARSER"] = "NATIVE";
-        /*
-        if (function_exists("xml_parser_create")) {
-            $this->parser = new NativeParser($handler);
-            $handler->RUNTIME["PARSER"] = "NATIVE";
-        } else {
+        if (defined('HHVM_VERSION') || !function_exists("xml_parser_create")) {
+            // Later on maybe a version_compare(HHVM_VERSION, '3.8.0', '<')
+            // xml_parser bugs in hhvm at least version 3.7.0
             $this->parser = new SimpleParser($handler);
             $handler->RUNTIME["PARSER"] = "SIMPLE";
-        }*/
+            
+        } else {
+            $this->parser = new NativeParser($handler);
+            $handler->RUNTIME["PARSER"] = "NATIVE";
+        }
+        
     }
 
     public function parse()

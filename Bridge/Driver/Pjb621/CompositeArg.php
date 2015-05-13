@@ -40,7 +40,17 @@ class CompositeArg extends Arg
 {
     public $parentArg;
     public $idx;
+    
+    /**
+     *
+     * @var string
+     */
     public $type;
+    
+    /**
+     *
+     * @var integer
+     */
     public $counter;
 
     /**

@@ -61,6 +61,12 @@ class Arg
      */
     public $signature;
     
+    /**
+     *
+     * @var string
+     */
+    public $type;
+    
 
     /**
      *

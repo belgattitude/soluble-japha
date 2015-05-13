@@ -38,6 +38,10 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 class IteratorProxy extends JavaProxy implements \IteratorAggregate
 {
+    /**
+     *
+     * @return \Soluble\Japha\Bridge\Driver\Pjb621\ObjectIterator
+     */
     public function getIterator()
     {
         return new ObjectIterator($this);

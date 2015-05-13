@@ -38,7 +38,12 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 class NativeParser
 {
-    public $parser, $handler;
+    /**
+     *
+     * @var \Xml
+     */
+    public $parser;
+    public $handler;
     public $level, $event;
     public $buf;
 

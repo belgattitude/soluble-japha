@@ -33,7 +33,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
+ *
+ * Magical methods
+ *
+ * @method string getName()
+ *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 use Soluble\Japha\Interfaces;
@@ -235,7 +241,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     /**
      * Returns the runtime class of this Object.
      * The returned Class object is the object that is locked by static synchronized methods of the represented class.
-     * @return JavaObject Java(java.lang.Object)
+     * @return Interfaces\JavaObject Java(java.lang.Object)
      */
     public function getClass()
     {

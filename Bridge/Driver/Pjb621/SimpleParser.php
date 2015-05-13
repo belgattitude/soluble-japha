@@ -36,11 +36,15 @@
  *
  */
 
-namespace Soluble\Japha\Bridge\Pjb621;
+namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 class SimpleParser
 {
 
+    /**
+     *
+     * @var integer
+     */
     public $SLEN = 256;
     public $handler;
     public $tag, $buf, $len, $s;
@@ -132,7 +136,7 @@ class SimpleParser
                 $this->c = 0;
             }
             switch (($ch = $this->buf[$this->c])) {
-                case '<': 
+                case '<':
                     if ($this->in_dquote) {
                         $this->APPEND($ch);
                         break;
@@ -140,11 +144,11 @@ class SimpleParser
                     $this->level+=1;
                     $this->type = $this->BEGIN;
                     break;
-                case '\t': 
-                case '\f': 
-                case '\n': 
-                case '\r': 
-                case ' ': 
+                case '\t':
+                case '\f':
+                case '\n':
+                case '\r':
+                case ' ':
                     if ($this->in_dquote) {
                         $this->APPEND($ch);
                         break;
@@ -154,7 +158,7 @@ class SimpleParser
                         $this->type = $this->KEY;
                     }
                     break;
-                case '=': 
+                case '=':
                     if ($this->in_dquote) {
                         $this->APPEND($ch);
                         break;
@@ -162,7 +166,7 @@ class SimpleParser
                     $this->PUSH($this->type);
                     $this->type = $this->VAL;
                     break;
-                case '/': 
+                case '/':
                     if ($this->in_dquote) {
                         $this->APPEND($ch);
                         break;
@@ -174,7 +178,7 @@ class SimpleParser
                     $this->level-=1;
                     $this->eot = true;
                     break;
-                case '>': 
+                case '>':
                     if ($this->in_dquote) {
                         $this->APPEND($ch);
                         break;
@@ -245,8 +249,7 @@ class SimpleParser
     public function parserError()
     {
         $this->handler->protocol->handler->shutdownBrokenConnection(
-                sprintf("protocol error: %s. Check the back end log for details.", $this->s)
+            sprintf("protocol error: %s. Check the back end log for details.", $this->s)
         );
     }
-
 }

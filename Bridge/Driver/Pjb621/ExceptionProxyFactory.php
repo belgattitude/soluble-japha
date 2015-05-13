@@ -47,6 +47,11 @@ class ExceptionProxyFactory extends SimpleFactory
         return new ExceptionProxy($result, $signature);
     }
 
+    /**
+     *
+     * @throws \Soluble\Japha\Bridge\Driver\Pjb621\Exception\InternalException
+     * @return JavaProxy
+     */
     public function getProxy($result, $signature, $exception, $wrap)
     {
         $proxy = $this->create($result, $signature);

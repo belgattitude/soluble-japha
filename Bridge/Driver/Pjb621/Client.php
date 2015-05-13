@@ -93,7 +93,7 @@ class Client
     
     /**
      *
-     * @var Arg
+     * @var CompositeArg
      */
     public $arg;
     /**

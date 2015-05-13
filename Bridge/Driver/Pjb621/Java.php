@@ -49,14 +49,11 @@ class Java extends AbstractJava
         $client = $this->__client = __javaproxy_Client_getClient();
         $args = func_get_args();
 
-
         $name = array_shift($args);
         if (is_array($name)) {
             $args = $name;
             $name = array_shift($args);
         }
-
-
 
         $sig = "&{$this->__signature}@{$name}";
         $len = count($args);

@@ -213,6 +213,10 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         }
     }
 
+    /**
+     *
+     * @return \Soluble\Japha\Bridge\Driver\Pjb621\ChunkedSocketChannel
+     */
     public function getSimpleChannel()
     {
         return new ChunkedSocketChannel($this->socket, $this->protocol, $this->host);
