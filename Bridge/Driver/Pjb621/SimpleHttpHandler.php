@@ -38,10 +38,37 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 class SimpleHttpHandler extends SocketHandler
 {
-    public $headers, $cookies;
-    public $context, $ssl, $port;
+    public $headers;
+    public $cookies;
+    public $context;
+    public $ssl;
+    /**
+     * @var integer
+     */
+    public $port;
+    /**
+     * @var string
+     */
     public $host;
 
+    /**
+     *
+     * @param Protocol $protocol
+     * @param string $ssl
+     * @param string $host
+     * @param integer $port
+     */
+    public function __construct($protocol, $ssl, $host, $port)
+    {
+        $this->cookies = array();
+        $this->protocol = $protocol;
+        $this->ssl = $ssl;
+        $this->host = $host;
+        $this->port = $port;
+        $this->createChannel();
+    }
+    
+    
     public function createChannel()
     {
         $channelName = java_getHeader("X_JAVABRIDGE_REDIRECT", $_SERVER);
@@ -64,16 +91,11 @@ class SimpleHttpHandler extends SocketHandler
                 or $this->protocol->handler->shutdownBrokenConnection("Broken local connection handle");
     }
 
-    public function __construct($protocol, $ssl, $host, $port)
-    {
-        $this->cookies = array();
-        $this->protocol = $protocol;
-        $this->ssl = $ssl;
-        $this->host = $host;
-        $this->port = $port;
-        $this->createChannel();
-    }
 
+    /**
+     *
+     * @return string
+     */
     public function getCookies()
     {
         $str = "";
@@ -88,6 +110,10 @@ class SimpleHttpHandler extends SocketHandler
         return $str;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getContextFromCgiEnvironment()
     {
         $ctx = java_getHeader('X_JAVABRIDGE_CONTEXT', $_SERVER);

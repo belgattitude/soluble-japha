@@ -182,6 +182,10 @@ class Protocol
         return $handler;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function java_get_simple_channel()
     {
         return (JAVA_HOSTS && (!JAVA_SERVLET || (JAVA_SERVLET == "Off"))) ? JAVA_HOSTS : null;
@@ -247,6 +251,9 @@ class Protocol
         $this->redirect();
     }
 
+    /*
+     * @param string $name java class name, i.e java.math.BigInteger
+     */
     public function referenceBegin($name)
     {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
@@ -265,6 +272,11 @@ class Protocol
         $this->client->currentCacheKey = null;
     }
 
+    
+    /**
+     *
+     * @param string $name java class name i.e java.math.BigInteger
+     */
     public function createObjectBegin($name)
     {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
@@ -283,6 +295,12 @@ class Protocol
         $this->client->currentCacheKey = null;
     }
 
+    
+    /**
+     *
+     * @param integer $object object id
+     * @param string $method method name
+     */
     public function propertyAccessBegin($object, $method)
     {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
@@ -299,6 +317,11 @@ class Protocol
         $this->client->currentCacheKey = null;
     }
 
+    /**
+     *
+     * @param integer $object object id
+     * @param string $method method name
+     */
     public function invokeBegin($object, $method)
     {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
@@ -329,18 +352,30 @@ class Protocol
         $this->flush();
     }
 
+    /**
+     *
+     * @param string $name
+     */
     public function writeString($name)
     {
         $this->client->currentArgumentsFormat.=$format = "<S v=\"%s\"/>";
         $this->write(sprintf($format, htmlspecialchars($name, ENT_COMPAT)));
     }
 
+    /**
+     *
+     * @param boolean $boolean
+     */
     public function writeBoolean($boolean)
     {
         $this->client->currentArgumentsFormat.=$format = "<T v=\"%s\"/>";
         $this->write(sprintf($format, $boolean));
     }
 
+    /**
+     *
+     * @param integer $l
+     */
     public function writeLong($l)
     {
         $this->client->currentArgumentsFormat.="<J v=\"%d\"/>";
@@ -351,24 +386,41 @@ class Protocol
         }
     }
 
+    /**
+     *
+     * @param integer $l
+     */
     public function writeULong($l)
     {
         $this->client->currentArgumentsFormat.=$format = "<L v=\"%x\" p=\"O\"/>";
         $this->write(sprintf($format, $l));
     }
 
+    /**
+     *
+     * @param double $d
+     */
     public function writeDouble($d)
     {
         $this->client->currentArgumentsFormat.=$format = "<D v=\"%.14e\"/>";
         $this->write(sprintf($format, $d));
     }
 
+    /**
+     *
+     * @param integer $object
+     */
     public function writeObject($object)
     {
         $this->client->currentArgumentsFormat.=$format = "<O v=\"%x\"/>";
         $this->write(sprintf($format, $object));
     }
 
+    /**
+     *
+     * @param integer $object
+     * @param string $str
+     */
     public function writeException($object, $str)
     {
         $this->write(sprintf("<E v=\"%x\" m=\"%s\"/>", $object, htmlspecialchars($str, ENT_COMPAT)));
@@ -389,11 +441,19 @@ class Protocol
         $this->write("</X>");
     }
 
+    /**
+     *
+     * @param string $key
+     */
     public function writePairBegin_s($key)
     {
         $this->write(sprintf("<P t=\"S\" v=\"%s\">", htmlspecialchars($key, ENT_COMPAT)));
     }
 
+    /**
+     *
+     * @param integer $key
+     */
     public function writePairBegin_n($key)
     {
         $this->write(sprintf("<P t=\"N\" v=\"%x\">", $key));
@@ -409,6 +469,10 @@ class Protocol
         $this->write("</P>");
     }
 
+    /**
+     *
+     * @param integer $object
+     */
     public function writeUnref($object)
     {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;

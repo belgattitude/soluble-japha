@@ -47,9 +47,16 @@ class SimpleParser
      */
     public $SLEN = 256;
     public $handler;
-    public $tag, $buf, $len, $s;
+    public $tag;
+    public $buf;
+    public $len;
+    public $s;
     public $type;
-
+    
+    /**
+     *
+     * @param Client $handler
+     */
     public function __construct($handler)
     {
         $this->handler = $handler;

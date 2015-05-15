@@ -80,12 +80,20 @@ class SocketHandler
         $this->channel->keepAlive();
     }
 
+    /**
+     *
+     * @param null|string $msg
+     */
     public function dieWithBrokenConnection($msg)
     {
         unset($this->protocol->client->protocol);
         trigger_error($msg ? $msg : "unknown error: please see back end log for details", E_USER_ERROR);
     }
 
+    /**
+     *
+     * @param null|string $msg
+     */
     public function shutdownBrokenConnection($msg)
     {
         $this->channel->shutdownBrokenConnection();

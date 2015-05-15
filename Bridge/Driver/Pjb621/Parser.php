@@ -44,6 +44,10 @@ class Parser
      */
     public $parser;
 
+    /**
+     *
+     * @param Client $handler
+     */
     public function __construct($handler)
     {
         if (defined('HHVM_VERSION') || !function_exists("xml_parser_create")) {

@@ -49,6 +49,10 @@ class NativeParser
     public $event;
     public $buf;
 
+    /**
+     *
+     * @param Client $handler
+     */
     public function __construct($handler)
     {
         $this->handler = $handler;

@@ -38,7 +38,16 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 class SimpleHttpTunnelHandler extends SimpleHttpHandler
 {
+    /**
+     *
+     * @var resource
+     */
     public $socket;
+    
+    /**
+     *
+     * @var boolean
+     */
     protected $hasContentLength = false;
     
     /**
@@ -47,6 +56,21 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      */
     public $isRedirect;
 
+
+    /**
+     *
+     * @param Protocol $protocol
+     * @param string $ssl
+     * @param string $host
+     * @param integer $port
+     */
+    public function __construct($protocol, $ssl, $host, $port)
+    {
+        parent::__construct($protocol, $ssl, $host, $port);
+        $this->open();
+    }
+    
+    
     public function createSimpleChannel()
     {
         $this->channel = new EmptyChannel($this);
@@ -57,12 +81,23 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $this->createSimpleChannel();
     }
 
+    /**
+     *
+     * @param string|null $msg
+     */
     public function shutdownBrokenConnection($msg)
     {
         fclose($this->socket);
         $this->dieWithBrokenConnection($msg);
     }
 
+    /**
+     *
+     * @param resource $socket
+     * @param integer|null $errno
+     * @param string|null $errstr
+     * @throws Exception\ConnectException
+     */
     public function checkSocket($socket, &$errno, &$errstr)
     {
         if (!$socket) {
@@ -82,6 +117,11 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $this->socket = $socket;
     }
 
+    /**
+     *
+     * @param integer $size
+     * @return string
+     */
     public function fread($size)
     {
         $length = hexdec(fgets($this->socket, JAVA_RECV_SIZE));
@@ -112,11 +152,6 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         fclose($this->socket);
     }
 
-    public function __construct($protocol, $ssl, $host, $port)
-    {
-        parent::__construct($protocol, $ssl, $host, $port);
-        $this->open();
-    }
 
     public function read($size)
     {

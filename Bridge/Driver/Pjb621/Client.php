@@ -416,7 +416,11 @@ class Client
         }
     }
 
-    public function writeArgs($args)
+    /**
+     *
+     * @param array $args
+     */
+    public function writeArgs(array $args)
     {
         $this->inArgs = true;
         $n = count($args);
@@ -428,11 +432,11 @@ class Client
 
     /**
      *
-     * @param string $name
+     * @param string $name java class name, i.e java.math.BigInteger
      * @param array $args
      * @return JavaType
      */
-    public function createObject($name, $args)
+    public function createObject($name, array $args)
     {
         $this->protocol->createObjectBegin($name);
         $this->writeArgs($args);
@@ -443,11 +447,11 @@ class Client
 
     /**
      *
-     * @param string $name
+     * @param string $name java class name, i.e java.math.BigInteger
      * @param array $args
      * @return JavaType
      */
-    public function referenceObject($name, $args)
+    public function referenceObject($name, array $args)
     {
         $this->protocol->referenceBegin($name);
         $this->writeArgs($args);
@@ -456,6 +460,12 @@ class Client
         return $val;
     }
 
+    /**
+     *
+     * @param integer $object
+     * @param string $property
+     * @return mixed
+     */
     public function getProperty($object, $property)
     {
         $this->protocol->propertyAccessBegin($object, $property);
@@ -463,6 +473,13 @@ class Client
         return $this->getResult();
     }
 
+    /**
+     *
+     * @param integer $object
+     * @param string $property
+     * @param mixed $arg
+     * @return mixed
+     */
     public function setProperty($object, $property, $arg)
     {
         $this->protocol->propertyAccessBegin($object, $property);
@@ -471,6 +488,13 @@ class Client
         $this->getResult();
     }
 
+    
+    /**
+     *
+     * @param integer $object object id
+     * @param string $method method name
+     * @param array $args
+     */
     public function invokeMethod($object, $method, $args)
     {
         $this->protocol->invokeBegin($object, $method);
