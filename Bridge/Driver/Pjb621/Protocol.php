@@ -70,7 +70,7 @@ class Protocol
     protected static $host;
     
     /**
-     * 
+     *
      * @param Client $client
      */
     public function __construct(Client $client)
@@ -81,7 +81,7 @@ class Protocol
     
 
     /**
-     * 
+     *
      * @return string
      */
     public function getOverrideHosts()
@@ -96,25 +96,25 @@ class Protocol
     }
 
     /**
-     * 
+     *
      * @param SocketHandler $socketHandler
      */
-    public function setSocketHandler(SocketHandler $socketHandler) 
+    public function setSocketHandler(SocketHandler $socketHandler)
     {
         $this->socketHandler = $socketHandler;
     }
 
     /**
-     * 
+     *
      * @return SocketHandler  socket handler
      */
-    public function getSocketHandler() 
+    public function getSocketHandler()
     {
         return $this->socketHandler;
-    }    
+    }
     
     /**
-     * 
+     *
      * @return array
      */
     public static function getHost()

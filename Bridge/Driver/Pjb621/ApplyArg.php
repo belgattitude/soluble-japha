@@ -41,7 +41,7 @@ class ApplyArg extends CompositeArg
     public $m, $p, $v, $n;
 
     /**
-     * 
+     *
      * @param Client $client
      * @param string $type
      * @param mixed $m

@@ -57,7 +57,7 @@ class ParserString
     public $length;
 
     /**
-     * 
+     *
      * @return string
      */
     public function toString()
@@ -66,7 +66,7 @@ class ParserString
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getString()
