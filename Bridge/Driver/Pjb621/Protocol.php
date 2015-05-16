@@ -34,12 +34,19 @@
  * THE SOFTWARE.
  *
  */
+
+
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 class Protocol
 {
+    /**
+     *
+     * @var Client
+     */
     public $client;
     public $webContext;
+    
     
     /**
      *
@@ -47,15 +54,36 @@ class Protocol
      */
     public $serverName;
     
+    /**
+     *
+     * @var SimpleHttpHandler|HttpTunnelHandler|SocketHandler
+     */
     public $handler;
     
-    public function __construct($client)
+    
+    /**
+     *
+     * @var SocketHandler
+     */
+    protected $socketHandler;
+
+    protected static $host;
+    
+    /**
+     * 
+     * @param Client $client
+     */
+    public function __construct(Client $client)
     {
         $this->client = $client;
         $this->handler = $this->createHandler();
     }
     
 
+    /**
+     * 
+     * @return string
+     */
     public function getOverrideHosts()
     {
         if (array_key_exists('X_JAVABRIDGE_OVERRIDE_HOSTS', $_ENV)) {
@@ -67,10 +95,31 @@ class Protocol
         return java_getHeader('X_JAVABRIDGE_OVERRIDE_HOSTS_REDIRECT', $_SERVER);
     }
 
+    /**
+     * 
+     * @param SocketHandler $socketHandler
+     */
+    public function setSocketHandler(SocketHandler $socketHandler) 
+    {
+        $this->socketHandler = $socketHandler;
+    }
+
+    /**
+     * 
+     * @return SocketHandler  socket handler
+     */
+    public function getSocketHandler() 
+    {
+        return $this->socketHandler;
+    }    
+    
+    /**
+     * 
+     * @return array
+     */
     public static function getHost()
     {
-        static $host = null;
-        if (is_null($host)) {
+        if (self::$host === null) {
             $hosts = explode(";", JAVA_HOSTS);
             $host = explode(":", $hosts[0]);
             while (count($host) < 3) {
@@ -79,13 +128,14 @@ class Protocol
             if (substr($host[1], 0, 2) == "//") {
                 $host[1] = substr($host[1], 2);
             }
+            self::$host = $host;
         }
-        return $host;
+        return self::$host;
     }
 
     /**
      *
-     * @return \Soluble\Japha\Bridge\Driver\Pjb621\SimpleHttpHandler|\Soluble\Japha\Bridge\Driver\Pjb621\HttpTunnelHandler
+     * @return SimpleHttpHandler|HttpTunnelHandler
      */
     public function createHttpHandler()
     {

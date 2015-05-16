@@ -191,12 +191,12 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $cookies = $this->getCookies();
         $context = $this->getContext();
         $res = "PUT ";
-        $res .=$webapp;
-        $res .=" HTTP/1.1\r\n";
-        $res .="Host: {$this->host}:{$this->port}\r\n";
-        $res .=$context;
-        $res .=$cookies;
-        $res .=$this->getBodyFor($compat, $data);
+        $res .= $webapp;
+        $res .= " HTTP/1.1\r\n";
+        $res .= "Host: {$this->host}:{$this->port}\r\n";
+        $res .= $context;
+        $res .= $cookies;
+        $res .= $this->getBodyFor($compat, $data);
         $count = fwrite($socket, $res) or $this->shutdownBrokenConnection("Broken connection handle");
         fflush($socket) or $this->shutdownBrokenConnection("Broken connection handle");
         return $count;
@@ -250,7 +250,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
 
     /**
      *
-     * @return \Soluble\Japha\Bridge\Driver\Pjb621\ChunkedSocketChannel
+     * @return ChunkedSocketChannel
      */
     public function getSimpleChannel()
     {
@@ -272,18 +272,19 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $len>>=8;
         $len2 = chr($len & 0xFF);
         if ($this->isRedirect) {
-            $this->protocol->socketHandler = new SocketHandler($this->protocol, $this->getChannel($channelName));
+            $this->protocol->setSocketHandler(new SocketHandler($this->protocol, $this->getChannel($channelName)));
             $this->protocol->write("\177${len0}${len1}${len2}${context}");
             $this->context = sprintf("X_JAVABRIDGE_CONTEXT: %s\r\n", $context);
             $this->close();
-            $this->protocol->handler = $this->protocol->socketHandler;
+            $this->protocol->handler = $this->protocol->getSocketHandler();
             $this->protocol->handler->write($this->protocol->client->sendBuffer)
                     or $this->protocol->handler->shutdownBrokenConnection("Broken local connection handle");
             $this->protocol->client->sendBuffer = null;
             $this->protocol->handler->read(1)
                     or $this->protocol->handler->shutdownBrokenConnection("Broken local connection handle");
         } else {
-            $this->protocol->handler = $this->protocol->socketHandler = new SocketHandler($this->protocol, $this->getSimpleChannel());
+            $this->protocol->setSocketHandler(new SocketHandler($this->protocol, $this->getSimpleChannel()));
+            $this->protocol->handler = $this->protocol->getSocketHandler();
         }
     }
 }

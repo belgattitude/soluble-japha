@@ -38,13 +38,37 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 class ParserString
 {
-    public $string, $off, $length;
+    /**
+     *
+     * @var string
+     */
+    public $string;
+    
+    /**
+     *
+     * @var string
+     */
+    public $off;
+    
+    /**
+     *
+     * @var string
+     */
+    public $length;
 
+    /**
+     * 
+     * @return string
+     */
     public function toString()
     {
         return $this->getString();
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getString()
     {
         return substr($this->string, $this->off, $this->length);

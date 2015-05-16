@@ -40,7 +40,7 @@ class IteratorProxy extends JavaProxy implements \IteratorAggregate
 {
     /**
      *
-     * @return \Soluble\Japha\Bridge\Driver\Pjb621\ObjectIterator
+     * @return ObjectIterator
      */
     public function getIterator()
     {

@@ -42,6 +42,10 @@ class ObjectIterator implements Iterator
 {
     private $var;
 
+    /**
+     * 
+     * //@param ArrayProxy|JavaProxy|AbstractJava $javaProxy
+     */
     public function __construct($javaProxy)
     {
         $this->var = java_cast($javaProxy, "A");

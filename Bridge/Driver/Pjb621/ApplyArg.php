@@ -40,7 +40,16 @@ class ApplyArg extends CompositeArg
 {
     public $m, $p, $v, $n;
 
-    public function __construct($client, $type, $m, $p, $v, $n)
+    /**
+     * 
+     * @param Client $client
+     * @param string $type
+     * @param mixed $m
+     * @param mixed $p
+     * @param mixed $v
+     * @param mixed $n
+     */
+    public function __construct(Client $client, $type, $m, $p, $v, $n)
     {
         parent::__construct($client, $type);
         $this->m = $m;

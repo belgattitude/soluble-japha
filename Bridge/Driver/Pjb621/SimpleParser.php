@@ -55,11 +55,11 @@ class SimpleParser
     
     /**
      *
-     * @param Client $handler
+     * @param Client $client
      */
-    public function __construct($handler)
+    public function __construct(Client $client)
     {
-        $this->handler = $handler;
+        $this->handler = $client;
         $this->tag = array(new ParserTag(), new ParserTag(), new ParserTag());
         $this->len = $this->SLEN;
         $this->s = str_repeat(" ", $this->SLEN);

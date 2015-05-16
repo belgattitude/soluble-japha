@@ -58,7 +58,7 @@ class SimpleHttpHandler extends SocketHandler
      * @param string $host
      * @param integer $port
      */
-    public function __construct($protocol, $ssl, $host, $port)
+    public function __construct(Protocol $protocol, $ssl, $host, $port)
     {
         $this->cookies = array();
         $this->protocol = $protocol;
@@ -80,10 +80,10 @@ class SimpleHttpHandler extends SocketHandler
         $len2 = chr($len & 0xFF);
         $this->channel = new EmptyChannel($this);
         $this->channel = $this->getChannel($channelName);
-        $this->protocol->socketHandler = new SocketHandler($this->protocol, $this->channel);
+        $this->protocol->setSocketHandler(new SocketHandler($this->protocol, $this->channel));
         $this->protocol->write("\177${len0}${len1}${len2}${context}");
         $this->context = sprintf("X_JAVABRIDGE_CONTEXT: %s\r\n", $context);
-        $this->protocol->handler = $this->protocol->socketHandler;
+        $this->protocol->handler = $this->protocol->getSocketHandler();
         $this->protocol->handler->write($this->protocol->client->sendBuffer)
                 or $this->protocol->handler->shutdownBrokenConnection("Broken local connection handle");
         $this->protocol->client->sendBuffer = null;
@@ -159,7 +159,7 @@ class SimpleHttpHandler extends SocketHandler
 
     public function write($data)
     {
-        return $this->protocol->socketHandler->write($data);
+        return $this->protocol->getSocketHandler()->write($data);
     }
 
     public function doSetCookie($key, $val, $path)
@@ -174,7 +174,7 @@ class SimpleHttpHandler extends SocketHandler
 
     public function read($size)
     {
-        return $this->protocol->socketHandler->read($size);
+        return $this->protocol->getSocketHandler()->read($size);
     }
 
     public function getChannel($channelName)
