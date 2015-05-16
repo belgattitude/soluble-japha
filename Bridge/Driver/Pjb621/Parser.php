@@ -45,15 +45,15 @@ class Parser
     public $parser;
 
     /**
-     *
-     * @param Client $client
+     * 
+     * @param Client $handler
      */
-    public function __construct(Client $client)
+    public function __construct(Client $handler)
     {
         if (defined('HHVM_VERSION') || !function_exists("xml_parser_create")) {
             // Later on maybe a version_compare(HHVM_VERSION, '3.8.0', '<')
             // xml_parser bugs in hhvm at least version 3.7.0
-            $this->parser = new SimpleParser($client);
+            $this->parser = new SimpleParser($handler);
             $handler->RUNTIME["PARSER"] = "SIMPLE";
             
         } else {

@@ -44,6 +44,11 @@ class NativeParser
      * @var resource
      */
     public $parser;
+    
+    /**
+     *
+     * @var Client
+     */
     public $handler;
     public $level;
     public $event;
@@ -51,11 +56,11 @@ class NativeParser
 
     /**
      *
-     * @param Client $handler
+     * @param Client $client
      */
-    public function __construct($handler)
+    public function __construct(Client $client)
     {
-        $this->handler = $handler;
+        $this->handler = $client;
         $this->parser = xml_parser_create();
         xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, 0);
         xml_set_object($this->parser, $this);
