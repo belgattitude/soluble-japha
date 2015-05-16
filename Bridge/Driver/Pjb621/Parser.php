@@ -48,7 +48,7 @@ class Parser
      *
      * @param Client $client
      */
-    public function __construct(Client $handler)
+    public function __construct(Client $client)
     {
         if (defined('HHVM_VERSION') || !function_exists("xml_parser_create")) {
             // Later on maybe a version_compare(HHVM_VERSION, '3.8.0', '<')
