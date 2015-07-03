@@ -6,7 +6,6 @@ use Soluble\Japha\Bridge\PhpJavaBridge as Pjb;
 
 class DriverManager
 {
-    
     /**
      *
      * @Java(java.sql.DriverManager)

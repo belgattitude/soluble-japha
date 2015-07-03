@@ -7,7 +7,6 @@ use Soluble\Japha\Interfaces;
 
 class Pjb621Driver extends AbstractDriver
 {
-    
     protected $connected = false;
 
     /**

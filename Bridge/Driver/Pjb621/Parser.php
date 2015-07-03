@@ -55,12 +55,10 @@ class Parser
             // xml_parser bugs in hhvm at least version 3.7.0
             $this->parser = new SimpleParser($handler);
             $handler->RUNTIME["PARSER"] = "SIMPLE";
-            
         } else {
             $this->parser = new NativeParser($handler);
             $handler->RUNTIME["PARSER"] = "NATIVE";
         }
-        
     }
 
     public function parse()

@@ -38,7 +38,6 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 class NativeParser
 {
-
     /**
      *
      * @var resource

@@ -38,7 +38,6 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 interface JavaType
 {
-    
     /**
      * @return int
      */

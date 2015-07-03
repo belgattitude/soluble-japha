@@ -7,7 +7,6 @@ use Soluble\Japha\Interfaces;
 
 class PhpJavaBridge
 {
-
     const DRIVER_PJB621 = 'Pjb621';
 
     /**
