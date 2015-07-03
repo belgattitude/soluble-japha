@@ -36,6 +36,8 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb621\Exception;
 
+use Exception;
+
 class JavaBridgeException extends Exception
 {
     public function __toString()

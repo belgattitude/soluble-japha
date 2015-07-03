@@ -45,7 +45,7 @@ class Parser
     public $parser;
 
     /**
-     * 
+     *
      * @param Client $handler
      */
     public function __construct(Client $handler)
