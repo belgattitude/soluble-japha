@@ -1,0 +1,8 @@
+# for pro version
+#repo_token: your_token # should be kept secret!
+#service_name: travis-pro # travis-ci or travis-pro
+
+# for php-coveralls
+src_dir: .
+coverage_clover: build/logs/clover.xml
+json_path: build/logs/coveralls-upload.json

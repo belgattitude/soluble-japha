@@ -1,22 +1,23 @@
 {
-	"name": "soluble/japha",
-	"description": "Soluble Japha",
+    "name": "soluble/japha",
+    "description": "Soluble PHP Java bridge integration",
     "license": "MIT",
-	"keywords": [
-        "Java", 
-        "Bridge"
+    "keywords": [
+        "java",
+        "bridge",
+        "phpjavabridge"
     ],
-	"homepage": "https://github.com/belgattitude/soluble-japha",
-	"type": "library",
-	"authors": [
-		{
-			"name": "Sébastien Vanvelthem",
-			"homepage": "http://www.nuvolia.com/"
-		}
-	],
+    "homepage": "https://github.com/belgattitude/soluble-japha",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Sébastien Vanvelthem",
+            "homepage": "http://www.nuvolia.com/"
+        }
+    ],
     "autoload": {
         "psr-4": {
-            "Soluble\\Japha\\": ""
+            "Soluble\\Japha\\": "src/Soluble/Japha"
         }
     },
     "require": {

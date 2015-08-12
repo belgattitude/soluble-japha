@@ -30,8 +30,6 @@ php composer.phar require soluble/japha:0.*
 ```
 
 
-
-
 [![Total Downloads](https://poser.pugx.org/soluble/japha/downloads.png)](https://packagist.org/packages/soluble/japha)
 
 

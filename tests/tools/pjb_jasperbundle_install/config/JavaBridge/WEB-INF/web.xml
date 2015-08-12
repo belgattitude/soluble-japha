@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+    <!-- support for JEE cluster, remove this line if you want to put non-serializable objects into the java_session() -->
+    <distributable/>
+
+    <!-- Your system PHP executable. Default is /usr/bin/php-cgi or c:/Program Files/PHP/php-cgi.exe -->  
+    <!--<context-param><param-name>php_exec</param-name><param-value>php-cgi</param-value></context-param>-->
+    <!-- Prefer a system PHP executable, if available. Otherwise use the PHP from the .war file. Default is Off -->
+    <context-param>
+        <param-name>prefer_system_php_exec</param-name>
+        <param-value>On</param-value>
+    </context-param>
+
+    <!-- Handle PHP urls which cannot be expressed using a standard servlet spec 2.2 url-pattern, 
+    e.g.: *.php/delete/from?what=that You may remove this and the filter-mapping below -->
+    <filter>
+        <filter-name>PhpCGIFilter</filter-name>
+        <filter-class>php.java.servlet.PhpCGIFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PhpCGIFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Attach the JSR223 script factory to the servlet context -->
+    <listener>
+        <listener-class>php.java.servlet.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- PHP Servlet: back-end for Apache or IIS -->
+    <servlet>
+        <servlet-name>PhpJavaServlet</servlet-name>
+        <servlet-class>php.java.servlet.PhpJavaServlet</servlet-class>
+    </servlet>
+
+    <!-- PHP CGI servlet: when IIS or Apache are not available -->
+    <servlet>
+        <servlet-name>PhpCGIServlet</servlet-name>
+        <servlet-class>php.java.servlet.fastcgi.FastCGIServlet</servlet-class>
+    </servlet>
+
+    <!-- PHP Servlet Mapping -->
+    <servlet-mapping>
+        <servlet-name>PhpJavaServlet</servlet-name>
+        <url-pattern>*.phpjavabridge</url-pattern>
+    </servlet-mapping>
+
+    <!-- PHP CGI Servlet Mapping -->
+    <servlet-mapping>
+        <servlet-name>PhpCGIServlet</servlet-name>
+        <url-pattern>*.php</url-pattern>
+    </servlet-mapping>
+
+    <!-- Welcome files -->
+    <welcome-file-list>
+        <welcome-file>index.php</welcome-file>
+    </welcome-file-list>
+
+</web-app>

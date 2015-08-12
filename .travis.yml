@@ -1,0 +1,33 @@
+language: php
+  
+matrix:
+    include:
+        - php: 5.3
+          env: SEND_COVERAGE=false
+        - php: 5.6
+          env: SEND_COVERAGE=true
+        - php: 7.0
+          env: SEND_COVERAGE=false
+        - php: hhvm
+          env: SEND_COVERAGE=false
+    allow_failures:
+        - php: hhvm    
+env:
+    global:
+        - SEND_COVERAGE=false
+
+before_script:
+  - composer self-update
+  - composer install --no-interaction --prefer-dist
+  - mkdir build
+  - mkdir -p build/logs
+  - mkdir -p tests/logs
+  
+script: 
+  - phpunit -v --configuration tests/config/phpunit.$ADAPTER.travis.xml 
+
+after_script:
+  - if [[ $EXTERNAL == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+  - if [[ $EXTERNAL == true ]]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi
+  - if [[ $EXTERNAL == true ]]; then vendor/bin/test-reporter; fi
+  
