@@ -239,7 +239,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
         return false;
     }
     
-    /**
+    /** 
      * TODO - remove constants and use
      * plain php config
      */
@@ -251,6 +251,8 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
     if (!defined("JAVA_RECV_SIZE")) {
         define("JAVA_RECV_SIZE", 8192);
     }
+
+    
     if (!defined("JAVA_HOSTS")) {
         if (!java_defineHostFromInitialQuery(java_get_base())) {
             if ($java_ini = get_cfg_var("java.hosts")) {
@@ -260,6 +262,9 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
             }
         }
     }
+    
+    //define("JAVA_SERVLET", false);
+    //die('COOL');
     if (!defined("JAVA_SERVLET")) {
         if (!(($java_ini = get_cfg_var("java.servlet")) === false)) {
             define("JAVA_SERVLET", $java_ini);

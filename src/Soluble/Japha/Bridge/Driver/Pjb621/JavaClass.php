@@ -33,10 +33,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
+ * 
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 use Soluble\Japha\Interfaces;
+
+/**
+ * @method JavaObject forName(string $name)
+ */
 
 class JavaClass extends Java implements Interfaces\JavaClass
 {
@@ -74,13 +79,4 @@ class JavaClass extends Java implements Interfaces\JavaClass
         return $this->__delegate->getName();
     }
     
-    /**
-     * Returns the Class object associated with the class or interface with the given string name.
-     *
-     * @return Interfaces\JavaObject Java(java.lang.Object)
-     */
-    public function forName()
-    {
-        return $this->__delegate->forName();
-    }
 }

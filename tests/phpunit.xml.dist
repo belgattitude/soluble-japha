@@ -16,6 +16,15 @@
         <ini name="date.timezone" value="Europe/Brussels"/>
         <server name="PHPUNIT_CACHE_DIR" value="./tmp/cache" />		
         <server name="PJB_URL" value="127.0.0.1:8083" />
+        
+        <!--
+        <server name="MYSQL_HOSTNAME" value="localhost" />
+        -->
+        <server name="MYSQL_HOSTNAME" value="127.0.0.1" />
+        <server name="MYSQL_USERNAME" value="" />
+        <server name="MYSQL_PASSWORD" value="" />
+        <server name="MYSQL_DATABASE" value="phpunit_soluble_test_db" />        
+        
     </php>
 
     <testsuites>

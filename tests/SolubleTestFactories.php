@@ -26,43 +26,69 @@ class SolubleTestFactories {
      * java bridge server
      */
     public static function startJavaBridgeServer() {
+        
+        //define("JAVA_SERVLET", "/JavaBridge/java/servlet.phpjavabridge");
+        
+        //define("JAVA_HOSTS", "localhost:8080");
+        //define("JAVA_SERVLET", "/JavaBridge/java");        
+        
+        //return;
+        
         if (!self::$javaBridgeServerStarted) {
-            // First ensure php java bridge is installed
-            $test_dir = dirname(__FILE__);
-            passthru("/bin/bash $test_dir/tools/pjb_standalone_install/install_pjb621.sh");
-
-            $jar_file = "$test_dir/tools/pjb_standalone_install/pjb621/WEB-INF/lib/JavaBridge.jar";
-
-            if (!file_exists($jar_file)) {
-                throw new \Exception(__METHOD__ . " Standalone javabridge install failed, see tests/tools/install_pjb621.sh script ($jar_file)");
-            }
-
-
-            $url = self::getJavaBridgeServerAddress();
-            $tmp = explode(':', $url);
-            $port = $tmp[1];
-
-
-            $jar_dir = dirname($jar_file);
-
-            //java -cp /web/www/solublecomponents/tests/tools/pjb_standalone_install/pjb621/WEB-INF/lib/mysql-connector-java-5.1.34-bin.jar:/web/www/solublecomponents/tests/tools/pjb_standalone_install/pjb621/WEB-INF/lib/JavaBridge.jar php.java.bridge.Standalone SERVLET:8083
-            //$command = "java  -jar $jar_file SERVLET:$port > $test_dir/logs/pjb-error.log 2>&1 &";
-            $command = "java -cp $jar_dir/mysql-connector-java-5.1.35-bin.jar:$jar_file php.java.bridge.Standalone SERVLET:$port > $test_dir/logs/pjb-error.log 2>&1 &";
-            echo "\nRunning pjb server: $command\n";
-            echo "See logs in : $test_dir/logs/pbj-error.log\n\n";
-
-            passthru($command);
-
-            // let time for server to start
-
-            if (preg_match('/travis/', dirname(__FILE__))) {
-                sleep(8);
+            
+            /*
+            <server name="PJB_URL" value="127.0.0.1:8080" />
+            <server name="PJB_SERVLET" value="true" />
+            <server name="PJB_SERVLET_ADDRESS" value="/javabridge-bundle/java/servlet.phpjavabridge" />
+            */
+        
+            if (isset($_SERVER['PJB_SERVLET']) && $_SERVER['PJB_SERVLET'] == 'true') {
+                
+                define("JAVA_SERVLET", $_SERVER['PJB_SERVLET_ADDRESS']);
+                self::$javaBridgeServerStarted = true;
+                
             } else {
-                sleep(1);
+                
+            
+                // First ensure php java bridge is installed
+                $test_dir = dirname(__FILE__);
+                passthru("/bin/bash $test_dir/tools/pjb_standalone_install/install_pjb621.sh");
+
+                $jar_file = "$test_dir/tools/pjb_standalone_install/pjb621/WEB-INF/lib/JavaBridge.jar";
+
+                if (!file_exists($jar_file)) {
+                    throw new \Exception(__METHOD__ . " Standalone javabridge install failed, see tests/tools/install_pjb621.sh script ($jar_file)");
+                }
+
+
+                $url = self::getJavaBridgeServerAddress();
+                $tmp = explode(':', $url);
+                $port = $tmp[1];
+
+
+                $jar_dir = dirname($jar_file);
+
+                //java -cp /web/www/solublecomponents/tests/tools/pjb_standalone_install/pjb621/WEB-INF/lib/mysql-connector-java-5.1.34-bin.jar:/web/www/solublecomponents/tests/tools/pjb_standalone_install/pjb621/WEB-INF/lib/JavaBridge.jar php.java.bridge.Standalone SERVLET:8083
+                //$command = "java  -jar $jar_file SERVLET:$port > $test_dir/logs/pjb-error.log 2>&1 &";
+                $command = "java -cp $jar_dir/mysql-connector-java-5.1.35-bin.jar:$jar_file php.java.bridge.Standalone SERVLET:$port > $test_dir/logs/pjb-error.log 2>&1 &";
+                echo "\nRunning pjb server: $command\n";
+                echo "See logs in : $test_dir/logs/pbj-error.log\n\n";
+
+                passthru($command);
+
+                // let time for server to start
+
+                if (preg_match('/travis/', dirname(__FILE__))) {
+                    sleep(8);
+                } else {
+                    sleep(1);
+                }
             }
         }
         self::$javaBridgeServerStarted = true;
     }
+    
+    
 
     /**
      *
@@ -83,5 +109,24 @@ class SolubleTestFactories {
         }
         return $cache_dir;
     }
+    
+    public static function getDatabaseConfig()
+    {
+        $mysql_config = array();
+        $mysql_config['hostname'] = $_SERVER['MYSQL_HOSTNAME'];
+        $mysql_config['username'] = $_SERVER['MYSQL_USERNAME'];
+        $mysql_config['password'] = $_SERVER['MYSQL_PASSWORD'];
+        $mysql_config['database'] = $_SERVER['MYSQL_DATABASE'];
+        $mysql_config['driver_options'] = array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'",
+            );
+        $mysql_config['options'] = array(
+            'buffer_results' => true
+        );
+        $mysql_config['charset'] = 'UTF8';
+        
+        return $mysql_config;
+    }
+    
 
 }

@@ -3,6 +3,7 @@
 namespace Soluble\Japha\Db;
 
 use Soluble\Japha\Bridge\PhpJavaBridge as Pjb;
+use Soluble\Japha\Bridge\Exception;
 
 class DriverManager
 {
@@ -38,53 +39,46 @@ class DriverManager
     /**
      * Create an sql connection to database
      *
+     * 
+     * @throws Exception\ClassNotFoundException
+     * @throws Exception\InvalidArgumentException
+     * 
      * @param string $dsn
      * @param string $driverClass
      * @return Java(java.sql.Connection)
      */
     public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
     {
-        /*
-        $class = Pjb::getJavaClass("java.io.System");
-        $c = Pjb::getDriver()->getClassName($class);
-        var_dump($c);
-        echo $class->getName();
-        die();
-        */
+        if (!is_string($dsn) || trim($dsn) == '') {
+            throw new Exception\InvalidArgumentException(__METHOD__ . " DSN param must be a valid (on-empty) string");
+        }
+        
         $class = Pjb::getJavaClass("java.lang.Class");
         try {
             $class->forName($driverClass);
+            
         } catch (\Exception $e) {
             // Here testing class not found error
-            /*
-            var_dump(get_class($e));
-            die();
-            
-            echo "\n\n";
-            echo $e->getClass();
-            echo "\n\n";
-            echo $e->toString();
-            echo "\n\n";
-            echo $e->getCause();
-            
-            die();
-            echo \Soluble\Japha\Bridge\Driver\Pjb621\java_inspect($e);
-            die();
-            echo \Soluble\Japha\Bridge\Driver\Pjb621\java_values($e);
-            dump($e);
-            die();
-            var_dump($e->__toString());
-            die();
-            $a = Pjb::getDriver()->inspect($e);
-            var_dump($a);
-            die();
-             *
-             */
+            $message = "Class not found '$driverClass' exception";
+            throw new Exception\ClassNotFoundException($message, $code=null, $e);
         }
         
         try {
             $conn = $this->getDriverManager()->getConnection($dsn);
+            
+        } catch (Exception\JavaExceptionInterface $e) {
+            var_dump(get_class($e));
+            $message = $e->getCause();
+            $message = (string) $e;
+            var_dump($message);
+            die();
+            
         } catch (\Exception $e) {
+            var_dump(($e instanceof Exception\JavaExceptionInterface));
+            var_dump(get_class($e));
+            $message = $e->getMessage();
+            echo $message;
+            die();
             var_dump($e->__toString());
             die();
         }

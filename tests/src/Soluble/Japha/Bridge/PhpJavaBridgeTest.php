@@ -37,6 +37,7 @@ class PhpJavaBridgeTest extends \PHPUnit_Framework_TestCase
     public function testJavaClass()
     {
         $system = PhpJavaBridge::getJavaClass('java.lang.System');
+        
         $this->assertInstanceOf("\Soluble\Japha\Interfaces\JavaClass", $system);
         $this->assertInstanceOf("\Soluble\Japha\Interfaces\JavaObject", $system);
         $properties = $system->getProperties();
@@ -78,8 +79,10 @@ class PhpJavaBridgeTest extends \PHPUnit_Framework_TestCase
 
         $vm_name = $properties->get('java.vm.name');
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb621\InternalJava', $vm_name);
-        $this->assertContains('Java', $vm_name->__toString());
-        $this->assertContains('Java', (string) $vm_name);
+        
+        // whether Java, OpenJDK..., 'J' is wide
+        $this->assertContains('J', $vm_name->__toString());
+        $this->assertContains('J', (string) $vm_name);
 
 
         $i1 = new Driver\Pjb621\Java("java.math.BigInteger", 1);

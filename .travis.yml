@@ -19,6 +19,10 @@ env:
 before_script:
   - composer self-update
   - composer install --no-interaction --prefer-dist
+  - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot; fi
+  - mysql -e "create database phpunit_soluble_test_db;" -uroot; fi
+  - zcat tests/data/mysql/schema.sql.gz | mysql -uroot phpunit_soluble_test_db; fi
+  - zcat tests/data/mysql/data.sql.gz | mysql -uroot phpunit_soluble_test_db; fi
   - mkdir build
   - mkdir -p build/logs
   - mkdir -p tests/logs

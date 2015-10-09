@@ -2,6 +2,9 @@
 
 namespace Soluble\Japha\Interfaces;
 
+/**
+ * @method JavaObject forName(string $name)
+ */
 interface JavaClass extends JavaObject
 {
     /**
@@ -12,10 +15,4 @@ interface JavaClass extends JavaObject
      */
     public function getName();
 
-    /**
-     * Returns the Class object associated with the class or interface with the given string name.
-     *
-     * @return JavaObject Java(java.lang.Object)
-     */
-    public function forName();
 }

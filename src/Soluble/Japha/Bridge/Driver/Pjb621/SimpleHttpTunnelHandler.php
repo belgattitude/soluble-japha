@@ -98,20 +98,24 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      * @param string|null $errstr
      * @throws Exception\ConnectException
      */
-    public function checkSocket($socket, &$errno, &$errstr)
+    public function checkSocket($socket, $errno, $errstr)
     {
+        
         if (!$socket) {
-            $msg = "Could not connect to the JEE server {$this->ssl}{$this->host}:{$this->port}. Please start it.";
-            $msg.=java_checkCliSapi() ? " Or define('JAVA_HOSTS',9267); define('JAVA_SERVLET',false); before including 'Java.inc' and try again. Error message: $errstr ($errno)\n" : " Error message: $errstr ($errno)\n";
-            throw new Exception\ConnectException($msg);
-        }
+            $message  = " Could not connect to the JEE server {$this->ssl}{$this->host}:{$this->port}. Please start it.";
+            $message .= java_checkCliSapi() ? " Or define('JAVA_HOSTS',9267); define('JAVA_SERVLET',false); before including 'Java.inc' and try again. Error message: $errstr ($errno)\n" : " Error message: $errstr ($errno)\n";            
+            throw new Exception\ConnectException(__METHOD__ . $message);
+        }        
+        
     }
 
     public function open()
     {
         $errno = null;
         $errstr = null;
-        $socket = fsockopen("{$this->ssl}{$this->host}", $this->port, $errno, $errstr, 20);
+        
+        $location = $this->ssl . $this->host;
+        $socket = @fsockopen($location, $this->port, $errno, $errstr, 20);
         $this->checkSocket($socket, $errno, $errstr);
         stream_set_timeout($socket, -1);
         $this->socket = $socket;
