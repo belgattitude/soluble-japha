@@ -78,5 +78,4 @@ class JavaClass extends Java implements Interfaces\JavaClass
     {
         return $this->__delegate->getName();
     }
-    
 }

@@ -40,7 +40,7 @@ class DriverManager
      * Create an sql connection to database
      *
      * 
-     * @throws Exception\ClassNotFoundException
+     * @throws Exception\JavaException
      * @throws Exception\InvalidArgumentException
      * 
      * @param string $dsn
@@ -56,7 +56,6 @@ class DriverManager
         $class = Pjb::getJavaClass("java.lang.Class");
         try {
             $class->forName($driverClass);
-            
         } catch (\Exception $e) {
             // Here testing class not found error
             $message = "Class not found '$driverClass' exception";
@@ -65,22 +64,10 @@ class DriverManager
         
         try {
             $conn = $this->getDriverManager()->getConnection($dsn);
-            
         } catch (Exception\JavaExceptionInterface $e) {
-            var_dump(get_class($e));
-            $message = $e->getCause();
-            $message = (string) $e;
-            var_dump($message);
-            die();
-            
+            throw $e;
         } catch (\Exception $e) {
-            var_dump(($e instanceof Exception\JavaExceptionInterface));
-            var_dump(get_class($e));
-            $message = $e->getMessage();
-            echo $message;
-            die();
-            var_dump($e->__toString());
-            die();
+            throw new Exception\UnexpectedException(__METHOD__ . " Unexpected exception thrown with message " . $e->getMessage());
         }
         return $conn;
     }

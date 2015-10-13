@@ -40,7 +40,6 @@ use Exception;
 use Soluble\Japha\Bridge\Exception\JavaExceptionInterface;
 use Soluble\Japha\Bridge\Driver\Pjb621\JavaType;
 
-
 class JavaException extends Exception implements JavaType, JavaExceptionInterface
 {
     public $__serialID;

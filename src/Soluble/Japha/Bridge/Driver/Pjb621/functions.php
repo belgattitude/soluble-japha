@@ -49,6 +49,8 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb621 {
 
+    use Soluble\Japha\Bridge\Driver\Pjb621\Adapter;
+
     function bootstrap()
     {
     }
@@ -353,6 +355,10 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
         } else {
             global $java_initialized;
             $client = new Client();
+            
+            $client->throwExceptionProxyFactory =
+                new Adapter\DefaultThrowExceptionProxyFactory($client);
+            
             $java_initialized = true;
         }
         return $client;

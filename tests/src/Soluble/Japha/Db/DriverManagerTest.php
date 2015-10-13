@@ -74,9 +74,9 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
     }
     
 
-    public function testCreateConnectionThrowsUnsupportedDriverException()
+    public function testCreateConnectionThrowsSqlException()
     {
-        $this->setExpectedException('Soluble\Japha\Bridge\Exception\UnsupportedDriverException');
+        $this->setExpectedException('Soluble\Japha\Bridge\Exception\SqlException');
         //$this->driverManager->createConnection()
         $config     = \SolubleTestFactories::getDatabaseConfig();
         $host       = $config['hostname'];

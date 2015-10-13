@@ -49,6 +49,15 @@ class PhpJavaBridgeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf("\Soluble\Japha\Interfaces\JavaObject", $properties->getClass());
     }
 
+    public function testJavaClassThrowsNoSuchMethodException()
+    {
+        $this->setExpectedException("Soluble\Japha\Bridge\Exception\NoSuchMethodException");
+        $system = PhpJavaBridge::getJavaClass('java.lang.System');
+        $properties = $system->getNonExistingMethod();
+        
+    }
+    
+    
     public function testDriverPjb621()
     {
         $pjb = PhpJavaBridge::getDriver();

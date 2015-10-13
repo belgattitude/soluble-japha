@@ -14,5 +14,4 @@ interface JavaClass extends JavaObject
      * @return JavaObject Java(java.lang.String)
      */
     public function getName();
-
 }
