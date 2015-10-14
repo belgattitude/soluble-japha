@@ -28,7 +28,7 @@ before_script:
   - mkdir -p tests/logs
   
 script: 
-  - phpunit -v --configuration tests/config/phpunit.$ADAPTER.travis.xml 
+  - phpunit -v --configuration tests/config/phpunit.travis.xml 
 
 after_script:
   - if [[ $EXTERNAL == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi

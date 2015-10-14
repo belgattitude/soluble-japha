@@ -13,15 +13,21 @@ PHP javabridge client
 
 ## Requirements
 
-requires PHP 5.3+ and the phpjavabridge servlet 
+This library supports PHP 5.3+, PHP 7 and HHVM.
 
 
 ## Features
 
-- Refactored php client Java.inc to adhere to latest
-- Support for PHP 7, HHVM
-- Simplified Exception handling
-- Autoloading
+- Use Java in PHP
+- Unit tested
+
+How it differs from original phpjavabridge client (Java.inc)
+- Refactored code to adhere to latests standards (PSR-2, PSR-4)
+- Namespaced code
+- Removed notices and warnings.
+- Does not require allow_url_open
+- Refactored exception model in order to produce 
+- HHVM, PHP 7 support
 
 
 ## Installation
@@ -36,6 +42,9 @@ Just add soluble/japha in your composer.json file as described below
 ```sh
 php composer.phar require soluble/japha:0.*
 ```
+
+Server side servlet. see PHPJavaBridge on Tomcat.
+
 
 ## Examples
 
