@@ -38,6 +38,19 @@ And modify VM execution parameters (-Xmx and -XX params)
 JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"
 ```
 
+### Update default OpenJDK VM to Oracle if needed
+
+```bash
+sudo vi /etc/default/tomcat7
+```
+
+And modify JAVA_HOME 
+
+```bash
+JAVA_HOME=/usr/lib/jvm/java-8-oracle
+```
+
+
 Restart tomcat to apply changes 'sudo service tomcat7 restart'.
 
 ### Testing installation
@@ -72,8 +85,9 @@ wget "http://downloads.sourceforge.net/project/php-java-bridge/Binary%20package/
 mkdir -p ./pjb_war/dist/WEB-INF/lib;
 unzip -o -j JavaBridgeTemplate621.war WEB-INF/lib/*.jar -d ./pjb_war/dist/WEB-INF/lib;
 
+
 # Add as many dependencies as you want in the WEB-INF/lib directory
-# For example mysql connector, jasper report...
+# For example mysql connector, jasper report, custom fonts...
 
 # Bundle a war file (the name phpjavabridge-bundle can be changed)
 cd ./pjb_war;

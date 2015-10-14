@@ -90,6 +90,7 @@ class PhpJavaBridgeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb621\InternalJava', $vm_name);
         
         // whether Java, OpenJDK..., 'J' is wide
+        //echo $vm_name->__toString(); die();
         $this->assertContains('J', $vm_name->__toString());
         $this->assertContains('J', (string) $vm_name);
 

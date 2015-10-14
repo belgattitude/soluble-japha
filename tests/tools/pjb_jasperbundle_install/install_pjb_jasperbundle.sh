@@ -53,6 +53,9 @@ if [ ! -f $OUTPUT_FILE ]; then
 fi
 tar -zxvf $OUTPUT_FILE --strip-components=2 --directory $DIST_DIR --wildcards "jasperreports-$JASPER_VERSION/lib/*.jar"
 tar -zxvf $OUTPUT_FILE --strip-components=2 --directory $DIST_DIR --wildcards "jasperreports-$JASPER_VERSION/dist/*.jar"
+# On Tomcat 7 servlet-api is already provided
+# No need to include it, just remove
+rm $DIST_DIR/servlet-api-*.jar
 
 # STEP 3 Install php java bridge
 echo "Download and install PHP Java Bridge"
@@ -68,7 +71,7 @@ unzip -o -j $OUTPUT_FILE WEB-INF/lib/*.jar -d $DIST_DIR;
 echo "Creating war file"
 cd $DIST_DIR/../../
 echo $PWD
-jar -cvf $SERVLET_NAME.war 
+jar -cvf $SERVLET_NAME.war .
 cd -
 
 

@@ -17,7 +17,6 @@ PHP javabridge client
 
 This library supports PHP 5.3+, PHP 7 and HHVM.
 
-
 ## Features
 
 - Use Java in PHP
