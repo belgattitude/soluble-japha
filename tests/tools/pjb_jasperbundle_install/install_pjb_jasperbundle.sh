@@ -17,6 +17,7 @@ MYSQL_JDBC_VERSION=5.1.36
 INSTALL_DIR=$BASEDIR/downloads
 DIST_DIR=$BASEDIR/dist/WEB-INF/lib
 WAR_CONFIG_DIR=$BASEDIR/config/JavaBridge
+SERVLET_NAME=javabridge-bundle
 
 # Ensure DIST_DIR exists
 echo "Ensure directory $DIST_DIR exists"
@@ -67,7 +68,7 @@ unzip -o -j $OUTPUT_FILE WEB-INF/lib/*.jar -d $DIST_DIR;
 echo "Creating war file"
 cd $DIST_DIR/../../
 echo $PWD
-jar -cvf javabridge-bundle.war 
+jar -cvf $SERVLET_NAME.war 
 cd -
 
 

@@ -72,7 +72,7 @@ class SolubleTestFactories {
                 //$command = "java  -jar $jar_file SERVLET:$port > $test_dir/logs/pjb-error.log 2>&1 &";
                 $command = "java -cp $jar_dir/mysql-connector-java-5.1.35-bin.jar:$jar_file php.java.bridge.Standalone SERVLET:$port > $test_dir/logs/pjb-error.log 2>&1 &";
                 echo "\nRunning pjb server: $command\n";
-                echo "See logs in : $test_dir/logs/pbj-error.log\n\n";
+                echo "See logs in : $test_dir/logs/pjb-error.log\n\n";
 
                 passthru($command);
 
