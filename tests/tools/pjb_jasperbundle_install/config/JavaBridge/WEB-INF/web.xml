@@ -9,8 +9,12 @@
     <!--<context-param><param-name>php_exec</param-name><param-value>php-cgi</param-value></context-param>-->
     <!-- Prefer a system PHP executable, if available. Otherwise use the PHP from the .war file. Default is Off -->
     <context-param>
+        <!--
         <param-name>prefer_system_php_exec</param-name>
         <param-value>On</param-value>
+        -->        
+        <param-name>php_exec</param-name>
+        <param-value>/opt/nuvolia/php/bin/php-cgi</param-value>
     </context-param>
 
     <!-- Handle PHP urls which cannot be expressed using a standard servlet spec 2.2 url-pattern, 
