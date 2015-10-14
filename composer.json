@@ -24,8 +24,7 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
-        "symfony/var-dumper": "@stable",
-        "fabpot/php-cs-fixer": "1.*"
+        "symfony/var-dumper": "@stable"
     }
     
 }
