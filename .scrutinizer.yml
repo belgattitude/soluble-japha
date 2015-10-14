@@ -2,12 +2,12 @@ imports:
     - php
 filter:
     paths: [src/*]
-    excluded_paths: [tests/*, vendor/*, bin/*, docs/*, config/*]
+    excluded_paths: [tests/*, vendor/*, bin/*, docs/*]
 before_commands:
     - 'composer install --dev --prefer-source'    
 tools:
     external_code_coverage: 
-        timeout: 1200
+        timeout: 400
     php_cpd:
         excluded_dirs: [vendor, tests, bin, docs]    
     php_pdepend:
