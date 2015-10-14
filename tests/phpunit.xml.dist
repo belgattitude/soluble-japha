@@ -17,31 +17,37 @@
         <server name="PHPUNIT_CACHE_DIR" value="./tmp/cache" />		
         <server name="PJB_URL" value="127.0.0.1:8083" />
         
-        <!--
-        <server name="MYSQL_HOSTNAME" value="localhost" />
+        <!--        
+        <server name="PJB_URL" value="127.0.0.1:8080" />
+        <server name="PJB_SERVLET" value="true" />
+        <server name="PJB_SERVLET_ADDRESS" value="/javabridge-bundle/java/servlet.phpjavabridge" />
         -->
+        
+        
+        <server name="MYSQL_DRIVER" value="Mysqli" />
+		
+        
         <server name="MYSQL_HOSTNAME" value="127.0.0.1" />
         <server name="MYSQL_USERNAME" value="" />
         <server name="MYSQL_PASSWORD" value="" />
         <server name="MYSQL_DATABASE" value="phpunit_soluble_test_db" />        
         
     </php>
-
     <testsuites>
         <testsuite name="soluble/japha">
             <directory>./src/Soluble/Japha</directory>
         </testsuite>
     </testsuites>
+    
     <filter>
         <whitelist>
-            <directory>./src</directory>
-            <exclude>
-                <directory>./src/Soluble/Japha/Bridge/Pjb621</directory>
-            </exclude>		            
+            <directory>../src</directory>
         </whitelist>
     </filter>
+
     <logging>
         <log type="coverage-clover" target="./build/logs/clover.xml"/>
         <log type="junit" target="./build/logs/junit.xml" logIncompleteSkipped="false"/>
+        <log type="coverage-html" target="./build/html-coverage" charset="UTF-8" yui="true" highlight="false" lowUpperBound="35" highLowerBound="70"/>
     </logging>		
 </phpunit>

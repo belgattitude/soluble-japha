@@ -57,6 +57,7 @@ use Soluble\Japha\Bridge\Exception;
 
 $driverManager = Pjb::getJavaClass('java.sql.DriverManager');
 
+$driverClass = 'com.mysql.jdbc.Driver';
 $dsn = "jdbc:mysql://localhost/$db?user=login&password=pwd";
 
 try {
@@ -83,6 +84,6 @@ Please follow the following guides and code standards:
 * [PSR 0 Autoloading standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
 
 
-[![Total Downloads](https://poser.pugx.org/soluble-japha/downloads.png)](https://packagist.org/packages/soluble-japha)
+[![Total Downloads](https://poser.pugx.org/soluble/japha/downloads.png)](https://packagist.org/packages/soluble/japha)
 
 

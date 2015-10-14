@@ -84,22 +84,3 @@ jar -cvf phpjavabridge-bundle.war .
 
 Use the tomcat admin interface to upload the war file or simply drop the javabridge-bundel.war into /var/lib/tomcat7/webapps/.
 
-
-
-
-
-
-
-
-echo "Download and install PHP Java Bridge"
-PJB_URL="http://downloads.sourceforge.net/project/php-java-bridge/Binary%20package/php-java-bridge_6.2.1/JavaBridgeTemplate621.war?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fphp-java-bridge%2Ffiles%2FBinary%2520package%2Fphp-java-bridge_6.2.1%2F&ts=1415114437&use_mirror=softlayer-ams"
-OUTPUT_FILE=$INSTALL_DIR/JavaBridgeTemplate-6.2.1.war
-if [ ! -f $OUTPUT_FILE ]; then
-    mkdir -p $INSTALL_DIR
-    wget $PJB_URL -O $OUTPUT_FILE;
-fi
-unzip -o -j $OUTPUT_FILE WEB-INF/lib/*.jar -d $DIST_DIR;
-
-
-
-
