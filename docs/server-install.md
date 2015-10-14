@@ -121,7 +121,7 @@ Here's an example web.xml configuration, be aware of php-cgi location if you nee
         <param-value>On</param-value>
         -->        
 
-        <!-- Option 2: set location of the php-cgi binary
+        <!-- Option 2: set location of the php-cgi binary -->
         <param-name>php_exec</param-name>
         <param-value>/usr/local/bin/php-cgi</param-value>
     </context-param>
