@@ -123,7 +123,7 @@ Here's an example web.xml configuration, be aware of php-cgi location if you nee
 
         <!-- Option 2: set location of the php-cgi binary -->
         <param-name>php_exec</param-name>
-        <param-value>/usr/local/bin/php-cgi</param-value>
+        <param-value>/usr/bin/php-cgi</param-value>
     </context-param>
 
     <!-- Handle PHP urls which cannot be expressed using a standard servlet spec 2.2 url-pattern, 
