@@ -17,6 +17,7 @@ env:
         - SEND_COVERAGE=false
 
 before_script:
+  - sudo apt-get install --yes ant
   - composer self-update
   - composer install --no-interaction --prefer-dist
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot

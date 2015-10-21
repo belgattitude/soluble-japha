@@ -4,6 +4,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 use Soluble\Japha\Bridge\Driver\AbstractDriver;
 use Soluble\Japha\Interfaces;
+use Soluble\Japha\Bridge\Exception;
 
 class Pjb621Driver extends AbstractDriver
 {
@@ -11,9 +12,9 @@ class Pjb621Driver extends AbstractDriver
 
     /**
      *
-     * @var Client
+     * @var PjbProxyClient
      */
-    protected $client;
+    protected $pjbProxyClient;
     
     /**
      *
@@ -22,20 +23,20 @@ class Pjb621Driver extends AbstractDriver
     public function __construct($java_server_url)
     {
         define("JAVA_HOSTS", "$java_server_url");
-        define("JAVA_DISABLE_AUTOLOAD", true);
+        define("JAVA_DISABLE_AUTOLOAD", false);
         define('JAVA_PREFER_VALUES', false);
-        require_once dirname(__FILE__) . "/functions.php";
+        require_once dirname(__FILE__) . "/compatibility.php";
+        
+        $this->pjbProxyClient = PjbProxyClient::getInstance();
     }
 
+    /**
+     * Return underlying bridge client
+     * @return PjbProxyClient
+     */
     public function getClient()
     {
-        if (!$this->connected) {
-            $this->connect();
-        }
-        if ($this->client === null) {
-            $this->client = new Client();
-        }
-        return $this->client;
+        return $this->pjbProxyClient;
     }
 
     public function connect()
@@ -62,7 +63,7 @@ class Pjb621Driver extends AbstractDriver
 
          */
 
-        return java($class_name);
+        return $this->pjbProxyClient->getJavaClass($class_name);
     }
     
     
@@ -75,7 +76,7 @@ class Pjb621Driver extends AbstractDriver
      */
     public function instanciate($class_name, $args = array())
     {
-        return new Java($class_name, $args);
+        return $this->pjbProxyClient->getJavaClass($class_name, $args);
     }
     
     
@@ -88,20 +89,20 @@ class Pjb621Driver extends AbstractDriver
      */
     public function inspect(Interfaces\JavaObject $javaObject)
     {
-        return java_inspect($javaObject);
+        return $this->pjbProxyClient->inspect($javaObject);
     }
     
     
     /**
-     * Checks
+     * Checks whether object is an instance of a class or interface
      *
      * @param Interfaces\JavaObject $javaObject
-     * @param string $className
+     * @param string $className java class name
      * @return boolean
      */
     public function isInstanceOf(Interfaces\JavaObject $javaObject, $className)
     {
-        return java_instanceof($javaObject, $className);
+        return $this->pjbProxyClient->isInstanceOf($javaObject, $className);
     }
     
     /**
@@ -112,7 +113,7 @@ class Pjb621Driver extends AbstractDriver
      */
     public function values(Interfaces\JavaObject $javaObject)
     {
-        return java_values($javaObject);
+        return $this->pjbProxyClient->getValues($javaObject);
     }
     
     
@@ -120,6 +121,7 @@ class Pjb621Driver extends AbstractDriver
     /**
      * Return object java class name
      *
+     * @throw Exception\UnexpectedException
      * @param Interfaces\JavaObject $javaObject
      * @return string
      */
@@ -130,7 +132,7 @@ class Pjb621Driver extends AbstractDriver
         $matches = array();
         preg_match('/^\[class (.+)\:/', $inspect, $matches);
         if (!isset($matches[1]) || $matches[1] == '') {
-            throw new \Exception(__METHOD__ . " Cannot determine class name");
+            throw new Exception\UnexpectedException(__METHOD__ . " Cannot determine class name");
         }
         return $matches[1];
     }

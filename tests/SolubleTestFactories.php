@@ -6,9 +6,8 @@ use Soluble\Normalist\Synthetic\TableManager;
 use Soluble\Normalist\Driver;
 use Symfony\Component\Process\Process;
 
-class SolubleTestFactories {
-
-
+class SolubleTestFactories
+{
     /**
      *
      * @var boolean
@@ -25,15 +24,16 @@ class SolubleTestFactories {
      * Start (and eventually install) the standalone
      * java bridge server
      */
-    public static function startJavaBridgeServer() {
+    public static function startJavaBridgeServer()
+    {
         
         //define("JAVA_SERVLET", "/JavaBridge/java/servlet.phpjavabridge");
-        
+
         //define("JAVA_HOSTS", "localhost:8080");
         //define("JAVA_SERVLET", "/JavaBridge/java");        
-        
+
         //return;
-        
+
         if (!self::$javaBridgeServerStarted) {
             
             /*
@@ -43,10 +43,8 @@ class SolubleTestFactories {
             */
         
             if (isset($_SERVER['PJB_SERVLET']) && $_SERVER['PJB_SERVLET'] == 'true') {
-                
                 define("JAVA_SERVLET", $_SERVER['PJB_SERVLET_ADDRESS']);
                 self::$javaBridgeServerStarted = true;
-                
             } else {
                 
             
@@ -94,7 +92,8 @@ class SolubleTestFactories {
      *
      * @return string
      */
-    public static function getJavaBridgeServerAddress() {
+    public static function getJavaBridgeServerAddress()
+    {
         return $_SERVER['PJB_URL'];
     }
 
@@ -102,7 +101,8 @@ class SolubleTestFactories {
     /**
      * @return string
      */
-    public static function getCachePath() {
+    public static function getCachePath()
+    {
         $cache_dir = $_SERVER['PHPUNIT_CACHE_DIR'];
         if (!preg_match('/^\//', $cache_dir)) {
             $cache_dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $cache_dir;
@@ -127,6 +127,4 @@ class SolubleTestFactories {
         
         return $mysql_config;
     }
-    
-
 }

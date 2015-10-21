@@ -13,6 +13,3 @@ require_once(dirname(__FILE__) . '/SolubleTestFactories.php');
 $loader = require __DIR__ . '/../vendor/autoload.php';
 $loader->add('Soluble', array($baseDir . '/src/', $baseDir . '/tests/'));
 $loader->register();
-
-
-

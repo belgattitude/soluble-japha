@@ -24,10 +24,10 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
     
     
     /**
-     * Whether object is an instance of specific java class
+     * Whether object is an instance of specific java class or interface
      *
      * @param Interfaces\JavaObject $javaObject
-     * @param string $className
+     * @param string $className java class or interface name
      * @return boolean
      */
     abstract public function isInstanceOf(Interfaces\JavaObject $javaObject, $className);

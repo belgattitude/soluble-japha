@@ -54,7 +54,6 @@ class PhpJavaBridgeTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException("Soluble\Japha\Bridge\Exception\NoSuchMethodException");
         $system = PhpJavaBridge::getJavaClass('java.lang.System');
         $properties = $system->getNonExistingMethod();
-        
     }
     
     
@@ -118,6 +117,7 @@ class PhpJavaBridgeTest extends \PHPUnit_Framework_TestCase
         $config = $ctx->getAttribute("php.java.servlet.ServletConfig", 100);
         $context = $ctx->getAttribute("php.java.servlet.ServletContext", 100);
         $servlet = $ctx->getAttribute("php.java.servlet.Servlet", 100);
+        
 
         $inspected = Driver\Pjb621\java_inspect($bridge);
         $this->assertInternalType('string', $inspected);

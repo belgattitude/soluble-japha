@@ -79,6 +79,7 @@ class PhpJavaBridge
         return self::getDriver()->getJavaClass($class);
     }
     
+
     /**
      *
      * @param string $class
