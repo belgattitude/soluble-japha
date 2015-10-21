@@ -120,19 +120,6 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
     }
 
 
-    function java_instanceof_internal($ob, $clazz) {
-        
-        if (!$ob instanceof JavaType)
-            throw new java_IllegalArgumentException($ob);
-        if (!$clazz instanceof JavaType)
-            throw new java_IllegalArgumentException($clazz);
-        $client = __javaproxy_Client_getClient();
-        return $client->invokeMethod(0, "instanceOf", array($ob, $clazz));
-    }
-
-    function java_instanceof($ob, $clazz) {
-        return java_instanceof_internal($ob, $clazz);
-    }    
     
     /**
      *
@@ -140,7 +127,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
      * @param JavaType $clazz
      * @return boolean
      */
-    function ajava_instanceof_internal(JavaType $ob, JavaType $clazz)
+    function java_instanceof_internal(JavaType $ob, JavaType $clazz)
     {
         return PjbProxyClient::getInstance()->isInstanceOf($ob, $clazz);
     }
@@ -152,7 +139,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621 {
      * @return boolean
      * @throws Exception\IllegalArgumentException
      */
-    function ajava_instanceof($ob, $clazz)
+    function java_instanceof($ob, $clazz)
     {
         return PjbProxyClient::getInstance()->isInstanceOf($ob, $clazz);
     }
