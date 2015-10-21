@@ -71,12 +71,14 @@ class Pjb621Driver extends AbstractDriver
      * Instanciate a java object
      *
      * @param string $class_name
-     * @param array $args
+     * @param mixed|null $args
      * @return Java
      */
-    public function instanciate($class_name, $args = array())
+    public function instanciate($class_name, $args = null)
     {
-        return $this->pjbProxyClient->getJavaClass($class_name, $args);
+        //return $this->pjbProxyClient->getJavaClass($class_name, $args);
+
+        return new Java($class_name, $args);
     }
     
     

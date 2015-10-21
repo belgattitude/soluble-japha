@@ -229,13 +229,21 @@ class PjbProxyClient
     /**
      * Test whether an object is an instance of java class or interface
      * 
+     * @throws Exception\IllegalArgumentException
      * @param JavaType $object
      * @param JavaType|string $class
      * @return boolean
-     * @throws Exception\IllegalArgumentException
      */
     public function isInstanceOf($object, $class)
     {
+        if (!$object instanceof JavaType) {
+            throw new Exception\IllegalArgumentException($object);
+        }
+        
+        if (!$class instanceof JavaType) {
+            throw new Exception\IllegalArgumentException($class);        
+        }
+        
         return $this->client->invokeMethod(0, "instanceOf", array($object, $class));
     }
 

@@ -55,6 +55,28 @@ class PhpJavaBridgeTest extends \PHPUnit_Framework_TestCase
         $system = PhpJavaBridge::getJavaClass('java.lang.System');
         $properties = $system->getNonExistingMethod();
     }
+
+    
+    public function testIsInstanceOf() {
+        
+        $d = PhpJavaBridge::getDriver();
+        $system = $d->getJavaClass('java.lang.System');
+        $string = $d->instanciate('java.lang.String', 'Hello');
+        
+        $this->assertFalse($d->isInstanceOf($system, $string));
+        $this->assertTrue($d->isInstanceOf($string, $string));
+    }
+    
+    public function testHashTable() {
+
+        $d = PhpJavaBridge::getDriver();
+
+        $hash = $d->instanciate("java.util.HashMap", array('ckey' => 'test'));
+        $hash->put('my_key', 1);
+        $this->assertEquals("1", (string) $hash->get('my_key'));
+        $this->assertEquals("1", $hash->get('my_key'));
+        $this->assertEquals("test", $hash->get('ckey'));
+    }
     
     
     public function testDriverPjb621()
@@ -96,19 +118,23 @@ class PhpJavaBridgeTest extends \PHPUnit_Framework_TestCase
 
         $i1 = new Driver\Pjb621\Java("java.math.BigInteger", 1);
         $i2 = new Driver\Pjb621\Java("java.math.BigInteger", 2);
+        
+        
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb621\Java', $i2);
+        
 
         $i3 = $i1->add($i2);
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb621\InternalJava', $i3);
         $this->assertTrue(Driver\Pjb621\java_instanceof($i1, $pjb->getJavaClass('java.math.BigInteger')));
+        
         $this->assertEquals('3', $i3->toString());
 
 
-        $params = $pjb->instanciate("java.util.HashMap");
+        $params = $pjb->getJavaClass("java.util.HashMap");
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb621\Java', $params);
         $this->assertEquals('java.util.HashMap', $params->get__signature());
 
-
+        
         $util = $pjb->getJavaClass("php.java.bridge.Util");
 
         $ctx = Driver\Pjb621\java_context();
@@ -123,4 +149,6 @@ class PhpJavaBridgeTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $inspected);
         $this->assertContains('php.java.bridge.JavaBridge.getCachedString', $inspected);
     }
+    
+
 }
