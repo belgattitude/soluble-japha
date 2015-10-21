@@ -24,7 +24,7 @@ class Pjb621Driver extends AbstractDriver
     {
         define("JAVA_HOSTS", "$java_server_url");
         define("JAVA_DISABLE_AUTOLOAD", false);
-        define('JAVA_PREFER_VALUES', false);
+        define('JAVA_PREFER_VALUES', true);
         require_once dirname(__FILE__) . "/compatibility.php";
         
         $this->pjbProxyClient = PjbProxyClient::getInstance();

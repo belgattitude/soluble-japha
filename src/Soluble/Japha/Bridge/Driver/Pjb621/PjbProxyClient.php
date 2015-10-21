@@ -253,7 +253,13 @@ class PjbProxyClient
      * Evaluate a object and fetch its content, if possible. Use java_values() to convert a Java object into an equivalent PHP value.
      *
      * A java array, Map or Collection object is returned
-     * as a php array. An array, Map or Collection proxy is returned as a java array, Map or Collection object, and a null proxy is returned as null. All values of java types for which a primitive php type exists are returned as php values. Everything else is returned unevaluated. Please make sure that the values do not not exceed
+     * as a php array. 
+     * An array, Map or Collection proxy is returned as a java array, Map or 
+     * Collection object, and a null proxy is returned as null. 
+     * All values of java types for which a primitive php type exists are 
+     * returned as php values. 
+     * Everything else is returned unevaluated. 
+     * Please make sure that the values do not not exceed
      * php's memory limit. Example:
      *
      *
@@ -274,13 +280,15 @@ class PjbProxyClient
      * </code>
      *
      * @param JavaType $object
+     * @return mixed
      */
     public function getValues($object)
     {
         if (!$object instanceof JavaType) {
             return $object;
         }
-        $this->client->invokeMethod(0, "getValues", array($object));
+
+        return $this->client->invokeMethod(0, "getValues", array($object));
     }
 
     /**
@@ -288,7 +296,7 @@ class PjbProxyClient
      */
     public function getLastException()
     {
-        $this->client->invokeMethod(0, "getLastException", array());
+        return $this->client->invokeMethod(0, "getLastException", array());
     }
 
     /**
