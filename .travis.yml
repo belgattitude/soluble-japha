@@ -1,15 +1,15 @@
 language: php
+
+php:
+  - 5.3
+  - 5.5
+  - 7.0
+  - hhvm
   
 matrix:
     include:
-        - php: 5.3
-          env: SEND_COVERAGE=false
         - php: 5.6
           env: SEND_COVERAGE=true
-        - php: 7.0
-          env: SEND_COVERAGE=false
-        - php: hhvm
-          env: SEND_COVERAGE=false
  
 env:
     global:
@@ -17,8 +17,8 @@ env:
 
 before_script:
   - sudo apt-get install --yes ant
-  - composer self-update
-  - composer install --no-interaction --prefer-dist
+  - travis_retry composer self-update
+  - travis_retry composer --prefer-source --dev install
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
   - mysql -e "create database phpunit_soluble_test_db;" -uroot
   - zcat tests/data/mysql/schema.sql.gz | mysql -uroot phpunit_soluble_test_db
@@ -33,5 +33,4 @@ script:
 after_script:
   - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
   - if [[ $SEND_COVERAGE == true ]]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi
-#  - if [[ $SEND_COVERAGE == true ]]; then vendor/bin/test-reporter; fi
   
