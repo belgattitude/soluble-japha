@@ -7,26 +7,26 @@
 [![Latest Stable Version](https://poser.pugx.org/soluble/japha/v/stable.svg)](https://packagist.org/packages/soluble/japha)
 [![License](https://poser.pugx.org/soluble/japha/license.png)](https://packagist.org/packages/soluble/japha)
 
-## Introduction
-
 ** This is an alpha project, documentation and working examples coming **
 
-An enhanced version of the PHPJavaBridge php implementation.
+## Introduction
+
+An enhanced compatible version of the PHPJavaBridge php implementation.
+
+## Features
+
+- Use Java from PHP
 
 ## Requirements
 
 - PHP engine 5.3+, 7.0 or HHVM >= 3.2.
 - Java servlet engine (Tomcat, Jetty,...) 
 
-## Features
-
-- Use Java from PHP
-
 ## Installation
 
 ### Installation in your PHP project
 
-soluble-japha can be installed via [composer](http://getcomposer.org/).
+soluble-japha works best via [composer](http://getcomposer.org/).
 
 ```sh
 php composer require soluble/japha:0.*
@@ -38,7 +38,7 @@ See Java server installation in the doc folder for more information.
 
 ## Examples
 
-1. Connection example
+### Connection example
 
 ```php
 <?php
@@ -51,7 +51,7 @@ $ba = new BridgeAdapter([
 ]);
 ```
 
-2. Basic Java usage
+### Basic Java usage
 
 ```php
 <?php
@@ -71,7 +71,7 @@ echo $hash->get('hello'); // prints "world"
 
 ```
 
-3. Using "final" classes
+### Using "final" classes
 
 ```php
 <?php
@@ -85,7 +85,7 @@ $system = $ba->javaClass('java.lang.System');
 $vm_name = $system->getProperties()->get('java.vm_name);
 ```
 
-4. Database connection example
+### Database connection example
 
 ```php
 <?php
@@ -111,10 +111,13 @@ try {
 
 ```
 
-5. Compatibility layer
+### Compatibility layer
 
 If you have legacy code using the original PHPJavaBridge implementation, 
-just enable compatibility layer.
+just enable compatibility layer through the 'load_pjb_compatibility'.
+
+Also note that you'll have to remove any older constants like 'JAVA_HOSTS', 'JAVA_SERVLET'...
+
 See also Soluble\Japha\Bridge\Driver\Pjb62\Compat\pjb_functions.php. 
 
 ```php
@@ -162,7 +165,7 @@ java_invoke();
 
 ## Credits
 
-All credits to the fantastic PHPJavaBridge project leaders and contributors who made it possible. 
+Thanks to the fantastic PHPJavaBridge project leaders and contributors who made it possible. 
 See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
 
 ## Coding standards
