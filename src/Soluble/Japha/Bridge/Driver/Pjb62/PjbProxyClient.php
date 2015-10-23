@@ -153,7 +153,7 @@ class PjbProxyClient
             $this->client = new Client();
             
             // Added in order to work with custom exceptions
-            $this->client->throwExceptionProxyFactory = new Adapter\DefaultThrowExceptionProxyFactory($this->client);
+            $this->client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory($this->client);
             
             $this->boostrap();            
         }
@@ -340,7 +340,6 @@ class PjbProxyClient
         if (!$class instanceof JavaType) {
             throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, class parameter must be a valid JavaType or class name as string");
         }
-        
         return $this->client->invokeMethod(0, "instanceOf", array($object, $class));
     }
 

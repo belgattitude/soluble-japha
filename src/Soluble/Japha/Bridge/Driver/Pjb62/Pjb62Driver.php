@@ -101,7 +101,7 @@ class Pjb62Driver extends AbstractDriver
      * Checks whether object is an instance of a class or interface
      *
      * @param Interfaces\JavaObject $javaObject
-     * @param string $className java class name
+     * @param string|Interfaces\JavaObject|Interfaces\JavaClass $className java class name or JavaObject
      * @return boolean
      */
     public function isInstanceOf(Interfaces\JavaObject $javaObject, $className)

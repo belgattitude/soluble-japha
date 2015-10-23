@@ -38,9 +38,19 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class SocketHandler
 {
-    public $protocol, $channel;
+    /**
+     *
+     * @var Protocol
+     */
+    public $protocol;
+    
+    /**
+     *
+     * @var EmptyChannel|SocketChannel
+     */
+    public $channel;
 
-    public function __construct($protocol, $channel)
+    public function __construct(Protocol $protocol, EmptyChannel $channel)
     {
         $this->protocol = $protocol;
         $this->channel = $channel;

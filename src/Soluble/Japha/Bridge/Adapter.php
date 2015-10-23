@@ -2,6 +2,8 @@
 
 namespace Soluble\Japha\Bridge;
 
+use Soluble\Japha\Interfaces;
+
 class Adapter {
 
     /**
@@ -77,7 +79,7 @@ class Adapter {
      * 
      * @see Adapter\javaClass($class)
      * 
-     * @return Soluble\Japha\Interfaces\JavaObject
+     * @return Interfaces\JavaObject
      */
     public function java($class, $args=null) {
         return $this->driver->instanciate($class, $args);
@@ -93,10 +95,21 @@ class Adapter {
      * @see Adapter\java($class, $args)
      * 
      * @param string $class
-     * @return Soluble\Japha\Interfaces\JavaClass
+     * @return Interfaces\JavaClass
      */
     public function javaClass($class) {
         return $this->driver->getJavaClass($class);
     }
 
+    
+    /**
+     * Checks whether object is an instance of a class or interface
+     *
+     * @param Interfaces\JavaObject $javaObject
+     * @param string|Interfaces\JavaObject $className java class name
+     * @return boolean
+     */
+    public function isInstanceOf(Interfaces\JavaObject $javaObject, $className) {
+        return $this->driver->isInstanceOf($javaObject, $className);
+    }
 }

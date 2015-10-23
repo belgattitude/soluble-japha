@@ -38,8 +38,14 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 abstract class SocketChannel extends EmptyChannel
 {
-    public $peer, $host;
+    public $peer;
+    public $host;
 
+    /**
+     * 
+     * @param resource $peer
+     * @param string $host
+     */
     public function __construct($peer, $host)
     {
         $this->peer = $peer;

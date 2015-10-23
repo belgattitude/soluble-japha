@@ -20,7 +20,7 @@ An enhanced compatible version of the PHPJavaBridge php implementation.
 ## Requirements
 
 - PHP engine 5.3+, 7.0 or HHVM >= 3.2.
-- Java servlet engine (Tomcat, Jetty,...) 
+- A Java application server (Tomcat, Jetty,...) with the JavaBridge servlet running
 
 ## Installation
 
@@ -56,6 +56,8 @@ $ba = new BridgeAdapter([
 ```php
 <?php
 
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
+
 $ba = new BridgeAdapter([
     'driver' => 'Pjb62',
     'servlet_address' => 'http://localhost:8083/path/servlet.phpjavabridge'
@@ -68,6 +70,9 @@ $hash->put('hello', "world");
 echo $hash->get('new_key'); // prints "保éà"
 echo $hash->get('new_key')->length(); // prints 3
 echo $hash->get('hello'); // prints "world"
+
+$bigint = new Java("java.math.BigInteger", 1);
+echo $bigint->intValue() + 10; // prints 11
 
 ```
 
@@ -84,6 +89,11 @@ $system = $ba->javaClass('java.lang.System');
 
 $vm_name = $system->getProperties()->get('java.vm_name);
 ```
+
+### Handling Java exceptions
+
+JavaExceptions implements
+
 
 ### Database connection example
 
