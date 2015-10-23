@@ -1,7 +1,7 @@
 # Soluble\Japha
 
 [![Build Status](https://travis-ci.org/belgattitude/soluble-japha.png?branch=master)](https://travis-ci.org/belgattitude/soluble-japha)
-[![HHVM Status](http://hhvm.h4cc.de/badge/soluble/japha.svg)](http://hhvm.h4cc.de/package/soluble/japha)
+[![HHVM Status](http://hhvm.h4cc.de/badge/soluble/japha.svg)](http://hhvm.h4cc.de/package/soluble/japha?style=flat)
 [![Code Coverage](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/coverage.png?s=aaa552f6313a3a50145f0e87b252c84677c22aa9)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/quality-score.png?s=6f3ab91f916bf642f248e82c29857f94cb50bb33)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/)
 [![Latest Stable Version](https://poser.pugx.org/soluble/japha/v/stable.svg)](https://packagist.org/packages/soluble/japha)
@@ -54,10 +54,12 @@ Server side servlet. see PHPJavaBridge on Tomcat.
 use Soluble\Japha\Bridge\PhpJavaBridge as Pjb;
 use Soluble\Japha\Bridge\Exception;
 
+
+
 $driverManager = Pjb::getJavaClass('java.sql.DriverManager');
 
 $driverClass = 'com.mysql.jdbc.Driver';
-$dsn = "jdbc:mysql://localhost/$db?user=login&password=pwd";
+$dsn = "jdbc:mysql://localhost/my_database?user=login&password=pwd";
 
 try {
 

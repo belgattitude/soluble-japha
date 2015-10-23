@@ -51,8 +51,7 @@ class PhpJavaBridge
 
         if (!self::$driver_loaded[$driver]) {
             $driver_class = self::$drivers[$driver];
-            self::$driver = new $driver_class($server_url);
-
+            self::$driver = new $driver_class(array('java_server_url' => $server_url));
             self::$driver_loaded[$driver] = true;
         }
     }

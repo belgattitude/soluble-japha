@@ -12,7 +12,9 @@ class DefaultThrowExceptionProxyFactory extends Pjb621\ThrowExceptionProxyFactor
      * @var array
      */
     protected $msgPatternsMapping = array(
-        'NoSuchMethodException' => '/^Invoke failed(.*)php.java.bridge.NoSuchProcedureException/',
+        'NoSuchMethodException' => '/(php.java.bridge.NoSuchProcedureException)|(Cause: java.lang.NoSuchMethodException)/',
+        'ClassNotFoundException' => '/Cause: java.lang.ClassNotFoundException/',
+        //'InvalidArgumentException' => '/^Invoke failed(.*)php.java.bridge.NoSuchProcedureException/',
         'SqlException' => '/^Invoke failed(.*)java.sql.SQLException/',
         
     );

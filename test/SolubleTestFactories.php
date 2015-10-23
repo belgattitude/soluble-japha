@@ -43,7 +43,6 @@ class SolubleTestFactories
             */
         
             if (isset($_SERVER['PJB_SERVLET']) && $_SERVER['PJB_SERVLET'] == 'true') {
-                define("JAVA_SERVLET", $_SERVER['PJB_SERVLET_ADDRESS']);
                 self::$javaBridgeServerStarted = true;
             } else {
                 
@@ -66,9 +65,7 @@ class SolubleTestFactories
 
                 $jar_dir = dirname($jar_file);
 
-                //java -cp /web/www/solublecomponents/tests/tools/pjb_standalone_install/pjb621/WEB-INF/lib/mysql-connector-java-5.1.34-bin.jar:/web/www/solublecomponents/tests/tools/pjb_standalone_install/pjb621/WEB-INF/lib/JavaBridge.jar php.java.bridge.Standalone SERVLET:8083
-                //$command = "java  -jar $jar_file SERVLET:$port > $test_dir/logs/pjb-error.log 2>&1 &";
-                $command = "java -cp $jar_dir/mysql-connector-java-5.1.35-bin.jar:$jar_file php.java.bridge.Standalone SERVLET:$port > $test_dir/logs/pjb-error.log 2>&1 &";
+                $command = "java -cp $jar_dir/mysql-connector-java-5.1.36-bin.jar:$jar_file php.java.bridge.Standalone SERVLET:$port > $test_dir/logs/pjb-error.log 2>&1 &";
                 echo "\nRunning pjb server: $command\n";
                 echo "See logs in : $test_dir/logs/pjb-error.log\n\n";
 
@@ -94,7 +91,7 @@ class SolubleTestFactories
      */
     public static function getJavaBridgeServerAddress()
     {
-        return $_SERVER['PJB_URL'];
+        return $_SERVER['PJB_URL'] . $_SERVER['PJB_SERVLET_ADDRESS'];
     }
 
 

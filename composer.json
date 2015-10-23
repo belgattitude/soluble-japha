@@ -24,7 +24,7 @@
         "php": ">=5.3.3"
     },
     "archive": {
-        "exclude": ["tests", "docs", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore"]
+        "exclude": ["test", "doc", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore"]
     }
 
     

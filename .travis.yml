@@ -21,14 +21,14 @@ before_script:
   - travis_retry composer --prefer-source --dev install
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
   - mysql -e "create database phpunit_soluble_test_db;" -uroot
-  - zcat tests/data/mysql/schema.sql.gz | mysql -uroot phpunit_soluble_test_db
-  - zcat tests/data/mysql/data.sql.gz | mysql -uroot phpunit_soluble_test_db
+  - zcat test/data/mysql/schema.sql.gz | mysql -uroot phpunit_soluble_test_db
+  - zcat test/data/mysql/data.sql.gz | mysql -uroot phpunit_soluble_test_db
   - mkdir build
   - mkdir -p build/logs
-  - mkdir -p tests/logs
+  - mkdir -p test/logs
   
 script: 
-  - phpunit -v --configuration tests/config/phpunit.travis.xml 
+  - phpunit -v --configuration test/config/phpunit.travis.xml 
 
 after_script:
   - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi

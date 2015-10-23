@@ -48,4 +48,18 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return
      */
     abstract public function getJavaClass($class_name);
+    
+    /**
+     * Instanciate a java object
+     *
+     * @throws Exception\ClassFoundException
+     * @param string $class_name
+     * @param mixed|null $args
+     * @return Java
+     */
+    abstract public function instanciate($class_name, $args = null);
+    
+    
+    
+    
 }

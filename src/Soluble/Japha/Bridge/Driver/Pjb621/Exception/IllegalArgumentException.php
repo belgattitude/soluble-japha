@@ -38,8 +38,4 @@ namespace Soluble\Japha\Bridge\Driver\Pjb621\Exception;
 
 class IllegalArgumentException extends RuntimeException
 {
-    public function __construct($ob)
-    {
-        parent::__construct("illegal argument: " . gettype($ob));
-    }
 }

@@ -16,14 +16,27 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb621;
 
 use Soluble\Japha\Bridge\Driver\Pjb621\Adapter;
+use Soluble\Japha\Bridge\Exception;
 
 class PjbProxyClient
 {
+
     /**
      *
      * @var PjbProxyClient
      */
-    protected static $instance;
+    protected static $instance;    
+    
+    /**
+     *
+     * @var array
+     */
+    protected $defaultOptions = array(
+        'java_disable_autoload' => false,
+        'java_prefer_values' => true,
+        'load_pjb_compatibility' => true
+    );
+
 
     /**
      *
@@ -47,19 +60,40 @@ class PjbProxyClient
      * 
      * @param array $options
      */
-    private function __construct($options = array())
+    private function __construct($options)
     {
-        $this->boostrap();
         $this->loadClient($options);
     }
-
+    
+    
     /**
+     * Return a unique instance of the phpjavabridge client
+     * $options is an associative array and requires :
      * 
+     *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
+     *
+     *  Optionnaly :
+     *  "java_disable_autoload' => false,
+     *  "java_prefer_values' => true,
+     *  "load_pjb_compatibility' => false 
+     * 
+     * <code>
+     *    $options = [
+     *      "servlet_host" => "http://127.0.0.1:8080"
+     *      "servlet_uri"  => "/javabridge-bundle/java/servlet.phpjavabridge"
+     *      //"java_disable_autoload' => false,
+     *      //"java_prefer_values' => true,
+     *      //"load_pjb_compatibility' => false 
+     *    ];
+     *    $pjb = PjbProxyClient::getInstance($options);
+     * </code>
+     *  
      * @param array $options
      * @return PjbProxyClient
      */
     public static function getInstance($options = array())
     {
+        
         if (self::$instance === null) {
             self::$instance = new PjbProxyClient($options);
         }
@@ -72,18 +106,56 @@ class PjbProxyClient
      */
     public static function isInitialized()
     {
-        return (self::$instance != null);
+        return (self::$instance !== null);
     }
+    
 
     /**
-     *
+     * Load pjb client with options
+     * 
+     * $options is an associative array and requires :
+     * 
+     *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
+     *      
+     *  Optionnaly :
+     *  "java_disable_autoload' => false,
+     *  "java_prefer_values' => true,
+     *  "load_pjb_compatibility' => false 
+     * 
+     * @throws Exception\InvalidArgumentException
+     * @param array $options
      */
-    protected function loadClient($options)
+    protected function loadClient(array $options)
     {
-        if (is_null($this->client)) {
+        
+        if ($this->client === null) {
+          
+            if (!isset($options['servlet_address'])) {
+                throw new Exception\InvalidArgumentException(__METHOD__ . " Missing required parameter servlet_address");
+            }
+
+            $connection = $this->parseServletUrl($options['servlet_address']);
+            
+            $opts = array_merge($options, $this->defaultOptions);
+            
+            define("JAVA_HOSTS", $connection["servlet_host"]);
+            define("JAVA_SERVLET", $connection["servlet_uri"]);
+            define("JAVA_DISABLE_AUTOLOAD", $opts['java_disable_autoload']);
+            define('JAVA_PREFER_VALUES', $opts['java_prefer_values']);
+            
+            
+            if ($opts['load_pjb_compatibility']) {
+                
+                $ds = DIRECTORY_SEPARATOR;
+                require_once dirname(__FILE__) . $ds . "Compat" . $ds . "pjb_functions.php";
+            }
+
             $this->client = new Client();
+            
             // Added in order to work with custom exceptions
             $this->client->throwExceptionProxyFactory = new Adapter\DefaultThrowExceptionProxyFactory($this->client);
+            
+            $this->boostrap();            
         }
     }
 
@@ -98,8 +170,10 @@ class PjbProxyClient
     public static function shutdown()
     {
         if (self::isInitialized()) {
+            
             $client = self::getInstance()->getClient();
 
+            // TODO CHECK WITH SESSIONS
             if (session_id()) {
                 session_write_close();
             }
@@ -109,13 +183,26 @@ class PjbProxyClient
             if ($client->preparedToSendBuffer) {
                 $client->sendBuffer .= $client->preparedToSendBuffer;
             }
+            
             $client->sendBuffer.= $client->protocol->getKeepAlive();
+            
+            
             $client->protocol->flush();
-            $client->protocol->keepAlive();
 
+            // TODO MUST TEST, IT WAS REMOVED FROM FUNCTION
+            // BECAUSE IT SIMPLY LOOKS LIKE THE LINES BEFORE
+            // ADDED AN IF TO CHECK THE CHANNEL In CASE OF
+            // 
+            
+            if (isset($client->protocol->handler->channel) &&
+                    !preg_match('/EmptyChannel/', get_class($client->protocol->handler->channel))) {
+                $client->protocol->keepAlive();
+            }
+            
 
             // Added but needs more tests
-            $client = null;
+            //$client = null;
+            
             self::$instance = null;
         }
     }
@@ -229,7 +316,7 @@ class PjbProxyClient
     /**
      * Test whether an object is an instance of java class or interface
      * 
-     * @throws Exception\IllegalArgumentException
+     * @throws Exception\InvalidArgumentException
      * @param JavaType $object
      * @param JavaType|string $class
      * @return boolean
@@ -237,11 +324,21 @@ class PjbProxyClient
     public function isInstanceOf($object, $class)
     {
         if (!$object instanceof JavaType) {
-            throw new Exception\IllegalArgumentException($object);
+            throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, object parameter must be a valid JavaType");
+        }
+        
+        if (is_string($class)) {
+            // Attempt to autoload classname
+            $name = $class;
+            try {
+                $class = $this->getJavaClass($name);
+            } catch (\Exception $e) {
+                throw new Exception\InvalidArgumentException(__METHOD__ . " Class '$name' not found and cannot be resolved for comparison.");
+            }
         }
         
         if (!$class instanceof JavaType) {
-            throw new Exception\IllegalArgumentException($class);        
+            throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, class parameter must be a valid JavaType or class name as string");
         }
         
         return $this->client->invokeMethod(0, "instanceOf", array($object, $class));
@@ -323,6 +420,38 @@ class PjbProxyClient
         }
         return $this->compatibilityOption;
     }
+    
+    
+    /**
+     * Utility class to parse servlet_address, 
+     * i.e 'http://localhost:8080/javabridge-bundle/java/servlet.phpjavabridge'
+     * 
+     * @throws Exception\InvalidArgumentException
+     * @param string $servlet_address
+     * @return array associative array with 'servlet_host' and 'servlet_uri' 
+     */
+    protected function parseServletUrl($servlet_address) {
+        
+        $url = parse_url($servlet_address);
+        if ($url === false || !isset($url['host'])) {
+            throw new Exception\InvalidArgumentException(__METHOD__ . " Cannot parse url '$servlet_address'");
+        }
+        
+        $scheme = '';
+        if (isset($url['scheme'])) {
+            $scheme = $url['scheme'] == 'https' ? 'ssl://' : $scheme;
+        } 
+        $host = $url['host'];
+        $port = $url["port"];
+        $path = $url["path"];
+        
+        $infos = array(
+            'servlet_host' => "${scheme}${host}:${port}",
+            'servlet_uri' => "$path",                    
+        );
+        return $infos;
+    }
+    
 
     /**
      * For compatibility usage all constants have been kept 
@@ -347,6 +476,7 @@ class PjbProxyClient
             define("JAVA_RECV_SIZE", 8192);
         }
 
+        /*
         if (!defined("JAVA_HOSTS")) {
             if (!java_defineHostFromInitialQuery(java_get_base())) {
                 if ($java_ini = get_cfg_var("java.hosts")) {
@@ -356,14 +486,17 @@ class PjbProxyClient
                 }
             }
         }
-
+        
+        
         if (!defined("JAVA_SERVLET")) {
             if (!(($java_ini = get_cfg_var("java.servlet")) === false)) {
                 define("JAVA_SERVLET", $java_ini);
             } else {
                 define("JAVA_SERVLET", 1);
             }
-        }
+        }*/
+        
+        
         if (!defined("JAVA_LOG_LEVEL")) {
             if (!(($java_ini = get_cfg_var("java.log_level")) === false)) {
                 define("JAVA_LOG_LEVEL", (int) $java_ini);

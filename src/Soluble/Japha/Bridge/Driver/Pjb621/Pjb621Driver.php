@@ -17,17 +17,18 @@ class Pjb621Driver extends AbstractDriver
     protected $pjbProxyClient;
     
     /**
+     * 
      *
-     * @var string $java_server_url i.e. 127.0.0.1
+     * @var array $options
      */
-    public function __construct($java_server_url)
+    public function __construct(array $options)
     {
-        define("JAVA_HOSTS", "$java_server_url");
-        define("JAVA_DISABLE_AUTOLOAD", false);
-        define('JAVA_PREFER_VALUES', true);
-        require_once dirname(__FILE__) . "/compatibility.php";
-        
-        $this->pjbProxyClient = PjbProxyClient::getInstance();
+        try {
+            $this->pjbProxyClient = PjbProxyClient::getInstance($options);
+        } catch (\Exception $e) {
+            
+            throw $e;
+        }
     }
 
     /**
@@ -70,6 +71,7 @@ class Pjb621Driver extends AbstractDriver
     /**
      * Instanciate a java object
      *
+     * @throws Exception\ClassFoundException
      * @param string $class_name
      * @param mixed|null $args
      * @return Java
@@ -138,4 +140,7 @@ class Pjb621Driver extends AbstractDriver
         }
         return $matches[1];
     }
+    
+    
+    
 }
