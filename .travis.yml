@@ -10,8 +10,7 @@ matrix:
           env: SEND_COVERAGE=false
         - php: hhvm
           env: SEND_COVERAGE=false
-    allow_failures:
-        - php: hhvm    
+ 
 env:
     global:
         - SEND_COVERAGE=false
