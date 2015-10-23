@@ -1,7 +1,7 @@
 # Soluble\Japha
 
 [![Build Status](https://travis-ci.org/belgattitude/soluble-japha.png?branch=master)](https://travis-ci.org/belgattitude/soluble-japha)
-[![HHVM Status](http://hhvm.h4cc.de/badge/soluble/japha.svg)](http://hhvm.h4cc.de/package/soluble/japha?style=flat)
+[![HHVM Status](http://hhvm.h4cc.de/badge/soluble/japha.png?style=flat)](http://hhvm.h4cc.de/package/soluble/japha)
 [![Code Coverage](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/coverage.png?s=aaa552f6313a3a50145f0e87b252c84677c22aa9)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/quality-score.png?s=6f3ab91f916bf642f248e82c29857f94cb50bb33)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/)
 [![Latest Stable Version](https://poser.pugx.org/soluble/japha/v/stable.svg)](https://packagist.org/packages/soluble/japha)
@@ -16,6 +16,8 @@ PHP javabridge client
 ## Requirements
 
 This library supports PHP 5.3+, PHP 7 and HHVM.
+
+Required a servlet server. 
 
 ## Features
 

@@ -15,14 +15,17 @@
     <php>
         <ini name="date.timezone" value="Europe/Brussels"/>
         <server name="PHPUNIT_CACHE_DIR" value="./tmp/cache" />		
+
         <server name="PJB_URL" value="127.0.0.1:8083" />
+        <server name="PJB_SERVLET" value="false" />
+        <server name="PJB_SERVLET_ADDRESS" value="/javabridge-bundle/java/servlet.phpjavabridge" />
         
-        <!--        
-        <server name="PJB_URL" value="127.0.0.1:8080" />
+        <!-- for tomcat mode -->
+        <!--
         <server name="PJB_SERVLET" value="true" />
+        <server name="PJB_URL" value="127.0.0.1:8080" />
         <server name="PJB_SERVLET_ADDRESS" value="/javabridge-bundle/java/servlet.phpjavabridge" />
         -->
-        
         
         <server name="MYSQL_DRIVER" value="Mysqli" />
 		

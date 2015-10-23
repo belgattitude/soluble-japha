@@ -443,7 +443,7 @@ class PjbProxyClient
         } 
         $host = $url['host'];
         $port = $url["port"];
-        $path = $url["path"];
+        $path = isset($url["path"]) ? $url['path'] : '';
         
         $infos = array(
             'servlet_host' => "${scheme}${host}:${port}",
