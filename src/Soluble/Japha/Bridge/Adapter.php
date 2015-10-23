@@ -13,9 +13,10 @@ class Adapter {
     
     
     /**
-     * 
+     * @var Driver\AbstractDriver
      */
     protected $driver;
+    
     
     /**
      * Constructor
@@ -76,17 +77,27 @@ class Adapter {
      * @throws Soluble\Japha\Bridge\Exception\ClassNotFoundException 
      * 
      * @see Adapter\javaClass($class)
-     * @return 
+     * 
+     * @return Soluble\Japha\Interfaces\JavaObject
      */
     public function java($class, $args=null) {
-        
         return $this->driver->instanciate($class, $args);
     }
     
+
     
-    public function javaClass() {
-        
-        
+    /**
+     * Load a java class
+     * 
+     * @param string $class Java class name (FQDN)
+     *
+     * @see Adapter\java($class, $args)
+     * 
+     * @param string $class
+     * @return Soluble\Japha\Interfaces\JavaClass
+     */
+    public function javaClass($class) {
+        return $this->driver->getJavaClass($class);
     }
 
 }

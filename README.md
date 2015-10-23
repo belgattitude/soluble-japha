@@ -61,16 +61,27 @@ $ba = new BridgeAdapter([
     'servlet_address' => 'http://localhost:8083/path/servlet.phpjavabridge'
 ]);
 
+$string = $ba->java('java.lang.String', "保éà");
+$hash   = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
+$hash->put('new_key', $string);
 
+echo $hash->get('new_key); // prints "保éà"
 
-$driverManager = Pjb::getJavaClass('java.sql.DriverManager');
+```
+
+Database connection example
+
+```php
+
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
+use Soluble\Japha\Bridge\Exception;
 
 $driverClass = 'com.mysql.jdbc.Driver';
 $dsn = "jdbc:mysql://localhost/my_database?user=login&password=pwd";
 
 try {
 
-    $class = Pjb::getJavaClass("java.lang.Class");
+    $class = $ba->javaClass("java.lang.Class");
     $class->forName($driverClass);
     
     $conn = $driverManager->getConnection($dsn);

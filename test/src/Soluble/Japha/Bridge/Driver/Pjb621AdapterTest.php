@@ -98,5 +98,47 @@ class Pjb621AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('保障球迷權益', $hash->get('key'));
     }            
     
+    public function testJavaClass()
+    {
+        $ba = $this->adapter;
+        $cls = $ba->javaClass('java.lang.Class');
+        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb621\JavaClass', $cls);
+        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $cls);
+    }
+    
+    public function testJavaSystemClass()
+    {
+        $ba = $this->adapter;
+        
+        $system = $ba->javaClass('java.lang.System');
+        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb621\JavaClass', $system);
+        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $system);
+
+        
+        $properties = $system->getProperties();
+        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $properties);
+        //$this->assertInternalType('string', $properties->__cast('string'));
+        //$this->assertInternalType('string', $properties->__toString());
+
+
+        $vm_name = $properties->get('java.vm.name');
+        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb621\InternalJava', $vm_name);
+        
+        
+        foreach ($properties as $key => $value) {
+            $this->assertInternalType('string', $key);
+            $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb621\InternalJava', $value);
+        }
+
+        $iterator = $properties->getIterator();
+        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb621\ObjectIterator', $iterator);
+        $this->assertInstanceOf('Iterator', $iterator);
+        
+        
+    }
+        
+        
+    
+    
 
 }

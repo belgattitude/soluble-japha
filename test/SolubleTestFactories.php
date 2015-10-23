@@ -58,7 +58,7 @@ class SolubleTestFactories
                 }
 
 
-                $url = self::getJavaBridgeServerAddress();
+                $url = $_SERVER['PJB_URL'];
                 $tmp = explode(':', $url);
                 $port = $tmp[1];
 
