@@ -43,15 +43,18 @@ class SolubleTestFactories
             */
         
             if (isset($_SERVER['PJB_SERVLET']) && $_SERVER['PJB_SERVLET'] == 'true') {
+                
                 self::$javaBridgeServerStarted = true;
+                
             } else {
                 
-            
+                self::$javaBridgeServerStarted = true;
+                
                 // First ensure php java bridge is installed
                 $test_dir = dirname(__FILE__);
                 passthru("/bin/bash $test_dir/tools/pjb_standalone_install/install_pjb621.sh");
 
-                $jar_file = "$test_dir/tools/pjb_standalone_install/Pjb62/WEB-INF/lib/JavaBridge.jar";
+                $jar_file = "$test_dir/tools/pjb_standalone_install/pjb621/WEB-INF/lib/JavaBridge.jar";
 
                 if (!file_exists($jar_file)) {
                     throw new \Exception(__METHOD__ . " Standalone javabridge install failed, see tests/tools/install_Pjb621.sh script ($jar_file)");
@@ -71,6 +74,7 @@ class SolubleTestFactories
 
                 passthru($command);
 
+                
                 // let time for server to start
 
                 if (preg_match('/travis/', dirname(__FILE__))) {
@@ -80,7 +84,7 @@ class SolubleTestFactories
                 }
             }
         }
-        self::$javaBridgeServerStarted = true;
+        
     }
     
     

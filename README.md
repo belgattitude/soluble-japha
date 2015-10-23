@@ -11,7 +11,7 @@
 
 ** This is an alpha project, documentation and working examples coming **
 
-An enhanced version of the PHPJavaBridge php implementation originally  
+An enhanced version of the PHPJavaBridge php implementation.
 
 ## Requirements
 
@@ -65,9 +65,9 @@ $string = $ba->java('java.lang.String', "保éà");
 $hash   = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
 $hash->put('new_key', $string);
 $hash->put('hello', "world");
-echo $hash->get('new_key); // prints "保éà"
+echo $hash->get('new_key'); // prints "保éà"
 echo $hash->get('new_key')->length(); // prints 3
-echo $hash->get('hello); // prints "world"
+echo $hash->get('hello'); // prints "world"
 
 ```
 
