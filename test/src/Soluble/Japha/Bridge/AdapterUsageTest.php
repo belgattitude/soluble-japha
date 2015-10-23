@@ -114,6 +114,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase {
         $system = $ba->javaClass('java.lang.System');
         $system = $ba->javaClass('java.lang.System');
         $string = $ba->java('java.lang.String', 'Hello');
+        $bigint = $ba->java('java.math.BigInteger', 1234567890123);
         $hash   = $ba->java('java.util.HashMap', array());
         
         $this->assertFalse($ba->isInstanceOf($system, $string));
@@ -121,6 +122,9 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($ba->isInstanceOf($string, 'java.lang.String'));
         $this->assertFalse($ba->isInstanceOf($string, 'java.util.HashMap'));
         $this->assertTrue($ba->isInstanceOf($hash, 'java.util.HashMap'));
+        $this->assertTrue($ba->isInstanceOf($bigint, 'java.math.BigInteger'));
+        $this->assertTrue($ba->isInstanceOf($bigint, 'java.lang.Object'));
+        $this->assertTrue($ba->isInstanceOf($hash, 'java.lang.Object'));
         
         $this->assertFalse($ba->isInstanceOf($system, 'java.lang.System'));
         
