@@ -11,7 +11,7 @@
 
 ** This is an alpha project, documentation and working examples coming **
 
-An enhanced version of the PHPJavaBridge php implementation.
+An enhanced version of the PHPJavaBridge php implementation originally  
 
 ## Requirements
 
@@ -111,6 +111,36 @@ try {
 
 ```
 
+5. Compatibility layer
+
+If you have legacy code using the original PHPJavaBridge implementation, 
+just enable compatibility layer.
+See also Soluble\Japha\Bridge\Driver\Pjb62\Compat\pjb_functions.php. 
+
+```php
+<?php
+
+// Boostrap the adapter globally
+
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
+
+$ba = new BridgeAdapter([
+    'driver' => 'Pjb62',
+    'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
+    'load_pjb_compatibility' => true
+]);
+
+// Once done, the legacy code should work
+
+$bigint = new Java("java.math.BigInteger", 1);
+$system = java_class('java.lang.System);
+
+java_instanceof($bigint, 'java.math.BigInteger'); // -> true
+java_inspect($bigint); 
+java_values($bigint);
+java_invoke();
+
+```
 
 ## Original PHPJavaBridge (Java.inc) differences
 
@@ -129,6 +159,11 @@ try {
   - Removed most notices and warnings.
   - No allow_url_open possible (security)
   - Removed deprecated code.
+
+## Credits
+
+All credits to the fantastic PHPJavaBridge project leaders and contributors who made it possible. 
+See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
 
 ## Coding standards
 

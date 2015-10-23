@@ -1,6 +1,6 @@
 <?php
 
-namespace Soluble\Japha\Bridge\Driver\Pjb62;
+use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
 
 //use Soluble\Japha\Bridge\Driver\Pjb62;
 
@@ -54,17 +54,19 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
 
         $i3 = $i1->add($i2);
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\InternalJava', $i3);
-        $this->assertTrue(java_instanceof($i1, $pjb->getJavaClass('java.math.BigInteger')));
+        $this->assertTrue(java_instanceof($i1, java_class('java.math.BigInteger')));
+        
+        $this->assertTrue(java_instanceof($i3, 'java.math.BigInteger'));
         
         $this->assertEquals('3', $i3->toString());
 
 
-        $params = $pjb->getJavaClass("java.util.HashMap");
+        $params = java_class("java.util.HashMap");
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Java', $params);
         //$this->assertEquals('java.util.HashMap', $params->get__signature());
 
         
-        $util = $pjb->getJavaClass("php.java.bridge.Util");
+        $util = java_class("php.java.bridge.Util");
 
         $ctx = java_context();
         /* get the current instance of the JavaBridge, ServletConfig and Context */

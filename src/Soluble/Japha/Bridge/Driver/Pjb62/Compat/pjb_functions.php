@@ -13,6 +13,9 @@
 
 use Soluble\Japha\Bridge\Driver\Pjb62;
 
+
+class Java extends Soluble\Japha\Bridge\Driver\Pjb62\Java {};
+
 /**
  * Kept for compatibilty purpose
  * 
