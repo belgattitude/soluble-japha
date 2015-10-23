@@ -12,6 +12,12 @@ class DriverManager {
      * @Java(java.sql.DriverManager)
      */
     protected $driverManager;
+    
+    /**
+     *
+     * @var Adapter 
+     */
+    protected $adapter;
 
     /**
      * 
