@@ -94,6 +94,8 @@ class Pjb621AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('oooo', $hash->get('new_key'));
         $hash->put('new_key', 'pppp');
         $this->assertEquals('pppp', $hash->get('new_key'));
+        $hash->put('key', $ba->java('java.lang.String', "保障球迷權益"));
+        $this->assertEquals('保障球迷權益', $hash->get('key'));
     }            
     
 

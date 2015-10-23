@@ -53,8 +53,13 @@ Server side servlet. see PHPJavaBridge on Tomcat.
 
 ```php
 
-use Soluble\Japha\Bridge\PhpJavaBridge as Pjb;
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 use Soluble\Japha\Bridge\Exception;
+
+$ba = new BridgeAdapter([
+    'driver' => 'Pjb621',
+    'servlet_address' => 'http://localhost:8083/path/servlet.phpjavabridge'
+]);
 
 
 

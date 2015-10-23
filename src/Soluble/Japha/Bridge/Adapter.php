@@ -83,6 +83,7 @@ class Adapter {
         return $this->driver->instanciate($class, $args);
     }
     
+    
     public function javaClass() {
         
         
