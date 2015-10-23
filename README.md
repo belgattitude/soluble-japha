@@ -9,72 +9,78 @@
 
 ## Introduction
 
-* This is an alpha project, documentation and working examples coming 
+** This is an alpha project, documentation and working examples coming **
 
-PHP javabridge client 
+An enhanced version of the PHPJavaBridge php implementation.
 
 ## Requirements
 
-This library supports PHP 5.3+, PHP 7 and HHVM.
-
-Required a servlet server. 
+- PHP engine 5.3+, 7.0 or HHVM >= 3.2.
+- Java servlet engine (Tomcat, Jetty,...) 
 
 ## Features
 
-- Use Java in PHP
-- Unit tested
-
-How it differs from original phpjavabridge client (Java.inc)
-- Refactored code to adhere to latests standards (PSR-2, PSR-4)
-- Namespaced code
-- Removed notices and warnings.
-- Does not require allow_url_open
-- Refactored exception model in order to produce 
-- HHVM, PHP 7 support
-
+- Use Java from PHP
 
 ## Installation
 
-Soluble/Japha can be installed via composer. For composer documentation, please refer to
-[getcomposer.org](http://getcomposer.org/).
+### Installation in your PHP project
 
-
-The recommended way to install Soluble\Japha is through `Composer <https://getcomposer.org/>`_.
-Just add soluble/japha in your composer.json file as described below
+soluble-japha can be installed via [composer](http://getcomposer.org/).
 
 ```sh
-php composer.phar require soluble/japha:0.*
+php composer require soluble/japha:0.*
 ```
 
-Server side servlet. see PHPJavaBridge on Tomcat.
+### Java servlet engine
 
+See Java server installation in the doc folder for more information. 
 
 ## Examples
 
+1. Connection example
+
 ```php
+<?php
 
 use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 use Soluble\Japha\Bridge\Exception;
 
+try {
+    $ba = new BridgeAdapter([
+        'driver' => 'Pjb62',
+        'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
+    ]);
+} catch (Exception\ExceptionInterface $e) {
+    // Could possibly be 
+    //  - Exception\UnsupportedDriverException
+    //  - Exception\InvalidArgumentException
+}
+
+2. Basic Java usage
+
+```php
+<?php
+
 $ba = new BridgeAdapter([
-    'driver' => 'Pjb621',
+    'driver' => 'Pjb62',
     'servlet_address' => 'http://localhost:8083/path/servlet.phpjavabridge'
 ]);
 
 $string = $ba->java('java.lang.String', "保éà");
 $hash   = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
 $hash->put('new_key', $string);
-
+$hash->put('hello', "world");
 echo $hash->get('new_key); // prints "保éà"
+echo $hash->get('new_key')->length(); // prints 3
+echo $hash->get('hello); // prints "world"
 
 ```
 
 Database connection example
 
 ```php
-
-use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
-use Soluble\Japha\Bridge\Exception;
+<?php
 
 $driverClass = 'com.mysql.jdbc.Driver';
 $dsn = "jdbc:mysql://localhost/my_database?user=login&password=pwd";
@@ -93,9 +99,26 @@ try {
 
 ```
 
-## Coding standards
 
-Please follow the following guides and code standards:
+## Original PHPJavaBridge (Java.inc) differences
+
+- New API
+  - A fresh new API to allow future drivers and enhancements.
+  - A more intuitive and verbose exception handling.
+  - For legacy code a compatibility layer can be loaded.
+
+- Performance
+  - Reduced memory usage and faster execution.
+  - Opcache friendly (no allow_url_open)
+
+- PHPJavaBridge refactorings (Java.inc)
+  - PHP 5.3+ namespaces, PSR-4 autoloading and PSR-2 coding style.
+  - Removed global variables, functions and unscoped statics.
+  - Removed most notices and warnings.
+  - No allow_url_open possible (security)
+  - Removed deprecated code.
+
+## Coding standards
 
 * [PSR 4 Autoloader](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
 * [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)

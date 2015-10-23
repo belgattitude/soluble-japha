@@ -55,7 +55,7 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Soluble\Japha\Bridge\Exception\InvalidArgumentException');
         
         $ba = new Adapter(array(
-           'driver' => 'Pjb621',
+           'driver' => 'Pjb62',
            'missing_servlet_address' => ''
         ));
         
@@ -66,7 +66,7 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Soluble\Japha\Bridge\Exception\InvalidArgumentException');
         $ba = new Adapter(array(
-           'driver' => 'Pjb621',
+           'driver' => 'Pjb62',
            'servlet_address' => 'an invalid url'
         ));
     }                
@@ -75,7 +75,7 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
     public function testGetDriver()
     {
         $ba = new Adapter(array(
-            'driver' => 'Pjb621',
+            'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
         ));
         

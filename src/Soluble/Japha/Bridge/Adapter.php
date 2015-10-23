@@ -8,7 +8,7 @@ class Adapter {
      * @var array
      */
     protected static $registeredDrivers = array(
-        'pjb621' => 'Soluble\Japha\Bridge\Driver\Pjb621\Pjb621Driver'
+        'pjb62' => 'Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver'
     );
     
     
@@ -24,7 +24,7 @@ class Adapter {
      * <code>
      * 
      * $ba = new Adapter([
-     *     'driver' => 'Pjb621',
+     *     'driver' => 'Pjb62',
      *     'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
      *      //"java_disable_autoload' => false,
      *      //"java_prefer_values' => true,
@@ -46,7 +46,6 @@ class Adapter {
     public function __construct(array $options) {
         
         $driver = strtolower($options['driver']);
-        
         if (!array_key_exists($driver, self::$registeredDrivers)) {
             throw new Exception\UnsupportedDriverException(__METHOD__ . "Driver '$driver' is not supported");
         }

@@ -7,21 +7,21 @@ use Soluble\Japha\Interfaces;
 
 class PhpJavaBridge
 {
-    const DRIVER_PJB621 = 'Pjb621';
+    const DRIVER_Pjb62 = 'Pjb62';
 
     /**
      * @var array
      */
     protected static $drivers = array(
-        self::DRIVER_PJB621 => 'Soluble\Japha\Bridge\Driver\Pjb621\Pjb621Driver'
+        self::DRIVER_Pjb62 => 'Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver'
     );
-    protected static $default_driver = self::DRIVER_PJB621;
+    protected static $default_driver = self::DRIVER_Pjb62;
 
     /**
      * @var array
      */
     protected static $driver_loaded = array(
-        self::DRIVER_PJB621 => false
+        self::DRIVER_Pjb62 => false
     );
 
     /**
