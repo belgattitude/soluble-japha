@@ -44,18 +44,12 @@ See Java server installation in the doc folder for more information.
 <?php
 
 use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
-use Soluble\Japha\Bridge\Exception;
 
-try {
-    $ba = new BridgeAdapter([
-        'driver' => 'Pjb62',
-        'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
-    ]);
-} catch (Exception\ExceptionInterface $e) {
-    // Could possibly be 
-    //  - Exception\UnsupportedDriverException
-    //  - Exception\InvalidArgumentException
-}
+$ba = new BridgeAdapter([
+    'driver' => 'Pjb62',
+    'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
+]);
+```
 
 2. Basic Java usage
 
@@ -77,17 +71,35 @@ echo $hash->get('hello); // prints "world"
 
 ```
 
-Database connection example
+3. Using "final" classes
 
 ```php
 <?php
+
+use Soluble\Japha\Bridge\Exception;
+
+// $ba = new BridgeAdapter(...); 
+
+$system = $ba->javaClass('java.lang.System');
+
+$vm_name = $system->getProperties()->get('java.vm_name);
+```
+
+4. Database connection example
+
+```php
+<?php
+
+use Soluble\Japha\Bridge\Exception;
+
+// $ba = new BridgeAdapter(...); 
 
 $driverClass = 'com.mysql.jdbc.Driver';
 $dsn = "jdbc:mysql://localhost/my_database?user=login&password=pwd";
 
 try {
 
-    $class = $ba->javaClass("java.lang.Class");
+    $class = $ba->javaClass('java.lang.Class');
     $class->forName($driverClass);
     
     $conn = $driverManager->getConnection($dsn);

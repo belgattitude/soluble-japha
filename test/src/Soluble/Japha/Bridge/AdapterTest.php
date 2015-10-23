@@ -81,7 +81,9 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         
         $driver = $ba->getDriver();
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\AbstractDriver', $driver);
-    }            
+    }    
+    
+    
     
     
 
