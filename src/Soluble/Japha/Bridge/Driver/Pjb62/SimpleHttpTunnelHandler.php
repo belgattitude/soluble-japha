@@ -155,6 +155,11 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     }
 
 
+    /**
+     * 
+     * @param integer $size
+     * @return string
+     */
     public function read($size)
     {
         if (is_null($this->headers)) {

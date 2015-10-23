@@ -15,8 +15,8 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-use Soluble\Japha\Bridge\Driver\Pjb62\Adapter;
 use Soluble\Japha\Bridge\Exception;
+use Soluble\Japha\Interfaces;
 
 class PjbProxyClient
 {
@@ -317,15 +317,17 @@ class PjbProxyClient
      * Test whether an object is an instance of java class or interface
      * 
      * @throws Exception\InvalidArgumentException
-     * @param JavaType $object
-     * @param JavaType|string $class
+     * @param JavaType|Interfaces\JavaObject $object
+     * @param JavaType|string|Interfaces\JavaClass|Interfaces\JavaObject|string $class
      * @return boolean
      */
-    public function isInstanceOf($object, $class)
+    public function isInstanceOf(JavaType $object, $class)
     {
+        /*
         if (!$object instanceof JavaType) {
             throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, object parameter must be a valid JavaType");
         }
+        */
         
         if (is_string($class)) {
             // Attempt to autoload classname
