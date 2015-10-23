@@ -49,7 +49,7 @@ class SolubleTestFactories
             
                 // First ensure php java bridge is installed
                 $test_dir = dirname(__FILE__);
-                passthru("/bin/bash $test_dir/tools/pjb_standalone_install/install_Pjb621.sh");
+                passthru("/bin/bash $test_dir/tools/pjb_standalone_install/install_pjb621.sh");
 
                 $jar_file = "$test_dir/tools/pjb_standalone_install/Pjb62/WEB-INF/lib/JavaBridge.jar";
 
