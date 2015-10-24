@@ -44,32 +44,6 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase {
         
     }
 
-    public function testGetDriverManager() {
-        $dm = $this->driverManager->getDriverManager();
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $dm);
-        $className = $this->adapter->getDriver()->getClassName($dm);
-        $this->assertEquals('java.sql.DriverManager', $className);
-        //$this->assertTrue($this->adapter->isInstanceOf($dm, 'java.sql.DriverManager'));
-    }
-
-    public function testCreateConnection() {
-        //$this->driverManager->createConnection()
-        $config = \SolubleTestFactories::getDatabaseConfig();
-        $host = $config['hostname'];
-        $db = $config['database'];
-        $user = $config['username'];
-        $password = $config["password"];
-
-        $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
-
-        $conn = $this->driverManager->createConnection($dsn);
-
-        $className = $this->adapter->getDriver()->getClassName($conn);
-        
-        
-        $this->assertEquals('com.mysql.jdbc.JDBC4Connection', $className);
-    }
-
     public function testCreateConnectionThrowsClassNotFoundException() {
         $this->setExpectedException('Soluble\Japha\Bridge\Exception\ClassNotFoundException');
         //$this->driverManager->createConnection()
@@ -100,4 +74,28 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase {
         $conn = $this->driverManager->createConnection($dsn, 'com.nuvolia.jdbc.JDBC4Connection');
     }
 
+    public function testGetDriverManager() {
+        $dm = $this->driverManager->getDriverManager();
+        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $dm);
+        $className = $this->adapter->getDriver()->getClassName($dm);
+        $this->assertEquals('java.sql.DriverManager', $className);
+        //$this->assertTrue($this->adapter->isInstanceOf($dm, 'java.sql.DriverManager'));
+    }
+
+    public function testCreateConnection() {
+        //$this->driverManager->createConnection()
+        $config = \SolubleTestFactories::getDatabaseConfig();
+        $host = $config['hostname'];
+        $db = $config['database'];
+        $user = $config['username'];
+        $password = $config["password"];
+
+        $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
+
+        $conn = $this->driverManager->createConnection($dsn);
+
+        $className = $this->adapter->getDriver()->getClassName($conn);
+        $this->assertEquals('com.mysql.jdbc.JDBC4Connection', $className);
+    }
+    
 }
