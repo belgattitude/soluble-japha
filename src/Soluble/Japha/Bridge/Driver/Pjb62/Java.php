@@ -45,10 +45,12 @@ class Java extends AbstractJava
     //public function __construct($java_fqdn, $java_args=null)
     public function __construct()
     {
-        $client = $this->__client = __javaproxy_Client_getClient();
+        $this->__client = PjbProxyClient::getInstance()->getClient();
+        $client = $this->__client;
         $args = func_get_args();
 
         $name = array_shift($args);
+
         if (is_array($name)) {
             $args = $name;
             $name = array_shift($args);

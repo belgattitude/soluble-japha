@@ -161,4 +161,52 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse(true, "This code cannot be reached");
         }
     }
+
+    public function testDate()
+    {
+
+        $ba = $this->adapter;
+
+        //$pattern = "EE, MMMM dd, yyyy 'at' h:mm:ss a zzzz";
+        $pattern = "yyyy-MM-dd";
+        $formatter = $ba->java("java.text.SimpleDateFormat", $pattern);
+
+        $first = $formatter->format($ba->java("java.util.Date", 0));
+        $this->assertEquals('1970-01-01', $first);
+
+        $now = $formatter->format($ba->java("java.util.Date"));
+        $this->assertEquals(date('Y-m-d'), $now);
+
+    }
+
+    public function testIterator()
+    {
+
+        $ba = $this->adapter;
+
+        $system = $ba->javaClass('java.lang.System');
+        $properties = $system->getProperties();
+
+        foreach ($properties as $key => $value) {
+            $this->assertInternalType('string', $key);
+            $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $value);
+
+            if ($key == 'java.version') {
+                $this->assertStringStartsWith('1', $value->__toString());
+            }
+        }
+
+        $iterator = $properties->getIterator();
+        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\ObjectIterator', $iterator);
+        $this->assertInstanceOf('Iterator', $iterator);
+
+        foreach ($iterator as $key => $value) {
+            $this->assertInternalType('string', $key);
+            $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $value);
+
+            if ($key == 'java.version') {
+                $this->assertStringStartsWith('1', $value->__toString());
+            }
+        }
+    }
 }

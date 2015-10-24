@@ -9,14 +9,16 @@
 
 ## Introduction
 
-An enhanced compatible version of the [PHP/Java Bridge](http://php-java-bridge.sourceforge.net/pjb/) php client.
+An enhanced compatible version of the [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) php client.
 
 ## Features
 
 - Use Java from PHP (and vice-versa).
-- Gives access to awesome Java libraries (i.e. Jasper Reports, Apache POI...).
-- Fast and reliable.
-- Implements the [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specifications.
+- Gives access to awesome Java libraries (i.e. Jasper Reports, Apache POI, iText...).
+- Flexible API and abstraction layer (and a legacy compatibility layer)
+- Fast, does not rely on system `exec`, no vm startup.
+- Based on reliable and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) implementation.
+- Conform to the Java [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specification.
 
 ## Requirements
 
@@ -89,7 +91,22 @@ use Soluble\Japha\Bridge\Exception;
 $system = $ba->javaClass('java.lang.System');
 
 $vm_name = $system->getProperties()->get('java.vm_name);
-    ```
+```
+
+### Iterations
+
+Java iterable objects can be looped with a simple `foreach`.
+
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$properties = $ba->javaClass('java.lang.System')->getProperties()
+foreach ($properties as $key => $value) {
+    echo "$key: $value\n";
+}
+```
 
 ### Handling Java exceptions
 

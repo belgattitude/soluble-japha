@@ -125,6 +125,15 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
         $vm_name = $properties->get('java.vm.name');
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\InternalJava', $vm_name);
 
+    }
+
+    public function testIterator()
+    {
+
+        $ba = $this->adapter;
+
+        $system = $ba->javaClass('java.lang.System');
+        $properties = $system->getProperties();
 
         foreach ($properties as $key => $value) {
             $this->assertInternalType('string', $key);
@@ -134,5 +143,19 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
         $iterator = $properties->getIterator();
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\ObjectIterator', $iterator);
         $this->assertInstanceOf('Iterator', $iterator);
+    }
+
+    public function testDate()
+    {
+        $ba = $this->adapter;
+
+        $pattern = "yyyy-MM-dd";
+        $formatter = $ba->java("java.text.SimpleDateFormat", $pattern);
+
+        $first = $formatter->format(new Pjb62\Java("java.util.Date", 0));
+        $this->assertEquals('1970-01-01', $first);
+
+        $now = $formatter->format($ba->java("java.util.Date"));
+        $this->assertEquals(date('Y-m-d'), $now);
     }
 }

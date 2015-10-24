@@ -78,7 +78,9 @@ class Pjb62Driver extends AbstractDriver
     public function instanciate($class_name, $args = null)
     {
         //return $this->pjbProxyClient->getJavaClass($class_name, $args);
-
+        if ($args === null) {
+            return new Java($class_name);
+        }
         return new Java($class_name, $args);
     }
 
