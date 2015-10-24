@@ -23,7 +23,7 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();        
+        $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
     }
 
     /**
@@ -37,7 +37,6 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
     
     public function testCompatFunctions()
     {
-        
         $pjb = PjbProxyClient::getInstance(array(
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
@@ -79,9 +78,5 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
         $inspected = java_inspect($bridge);
         $this->assertInternalType('string', $inspected);
         $this->assertContains('php.java.bridge.JavaBridge.getCachedString', $inspected);
-        
-    }            
-    
-    
-
+    }
 }

@@ -5,8 +5,8 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62\Proxy;
 use Soluble\Japha\Bridge\Driver\Pjb62;
 use Soluble\Japha\Bridge\Exception;
 
-class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory {
-
+class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
+{
     /**
      * @string
      */
@@ -28,7 +28,8 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
      * @param Exception\InternalException $result
      * @return Exception\JavaException
      */
-    public function checkResult($result) {
+    public function checkResult($result)
+    {
         $exception = $this->getExceptionFromResult($result);
         throw $exception;
     }
@@ -37,7 +38,8 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
      * 
      * @return \Exception
      */
-    protected function getExceptionFromResult($result) {
+    protected function getExceptionFromResult($result)
+    {
         $found = false;
         $exceptionClass = '';
 
@@ -58,7 +60,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
 
 
         //$message, $javaCause, $stackTrace, $code=null, Exception $driverException=null, Exception $previous = null
-        
+
         
         /**
          * @todo find the original driver cause
@@ -77,5 +79,4 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
         $e = new $cls($message, $cause, $stackTrace, $code, $driverException, null);
         return $e;
     }
-
 }

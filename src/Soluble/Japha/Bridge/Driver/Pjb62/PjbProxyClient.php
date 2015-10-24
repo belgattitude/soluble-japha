@@ -20,12 +20,11 @@ use Soluble\Japha\Interfaces;
 
 class PjbProxyClient
 {
-
     /**
      *
      * @var PjbProxyClient
      */
-    protected static $instance;    
+    protected static $instance;
     
     /**
      *
@@ -93,7 +92,6 @@ class PjbProxyClient
      */
     public static function getInstance($options = array())
     {
-        
         if (self::$instance === null) {
             self::$instance = new PjbProxyClient($options);
         }
@@ -127,9 +125,7 @@ class PjbProxyClient
      */
     protected function loadClient(array $options)
     {
-        
         if ($this->client === null) {
-          
             if (!isset($options['servlet_address'])) {
                 throw new Exception\InvalidArgumentException(__METHOD__ . " Missing required parameter servlet_address");
             }
@@ -145,7 +141,6 @@ class PjbProxyClient
             
             
             if ($opts['load_pjb_compatibility']) {
-                
                 $ds = DIRECTORY_SEPARATOR;
                 require_once dirname(__FILE__) . $ds . "Compat" . $ds . "pjb_functions.php";
             }
@@ -155,7 +150,7 @@ class PjbProxyClient
             // Added in order to work with custom exceptions
             $this->client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory($this->client);
             
-            $this->boostrap();            
+            $this->boostrap();
         }
     }
 
@@ -170,7 +165,6 @@ class PjbProxyClient
     public static function shutdown()
     {
         if (self::isInitialized()) {
-            
             $client = self::getInstance()->getClient();
 
             // TODO CHECK WITH SESSIONS
@@ -193,7 +187,7 @@ class PjbProxyClient
             // BECAUSE IT SIMPLY LOOKS LIKE THE LINES BEFORE
             // ADDED AN IF TO CHECK THE CHANNEL In CASE OF
             // 
-            
+
             if (isset($client->protocol->handler->channel) &&
                     !preg_match('/EmptyChannel/', get_class($client->protocol->handler->channel))) {
                 $client->protocol->keepAlive();
@@ -202,7 +196,7 @@ class PjbProxyClient
 
             // Added but needs more tests
             //$client = null;
-            
+
             self::$instance = null;
         }
     }
@@ -431,8 +425,8 @@ class PjbProxyClient
      * @param string $servlet_address
      * @return array associative array with 'servlet_host' and 'servlet_uri' 
      */
-    protected function parseServletUrl($servlet_address) {
-        
+    protected function parseServletUrl($servlet_address)
+    {
         $url = parse_url($servlet_address);
         if ($url === false || !isset($url['host'])) {
             throw new Exception\InvalidArgumentException(__METHOD__ . " Cannot parse url '$servlet_address'");
@@ -441,14 +435,14 @@ class PjbProxyClient
         $scheme = '';
         if (isset($url['scheme'])) {
             $scheme = $url['scheme'] == 'https' ? 'ssl://' : $scheme;
-        } 
+        }
         $host = $url['host'];
         $port = $url["port"];
         $path = isset($url["path"]) ? $url['path'] : '';
         
         $infos = array(
             'servlet_host' => "${scheme}${host}:${port}",
-            'servlet_uri' => "$path",                    
+            'servlet_uri' => "$path",
         );
         return $infos;
     }

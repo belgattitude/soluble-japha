@@ -58,8 +58,4 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return Java
      */
     abstract public function instanciate($class_name, $args = null);
-    
-    
-    
-    
 }

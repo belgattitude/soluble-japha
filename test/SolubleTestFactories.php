@@ -43,11 +43,8 @@ class SolubleTestFactories
             */
         
             if (isset($_SERVER['PJB_SERVLET']) && $_SERVER['PJB_SERVLET'] == 'true') {
-                
                 self::$javaBridgeServerStarted = true;
-                
             } else {
-                
                 self::$javaBridgeServerStarted = true;
                 
                 // First ensure php java bridge is installed
@@ -84,7 +81,6 @@ class SolubleTestFactories
                 }
             }
         }
-        
     }
     
     

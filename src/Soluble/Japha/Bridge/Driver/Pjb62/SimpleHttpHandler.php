@@ -38,8 +38,8 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-class SimpleHttpHandler extends SocketHandler {
-
+class SimpleHttpHandler extends SocketHandler
+{
     public $headers;
     public $cookies;
     public $context;
@@ -62,7 +62,8 @@ class SimpleHttpHandler extends SocketHandler {
      * @param string $host
      * @param integer $port
      */
-    public function __construct(Protocol $protocol, $ssl, $host, $port) {
+    public function __construct(Protocol $protocol, $ssl, $host, $port)
+    {
         $this->cookies = array();
         $this->protocol = $protocol;
         $this->ssl = $ssl;
@@ -71,7 +72,8 @@ class SimpleHttpHandler extends SocketHandler {
         $this->createChannel();
     }
 
-    public function createChannel() {
+    public function createChannel()
+    {
         $channelName = java_getHeader("X_JAVABRIDGE_REDIRECT", $_SERVER);
         $context = java_getHeader("X_JAVABRIDGE_CONTEXT", $_SERVER);
         $len = strlen($context);
@@ -96,7 +98,8 @@ class SimpleHttpHandler extends SocketHandler {
      *
      * @return string
      */
-    public function getCookies() {
+    public function getCookies()
+    {
         $str = "";
         $first = true;
         foreach ($_COOKIE as $k => $v) {
@@ -113,12 +116,14 @@ class SimpleHttpHandler extends SocketHandler {
      *
      * @return string
      */
-    public function getContextFromCgiEnvironment() {
+    public function getContextFromCgiEnvironment()
+    {
         $ctx = java_getHeader('X_JAVABRIDGE_CONTEXT', $_SERVER);
         return $ctx;
     }
 
-    public function getContext() {
+    public function getContext()
+    {
         static $context = null;
         if ($context) {
             return $context;
@@ -131,7 +136,8 @@ class SimpleHttpHandler extends SocketHandler {
         return $context;
     }
 
-    public function getWebAppInternal() {
+    public function getWebAppInternal()
+    {
         $context = $this->protocol->webContext;
         if (isset($context)) {
             return $context;
@@ -141,7 +147,8 @@ class SimpleHttpHandler extends SocketHandler {
                 array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . "javabridge" : null;
     }
 
-    public function getWebApp() {
+    public function getWebApp()
+    {
         $context = $this->getWebAppInternal();
         if (is_null($context)) {
             $context = JAVA_SERVLET;
@@ -152,11 +159,13 @@ class SimpleHttpHandler extends SocketHandler {
         return $context;
     }
 
-    public function write($data) {
+    public function write($data)
+    {
         return $this->protocol->getSocketHandler()->write($data);
     }
 
-    public function doSetCookie($key, $val, $path) {
+    public function doSetCookie($key, $val, $path)
+    {
         $path = trim($path);
         $webapp = $this->getWebAppInternal();
         if (!$webapp) {
@@ -170,7 +179,8 @@ class SimpleHttpHandler extends SocketHandler {
      * @param integer $size
      * @return string
      */
-    public function read($size) {
+    public function read($size)
+    {
         return $this->protocol->getSocketHandler()->read($size);
     }
 
@@ -180,7 +190,8 @@ class SimpleHttpHandler extends SocketHandler {
      * @return SocketChannelP
      * @throws Exception\IllegalStateException
      */
-    public function getChannel($channelName) {
+    public function getChannel($channelName)
+    {
         $errstr = null;
         $errno = null;
         $peer = pfsockopen($this->host, $channelName, $errno, $errstr, 20);
@@ -191,12 +202,12 @@ class SimpleHttpHandler extends SocketHandler {
         return new SocketChannelP($peer, $this->host);
     }
 
-    public function keepAlive() {
+    public function keepAlive()
+    {
         parent::keepAlive();
     }
 
-    public function redirect() {
-        
+    public function redirect()
+    {
     }
-
 }

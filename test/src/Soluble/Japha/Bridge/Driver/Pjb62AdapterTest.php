@@ -25,12 +25,11 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();        
+        $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
         $this->adapter = new Adapter(array(
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
         ));
-        
     }
 
     /**
@@ -46,7 +45,7 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
     {
         $driver = $this->adapter->getDriver();
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver', $driver);
-    }            
+    }
     
 
     
@@ -54,7 +53,6 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Soluble\Japha\Bridge\Exception\ClassNotFoundException');
         $string = $this->adapter->java('java.util.String', "Am I the only one ?");
-        
     }
     
     public function testJavaThrowsNoSuchMethodException()
@@ -79,9 +77,9 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
         $string = $ba->java('java.lang.String', "保障球迷權益");
         $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $string);
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Java', $string);
-        $this->assertEquals('保障球迷權益', $string);        
-        $this->assertNotEquals('保障球迷', $string);        
-    }            
+        $this->assertEquals('保障球迷權益', $string);
+        $this->assertNotEquals('保障球迷', $string);
+    }
 
     
     public function testJavaHashMap()
@@ -100,7 +98,7 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
         $hash->put('key', $ba->java('java.lang.String', "保障球迷權益"));
         $this->assertEquals('保障球迷權益', $hash->get('key'));
         $this->assertEquals(6, $hash->get('key')->length());
-    }            
+    }
     
     public function testJavaClass()
     {
@@ -136,12 +134,5 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
         $iterator = $properties->getIterator();
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\ObjectIterator', $iterator);
         $this->assertInstanceOf('Iterator', $iterator);
-        
-        
     }
-        
-        
-    
-    
-
 }

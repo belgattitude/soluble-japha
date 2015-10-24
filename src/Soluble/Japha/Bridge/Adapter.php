@@ -16,8 +16,8 @@ use Soluble\Japha\Interfaces;
  * 
  */
 
-class Adapter {
-
+class Adapter
+{
     /**
      * @var array
      */
@@ -57,8 +57,8 @@ class Adapter {
      * @param array options
      * 
      */
-    public function __construct(array $options) {
-        
+    public function __construct(array $options)
+    {
         $driver = strtolower($options['driver']);
         if (!array_key_exists($driver, self::$registeredDrivers)) {
             throw new Exception\UnsupportedDriverException(__METHOD__ . "Driver '$driver' is not supported");
@@ -73,10 +73,9 @@ class Adapter {
      * 
      * @return Driver\AbstractDriver
      */
-    public function getDriver() {
-        
+    public function getDriver()
+    {
         return $this->driver;
-        
     }
     
     
@@ -93,7 +92,8 @@ class Adapter {
      * 
      * @return Interfaces\JavaObject
      */
-    public function java($class, $args=null) {
+    public function java($class, $args=null)
+    {
         return $this->driver->instanciate($class, $args);
     }
     
@@ -109,7 +109,8 @@ class Adapter {
      * @param string $class
      * @return Interfaces\JavaClass
      */
-    public function javaClass($class) {
+    public function javaClass($class)
+    {
         return $this->driver->getJavaClass($class);
     }
 
@@ -121,7 +122,8 @@ class Adapter {
      * @param string|Interfaces\JavaObject $className java class name
      * @return boolean
      */
-    public function isInstanceOf(Interfaces\JavaObject $javaObject, $className) {
+    public function isInstanceOf(Interfaces\JavaObject $javaObject, $className)
+    {
         return $this->driver->isInstanceOf($javaObject, $className);
     }
 }

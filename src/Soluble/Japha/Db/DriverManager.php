@@ -5,8 +5,8 @@ namespace Soluble\Japha\Db;
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Exception;
 
-class DriverManager {
-
+class DriverManager
+{
     /**
      *
      * @Java(java.sql.DriverManager)
@@ -23,7 +23,8 @@ class DriverManager {
      * 
      * @param Adapter $adapter
      */
-    public function __construct(Adapter $adapter) {
+    public function __construct(Adapter $adapter)
+    {
         $this->adapter = $adapter;
     }
 
@@ -38,7 +39,8 @@ class DriverManager {
      * @param string $driverClass
      * @return Java(java.sql.Connection)
      */
-    public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver') {
+    public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
+    {
         if (!is_string($dsn) || trim($dsn) == '') {
             throw new Exception\InvalidArgumentException(__METHOD__ . " DSN param must be a valid (on-empty) string");
         }
@@ -67,7 +69,8 @@ class DriverManager {
      *
      * @return Java(java.sql.DriverManager)
      */
-    public function getDriverManager() {
+    public function getDriverManager()
+    {
         if ($this->driverManager === null) {
             $this->driverManager = $this->adapter->javaClass('java.sql.DriverManager');
         }
@@ -85,8 +88,8 @@ class DriverManager {
      *
      * @return string
      */
-    public static function getJdbcDsn($db, $host, $user, $password, $driverType = 'mysql') {
+    public static function getJdbcDsn($db, $host, $user, $password, $driverType = 'mysql')
+    {
         return "jdbc:$driverType://$host/$db?user=$user&password=$password";
     }
-
 }

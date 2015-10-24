@@ -34,8 +34,8 @@ class JavaException extends Exception implements JavaExceptionInterface
      * @param Exception $driverException
      * @param Exception $previous
      */
-    public function __construct($message, $javaCause, $stackTrace, $code=null, Exception $driverException=null, Exception $previous = null) {
-        
+    public function __construct($message, $javaCause, $stackTrace, $code=null, Exception $driverException=null, Exception $previous = null)
+    {
         parent::__construct($message, $code, $previous);
         $this->setCause($javaCause);
         $this->setStackTrace($stackTrace);
@@ -48,7 +48,8 @@ class JavaException extends Exception implements JavaExceptionInterface
      * Set original exception as throw by the driver
      * @param Exception $driverException
      */
-    protected function setDriverException(Exception $driverException) {
+    protected function setDriverException(Exception $driverException)
+    {
         $this->driverException = $driverException;
     }
     
@@ -57,8 +58,9 @@ class JavaException extends Exception implements JavaExceptionInterface
      * 
      * @return Exception
      */
-    public function getDriverException() {
-       return $this->driverException; 
+    public function getDriverException()
+    {
+        return $this->driverException;
     }
     
     /**

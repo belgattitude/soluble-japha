@@ -13,8 +13,9 @@
 
 use Soluble\Japha\Bridge\Driver\Pjb62;
 
-
-class Java extends Soluble\Japha\Bridge\Driver\Pjb62\Java {};
+class Java extends Soluble\Japha\Bridge\Driver\Pjb62\Java
+{
+};
 
 /**
  * Kept for compatibilty purpose
@@ -560,4 +561,3 @@ function java_closure()
   return $client;
   }
  */
-

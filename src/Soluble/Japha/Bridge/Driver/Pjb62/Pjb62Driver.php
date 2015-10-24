@@ -26,7 +26,6 @@ class Pjb62Driver extends AbstractDriver
         try {
             $this->pjbProxyClient = PjbProxyClient::getInstance($options);
         } catch (\Exception $e) {
-            
             throw $e;
         }
     }
@@ -140,7 +139,4 @@ class Pjb62Driver extends AbstractDriver
         }
         return $matches[1];
     }
-    
-    
-    
 }
