@@ -15,8 +15,8 @@ An enhanced compatible version of the [PHP/Java bridge](http://php-java-bridge.s
 
 - Use Java from PHP (and vice-versa).
 - Gives access to awesome Java libraries (i.e. Jasper Reports, Apache POI, iText...).
-- Flexible API and abstraction layer (and a legacy compatibility layer)
-- Fast, does not rely on system `exec`, no vm startup.
+- Flexible API and abstraction layer (and a legacy compatibility layer).
+- Fast, does not rely on system `exec`, no vm startup extra effort.
 - Based on reliable and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) implementation.
 - Conform to the Java [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specification.
 
@@ -59,21 +59,20 @@ $ba = new BridgeAdapter([
 ```php
 <?php
 
-use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
+// $ba = new BridgeAdapter(...); 
 
-$ba = new BridgeAdapter([
-    'driver' => 'Pjb62',
-    'servlet_address' => 'http://localhost:8083/path/servlet.phpjavabridge'
-]);
-
+// An utf8 string
 $string = $ba->java('java.lang.String', "保éà");
 $hash   = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
-$hash->put('new_key', $string);
-$hash->put('hello', "world");
 echo $hash->get('new_key'); // prints "保éà"
 echo $hash->get('new_key')->length(); // prints 3
-echo $hash->get('hello'); // prints "world"
 
+// Java dates
+$pattern = "yyyy-MM-dd";
+$fmt     = $ba->java("java.text.SimpleDateFormat", $pattern);
+$fmt->format($ba->java("java.util.Date")); // print today
+
+// Some maths
 $bigint = new Java("java.math.BigInteger", 1);
 echo $bigint->intValue() + 10; // prints 11
 
@@ -247,6 +246,20 @@ java_invoke();
   - Removed most notices and warnings.
   - No allow_url_open possible (security)
   - Removed deprecated code.
+
+## Future enhancements
+
+- Supporting more drivers
+  - [Zend Java bridge](http://files.zend.com/help/Zend-Platform/about.htm) driver compatibility.
+
+- Use latests PHP features
+  - Drop 5.3 support and use short array syntax, traits, ...
+
+- Original code improvements
+  - Achieve at least 80% of unit testing for legacy code.
+  - Refactor as much as possible and remove dead code.
+
+- Explore new possibilities (gRpc...)
 
 ## Credits
 
