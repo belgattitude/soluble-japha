@@ -11,11 +11,14 @@
 
 ## Introduction
 
-An enhanced compatible version of the PHPJavaBridge php implementation.
+An enhanced compatible version of the [PHP/Java Bridge](http://php-java-bridge.sourceforge.net/pjb/) php client.
 
 ## Features
 
-- Use Java from PHP
+- Use Java from PHP (and vice-versa).
+- Gives access to awesome Java libraries (i.e. Jasper Reports, Apache POI...).
+- Fast and reliable.
+- Implements the [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specifications.
 
 ## Requirements
 
@@ -92,8 +95,63 @@ $vm_name = $system->getProperties()->get('java.vm_name);
 
 ### Handling Java exceptions
 
-JavaExceptions implements
+Java exceptions works as regular PHP exceptions. 
 
+Internal Java exceptions extends the `Soluble\Japha\Bridge\Exception\JavaException` class and expose
+internal java stack trace as well as corresponding jvm messages through 
+the `JavaException::getStackTrace()`, `JavaException::getCause()` methods.
+
+Some common implementations are available in the `Soluble\Japha\Bridge\Exception` namespace.
+
+| Exception                         | Description                              |
+|-----------------------------------|------------------------------------------|
+|`Exception\JavaException`          | Generic java exception                   |
+|`Exception\ClassNotFoundException` | A Java class is not found on the jvm side|
+|`Exception\NoSuchMethodException`  | Call to an undefined method on the java object |
+
+
+```php
+<?php
+
+use Soluble\Japha\Bridge\Exception;
+
+// $ba = new BridgeAdapter(...); 
+
+// Invalid method
+try {
+    $string = $ba->java('java.lang.String', "Hello world");
+    $string->anInvalidMethod();
+} catch (Exception\NoSuchMethodException $e) {
+    echo $e->getMessage();
+    echo $e->getStackTrace();
+}
+
+
+// Class not found
+try {
+    $string = $ba->java('java.INVALID.String', "Hello world");
+} catch (Exception\ClassNotFoundException $e) {
+    echo $e->getMessage();
+    echo $e->getStackTrace();
+} 
+
+// `JavaExceptionInterface` vs php `\Exception` family
+
+$dynamic_var = 'PACKAGE';
+try {
+    $string = $ba->java("java.$dynamic_var.String", "Hello world");
+    throw new \Exception('No error in java String creation');
+} catch (Exception\ClassNotFoundException $e) {
+    echo "The package $dynamic_var should be 'lang'";
+    echo $e->getStackTrace();
+} catch (Exception\JavaException $e) {
+    echo "An unexpected java exception";
+    echo $e->getStackTrace();
+} catch (\Exception $e) {
+    echo "No Problem at all";
+}
+
+```
 
 ### Database connection example
 
@@ -124,7 +182,7 @@ try {
 ### Compatibility layer
 
 If you have legacy code using the original PHPJavaBridge implementation, 
-just enable compatibility layer through the 'load_pjb_compatibility'.
+just enable compatibility layer through the 'load_pjb_compatibility' option.
 
 Also note that you'll have to remove any older constants like 'JAVA_HOSTS', 'JAVA_SERVLET'...
 

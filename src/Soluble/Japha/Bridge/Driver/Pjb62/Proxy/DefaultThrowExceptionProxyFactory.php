@@ -5,8 +5,13 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62\Proxy;
 use Soluble\Japha\Bridge\Driver\Pjb62;
 use Soluble\Japha\Bridge\Exception;
 
-class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
-{
+class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory {
+
+    /**
+     * @string
+     */
+    protected $defaultException = "JavaException";
+    
     /**
      *
      * @var array
@@ -16,65 +21,61 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
         'ClassNotFoundException' => '/Cause: java.lang.ClassNotFoundException/',
         //'InvalidArgumentException' => '/^Invoke failed(.*)php.java.bridge.NoSuchProcedureException/',
         'SqlException' => '/^Invoke failed(.*)java.sql.SQLException/',
-        
     );
-    
-    
+
     /**
      * 
      * @param Exception\InternalException $result
      * @return Exception\JavaException
      */
-    public function checkResult($result)
-    {
+    public function checkResult($result) {
         $exception = $this->getExceptionFromResult($result);
         throw $exception;
-        
-        /*
-        dump(Pjb62\java_inspect($result));
-        die();
-        throw new DefaultJavaException ($result, $result->getCause()->message);
-        dump($result->getCause()->message);
-        die();
-        dump($result->getCause()->getMessage());
-        dump($result);
-        die();
-    throw new DefaultJavaException ($result, $result->getCause()->message);
-        */
     }
-  
-  /**
-   * 
-   * @return \Exception
-   */
-  protected function getExceptionFromResult($result)
-  {
-      $found = false;
-      $exceptionClass = '';
 
-      $message = $result->message->__toString();
-      
-      
-      foreach ($this->msgPatternsMapping as $exceptionClass => $pattern) {
-          if (preg_match($pattern, $message)) {
-              $found = true;
-              break;
-          }
-      }
-      
-      if (!$found) {
-          $exceptionClass = 'JavaException';
-      }
+    /**
+     * 
+     * @return \Exception
+     */
+    protected function getExceptionFromResult($result) {
+        $found = false;
+        $exceptionClass = '';
 
-      $cls = '\\Soluble\\Japha\\Bridge\\Exception\\' . $exceptionClass;
-      
-      //mask any login/passwords in message
+        $message = $result->message->__toString();
 
-      $message = preg_replace('/user=([^&\ ]+)|password=([^&\ ]+)/', '****', $message);
-      
-      $e = new $cls($message);
-      $e->setStackTrace($result->getCause()->__toString());
+        foreach ($this->msgPatternsMapping as $exceptionClass => $pattern) {
+            if (preg_match($pattern, $message)) {
+                $found = true;
+                break;
+            }
+        }
 
-      return $e;
-  }
+        if (!$found) {
+            $exceptionClass = $this->defaultException;
+        }
+
+        $cls = '\\Soluble\\Japha\\Bridge\\Exception\\' . $exceptionClass;
+
+
+        //$message, $javaCause, $stackTrace, $code=null, Exception $driverException=null, Exception $previous = null
+        
+        
+        /**
+         * @todo find the original driver cause
+         */
+        
+        $cause = $message;
+        // Public message, mask any login/passwords
+        $message = preg_replace('/user=([^&\ ]+)|password=([^&\ ]+)/', '****', $message);
+        $stackTrace = $result->getCause()->__toString();
+        $code = $result->getCode();
+        
+        $driverException = null;
+        if ($result instanceof Soluble\Japha\Bridge\Exception\JavaExceptionInterface) {
+            $driverException = $result;
+        }
+        $e = new $cls($message, $cause, $stackTrace, $code, $driverException, null);
+        return $e;
+    }
+
 }

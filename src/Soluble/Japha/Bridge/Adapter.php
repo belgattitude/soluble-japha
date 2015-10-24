@@ -4,6 +4,18 @@ namespace Soluble\Japha\Bridge;
 
 use Soluble\Japha\Interfaces;
 
+/**
+ * 
+  class Foo {
+        function toString() {return "php::foo";}
+  }
+  $foo = new Foo();
+  $jObj = java_closure($foo);
+  $String = java("java.lang.String");
+  echo $String->valueOf($jObj);|
+ * 
+ */
+
 class Adapter {
 
     /**
