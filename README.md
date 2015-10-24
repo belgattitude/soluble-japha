@@ -179,14 +179,14 @@ An enhanced compatible version of the [PHP/Java Bridge](http://php-java-bridge.s
 
 ### Compatibility layer
 
-    If you have legacy code using the original PHPJavaBridge implementation, 
-    just enable compatibility layer through the 'load_pjb_compatibility' option.
+If you have legacy code using the original PHPJavaBridge implementation, 
+just enable compatibility layer through the 'load_pjb_compatibility' option.
 
-    Also note that you'll have to remove any older constants like 'JAVA_HOSTS', 'JAVA_SERVLET'...
+Also note that you'll have to remove any older constants like 'JAVA_HOSTS', 'JAVA_SERVLET'...
 
-    See also Soluble\Japha\Bridge\Driver\Pjb62\Compat\pjb_functions.php. 
+See also Soluble\Japha\Bridge\Driver\Pjb62\Compat\pjb_functions.php. 
 
-    ```php
+```php
     <?php
 
     // Boostrap the adapter globally
@@ -209,7 +209,7 @@ An enhanced compatible version of the [PHP/Java Bridge](http://php-java-bridge.s
     java_values($bigint);
     java_invoke();
 
-    ```
+```
 
 ## Original PHPJavaBridge (Java.inc) differences
 
