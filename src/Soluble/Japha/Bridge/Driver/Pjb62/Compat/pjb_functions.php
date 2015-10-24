@@ -3,7 +3,7 @@
 /**
  * Soluble Japha / PhpJavaBridge
  *
- * Compatibibility function to work with previous 
+ * Compatibibility function to work with previous
  * version og PhpJavaBridge
  *
  * @author Vanvelthem Sébastien
@@ -19,7 +19,7 @@ class Java extends Soluble\Japha\Bridge\Driver\Pjb62\Java
 
 /**
  * Kept for compatibilty purpose
- * 
+ *
  * @deprecated
  * @return Client
  */
@@ -29,7 +29,7 @@ function __javaproxy_Client_getClient()
 }
 
 /**
- * 
+ *
  * @deprecated
  * @param mixed $x
  * @return bool
@@ -40,7 +40,7 @@ function java_autoload_function5($x)
 }
 
 /**
- * 
+ *
  * @deprecated
  * @param mixed $x
  * @return bool
@@ -52,8 +52,8 @@ function java_autoload_function($x)
 
 /**
  * Return a Java class
- * 
- * @deprecated 
+ *
+ * @deprecated
  * @param string $name Name of the java class
  * @return JavaClass
  */
@@ -86,7 +86,7 @@ function java_invoke($object, $method, $args)
 }
 
 /**
- * 
+ *
  * @deprectated
  * @param Client $client
  * @return string
@@ -146,7 +146,7 @@ function java_instanceof($ob, $clazz)
  * print java_values($ar[0]);
  * => h
  * </code>
- * 
+ *
  * @deprecated
  * @see java_closure()
  * @param Pjb62\JavaType $object
@@ -157,7 +157,7 @@ function java_values(Pjb62\JavaType $object)
 }
 
 /**
- * 
+ *
  * @deprecated
  * @param Pjb62\JavaType $object
  */
@@ -193,7 +193,7 @@ function java_inspect(Pjb62\JavaType $object)
 }
 
 /**
- * 
+ *
  * @deprecated
  */
 function java_last_exception_get()
@@ -210,7 +210,7 @@ function java_last_exception_clear()
 }
 
 /**
- * 
+ *
  * @return string
  */
 function java_get_base()
@@ -410,19 +410,30 @@ function java_cast_internal($object, $type)
 {
     if (!$object instanceof Pjb62\JavaType) {
         switch ($type[0]) {
-            case 'S': case 's':
+            case 'S':
+            case 's':
                 return (string) $object;
-            case 'B': case 'b':
+            case 'B':
+            case 'b':
                 return (boolean) $object;
-            case 'L': case 'I': case 'l': case 'i':
+            case 'L':
+            case 'I':
+            case 'l':
+            case 'i':
                 return (integer) $object;
-            case 'D': case 'd': case 'F': case 'f':
+            case 'D':
+            case 'd':
+            case 'F':
+            case 'f':
                 return (float) $object;
-            case 'N': case 'n':
+            case 'N':
+            case 'n':
                 return null;
-            case 'A': case 'a':
+            case 'A':
+            case 'a':
                 return (array) $object;
-            case 'O': case 'o':
+            case 'O':
+            case 'o':
                 return (object) $object;
         }
     }
@@ -509,10 +520,10 @@ function java_closure()
 
 /*
  * Can be removed
- * 
+ *
  */
 /*
- * 
+ *
   function java_require($arg)
   {
   trigger_error('java_require() not supported anymore. Please use <a href="http://php-java-bridge.sourceforge.net/pjb/webapp.php>tomcat or jee hot deployment</a> instead', E_USER_WARNING);

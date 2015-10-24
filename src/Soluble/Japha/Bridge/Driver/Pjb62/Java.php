@@ -60,19 +60,24 @@ class Java extends AbstractJava
         for ($i = 0; $i < $len; $i++) {
             $val = $args[$i];
             switch (gettype($val)) {
-                case 'boolean': array_push($args2, $val);
+                case 'boolean':
+                    array_push($args2, $val);
                     $sig.='@b';
                     break;
-                case 'integer': array_push($args2, $val);
+                case 'integer':
+                    array_push($args2, $val);
                     $sig.='@i';
                     break;
-                case 'double': array_push($args2, $val);
+                case 'double':
+                    array_push($args2, $val);
                     $sig.='@d';
                     break;
-                case 'string': array_push($args2, htmlspecialchars($val, ENT_COMPAT));
+                case 'string':
+                    array_push($args2, htmlspecialchars($val, ENT_COMPAT));
                     $sig.='@s';
                     break;
-                case 'array':$sig = "~INVALID";
+                case 'array':
+                    $sig = "~INVALID";
                     break;
                 case 'object':
                     if ($val instanceof JavaType) {
@@ -82,20 +87,23 @@ class Java extends AbstractJava
                         $sig = "~INVALID";
                     }
                     break;
-                case 'resource': array_push($args2, $val);
+                case 'resource':
+                    array_push($args2, $val);
                     $sig.='@r';
                     break;
-                case 'NULL': array_push($args2, $val);
+                case 'NULL':
+                    array_push($args2, $val);
                     $sig.='@N';
                     break;
-                case 'unknown type': array_push($args2, $val);
+                case 'unknown type':
+                    array_push($args2, $val);
                     $sig.='@u';
                     break;
                 default:
                     throw new Exception\IllegalArgumentException($val);
             }
         }
-        
+
         if (array_key_exists($sig, $client->methodCache)) {
             $cacheEntry = &$client->methodCache[$sig];
             $client->sendBuffer.= $client->preparedToSendBuffer;
@@ -115,7 +123,7 @@ class Java extends AbstractJava
             $client->currentCacheKey = $sig;
             $this->__delegate = $client->createObject($name, $args);
             $delegate = $this->__delegate;
-            
+
             $this->__java = $delegate->__java;
             $this->__signature = $delegate->__signature;
         }
@@ -149,19 +157,24 @@ class Java extends AbstractJava
         $args2 = array($this->__java);
         for ($i = 0; $i < $len; $i++) {
             switch (gettype($val = $args[$i])) {
-                case 'boolean': array_push($args2, $val);
+                case 'boolean':
+                    array_push($args2, $val);
                     $sig.='@b';
                     break;
-                case 'integer': array_push($args2, $val);
+                case 'integer':
+                    array_push($args2, $val);
                     $sig.='@i';
                     break;
-                case 'double': array_push($args2, $val);
+                case 'double':
+                    array_push($args2, $val);
                     $sig.='@d';
                     break;
-                case 'string': array_push($args2, htmlspecialchars($val, ENT_COMPAT));
+                case 'string':
+                    array_push($args2, htmlspecialchars($val, ENT_COMPAT));
                     $sig.='@s';
                     break;
-                case 'array':$sig = "~INVALID";
+                case 'array':
+                    $sig = "~INVALID";
                     break;
                 case 'object':
                     if ($val instanceof JavaType) {
@@ -171,13 +184,16 @@ class Java extends AbstractJava
                         $sig = "~INVALID";
                     }
                     break;
-                case 'resource': array_push($args2, $val);
+                case 'resource':
+                    array_push($args2, $val);
                     $sig.='@r';
                     break;
-                case 'NULL': array_push($args2, $val);
+                case 'NULL':
+                    array_push($args2, $val);
                     $sig.='@N';
                     break;
-                case 'unknown type': array_push($args2, $val);
+                case 'unknown type':
+                    array_push($args2, $val);
                     $sig.='@u';
                     break;
                 default:

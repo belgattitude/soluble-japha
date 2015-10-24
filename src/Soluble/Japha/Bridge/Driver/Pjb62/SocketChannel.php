@@ -42,7 +42,7 @@ abstract class SocketChannel extends EmptyChannel
     public $host;
 
     /**
-     * 
+     *
      * @param resource $peer
      * @param string $host
      */

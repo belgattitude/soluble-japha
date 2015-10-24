@@ -12,15 +12,15 @@ class DriverManager
      * @Java(java.sql.DriverManager)
      */
     protected $driverManager;
-    
+
     /**
      *
-     * @var Adapter 
+     * @var Adapter
      */
     protected $adapter;
 
     /**
-     * 
+     *
      * @param Adapter $adapter
      */
     public function __construct(Adapter $adapter)
@@ -31,10 +31,10 @@ class DriverManager
     /**
      * Create an sql connection to database
      *
-     * 
+     *
      * @throws Exception\JavaException
      * @throws Exception\InvalidArgumentException
-     * 
+     *
      * @param string $dsn
      * @param string $driverClass
      * @return Java(java.sql.Connection)

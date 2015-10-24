@@ -13,7 +13,7 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return mixed
      */
     abstract public function values(Interfaces\JavaObject $javaObject);
-    
+
     /**
      * Inspect object
      *
@@ -21,8 +21,8 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return string
      */
     abstract public function inspect(Interfaces\JavaObject $javaObject);
-    
-    
+
+
     /**
      * Whether object is an instance of specific java class or interface
      *
@@ -31,7 +31,7 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return boolean
      */
     abstract public function isInstanceOf(Interfaces\JavaObject $javaObject, $className);
-    
+
     /**
      * Return object java class name
      *
@@ -39,8 +39,8 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return string
      */
     abstract public function getClassName(Interfaces\JavaObject $javaObject);
-    
-    
+
+
     /**
      * Return a new java class
      *
@@ -48,7 +48,7 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return
      */
     abstract public function getJavaClass($class_name);
-    
+
     /**
      * Instanciate a java object
      *

@@ -8,17 +8,17 @@ class JavaException extends Exception implements JavaExceptionInterface
 {
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $cause;
-    
+
     /**
      *
      * @var string
      */
     protected $stackTrace;
 
-    
+
     /**
      * @var Exception
      */
@@ -26,7 +26,7 @@ class JavaException extends Exception implements JavaExceptionInterface
 
     /**
      * Constructor
-     * 
+     *
      * @param string $message
      * @param string $javaCause
      * @param string $stackTrace
@@ -34,7 +34,7 @@ class JavaException extends Exception implements JavaExceptionInterface
      * @param Exception $driverException
      * @param Exception $previous
      */
-    public function __construct($message, $javaCause, $stackTrace, $code=null, Exception $driverException=null, Exception $previous = null)
+    public function __construct($message, $javaCause, $stackTrace, $code = null, Exception $driverException = null, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->setCause($javaCause);
@@ -43,7 +43,7 @@ class JavaException extends Exception implements JavaExceptionInterface
             $this->setDriverException($driverException);
         }
     }
-    
+
     /**
      * Set original exception as throw by the driver
      * @param Exception $driverException
@@ -52,17 +52,17 @@ class JavaException extends Exception implements JavaExceptionInterface
     {
         $this->driverException = $driverException;
     }
-    
+
     /**
      * Return underlying driver exception
-     * 
+     *
      * @return Exception
      */
     public function getDriverException()
     {
         return $this->driverException;
     }
-    
+
     /**
      * Set Java cause
      * @param string $cause
@@ -71,7 +71,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     {
         $this->cause = $cause;
     }
-    
+
     /**
      * Return Java cause
      * @return string
@@ -80,16 +80,16 @@ class JavaException extends Exception implements JavaExceptionInterface
     {
         return $this->cause;
     }
-    
+
     /**
-     * 
+     *
      * @param string $stackTrace
      */
     protected function setStackTrace($stackTrace)
     {
         $this->stackTrace = $stackTrace;
     }
-    
+
     /**
      * Return Java stack trace
      * @return string

@@ -42,12 +42,12 @@ interface JavaType
      * @return int
      */
     public function get__java();
-    
+
     /**
      * @return string
      */
     public function get__signature();
-    
+
     /**
      *
      * @param mixed $key
@@ -66,8 +66,8 @@ interface JavaType
      * @param array $args
      */
     public function __call($method, $args);
-    
-    
+
+
     public function __cast($type);
 
     public function __sleep();

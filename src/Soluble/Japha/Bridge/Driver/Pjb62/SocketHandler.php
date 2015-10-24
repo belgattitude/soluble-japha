@@ -43,7 +43,7 @@ class SocketHandler
      * @var Protocol
      */
     public $protocol;
-    
+
     /**
      *
      * @var EmptyChannel|SocketChannel

@@ -25,7 +25,7 @@ class PjbProxyClient
      * @var PjbProxyClient
      */
     protected static $instance;
-    
+
     /**
      *
      * @var array
@@ -56,37 +56,37 @@ class PjbProxyClient
     protected $compatibilityOption;
 
     /**
-     * 
+     *
      * @param array $options
      */
     private function __construct($options)
     {
         $this->loadClient($options);
     }
-    
-    
+
+
     /**
      * Return a unique instance of the phpjavabridge client
      * $options is an associative array and requires :
-     * 
+     *
      *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
      *
      *  Optionnaly :
      *  "java_disable_autoload' => false,
      *  "java_prefer_values' => true,
-     *  "load_pjb_compatibility' => false 
-     * 
+     *  "load_pjb_compatibility' => false
+     *
      * <code>
      *    $options = [
      *      "servlet_host" => "http://127.0.0.1:8080"
      *      "servlet_uri"  => "/javabridge-bundle/java/servlet.phpjavabridge"
      *      //"java_disable_autoload' => false,
      *      //"java_prefer_values' => true,
-     *      //"load_pjb_compatibility' => false 
+     *      //"load_pjb_compatibility' => false
      *    ];
      *    $pjb = PjbProxyClient::getInstance($options);
      * </code>
-     *  
+     *
      * @param array $options
      * @return PjbProxyClient
      */
@@ -99,27 +99,27 @@ class PjbProxyClient
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public static function isInitialized()
     {
         return (self::$instance !== null);
     }
-    
+
 
     /**
      * Load pjb client with options
-     * 
+     *
      * $options is an associative array and requires :
-     * 
+     *
      *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
-     *      
+     *
      *  Optionnaly :
      *  "java_disable_autoload' => false,
      *  "java_prefer_values' => true,
-     *  "load_pjb_compatibility' => false 
-     * 
+     *  "load_pjb_compatibility' => false
+     *
      * @throws Exception\InvalidArgumentException
      * @param array $options
      */
@@ -131,25 +131,25 @@ class PjbProxyClient
             }
 
             $connection = $this->parseServletUrl($options['servlet_address']);
-            
+
             $opts = array_merge($options, $this->defaultOptions);
-            
+
             define("JAVA_HOSTS", $connection["servlet_host"]);
             define("JAVA_SERVLET", $connection["servlet_uri"]);
             define("JAVA_DISABLE_AUTOLOAD", $opts['java_disable_autoload']);
             define('JAVA_PREFER_VALUES', $opts['java_prefer_values']);
-            
-            
+
+
             if ($opts['load_pjb_compatibility']) {
                 $ds = DIRECTORY_SEPARATOR;
                 require_once dirname(__FILE__) . $ds . "Compat" . $ds . "pjb_functions.php";
             }
 
             $this->client = new Client();
-            
+
             // Added in order to work with custom exceptions
             $this->client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory($this->client);
-            
+
             $this->boostrap();
         }
     }
@@ -177,22 +177,22 @@ class PjbProxyClient
             if ($client->preparedToSendBuffer) {
                 $client->sendBuffer .= $client->preparedToSendBuffer;
             }
-            
+
             $client->sendBuffer.= $client->protocol->getKeepAlive();
-            
-            
+
+
             $client->protocol->flush();
 
             // TODO MUST TEST, IT WAS REMOVED FROM FUNCTION
             // BECAUSE IT SIMPLY LOOKS LIKE THE LINES BEFORE
             // ADDED AN IF TO CHECK THE CHANNEL In CASE OF
-            // 
+            //
 
             if (isset($client->protocol->handler->channel) &&
                     !preg_match('/EmptyChannel/', get_class($client->protocol->handler->channel))) {
                 $client->protocol->keepAlive();
             }
-            
+
 
             // Added but needs more tests
             //$client = null;
@@ -203,7 +203,7 @@ class PjbProxyClient
 
     /**
      * Return a Java class
-     * 
+     *
      * @param string $name Name of the java class
      * @return JavaClass
      */
@@ -239,7 +239,7 @@ class PjbProxyClient
     }
 
     /**
-     * 
+     *
      * @param mixed $x
      * @return boolean
      */
@@ -262,7 +262,7 @@ class PjbProxyClient
     }
 
     /**
-     * 
+     *
      * @param mixed $x
      * @return boolean
      */
@@ -309,7 +309,7 @@ class PjbProxyClient
 
     /**
      * Test whether an object is an instance of java class or interface
-     * 
+     *
      * @throws Exception\InvalidArgumentException
      * @param JavaType|Interfaces\JavaObject $object
      * @param JavaType|string|Interfaces\JavaClass|Interfaces\JavaObject|string $class
@@ -322,7 +322,7 @@ class PjbProxyClient
             throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, object parameter must be a valid JavaType");
         }
         */
-        
+
         if (is_string($class)) {
             // Attempt to autoload classname
             $name = $class;
@@ -332,7 +332,7 @@ class PjbProxyClient
                 throw new Exception\InvalidArgumentException(__METHOD__ . " Class '$name' not found and cannot be resolved for comparison.");
             }
         }
-        
+
         if (!$class instanceof JavaType) {
             throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, class parameter must be a valid JavaType or class name as string");
         }
@@ -345,12 +345,12 @@ class PjbProxyClient
      * Evaluate a object and fetch its content, if possible. Use java_values() to convert a Java object into an equivalent PHP value.
      *
      * A java array, Map or Collection object is returned
-     * as a php array. 
-     * An array, Map or Collection proxy is returned as a java array, Map or 
-     * Collection object, and a null proxy is returned as null. 
-     * All values of java types for which a primitive php type exists are 
-     * returned as php values. 
-     * Everything else is returned unevaluated. 
+     * as a php array.
+     * An array, Map or Collection proxy is returned as a java array, Map or
+     * Collection object, and a null proxy is returned as null.
+     * All values of java types for which a primitive php type exists are
+     * returned as php values.
+     * Everything else is returned unevaluated.
      * Please make sure that the values do not not exceed
      * php's memory limit. Example:
      *
@@ -399,7 +399,7 @@ class PjbProxyClient
     }
 
     /**
-     * 
+     *
      * @param Client $client
      * @return type
      */
@@ -415,15 +415,15 @@ class PjbProxyClient
         }
         return $this->compatibilityOption;
     }
-    
-    
+
+
     /**
-     * Utility class to parse servlet_address, 
+     * Utility class to parse servlet_address,
      * i.e 'http://localhost:8080/javabridge-bundle/java/servlet.phpjavabridge'
-     * 
+     *
      * @throws Exception\InvalidArgumentException
      * @param string $servlet_address
-     * @return array associative array with 'servlet_host' and 'servlet_uri' 
+     * @return array associative array with 'servlet_host' and 'servlet_uri'
      */
     protected function parseServletUrl($servlet_address)
     {
@@ -431,7 +431,7 @@ class PjbProxyClient
         if ($url === false || !isset($url['host'])) {
             throw new Exception\InvalidArgumentException(__METHOD__ . " Cannot parse url '$servlet_address'");
         }
-        
+
         $scheme = '';
         if (isset($url['scheme'])) {
             $scheme = $url['scheme'] == 'https' ? 'ssl://' : $scheme;
@@ -439,17 +439,17 @@ class PjbProxyClient
         $host = $url['host'];
         $port = $url["port"];
         $path = isset($url["path"]) ? $url['path'] : '';
-        
+
         $infos = array(
             'servlet_host' => "${scheme}${host}:${port}",
             'servlet_uri' => "$path",
         );
         return $infos;
     }
-    
+
 
     /**
-     * For compatibility usage all constants have been kept 
+     * For compatibility usage all constants have been kept
      */
     protected function boostrap($options = array())
     {
@@ -481,8 +481,8 @@ class PjbProxyClient
                 }
             }
         }
-        
-        
+
+
         if (!defined("JAVA_SERVLET")) {
             if (!(($java_ini = get_cfg_var("java.servlet")) === false)) {
                 define("JAVA_SERVLET", $java_ini);
@@ -490,8 +490,8 @@ class PjbProxyClient
                 define("JAVA_SERVLET", 1);
             }
         }*/
-        
-        
+
+
         if (!defined("JAVA_LOG_LEVEL")) {
             if (!(($java_ini = get_cfg_var("java.log_level")) === false)) {
                 define("JAVA_LOG_LEVEL", (int) $java_ini);

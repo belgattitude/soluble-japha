@@ -1,2 +1,2 @@
 #!/bin/sh
-php -d zend_extension=xdebug.so /usr/local/bin/phpunit
+php -d zend_extension=xdebug.so  ~/.composer/vendor/bin/phpunit

@@ -43,13 +43,13 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      * @var resource
      */
     public $socket;
-    
+
     /**
      *
      * @var boolean
      */
     protected $hasContentLength = false;
-    
+
     /**
      *
      * @var boolean
@@ -69,8 +69,8 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         parent::__construct($protocol, $ssl, $host, $port);
         $this->open();
     }
-    
-    
+
+
     public function createSimpleChannel()
     {
         $this->channel = new EmptyChannel($this);
@@ -111,7 +111,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     {
         $errno = null;
         $errstr = null;
-        
+
         $location = $this->ssl . $this->host;
         $socket = @fsockopen($location, $this->port, $errno, $errstr, 20);
         $this->checkSocket($socket, $errno, $errstr);
@@ -156,7 +156,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
 
 
     /**
-     * 
+     *
      * @param integer $size
      * @return string
      */

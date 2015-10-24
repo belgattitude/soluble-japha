@@ -38,7 +38,10 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class ApplyArg extends CompositeArg
 {
-    public $m, $p, $v, $n;
+    public $m;
+    public $p;
+    public $v;
+    public $n;
 
     /**
      *

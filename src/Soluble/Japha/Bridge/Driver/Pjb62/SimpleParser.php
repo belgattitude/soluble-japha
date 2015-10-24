@@ -51,7 +51,24 @@ class SimpleParser
     public $len;
     public $s;
     public $type;
-    
+
+    public $BEGIN = 0;
+    public $KEY = 1;
+    public $VAL = 2;
+    public $ENTITY = 3;
+    public $VOJD = 5;
+    public $END = 6;
+    public $level = 0;
+    public $eor = 0;
+    public $in_dquote;
+    public $eot = false;
+    public $pos = 0;
+    public $c = 0;
+    public $i = 0;
+    public $i0 = 0;
+    public $e;
+
+
     /**
      *
      * @param Client $client
@@ -65,10 +82,6 @@ class SimpleParser
         $this->type = $this->VOJD;
     }
 
-    public $BEGIN = 0, $KEY = 1, $VAL = 2, $ENTITY = 3, $VOJD = 5, $END = 6;
-    public $level = 0, $eor = 0;
-    public $in_dquote, $eot = false;
-    public $pos = 0, $c = 0, $i = 0, $i0 = 0, $e;
 
     public function RESET()
     {
@@ -208,19 +221,24 @@ class SimpleParser
                 case ';':
                     if ($this->type == $this->ENTITY) {
                         switch ($this->s[$this->e + 1]) {
-                            case 'l': $this->s[$this->e] = '<';
+                            case 'l':
+                                $this->s[$this->e] = '<';
                                 $this->i = $this->e + 1;
                                 break;
-                            case 'g': $this->s[$this->e] = '>';
+                            case 'g':
+                                $this->s[$this->e] = '>';
                                 $this->i = $this->e + 1;
                                 break;
-                            case 'a': $this->s[$this->e] = ($this->s[$this->e + 2] == 'm' ? '&' : '\'');
+                            case 'a':
+                                $this->s[$this->e] = ($this->s[$this->e + 2] == 'm' ? '&' : '\'');
                                 $this->i = $this->e + 1;
                                 break;
-                            case 'q': $this->s[$this->e] = '"';
+                            case 'q':
+                                $this->s[$this->e] = '"';
                                 $this->i = $this->e + 1;
                                 break;
-                            default: $this->APPEND($ch);
+                            default:
+                                $this->APPEND($ch);
                         }
                         $this->type = $this->VAL;
                     } else {

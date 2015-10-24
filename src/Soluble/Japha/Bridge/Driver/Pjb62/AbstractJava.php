@@ -51,7 +51,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      * @var Client
      */
     public $__client;
-    
+
     /**
      *
      * @var AbstractJava
@@ -59,7 +59,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     public $__delegate;
     public $__serialID;
     public $__factory;
-    
+
     /**
      *
      * @var int
@@ -68,7 +68,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     public $__signature;
     public $__cancelProxyCreationTag;
 
-    
+
     public function __createDelegate()
     {
         $proxy = $this->__delegate = $this->__factory->create($this->__java, $this->__signature);
@@ -196,7 +196,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         return $this->__call("offsetSet", $args);
     }
 
-    
+
     public function offsetUnset($idx)
     {
         if (!isset($this->__delegate)) {
@@ -208,7 +208,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         $args = func_get_args();
         return $this->__call("offsetUnset", $args);
     }
-    
+
     /**
      * @return integer
      */
@@ -216,7 +216,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     {
         return $this->__java;
     }
-    
+
     /**
      * @return string
      */
@@ -224,7 +224,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     {
         return $this->__signature;
     }
-    
+
     /**
      *
      * @return string

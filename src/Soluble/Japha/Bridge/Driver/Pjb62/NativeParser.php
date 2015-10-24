@@ -43,7 +43,7 @@ class NativeParser
      * @var resource
      */
     public $parser;
-    
+
     /**
      *
      * @var Client
@@ -72,7 +72,9 @@ class NativeParser
     {
         $this->event = true;
         switch ($name) {
-            case 'X': case 'A': $this->level+=1;
+            case 'X':
+            case 'A':
+                $this->level+=1;
         }
         $this->handler->begin($name, $param);
     }
@@ -81,7 +83,9 @@ class NativeParser
     {
         $this->handler->end($name);
         switch ($name) {
-            case 'X': case 'A': $this->level-=1;
+            case 'X':
+            case 'A':
+                $this->level-=1;
         }
     }
 

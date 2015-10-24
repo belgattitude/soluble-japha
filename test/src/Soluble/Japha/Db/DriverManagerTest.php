@@ -15,7 +15,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
      * @var Adapter
      */
     protected $adapter;
-    
+
     /**
      *
      * @var DriverManager

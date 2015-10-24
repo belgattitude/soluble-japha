@@ -33,7 +33,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * 
+ *
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
@@ -58,8 +58,8 @@ class JavaClass extends Java implements Interfaces\JavaClass
         $this->__java = $this->__delegate->__java;
         $this->__signature = $this->__delegate->__signature;
     }
-    
-    
+
+
     /**
      *
      * @return Interfaces\JavaClass Java(java.lang.Class)
@@ -68,7 +68,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
     {
         return $this->__delegate->getClass();
     }
-    
+
     /**
      * Return class name
      *

@@ -43,13 +43,13 @@ class ParserString
      * @var string
      */
     public $string;
-    
+
     /**
      *
      * @var string
      */
     public $off;
-    
+
     /**
      *
      * @var string

@@ -44,7 +44,7 @@ class JavaException extends Exception implements JavaType, JavaExceptionInterfac
 {
     public $__serialID;
     public $__java;
-    
+
     /**
      *
      * @var Client
@@ -63,13 +63,13 @@ class JavaException extends Exception implements JavaType, JavaExceptionInterfac
             $args = $name;
             $name = array_shift($args);
         }
-        
+
         if (count($args) == 0) {
             parent::__construct($name);
         } else {
             parent::__construct($args[0]);
         }
-        
+
         $delegate = $this->__delegate = $this->__client->createObject($name, $args);
         $this->__java = $delegate->__java;
         $this->__signature = $delegate->__signature;
@@ -113,7 +113,7 @@ class JavaException extends Exception implements JavaType, JavaExceptionInterfac
     {
         return $this->__delegate->__toExceptionString($this->getTraceAsString());
     }
-    
+
     /**
      * @return integer
      */
@@ -121,7 +121,7 @@ class JavaException extends Exception implements JavaType, JavaExceptionInterfac
     {
         return $this->__java;
     }
-    
+
     /**
      * @return string
      */

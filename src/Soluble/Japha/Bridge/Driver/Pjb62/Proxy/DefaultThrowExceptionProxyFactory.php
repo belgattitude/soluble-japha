@@ -11,7 +11,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
      * @string
      */
     protected $defaultException = "JavaException";
-    
+
     /**
      *
      * @var array
@@ -24,7 +24,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
     );
 
     /**
-     * 
+     *
      * @param Exception\InternalException $result
      * @return Exception\JavaException
      */
@@ -35,7 +35,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
     }
 
     /**
-     * 
+     *
      * @return \Exception
      */
     protected function getExceptionFromResult($result)
@@ -61,17 +61,17 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
 
         //$message, $javaCause, $stackTrace, $code=null, Exception $driverException=null, Exception $previous = null
 
-        
+
         /**
          * @todo find the original driver cause
          */
-        
+
         $cause = $message;
         // Public message, mask any login/passwords
         $message = preg_replace('/user=([^&\ ]+)|password=([^&\ ]+)/', '****', $message);
         $stackTrace = $result->getCause()->__toString();
         $code = $result->getCode();
-        
+
         $driverException = null;
         if ($result instanceof Soluble\Japha\Bridge\Exception\JavaExceptionInterface) {
             $driverException = $result;

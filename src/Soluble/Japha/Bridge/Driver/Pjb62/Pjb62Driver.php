@@ -15,9 +15,9 @@ class Pjb62Driver extends AbstractDriver
      * @var PjbProxyClient
      */
     protected $pjbProxyClient;
-    
+
     /**
-     * 
+     *
      *
      * @var array $options
      */
@@ -45,8 +45,8 @@ class Pjb62Driver extends AbstractDriver
             $this->connected = true;
         }
     }
-    
-    
+
+
     /**
      * Return a new java class
      *
@@ -65,8 +65,8 @@ class Pjb62Driver extends AbstractDriver
 
         return $this->pjbProxyClient->getJavaClass($class_name);
     }
-    
-    
+
+
     /**
      * Instanciate a java object
      *
@@ -81,8 +81,8 @@ class Pjb62Driver extends AbstractDriver
 
         return new Java($class_name, $args);
     }
-    
-    
+
+
 
     /**
      *
@@ -94,8 +94,8 @@ class Pjb62Driver extends AbstractDriver
     {
         return $this->pjbProxyClient->inspect($javaObject);
     }
-    
-    
+
+
     /**
      * Checks whether object is an instance of a class or interface
      *
@@ -107,7 +107,7 @@ class Pjb62Driver extends AbstractDriver
     {
         return $this->pjbProxyClient->isInstanceOf($javaObject, $className);
     }
-    
+
     /**
      *
      *
@@ -118,9 +118,9 @@ class Pjb62Driver extends AbstractDriver
     {
         return $this->pjbProxyClient->getValues($javaObject);
     }
-    
-    
-    
+
+
+
     /**
      * Return object java class name
      *

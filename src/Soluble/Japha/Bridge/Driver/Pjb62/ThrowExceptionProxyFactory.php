@@ -47,7 +47,7 @@ class ThrowExceptionProxyFactory extends ExceptionProxyFactory
         $proxy = $this->create($result, $signature);
         return new Exception\InternalException($proxy, $exception);
     }
-    
+
     public function checkResult($result)
     {
         if (JAVA_PREFER_VALUES || ($result->__hasDeclaredExceptions == 'T')) {

@@ -42,55 +42,55 @@ class Client
     public $result;
     public $exception;
     public $parser;
-    
+
     /**
      *
      * @var Arg|CompositeArg
      */
     public $simpleArg;
-    
+
     /**
      *
      * @var CompositeArg
      */
     public $compositeArg;
-    
+
     /**
      *
      * @var SimpleFactory
      */
     public $simpleFactory;
-    
+
     /**
      *
      * @var ProxyFactory
      */
     public $proxyFactory;
-    
+
     /**
      *
      * @var IteratorProxyFactory
      */
     public $iteratorProxyFactory;
-    
+
     /**
      *
      * @var ArrayProxyFactory
      */
     public $arrayProxyFactory;
-    
+
     /**
      *
      * @var ExceptionProxyFactory
      */
     public $exceptionProxyFactory;
-    
+
     /**
      *
      * @var ThrowExceptionProxyFactory
      */
     public $throwExceptionProxyFactory;
-    
+
     /**
      *
      * @var CompositeArg
@@ -101,13 +101,13 @@ class Client
      * @var integer
      */
     public $asyncCtx;
-    
+
     /**
      * @var int
      */
     public $cancelProxyCreationTag;
     public $cancelProxyCreationCounter;
-    
+
     /**
      *
      * @var GlobalRef
@@ -124,20 +124,20 @@ class Client
     public $sendBuffer;
     public $preparedToSendBuffer;
     public $inArgs;
-    
+
     /**
      *
      * @var int
      */
     protected $idx;
-    
+
     /**
      *
      * @var Protocol
      */
     public $protocol;
 
-    
+
     public function __construct()
     {
         $this->RUNTIME = array();
@@ -323,6 +323,7 @@ class Client
                 if ($st['n'] != 'T') {
                     $arg->setVoidSignature();
                 }
+                // @todo Missing break ?
             case 'N':
                 $arg->setResult(null);
                 break;
@@ -488,7 +489,7 @@ class Client
         $this->getResult();
     }
 
-    
+
     /**
      *
      * @param integer $object object id
@@ -565,19 +566,30 @@ class Client
     public function cast($object, $type)
     {
         switch ($type[0]) {
-            case 'S': case 's':
+            case 'S':
+            case 's':
                 return $this->invokeMethod(0, "castToString", array($object));
-            case 'B': case 'b':
+            case 'B':
+            case 'b':
                 return $this->invokeMethod(0, "castToBoolean", array($object));
-            case 'L': case 'I': case 'l': case 'i':
+            case 'L':
+            case 'I':
+            case 'l':
+            case 'i':
                 return $this->invokeMethod(0, "castToExact", array($object));
-            case 'D': case 'd': case 'F': case 'f':
+            case 'D':
+            case 'd':
+            case 'F':
+            case 'f':
                 return $this->invokeMethod(0, "castToInExact", array($object));
-            case 'N': case 'n':
+            case 'N':
+            case 'n':
                 return null;
-            case 'A': case 'a':
+            case 'A':
+            case 'a':
                 return $this->invokeMethod(0, "castToArray", array($object));
-            case 'O': case 'o':
+            case 'O':
+            case 'o':
                 return $object;
             default:
                 throw new Exception\RuntimeException("$type illegal");

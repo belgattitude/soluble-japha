@@ -119,7 +119,7 @@ class JavaProxy implements JavaType
             return "";
         }
     }
-    
+
     /**
      * @return int
      */
@@ -127,7 +127,7 @@ class JavaProxy implements JavaType
     {
         return $this->__java;
     }
-    
+
     /**
      * @return string
      */

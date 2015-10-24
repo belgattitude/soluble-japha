@@ -175,7 +175,7 @@ class SimpleHttpHandler extends SocketHandler
     }
 
     /**
-     * 
+     *
      * @param integer $size
      * @return string
      */
@@ -185,7 +185,7 @@ class SimpleHttpHandler extends SocketHandler
     }
 
     /**
-     * 
+     *
      * @param string $channelName
      * @return SocketChannelP
      * @throws Exception\IllegalStateException

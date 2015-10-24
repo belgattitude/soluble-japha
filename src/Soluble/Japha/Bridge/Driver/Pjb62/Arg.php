@@ -48,7 +48,7 @@ class Arg
      * @var string
      */
     public $exception;
-    
+
     /**
      *
      * @var SimpleFactory
@@ -60,13 +60,13 @@ class Arg
      * @var string
      */
     public $signature;
-    
+
     /**
      *
      * @var string
      */
     public $type;
-    
+
 
     /**
      *

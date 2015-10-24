@@ -152,7 +152,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         } catch (\Exception $e) {
             $this->assertFalse(true, "This code cannot be reached");
         }
-   
+
         try {
             $string = $ba->java("java.Invalid.String", "Hello world");
         } catch (Exception\JavaException $e) {
