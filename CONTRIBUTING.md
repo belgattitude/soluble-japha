@@ -10,7 +10,7 @@ read/subscribe to the following resources:
 * [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
 * [PSR 0 Autoloading standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
 
-If you are working on new features or refactoring [create a proposal](https://github.com/soluble/soluble-japha/issues/new).
+If you are working on new features or refactoring [create a proposal](https://github.com/belgattitude/soluble-japha/issues/new).
 
 ## Reporting Issues
 
@@ -43,7 +43,7 @@ To run tests:
 - Clone the repository:
 
   ```console
-  $ git clone git@github.com:soluble/soluble-japha.git
+  $ git clone git@github.com:belgattitude/soluble-japha.git
   $ cd soluble-japha
   ```
 
@@ -95,11 +95,11 @@ pull your work into the master repository. We recommend using
 [GitHub](https://github.com), as that is where the component is already hosted.
 
 1. Setup a [GitHub account](http://github.com/), if you haven't yet
-2. Fork the repository (http://github.com/soluble/soluble-japha)
+2. Fork the repository (http://github.com/belgattitude/soluble-japha)
 3. Clone the canonical repository locally and enter it.
 
    ```console
-   $ git clone git://github.com:soluble/soluble-japha.git
+   $ git clone git://github.com:belgattitude/soluble-japha.git
    $ cd soluble-japha
    ```
 

@@ -27,155 +27,157 @@ An enhanced compatible version of the [PHP/Java Bridge](http://php-java-bridge.s
 
 ### Installation in your PHP project
 
-    `Soluble\Japha` works best via [composer](http://getcomposer.org/).
+`Soluble\Japha` works best via [composer](http://getcomposer.org/).
 
-    ```sh
-    php composer require soluble/japha:0.*
-    ```
+```sh
+php composer require soluble/japha:0.*
+```
 
 ### Java servlet engine
 
-    See Java server installation in the doc folder for more information. 
+See Java server installation in the doc folder for more information. 
 
 ## Examples
 
 ### Connection example
 
-    ```php
-    <?php
+```php
+<?php
 
-    use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
-    $ba = new BridgeAdapter([
-        'driver' => 'Pjb62',
-        'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
-    ]);
-    ```
+$ba = new BridgeAdapter([
+    'driver' => 'Pjb62',
+    'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
+]);
+```
 
 ### Basic Java usage
 
-    ```php
-    <?php
+```php
+<?php
 
-    use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
-    $ba = new BridgeAdapter([
-        'driver' => 'Pjb62',
-        'servlet_address' => 'http://localhost:8083/path/servlet.phpjavabridge'
-    ]);
+$ba = new BridgeAdapter([
+    'driver' => 'Pjb62',
+    'servlet_address' => 'http://localhost:8083/path/servlet.phpjavabridge'
+]);
 
-    $string = $ba->java('java.lang.String', "保éà");
-    $hash   = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
-    $hash->put('new_key', $string);
-    $hash->put('hello', "world");
-    echo $hash->get('new_key'); // prints "保éà"
-    echo $hash->get('new_key')->length(); // prints 3
-    echo $hash->get('hello'); // prints "world"
+$string = $ba->java('java.lang.String', "保éà");
+$hash   = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
+$hash->put('new_key', $string);
+$hash->put('hello', "world");
+echo $hash->get('new_key'); // prints "保éà"
+echo $hash->get('new_key')->length(); // prints 3
+echo $hash->get('hello'); // prints "world"
 
-    $bigint = new Java("java.math.BigInteger", 1);
-    echo $bigint->intValue() + 10; // prints 11
+$bigint = new Java("java.math.BigInteger", 1);
+echo $bigint->intValue() + 10; // prints 11
 
-    ```
+```
 
 ### Using "final" classes
 
-    ```php
-    <?php
+```php
+<?php
 
-    use Soluble\Japha\Bridge\Exception;
+use Soluble\Japha\Bridge\Exception;
 
-    // $ba = new BridgeAdapter(...); 
+// $ba = new BridgeAdapter(...); 
 
-    $system = $ba->javaClass('java.lang.System');
+$system = $ba->javaClass('java.lang.System');
 
-    $vm_name = $system->getProperties()->get('java.vm_name);
+$vm_name = $system->getProperties()->get('java.vm_name);
     ```
 
 ### Handling Java exceptions
 
-    Java exceptions works as regular PHP exceptions. 
+Java exceptions works as regular PHP exceptions. 
 
-    Internal Java exceptions extends the `Soluble\Japha\Bridge\Exception\JavaException` class and expose
-    internal java stack trace as well as corresponding jvm messages through 
-    the `JavaException::getStackTrace()`, `JavaException::getCause()` methods.
+Internal Java exceptions extends the `Soluble\Japha\Bridge\Exception\JavaException` class and expose
+internal java stack trace as well as corresponding jvm messages through 
+the `JavaException::getStackTrace()`, `JavaException::getCause()` methods.
 
-    Some common implementations are available in the `Soluble\Japha\Bridge\Exception` namespace.
+Some common implementations are available in the `Soluble\Japha\Bridge\Exception` namespace.
 
-    | Exception                         | Description                              |
-    |-----------------------------------|------------------------------------------|
-    |`Exception\JavaException`          | Generic java exception                   |
-    |`Exception\ClassNotFoundException` | A Java class is not found on the jvm side|
-    |`Exception\NoSuchMethodException`  | Call to an undefined method on the java object |
-
-
-    ```php
-    <?php
-
-    use Soluble\Japha\Bridge\Exception;
-
-    // $ba = new BridgeAdapter(...); 
-
-    // Invalid method
-    try {
-        $string = $ba->java('java.lang.String', "Hello world");
-        $string->anInvalidMethod();
-    } catch (Exception\NoSuchMethodException $e) {
-        echo $e->getMessage();
-        echo $e->getStackTrace();
-    }
+| Exception                         | Description                              |
+|-----------------------------------|------------------------------------------|
+|`Exception\JavaException`          | Generic java exception                   |
+|`Exception\ClassNotFoundException` | A Java class is not found on the jvm side|
+|`Exception\NoSuchMethodException`  | Call to an undefined method on the java object |
 
 
-    // Class not found
-    try {
-        $string = $ba->java('java.INVALID.String', "Hello world");
-    } catch (Exception\ClassNotFoundException $e) {
-        echo $e->getMessage();
-        echo $e->getStackTrace();
-    } 
+```php
+<?php
 
-    // `JavaExceptionInterface` vs php `\Exception` family
+use Soluble\Japha\Bridge\Exception;
 
-    $dynamic_var = 'PACKAGE';
-    try {
-        $string = $ba->java("java.$dynamic_var.String", "Hello world");
-        throw new \Exception('No error in java String creation');
-    } catch (Exception\ClassNotFoundException $e) {
-        echo "The package $dynamic_var should be 'lang'";
-        echo $e->getStackTrace();
-    } catch (Exception\JavaException $e) {
-        echo "An unexpected java exception";
-        echo $e->getStackTrace();
-    } catch (\Exception $e) {
-        echo "No Problem at all";
-    }
+// $ba = new BridgeAdapter(...); 
 
-    ```
+// Invalid method
+try {
+    $string = $ba->java('java.lang.String', "Hello world");
+    $string->anInvalidMethod();
+} catch (Exception\NoSuchMethodException $e) {
+    echo $e->getMessage();
+    echo $e->getStackTrace();
+}
+
+
+// Class not found
+try {
+    $string = $ba->java('java.INVALID.String', "Hello world");
+} catch (Exception\ClassNotFoundException $e) {
+    echo $e->getMessage();
+    echo $e->getStackTrace();
+} 
+
+// `JavaExceptionInterface` vs php `\Exception` family
+
+$dynamic_var = 'PACKAGE';
+try {
+    $string = $ba->java("java.$dynamic_var.String", "Hello world");
+    throw new \Exception('No error in java String creation');
+} catch (Exception\ClassNotFoundException $e) {
+    echo "The package $dynamic_var should be 'lang'";
+    echo $e->getStackTrace();
+} catch (Exception\JavaException $e) {
+    echo "An unexpected java exception";
+    echo $e->getStackTrace();
+} catch (\Exception $e) {
+    echo "No Problem at all";
+}
+
+```
 
 ### Database connection example
 
-    ```php
-    <?php
+Ensure your servelt installation can locate the JDBC driver and try :
 
-    use Soluble\Japha\Bridge\Exception;
+```php
+<?php
 
-    // $ba = new BridgeAdapter(...); 
+use Soluble\Japha\Bridge\Exception;
 
-    $driverClass = 'com.mysql.jdbc.Driver';
-    $dsn = "jdbc:mysql://localhost/my_database?user=login&password=pwd";
+// $ba = new BridgeAdapter(...); 
 
-    try {
+$driverClass = 'com.mysql.jdbc.Driver';
+$dsn = "jdbc:mysql://localhost/my_database?user=login&password=pwd";
 
-        $class = $ba->javaClass('java.lang.Class');
-        $class->forName($driverClass);
+try {
 
-        $conn = $driverManager->getConnection($dsn);
+    $class = $ba->javaClass('java.lang.Class');
+    $class->forName($driverClass);
 
-    } catch (Exception\JavaException $e) {
-        echo $e->getMessage();
-        echo $e->getStackTrace();
-    }
+    $conn = $driverManager->getConnection($dsn);
 
-    ```
+} catch (Exception\JavaException $e) {
+    echo $e->getMessage();
+    echo $e->getStackTrace();
+}
+
+```
 
 ### Compatibility layer
 
@@ -187,27 +189,27 @@ Also note that you'll have to remove any older constants like 'JAVA_HOSTS', 'JAV
 See also Soluble\Japha\Bridge\Driver\Pjb62\Compat\pjb_functions.php. 
 
 ```php
-    <?php
+<?php
 
-    // Boostrap the adapter globally
+// Boostrap the adapter globally
 
-    use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
-    $ba = new BridgeAdapter([
-        'driver' => 'Pjb62',
-        'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
-        'load_pjb_compatibility' => true
-    ]);
+$ba = new BridgeAdapter([
+    'driver' => 'Pjb62',
+    'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
+    'load_pjb_compatibility' => true
+]);
 
-    // Once done, the legacy code should work
+// Once done, the legacy code should work
 
-    $bigint = new Java("java.math.BigInteger", 1);
-    $system = java_class('java.lang.System);
+$bigint = new Java("java.math.BigInteger", 1);
+$system = java_class('java.lang.System);
 
-    java_instanceof($bigint, 'java.math.BigInteger'); // -> true
-    java_inspect($bigint); 
-    java_values($bigint);
-    java_invoke();
+java_instanceof($bigint, 'java.math.BigInteger'); // -> true
+java_inspect($bigint); 
+java_values($bigint);
+java_invoke();
 
 ```
 
@@ -231,8 +233,8 @@ See also Soluble\Japha\Bridge\Driver\Pjb62\Compat\pjb_functions.php.
 
 ## Credits
 
-    Thanks to the fantastic PHPJavaBridge project leaders and contributors who made it possible. 
-    See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
+Thanks to the fantastic PHPJavaBridge project leaders and contributors who made it possible. 
+See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
 
 ## Coding standards
 
