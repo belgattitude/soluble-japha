@@ -14,8 +14,8 @@ An enhanced compatible version of the [PHP/Java bridge](http://php-java-bridge.s
 ## Features
 
 - Use Java from PHP (and vice-versa).
-- Gives access to awesome Java libraries (i.e. Jasper Reports, Apache POI, iText...).
-- Flexible API and abstraction layer (and a legacy compatibility layer).
+- Direct access awesome Java libraries (i.e. Jasper Reports, Apache POI, iText...).
+- Flexible API and abstraction layer (and a [legacy compatibility layer](./doc/pjb62_compatibility.md)).
 - Fast, does not rely on system `exec`, no vm startup extra effort.
 - Based on reliable and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) implementation.
 - Conform to the Java [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specification.
@@ -83,13 +83,9 @@ echo $bigint->intValue() + 10; // prints 11
 ```php
 <?php
 
-use Soluble\Japha\Bridge\Exception;
-
-// $ba = new BridgeAdapter(...); 
-
 $system = $ba->javaClass('java.lang.System');
+echo  $system->getProperties()->get('java.vm_name);
 
-$vm_name = $system->getProperties()->get('java.vm_name);
 ```
 
 ### Iterations
@@ -234,6 +230,7 @@ java_invoke();
 - New API
   - A fresh new API to allow future drivers and enhancements.
   - A more intuitive and verbose exception handling.
+  - No global namespace pollution.
   - For legacy code a compatibility layer can be loaded.
 
 - Performance
