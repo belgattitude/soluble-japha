@@ -31,12 +31,11 @@ class PjbProxyClient
         'load_pjb_compatibility' => true
     );
 
-
     /**
      *
      * @var Client
      */
-    protected $client;
+    protected static $client;
 
     /**
      *
@@ -120,7 +119,7 @@ class PjbProxyClient
      */
     protected function loadClient(array $options)
     {
-        if ($this->client === null) {
+        if (self::$client === null) {
             if (!isset($options['servlet_address'])) {
                 throw new Exception\InvalidArgumentException(__METHOD__ . " Missing required parameter servlet_address");
             }
@@ -140,10 +139,10 @@ class PjbProxyClient
                 require_once dirname(__FILE__) . $ds . "Compat" . $ds . "pjb_functions.php";
             }
 
-            $this->client = new Client();
+            self::$client = new Client();
 
             // Added in order to work with custom exceptions
-            $this->client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory($this->client);
+            self::$client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory(self::$client);
 
             $this->boostrap();
         }
@@ -154,13 +153,16 @@ class PjbProxyClient
      */
     public function getClient()
     {
-        return $this->client;
+        return self::$client;
     }
+        
 
     public static function shutdown()
     {
         if (self::isInitialized()) {
-            $client = self::getInstance()->getClient();
+            
+            //$client = self::getInstance()->getClient();
+            $client = self::$client;
 
             // TODO CHECK WITH SESSIONS
             if (session_id()) {
@@ -190,9 +192,11 @@ class PjbProxyClient
 
 
             // Added but needs more tests
-            //$client = null;
-
+            //unset($client);// = null;
+            
+            self::$client = null;
             self::$instance = null;
+            
         }
     }
 
@@ -230,7 +234,7 @@ class PjbProxyClient
     public function invokeMethod($object, $method, $args)
     {
         $id = ($object == null) ? 0 : $object->__java;
-        return $this->client->invokeMethod($id, $method, $args);
+        return self::$client->invokeMethod($id, $method, $args);
     }
 
     /**
@@ -299,7 +303,7 @@ class PjbProxyClient
     {
         //$client = self::getClient();
         //return $client->invokeMethod(0, "inspect", array($object));
-        return $this->client->invokeMethod(0, "inspect", array($object));
+        return self::$client->invokeMethod(0, "inspect", array($object));
     }
 
     /**
@@ -312,11 +316,6 @@ class PjbProxyClient
      */
     public function isInstanceOf(JavaType $object, $class)
     {
-        /*
-        if (!$object instanceof JavaType) {
-            throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, object parameter must be a valid JavaType");
-        }
-        */
 
         if (is_string($class)) {
             // Attempt to autoload classname
@@ -331,7 +330,7 @@ class PjbProxyClient
         if (!$class instanceof JavaType) {
             throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, class parameter must be a valid JavaType or class name as string");
         }
-        return $this->client->invokeMethod(0, "instanceOf", array($object, $class));
+        return self::$client->invokeMethod(0, "instanceOf", array($object, $class));
     }
 
     /**
@@ -375,7 +374,7 @@ class PjbProxyClient
             return $object;
         }
 
-        return $this->client->invokeMethod(0, "getValues", array($object));
+        return self::$client->invokeMethod(0, "getValues", array($object));
     }
 
     /**
@@ -383,14 +382,14 @@ class PjbProxyClient
      */
     public function getLastException()
     {
-        return $this->client->invokeMethod(0, "getLastException", array());
+        return self::$client->invokeMethod(0, "getLastException", array());
     }
 
     /**
      */
     public function clearLastException()
     {
-        $this->client->invokeMethod(0, "clearLastException", array());
+        self::$client->invokeMethod(0, "clearLastException", array());
     }
 
     /**
@@ -452,12 +451,13 @@ class PjbProxyClient
         /// BOOTSTRAP
         /// A lot to rework, remove constants
         //define("JAVA_PEAR_VERSION", "6.2.1");
-
         if (!defined("JAVA_DISABLE_AUTOLOAD") || !JAVA_DISABLE_AUTOLOAD) {
-            spl_autoload_register(array(__CLASS__, "autoload"));
+            //spl_autoload_register(array(__CLASS__, "autoload"));
+            spl_autoload_register(array('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', "autoload"));
+            
         }
-        register_shutdown_function(array(__CLASS__, 'shutdown'));
-
+        //register_shutdown_function(array(__CLASS__, 'shutdown'));
+        register_shutdown_function(array('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', 'shutdown'));
 
         if (!defined("JAVA_SEND_SIZE")) {
             define("JAVA_SEND_SIZE", 8192);
@@ -476,7 +476,6 @@ class PjbProxyClient
                 }
             }
         }
-
 
         if (!defined("JAVA_SERVLET")) {
             if (!(($java_ini = get_cfg_var("java.servlet")) === false)) {
