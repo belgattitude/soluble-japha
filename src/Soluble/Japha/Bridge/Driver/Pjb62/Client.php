@@ -602,6 +602,10 @@ class Client
         }
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getContext()
     {
         if ($this->cachedValues['getContext'] === null) {
