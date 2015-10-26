@@ -390,13 +390,13 @@ function java_checkCliSapi()
  */
 function java_unwrap(Pjb62\JavaType $object)
 {
-    $client = __javaproxy_Client_getClient();
+    $client = Pjb62\PjbProxyClient::getInstance()->getClient();
     return $client->globalRef->get($client->invokeMethod(0, "unwrapClosure", array($object)));
 }
 
 function java_set_file_encoding($enc)
 {
-    $client = __javaproxy_Client_getClient();
+    $client = Pjb62\PjbProxyClient::getInstance()->getClient();
     return $client->invokeMethod(0, "setFileEncoding", array($enc));
 }
 
@@ -453,7 +453,7 @@ function java_get_lifetime()
 
 function java_session_array($args)
 {
-    $client = __javaproxy_Client_getClient();
+    $client = Pjb62\PjbProxyClient::getInstance()->getClient();
     if (!isset($args[0])) {
         $args[0] = null;
     }
@@ -482,7 +482,7 @@ function java_session()
 function java_server_name()
 {
     try {
-        $client = __javaproxy_Client_getClient();
+        $client = Pjb62\PjbProxyClient::getInstance()->getClient();
         return $client->getServerName();
     } catch (Exception\ConnectException $ex) {
         return null;
@@ -491,7 +491,7 @@ function java_server_name()
 
 function java_context()
 {
-    $client = __javaproxy_Client_getClient();
+    $client = Pjb62\PjbProxyClient::getInstance()->getClient();
     return $client->getContext();
 }
 
@@ -500,7 +500,7 @@ function java_closure_array($args)
     if (isset($args[2]) && ((!($args[2] instanceof Pjb62\JavaType)) && !is_array($args[2]))) {
         throw new Exception\IllegalArgumentException($args[2]);
     }
-    $client = __javaproxy_Client_getClient();
+    $client = Pjb62\PjbProxyClient::getInstance()->getClient();
     $args[0] = isset($args[0]) ? $client->globalRef->add($args[0]) : 0;
     $client->protocol->invokeBegin(0, "makeClosure");
     $n = count($args);

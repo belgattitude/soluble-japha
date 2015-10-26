@@ -47,7 +47,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
 {
     public function __construct()
     {
-        $this->__client = __javaproxy_Client_getClient();
+        $this->__client = PjbProxyClient::getInstance()->getClient();
         $args = func_get_args();
         $name = array_shift($args);
         if (is_array($name)) {

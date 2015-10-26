@@ -61,7 +61,7 @@ class JavaProxy implements JavaType
     {
         $this->__java = $java;
         $this->__signature = $signature;
-        $this->__client = __javaproxy_Client_getClient();
+        $this->__client = PjbProxyClient::getInstance()->getClient();
     }
 
     public function __cast($type)
@@ -80,7 +80,7 @@ class JavaProxy implements JavaType
     public function __wakeup()
     {
         $args = array($this->__serialID, java_get_lifetime());
-        $this->__client = __javaproxy_Client_getClient();
+        $this->__client = PjbProxyClient::getInstance()->getClient();
         if ($this->__tempGlobalRef) {
             $this->__client->globalRef = $this->__tempGlobalRef;
         }
