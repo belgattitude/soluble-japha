@@ -557,7 +557,8 @@ class Client
     }
 
     /**
-     *
+     * Cast an object to a certain type
+     * 
      * @param mixed $object
      * @param array $type
      * @return mixed
@@ -565,34 +566,26 @@ class Client
      */
     public function cast($object, $type)
     {
-        switch ($type[0]) {
+        $code = strtoupper($type[0]);
+        switch ($code) {
             case 'S':
-            case 's':
                 return $this->invokeMethod(0, "castToString", array($object));
             case 'B':
-            case 'b':
                 return $this->invokeMethod(0, "castToBoolean", array($object));
             case 'L':
             case 'I':
-            case 'l':
-            case 'i':
                 return $this->invokeMethod(0, "castToExact", array($object));
             case 'D':
-            case 'd':
             case 'F':
-            case 'f':
                 return $this->invokeMethod(0, "castToInExact", array($object));
             case 'N':
-            case 'n':
                 return null;
             case 'A':
-            case 'a':
                 return $this->invokeMethod(0, "castToArray", array($object));
             case 'O':
-            case 'o':
                 return $object;
             default:
-                throw new Exception\RuntimeException("$type illegal");
+                throw new Exception\RuntimeException("Illegal type '$code' for casting");
         }
     }
 
