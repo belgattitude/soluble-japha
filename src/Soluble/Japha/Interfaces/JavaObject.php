@@ -2,6 +2,9 @@
 
 namespace Soluble\Japha\Interfaces;
 
+/**
+ * @method string __toString()
+ */
 interface JavaObject
 {
     /**

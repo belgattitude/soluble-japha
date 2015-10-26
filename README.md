@@ -196,7 +196,7 @@ try {
 If you have legacy code using the original PHPJavaBridge implementation, 
 just enable compatibility layer through the 'load_pjb_compatibility' option.
 
-Read the [legacy compatibility guide](./doc/pjb62_compatibility.md)) for more information.
+Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for more information.
 
 
 ## Original PHPJavaBridge (Java.inc) differences

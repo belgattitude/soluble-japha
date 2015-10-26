@@ -54,18 +54,10 @@ class Pjb62Driver extends AbstractDriver
      * Return a new java class
      *
      * @param string $class_name
-     * @return JavaClass
+     * @return Interfaces\JavaClass
      */
     public function getJavaClass($class_name)
     {
-        /*
-        if (!array_key_exists($java_class_name, self::$classMap)) {
-            self::$classMap[$java_class_name] = new Pjb\JavaClass($java_class_name);
-        }
-        return self::$classMap[$java_class_name];
-
-         */
-
         return $this->pjbProxyClient->getJavaClass($class_name);
     }
 
@@ -76,7 +68,7 @@ class Pjb62Driver extends AbstractDriver
      * @throws Exception\ClassFoundException
      * @param string $class_name
      * @param mixed|null $args
-     * @return Java
+     * @return Interfaces\JavaObject
      */
     public function instanciate($class_name, $args = null)
     {
