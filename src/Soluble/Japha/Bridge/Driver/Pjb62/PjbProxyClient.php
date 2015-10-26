@@ -6,11 +6,6 @@
  * @author Vanvelthem Sébastien
  * @license   MIT
  *
-  # define ("JAVA_HOSTS", 9267); define ("JAVA_SERVLET", false);
-  # define ("JAVA_HOSTS", "127.0.0.1:8787");
-  # define ("JAVA_HOSTS", "ssl://my-secure-host.com:8443");
-  # define ("JAVA_SERVLET", "/MyWebApp/servlet.phpjavabridge");
-  # define ("JAVA_PREFER_VALUES", 1);
  */
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;

@@ -8,6 +8,9 @@ use Soluble\Japha\Bridge\Exception;
 
 class Pjb62Driver extends AbstractDriver
 {
+    /**
+     * @var boolean
+     */
     protected $connected = false;
 
     /**

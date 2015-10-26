@@ -59,6 +59,20 @@ java_values($bigint);
 
 ## Migration mappings
 
+
+### Constants
+
+|Constant                    | Example                                   |
+|----------------------------|-------------------------------------------|
+| `JAVA_HOSTS`               | `define("JAVA_HOSTS", "127.0.0.1:8787");` |
+| `JAVA_SERVLET`             | `define ("JAVA_SERVLET", "/MyWebApp/servlet.phpjavabridge"); |
+| `JAVA_PREFER_VALUES`       | `define ("JAVA_PREFER_VALUES", 1);` |
+| `JAVA_LOG_LEVEL`           | ? - wip |
+| `JAVA_DISABLE_AUTOLOAD`    | int - wip |
+| `JAVA_SEND_SIZE`           | int (8192) ? - wip |
+| `JAVA_RECV_SIZE`           | int (8192) ? - wip |
+
+
 ### Initialization
 
 |Old                         | New                      |

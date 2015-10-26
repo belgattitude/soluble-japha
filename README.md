@@ -196,34 +196,8 @@ try {
 If you have legacy code using the original PHPJavaBridge implementation, 
 just enable compatibility layer through the 'load_pjb_compatibility' option.
 
-Also note that you'll have to remove any older constants like 'JAVA_HOSTS', 'JAVA_SERVLET'...
+Read the [legacy compatibility guide](./doc/pjb62_compatibility.md)) for more information.
 
-See also Soluble\Japha\Bridge\Driver\Pjb62\Compat\pjb_functions.php. 
-
-```php
-<?php
-
-// Boostrap the adapter globally
-
-use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
-
-$ba = new BridgeAdapter([
-    'driver' => 'Pjb62',
-    'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
-    'load_pjb_compatibility' => true
-]);
-
-// Once done, the legacy code should work
-
-$bigint = new Java("java.math.BigInteger", 1);
-$system = java_class('java.lang.System);
-
-java_instanceof($bigint, 'java.math.BigInteger'); // -> true
-java_inspect($bigint); 
-java_values($bigint);
-java_invoke();
-
-```
 
 ## Original PHPJavaBridge (Java.inc) differences
 

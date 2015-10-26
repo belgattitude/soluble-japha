@@ -31,12 +31,14 @@
         <server name="MYSQL_USERNAME" value="root" />
         <server name="MYSQL_PASSWORD" value="" />
         <server name="MYSQL_DATABASE" value="phpunit_soluble_test_db" />
-        
     </php>
 
     <testsuites>
         <testsuite name="soluble/japha">
-            <directory>../src/Soluble/Japha</directory>
+            <directory>../src</directory>
+            <exclude>
+                <file>./../src/Soluble/Japha/Bridge/Driver/Pjb62/SimpleParser.php</file>
+            </exclude>		
         </testsuite>
     </testsuites>
     <filter>

@@ -42,7 +42,8 @@ class DriverManager
     public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
     {
         if (!is_string($dsn) || trim($dsn) == '') {
-            throw new Exception\InvalidArgumentException(__METHOD__ . " DSN param must be a valid (on-empty) string");
+            $message = "DSN param must be a valid (on-empty) string";
+            throw new Exception\InvalidArgumentException(__METHOD__ . ' ' . $message);
         }
 
         $class = $this->adapter->javaClass("java.lang.Class");
@@ -51,7 +52,7 @@ class DriverManager
         } catch (\Exception $e) {
             // Here testing class not found error
             $message = "Class not found '$driverClass' exception";
-            throw new Exception\ClassNotFoundException($message, $code = null, $e);
+            throw new Exception\ClassNotFoundException(__METHOD__ . ' ' . $message, $code = null, $e);
         }
 
         try {
@@ -59,7 +60,8 @@ class DriverManager
         } catch (Exception\JavaExceptionInterface $e) {
             throw $e;
         } catch (\Exception $e) {
-            throw new Exception\UnexpectedException(__METHOD__ . " Unexpected exception thrown with message " . $e->getMessage());
+            $message = "Unexpected exception thrown with message " . $e->getMessage();
+            throw new Exception\UnexpectedException(__METHOD__ . ' ' . $message);
         }
         return $conn;
     }
