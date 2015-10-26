@@ -136,6 +136,13 @@ class Client
      * @var Protocol
      */
     public $protocol;
+    
+    
+    /**
+     * 
+     * @var array 
+     */
+    protected $cachedValues = array();
 
 
     public function __construct()
@@ -156,6 +163,12 @@ class Client
         $this->asyncCtx = $this->cancelProxyCreationCounter = 0;
         $this->methodCache = $this->defaultCache;
         $this->inArgs = false;
+        
+        $this->cachedValues = array(
+            'getContext' => null,
+            'getServerName' => null
+            
+        );
     }
 
     public function read($size)
@@ -591,11 +604,10 @@ class Client
 
     public function getContext()
     {
-        static $cache = null;
-        if (!is_null($cache)) {
-            return $cache;
+        if ($this->cachedValues['getContext'] === null) {
+            $this->cachedValues['getContext'] = $this->invokeMethod(0, "getContext", array());
         }
-        return $cache = $this->invokeMethod(0, "getContext", array());
+        return $this->cachedValues['getContext'];
     }
 
     public function getSession($args)
@@ -605,10 +617,9 @@ class Client
 
     public function getServerName()
     {
-        static $cache = null;
-        if (!is_null($cache)) {
-            return $cache;
+        if ($this->cachedValues['getServerName'] === null) {
+            $this->cachedValues['getServerName'] = $this->protocol->getServerName();
         }
-        return $cache = $this->protocol->getServerName();
+        return $this->cachedValues['getServerName'];
     }
 }

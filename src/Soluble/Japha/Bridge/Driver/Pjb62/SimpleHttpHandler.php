@@ -54,6 +54,12 @@ class SimpleHttpHandler extends SocketHandler
      * @var string
      */
     public $host;
+    
+    /**
+     *
+     * @var array
+     */
+    protected $cachedValues = array();
 
     /**
      *
@@ -63,12 +69,15 @@ class SimpleHttpHandler extends SocketHandler
      * @param integer $port
      */
     public function __construct(Protocol $protocol, $ssl, $host, $port)
-    {
+    {        
         $this->cookies = array();
         $this->protocol = $protocol;
         $this->ssl = $ssl;
         $this->host = $host;
         $this->port = $port;
+        $this->cachedValues = array(
+            'getContext' => null
+        );
         $this->createChannel();
     }
 
@@ -122,18 +131,21 @@ class SimpleHttpHandler extends SocketHandler
         return $ctx;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getContext()
     {
-        static $context = null;
-        if ($context) {
-            return $context;
+        if ($this->cachedValues['getContext'] === null) {
+            $ctx = $this->getContextFromCgiEnvironment();
+            $context = "";
+            if ($ctx) {
+                $context = sprintf("X_JAVABRIDGE_CONTEXT: %s\r\n", $ctx);
+            }
+            $this->cachedValues['getContext'] = $context;
         }
-        $ctx = $this->getContextFromCgiEnvironment();
-        $context = "";
-        if ($ctx) {
-            $context = sprintf("X_JAVABRIDGE_CONTEXT: %s\r\n", $ctx);
-        }
-        return $context;
+        return $this->cachedValues['getContext'];                
     }
 
     public function getWebAppInternal()
