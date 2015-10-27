@@ -28,7 +28,9 @@ class PjbProxyClient
     protected $defaultOptions = array(
         'java_disable_autoload' => false,
         'java_prefer_values' => true,
-        'load_pjb_compatibility' => true
+        'load_pjb_compatibility' => true,
+        'java_send_size' => 8192,
+        'java_recv_size' => 8192        
     );
 
     /**
@@ -38,7 +40,7 @@ class PjbProxyClient
     protected static $client;
 
     /**
-     *
+     * Internal cache for already loaded Java classes
      * @var array
      */
     protected $classMapCache = array();
@@ -48,9 +50,11 @@ class PjbProxyClient
      * @var string
      */
     protected $compatibilityOption;
-
+    
     /**
-     *
+     * Private contructor
+     * 
+     * @see PjbProxyClient::getInstance()
      * @param array $options
      */
     private function __construct($options)
@@ -65,15 +69,16 @@ class PjbProxyClient
      *
      *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
      *
-     *  Optionnaly :
+     *  $options can be :
      *  "java_disable_autoload' => false,
      *  "java_prefer_values' => true,
      *  "load_pjb_compatibility' => false
+     *  "java_send_size" => 8192,
+     *  "java_recv_size" => 8192        
      *
      * <code>
      *    $options = [
-     *      "servlet_host" => "http://127.0.0.1:8080"
-     *      "servlet_uri"  => "/javabridge-bundle/java/servlet.phpjavabridge"
+     *      'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
      *      //"java_disable_autoload' => false,
      *      //"java_prefer_values' => true,
      *      //"load_pjb_compatibility' => false
@@ -132,7 +137,8 @@ class PjbProxyClient
             define("JAVA_SERVLET", $connection["servlet_uri"]);
             define("JAVA_DISABLE_AUTOLOAD", $opts['java_disable_autoload']);
             define('JAVA_PREFER_VALUES', $opts['java_prefer_values']);
-
+            define('JAVA_SEND_SIZE', $opst['java_send_size']);
+            define('JAVA_RECV_SIZE', $opst['java_recv_size']);
 
             if ($opts['load_pjb_compatibility']) {
                 $ds = DIRECTORY_SEPARATOR;
@@ -190,7 +196,6 @@ class PjbProxyClient
                 $client->protocol->keepAlive();
             }
 
-
             // Added but needs more tests
             //unset($client);// = null;
             
@@ -219,7 +224,7 @@ class PjbProxyClient
 
      * Example:
      * <code>
-     * PjbProxyClient::invokeJavaMethod(new java("java.lang.String","hello"), "toString", array())
+     * PjbProxyClient::invokeMethod(new java("java.lang.String","hello"), "toString", array())
      * </code>
      *
      * <br> Any declared exception can be caught by PHP code. <br>
@@ -244,7 +249,7 @@ class PjbProxyClient
      */
     public static function autoload5($x)
     {
-        $c = self::$instance->getClient();
+        $c = self::getInstance()->getClient();
         if ($c) {
             $s = str_replace("_", ".", $x);
             if (!($c->invokeMethod(0, "typeExists", array($s)))) {
@@ -267,7 +272,7 @@ class PjbProxyClient
      */
     public static function autoload($x)
     {
-        $client = self::$instance->getClient();
+        $client = self::getInstance()->getClient();
 
         if ($client !== null) {
             $idx = strrpos($x, "\\");
@@ -440,7 +445,7 @@ class PjbProxyClient
         );
         return $infos;
     }
-
+    
 
     /**
      * For compatibility usage all constants have been kept
@@ -454,19 +459,19 @@ class PjbProxyClient
         if (!defined("JAVA_DISABLE_AUTOLOAD") || !JAVA_DISABLE_AUTOLOAD) {
             //spl_autoload_register(array(__CLASS__, "autoload"));
             spl_autoload_register(array('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', "autoload"));
-            
         }
         //register_shutdown_function(array(__CLASS__, 'shutdown'));
         register_shutdown_function(array('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', 'shutdown'));
 
+        /*
+         
         if (!defined("JAVA_SEND_SIZE")) {
             define("JAVA_SEND_SIZE", 8192);
         }
         if (!defined("JAVA_RECV_SIZE")) {
             define("JAVA_RECV_SIZE", 8192);
         }
-
-        /*
+             
         if (!defined("JAVA_HOSTS")) {
             if (!java_defineHostFromInitialQuery(java_get_base())) {
                 if ($java_ini = get_cfg_var("java.hosts")) {
