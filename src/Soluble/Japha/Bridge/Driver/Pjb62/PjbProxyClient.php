@@ -137,8 +137,8 @@ class PjbProxyClient
             define("JAVA_SERVLET", $connection["servlet_uri"]);
             define("JAVA_DISABLE_AUTOLOAD", $opts['java_disable_autoload']);
             define('JAVA_PREFER_VALUES', $opts['java_prefer_values']);
-            define('JAVA_SEND_SIZE', $opst['java_send_size']);
-            define('JAVA_RECV_SIZE', $opst['java_recv_size']);
+            define('JAVA_SEND_SIZE', $opts['java_send_size']);
+            define('JAVA_RECV_SIZE', $opts['java_recv_size']);
 
             if ($opts['load_pjb_compatibility']) {
                 $ds = DIRECTORY_SEPARATOR;
@@ -463,8 +463,7 @@ class PjbProxyClient
         //register_shutdown_function(array(__CLASS__, 'shutdown'));
         register_shutdown_function(array('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', 'shutdown'));
 
-        /*
-         
+        /*       
         if (!defined("JAVA_SEND_SIZE")) {
             define("JAVA_SEND_SIZE", 8192);
         }
