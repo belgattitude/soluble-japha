@@ -32,4 +32,4 @@ script:
 
 after_script:
   - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [[ $SEND_COVERAGE == true ]]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi
+  - if [[ $SEND_COVERAGE == true ]]; then php ocular.phar code-coverage:upload --format=php-clover test/build/logs/clover.xml; fi
