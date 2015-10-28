@@ -83,6 +83,10 @@ class SolubleTestFactories {
     public static function killStandaloneServer()
     {
         if (self::isStandaloneServerRunning()) {
+            // Just to ensure, shutdown of the client has been done before
+            // killing the server
+            Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient::shutdown();
+            
             $test_dir = dirname(__FILE__);
             $pid_file  = "$test_dir/logs/pjb-standalone.pid";
             $pid = trim(file_get_contents($pid_file));
