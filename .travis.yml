@@ -28,7 +28,7 @@ before_script:
   - mkdir -p test/logs
   
 script: 
-  - phpunit -v --configuration test/config/phpunit.travis.xml 
+  - phpunit -v 
 
 after_script:
   - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
