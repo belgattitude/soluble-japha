@@ -28,6 +28,14 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        
+        if (!isset($_SERVER['JAPHA_ENABLE_JDBC_TESTS']) || 
+                $_SERVER['JAPHA_ENABLE_JDBC_TESTS'] != "true") {
+            $this->markTestSkipped(
+              'Skipping JDBC mysql driver tests, enable option in phpunit.xml'
+            );
+        }        
+        
         \SolubleTestFactories::startJavaBridgeServer();
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
         $this->adapter = new Adapter(array(

@@ -6,5 +6,6 @@ composer.lock
 .settings/
 .*.sw*
 .*.un~
+phpunit.xml
 /vendor
 /nbproject

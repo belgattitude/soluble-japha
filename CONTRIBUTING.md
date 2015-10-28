@@ -56,9 +56,20 @@ To run tests:
 - Prepary the phpunit.xml configuration and run the tests
 
   ```console
-  $ cp test/phpunit.xml.dist phpunit.xml
-  $ cd test
+  $ cp phpunit.xml.dist phpunit.xml
   $ phpunit
+  ```
+
+- If you want to enable dynamically xdebug for code coverage :
+
+  ```console
+  $ php -d zend_extension=xdebug.so  ~/.composer/vendor/bin/phpunit
+  ```
+
+- Or test it with HHVM
+
+  ```console
+  $ hhvm ~/.composer/vendor/bin/phpunit
   ```
 
 ## Running Coding Standards Checks
