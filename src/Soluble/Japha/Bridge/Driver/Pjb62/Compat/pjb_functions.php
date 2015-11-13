@@ -55,7 +55,7 @@ function java_autoload_function($x)
  *
  * @deprecated
  * @param string $name Name of the java class
- * @return JavaClass
+ * @return Pjb62\JavaClass
  */
 function java_class($name)
 {
@@ -88,7 +88,7 @@ function java_invoke($object, $method, $args)
 /**
  *
  * @deprectated
- * @param Client $client
+ * @param Pjb62\Client $client
  * @return string
  */
 function java_getCompatibilityOption($client)

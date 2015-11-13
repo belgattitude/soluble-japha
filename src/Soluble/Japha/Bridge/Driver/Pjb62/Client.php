@@ -525,7 +525,7 @@ class Client
      *
      * @param string $name java class name, i.e java.math.BigInteger
      * @param array $args
-     * @return JavaType
+     * @return JavaProxy
      */
     public function referenceObject($name, array $args)
     {

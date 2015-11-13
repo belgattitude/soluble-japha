@@ -403,7 +403,7 @@ class PjbProxyClient
     /**
      *
      * @param Client $client
-     * @return type
+     * @return string
      */
     public function getCompatibilityOption($client)
     {
@@ -415,6 +415,7 @@ class PjbProxyClient
             }
             $this->compatibilityOption = chr($compatibility);
         }
+
         return $this->compatibilityOption;
     }
 

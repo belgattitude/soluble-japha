@@ -114,7 +114,7 @@ class SimpleHttpHandler extends SocketHandler
         $channelName = java_getHeader("X_JAVABRIDGE_REDIRECT", $_SERVER);
         $context = java_getHeader("X_JAVABRIDGE_CONTEXT", $_SERVER);
         $len = strlen($context);
-        $len0 = java_getCompatibilityOption($this->protocol->client);
+        $len0 = PjbProxyClient::getInstance()->getCompatibilityOption($this->protocol->client);
         $len1 = chr($len & 0xFF);
         $len>>=8;
         $len2 = chr($len & 0xFF);

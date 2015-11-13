@@ -38,9 +38,13 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class EmptyChannel
 {
+    /**
+     *
+     * @var SocketHandler
+     */
     protected $handler;
-    private $res;
     
+    private $res;
     
     /**
      *
@@ -56,13 +60,12 @@ class EmptyChannel
 
     /**
      * 
-     * @param resource $handler
+     * @param SocketHandler $handler
      * @param int $recv_size
      * @param int $send_size
      */
-    public function __construct($handler, $recv_size, $send_size)
+    public function __construct(SocketHandler $handler, $recv_size, $send_size)
     {
-        $this->recv_size = $recv_size;
         $this->send_size = $send_size;
         $this->handler = $handler;
     }

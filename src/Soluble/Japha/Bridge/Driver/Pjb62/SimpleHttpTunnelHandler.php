@@ -196,7 +196,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
 
     public function write($data)
     {
-        $compat = java_getCompatibilityOption($this->protocol->client);
+        $compat = PjbProxyClient::getInstance()->getCompatibilityOption($this->protocol->client);
         $this->headers = null;
         $socket = $this->socket;
         $webapp = $this->getWebApp();
@@ -268,7 +268,11 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      */
     public function getSimpleChannel()
     {
-        return new ChunkedSocketChannel($this->socket, $this->protocol, $this->host);
+        //public function __construct($peer, $host, $recv_size, $send_size)
+        
+        // Originally found in Pjb - no sense
+        //return new ChunkedSocketChannel($this->socket, $this->protocol, $this->host);
+        return new ChunkedSocketChannel($this->socket, $this->host, $this->java_recv_size, $this->java_send_size);
     }
 
     public function redirect()

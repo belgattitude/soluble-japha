@@ -266,7 +266,8 @@ class Protocol {
         }
         stream_set_timeout($peer, -1);
         $handler = new SocketHandler($this, new SocketChannelP($peer, $host, $this->java_recv_size, $this->java_send_size));
-        $compatibility = java_getCompatibilityOption($this->client);
+        //$compatibility = java_getCompatibilityOption($this->client);
+        $compatibility = PjbProxyClient::getInstance()->getCompatibilityOption($this->client);
         $this->write("\177$compatibility");
         $this->serverName = "127.0.0.1:$channelName";
         return $handler;
