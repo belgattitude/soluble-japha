@@ -113,7 +113,8 @@ class Java extends AbstractJava
         if (array_key_exists($sig, $client->methodCache)) {
             $cacheEntry = &$client->methodCache[$sig];
             $client->sendBuffer.= $client->preparedToSendBuffer;
-            if (strlen($client->sendBuffer) >= JAVA_SEND_SIZE) {
+            //if (strlen($client->sendBuffer) >= JAVA_SEND_SIZE) {
+            if (strlen($client->sendBuffer) >= $this->__client->java_send_size) {
                 if ($client->protocol->handler->write($client->sendBuffer) <= 0) {
                     throw new Exception\IllegalStateException("Connection out of sync,check backend log for details.");
                 }
@@ -209,7 +210,7 @@ class Java extends AbstractJava
         if (array_key_exists($sig, $client->methodCache)) {
             $cacheEntry = &$client->methodCache[$sig];
             $client->sendBuffer.=$client->preparedToSendBuffer;
-            if (strlen($client->sendBuffer) >= JAVA_SEND_SIZE) {
+            if (strlen($client->sendBuffer) >= $this->__client->java_send_size) {
                 if ($client->protocol->handler->write($client->sendBuffer) <= 0) {
                     throw new Exception\IllegalStateException("Out of sync. Check backend log for details.");
                 }

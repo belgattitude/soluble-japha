@@ -63,17 +63,21 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      * @param string $ssl
      * @param string $host
      * @param integer $port
+     * @param string $java_servlet
+     * @param int $java_recv_size
+     * @param int $java_send_size
      */
-    public function __construct($protocol, $ssl, $host, $port)
+    public function __construct($protocol, $ssl, $host, $port, $java_servlet, $java_recv_size, $java_send_size)
     {
-        parent::__construct($protocol, $ssl, $host, $port);
+        parent::__construct($protocol, $ssl, $host, $port, $java_servlet, $java_recv_size, $java_send_size);
         $this->open();
     }
 
 
     public function createSimpleChannel()
+
     {
-        $this->channel = new EmptyChannel($this);
+        $this->channel = new EmptyChannel($this, $this->java_recv_size, $this->java_send_size);
     }
 
     public function createChannel()
@@ -126,7 +130,8 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      */
     public function fread($size)
     {
-        $length = hexdec(fgets($this->socket, JAVA_RECV_SIZE));
+
+        $length = hexdec(fgets($this->socket, $this->java_recv_size));
         $data = "";
         while ($length > 0) {
             $str = fread($this->socket, $length);
@@ -149,7 +154,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     public function close()
     {
         fwrite($this->socket, "0\r\n\r\n");
-        fgets($this->socket, JAVA_RECV_SIZE);
+        fgets($this->socket, $this->java_recv_size);
         fgets($this->socket, 3);
         fclose($this->socket);
     }
@@ -167,7 +172,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         }
         if (isset($this->headers["http_error"])) {
             if (isset($this->headers["transfer_chunked"])) {
-                $str = $this->fread(JAVA_RECV_SIZE);
+                $str = $this->fread($this->java_recv_size);
             } elseif (isset($this->headers['content_length'])) {
                 $len = $this->headers['content_length'];
                 for ($str = fread($this->socket, $len); strlen($str) < $len; $str.=fread($this->socket, $len - strlen($str))) {
@@ -176,11 +181,11 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
                     }
                 }
             } else {
-                $str = fread($this->socket, JAVA_RECV_SIZE);
+                $str = fread($this->socket, $this->java_recv_size);
             }
             $this->shutdownBrokenConnection($str);
         }
-        return $this->fread(JAVA_RECV_SIZE);
+        return $this->fread($this->java_recv_size);
     }
 
     public function getBodyFor($compat, $data)
@@ -212,13 +217,15 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     public function parseHeaders()
     {
         $this->headers = array();
-        $line = trim(fgets($this->socket, JAVA_RECV_SIZE));
+        
+
+        $line = trim(fgets($this->socket, $this->java_recv_size));
         $ar = explode(" ", $line);
         $code = ((int) $ar[1]);
         if ($code != 200) {
             $this->headers["http_error"] = $code;
         }
-        while (($str = trim(fgets($this->socket, JAVA_RECV_SIZE)))) {
+        while (($str = trim(fgets($this->socket, $this->java_recv_size)))) {
             if ($str[0] == 'X') {
                 if (!strncasecmp("X_JAVABRIDGE_REDIRECT", $str, 21)) {
                     $this->headers["redirect"] = trim(substr($str, 22));

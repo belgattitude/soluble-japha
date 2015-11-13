@@ -48,7 +48,7 @@ class NativeParser
      *
      * @var Client
      */
-    public $handler;
+    public $client;
     public $level;
     public $event;
     public $buf;
@@ -59,7 +59,7 @@ class NativeParser
      */
     public function __construct(Client $client)
     {
-        $this->handler = $client;
+        $this->client = $client;
         $this->parser = xml_parser_create();
         xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, 0);
         xml_set_object($this->parser, $this);
@@ -76,12 +76,12 @@ class NativeParser
             case 'A':
                 $this->level+=1;
         }
-        $this->handler->begin($name, $param);
+        $this->client->begin($name, $param);
     }
 
     public function end($parser, $name)
     {
-        $this->handler->end($name);
+        $this->client->end($name);
         switch ($name) {
             case 'X':
             case 'A':
@@ -96,12 +96,15 @@ class NativeParser
 
     public function parse()
     {
+        $java_recv_size = $this->client->getParam('JAVA_RECV_SIZE');
+
         do {
             $this->event = false;
-            $buf = $this->buf = $this->handler->read(JAVA_RECV_SIZE);
+            
+            $buf = $this->buf = $this->client->read($java_recv_size);
             $len = strlen($buf);
             if (!xml_parse($this->parser, $buf, $len == 0)) {
-                $this->handler->protocol->handler->shutdownBrokenConnection(
+                $this->client->protocol->handler->shutdownBrokenConnection(
                     sprintf("protocol error: %s,%s at col %d. Check the back end log for OutOfMemoryErrors.", $buf, xml_error_string(xml_get_error_code($this->parser)), xml_get_current_column_number($this->parser))
                 );
             }
@@ -110,7 +113,7 @@ class NativeParser
 
     public function parserError()
     {
-        $this->handler->protocol->handler->shutdownBrokenConnection(
+        $this->client->protocol->handler->shutdownBrokenConnection(
             sprintf("protocol error: %s. Check the back end log for details.", $this->buf)
         );
     }

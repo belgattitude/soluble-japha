@@ -25,11 +25,13 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
         $this->adapter = new Adapter(array(
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
         ));
+        
     }
 
     /**

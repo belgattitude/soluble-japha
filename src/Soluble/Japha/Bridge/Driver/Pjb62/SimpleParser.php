@@ -142,9 +142,10 @@ class SimpleParser
 
     public function parse()
     {
+        $java_recv_size = $this->handler->getParam('JAVA_RECV_SIZE');
         while ($this->eor == 0) {
             if ($this->c >= $this->pos) {
-                $this->buf = $this->handler->read(JAVA_RECV_SIZE);
+                $this->buf = $this->handler->read($java_recv_size);
                 if (is_null($this->buf) || strlen($this->buf) == 0) {
                     $this->handler->protocol->handler->shutdownBrokenConnection("protocol error. Check the back end log for OutOfMemoryErrors.");
                 }

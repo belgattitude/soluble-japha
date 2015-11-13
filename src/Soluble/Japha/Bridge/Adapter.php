@@ -59,6 +59,7 @@ class Adapter
      */
     public function __construct(array $options)
     {
+        
         $driver = strtolower($options['driver']);
         if (!array_key_exists($driver, self::$registeredDrivers)) {
             throw new Exception\UnsupportedDriverException(__METHOD__ . "Driver '$driver' is not supported");

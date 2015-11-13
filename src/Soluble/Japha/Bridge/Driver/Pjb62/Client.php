@@ -36,6 +36,8 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use ArrayObject;
+
 class Client
 {
     public $RUNTIME;
@@ -144,13 +146,72 @@ class Client
      */
     protected $cachedValues = array();
 
+    
+    /**
+     *
+     * @var ArrayObject
+     */
+    protected $params;
 
-    public function __construct()
+    /**
+     *
+     * @var string
+     */
+    public $java_servlet;    
+
+    /**
+     *
+     * @var string
+     */
+    public $java_hosts;        
+    
+    /**
+     *
+     * @var int
+     */
+    public $java_recv_size;
+    
+    /**
+     *
+     * @var int
+     */
+    public $java_send_size;
+
+    /**
+     *
+     * @var int
+     */
+    protected $default_buffer_size = 8192;
+    
+    /**
+     * 
+     * @param ArrayObject $params
+     */
+    public function __construct(ArrayObject $params)
     {
+        $this->params = $params;
+        
+
+        if (array_key_exists('JAVA_SEND_SIZE', $params) && $params['JAVA_SEND_SIZE'] != 0) {
+            $this->java_send_size = $params['JAVA_SEND_SIZE'];
+        } else {
+            $this->java_send_size = $this->default_buffer_size;
+        }
+
+        if (array_key_exists('JAVA_RECV_SIZE', $params) && $params['JAVA_RECV_SIZE'] != 0) {
+            $this->java_recv_size = $params['JAVA_RECV_SIZE'];
+        } else {
+            $this->java_recv_size = $this->default_buffer_size;
+        }
+        
+        $this->java_hosts = $params['JAVA_HOSTS'];
+        $this->java_servlet = $params['JAVA_SERVLET'];
+        
+        
         $this->RUNTIME = array();
         $this->RUNTIME["NOTICE"] = '***USE echo java_inspect(jVal) OR print_r(java_values(jVal)) TO SEE THE CONTENTS OF THIS JAVA OBJECT!***';
         $this->parser = new Parser($this);
-        $this->protocol = new Protocol($this);
+        $this->protocol = new Protocol($this, $this->java_hosts,$this->java_servlet, $this->java_recv_size, $this->java_send_size);
         $this->simpleFactory = new SimpleFactory($this);
         $this->proxyFactory = new ProxyFactory($this);
         $this->arrayProxyFactory = new ArrayProxyFactory($this);
@@ -167,8 +228,9 @@ class Client
         $this->cachedValues = array(
             'getContext' => null,
             'getServerName' => null
-            
         );
+        
+        
     }
 
     public function read($size)
@@ -625,5 +687,25 @@ class Client
             $this->cachedValues['getServerName'] = $this->protocol->getServerName();
         }
         return $this->cachedValues['getServerName'];
+    }
+    
+    
+    /**
+     * Return client parameters
+     * @return ArrayObject
+     */
+    public function getParams() {
+        return $this->params;
+    }
+    
+    
+    /**
+     * Return client parameter by name
+     * 
+     * @param string $param
+     * @return string|int
+     */
+    public function getParam($param) {        
+        return $this->params[$param];
     }
 }

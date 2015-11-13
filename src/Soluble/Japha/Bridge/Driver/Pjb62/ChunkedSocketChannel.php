@@ -46,7 +46,7 @@ class ChunkedSocketChannel extends SocketChannel
 
     public function fread($size)
     {
-        $length = hexdec(fgets($this->peer, JAVA_RECV_SIZE));
+        $length = hexdec(fgets($this->peer, $this->recv_size));
         $data = "";
         while ($length > 0) {
             $str = fread($this->peer, $length);

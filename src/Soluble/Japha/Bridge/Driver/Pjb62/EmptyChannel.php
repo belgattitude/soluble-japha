@@ -40,9 +40,30 @@ class EmptyChannel
 {
     protected $handler;
     private $res;
+    
+    
+    /**
+     *
+     * @var int
+     */
+    protected $recv_size;
+    
+    /**
+     *
+     * @var int
+     */
+    protected $send_size;
 
-    public function __construct($handler)
+    /**
+     * 
+     * @param resource $handler
+     * @param int $recv_size
+     * @param int $send_size
+     */
+    public function __construct($handler, $recv_size, $send_size)
     {
+        $this->recv_size = $recv_size;
+        $this->send_size = $send_size;
         $this->handler = $handler;
     }
 
@@ -108,7 +129,7 @@ class EmptyChannel
     {
         $this->res = $this->fread(10);
         $this->fwrite("");
-        $this->fread(JAVA_RECV_SIZE);
+        $this->fread($this->recv_size);
     }
 
     public function keepAliveH()

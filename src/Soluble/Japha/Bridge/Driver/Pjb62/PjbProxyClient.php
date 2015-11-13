@@ -12,6 +12,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Exception;
 use Soluble\Japha\Interfaces;
+use ArrayObject;
 
 class PjbProxyClient
 {
@@ -35,7 +36,7 @@ class PjbProxyClient
 
     /**
      *
-     * @var Client
+     * @var Client|null
      */
     protected static $client;
 
@@ -52,14 +53,40 @@ class PjbProxyClient
     protected $compatibilityOption;
     
     /**
+     *
+     * @var array|null
+     */
+    public $options;
+    
+    /**
+     *
+     * @var string|null
+     */
+    protected static $instanceOptionsKey;
+    
+    /**
      * Private contructor
      * 
+     * $options requires :
+     *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
+     *
+     *  Optionnaly :
+     *  'java_disable_autoload' => false,
+     *  'java_prefer_values' => true,
+     *  'load_pjb_compatibility' => false
+     *  'java_send_size' => 8192,
+     *  'java_recv_size' => 8192        
+     *
+     *
+     * @throws Exception\InvalidArgumentException
      * @see PjbProxyClient::getInstance()
      * @param array $options
      */
     private function __construct($options)
     {
-        $this->loadClient($options);
+        self::$instanceOptionsKey = serialize($options);
+        $this->options = array_merge($options, $this->defaultOptions);                    
+        $this->loadClient();
     }
 
 
@@ -79,21 +106,34 @@ class PjbProxyClient
      * <code>
      *    $options = [
      *      'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
-     *      //"java_disable_autoload' => false,
-     *      //"java_prefer_values' => true,
-     *      //"load_pjb_compatibility' => false
+     *      //'java_disable_autoload' => false,
+     *      //'java_prefer_values' => true,
+     *      //'load_pjb_compatibility' => false
      *    ];
      *    $pjb = PjbProxyClient::getInstance($options);
      * </code>
      *
-     * @param array $options
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\InvalidUsageException
+     * @param array|null $options
      * @return PjbProxyClient
      */
-    public static function getInstance($options = array())
+    public static function getInstance($options = null)
     {
+        
         if (self::$instance === null) {
+            if (!is_array($options) || count($options) == 0) {
+                $message = 'You must provide $options array parameter prior to get an instance of PjbProxyClient';
+                throw new Exception\InvalidArgumentException(__METHOD__ . $message);
+            }
             self::$instance = new PjbProxyClient($options);
-        }
+            
+        } 
+        /* todo order array
+        elseif (is_array($options) && self::$instanceOptionsKey != serialize($options)) {
+            $message  = 'PjbProxyClient::getInstance should only be configured once (bootstrap) with $option parameter';
+            throw new Exception\InvalidUsageException(__METHOD__ . $message);
+        } */
         return self::$instance;
     }
 
@@ -110,42 +150,48 @@ class PjbProxyClient
     /**
      * Load pjb client with options
      *
-     * $options is an associative array and requires :
-     *
-     *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
-     *
-     *  Optionnaly :
-     *  "java_disable_autoload' => false,
-     *  "java_prefer_values' => true,
-     *  "load_pjb_compatibility' => false
-     *
+
      * @throws Exception\InvalidArgumentException
-     * @param array $options
      */
-    protected function loadClient(array $options)
+    protected function loadClient()
     {
         if (self::$client === null) {
+            
+            $options = $this->options;
+            
             if (!isset($options['servlet_address'])) {
                 throw new Exception\InvalidArgumentException(__METHOD__ . " Missing required parameter servlet_address");
             }
 
             $connection = $this->parseServletUrl($options['servlet_address']);
 
-            $opts = array_merge($options, $this->defaultOptions);
-
+            
+            /*
             define("JAVA_HOSTS", $connection["servlet_host"]);
             define("JAVA_SERVLET", $connection["servlet_uri"]);
-            define("JAVA_DISABLE_AUTOLOAD", $opts['java_disable_autoload']);
-            define('JAVA_PREFER_VALUES', $opts['java_prefer_values']);
-            define('JAVA_SEND_SIZE', $opts['java_send_size']);
-            define('JAVA_RECV_SIZE', $opts['java_recv_size']);
-
-            if ($opts['load_pjb_compatibility']) {
+            define("JAVA_DISABLE_AUTOLOAD", $options['java_disable_autoload']);
+            define('JAVA_PREFER_VALUES', $options['java_prefer_values']);
+            define('JAVA_SEND_SIZE', $options['java_send_size']);
+            define('JAVA_RECV_SIZE', $options['java_recv_size']);
+            */
+            if (!defined('JAVA_PREFER_VALUES')) {
+                define('JAVA_PREFER_VALUES', $options['java_prefer_values']);
+            }
+            
+            if ($options['load_pjb_compatibility']) {
                 $ds = DIRECTORY_SEPARATOR;
                 require_once dirname(__FILE__) . $ds . "Compat" . $ds . "pjb_functions.php";
             }
-
-            self::$client = new Client();
+            
+            $params = new ArrayObject();      
+            $params['JAVA_HOSTS'] = $connection["servlet_host"];
+            $params['JAVA_SERVLET'] = $connection["servlet_uri"];
+            $params['JAVA_DISABLE_AUTOLOAD'] = $options['java_disable_autoload'];
+            $params['JAVA_PREFER_VALUES'] =  $options['java_prefer_values'];
+            $params['JAVA_SEND_SIZE'] = $options['java_send_size'];
+            $params['JAVA_RECV_SIZE'] = $options['java_recv_size'];
+            
+            self::$client = new Client($params);
 
             // Added in order to work with custom exceptions
             self::$client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory(self::$client);
@@ -161,50 +207,7 @@ class PjbProxyClient
     {
         return self::$client;
     }
-        
-
-    public static function shutdown()
-    {
-        if (self::isInitialized()) {
-            
-            //$client = self::getInstance()->getClient();
-            $client = self::$client;
-
-            // TODO CHECK WITH SESSIONS
-            if (session_id()) {
-                session_write_close();
-            }
-            if (!isset($client->protocol) || $client->inArgs) {
-                return;
-            }
-            if ($client->preparedToSendBuffer) {
-                $client->sendBuffer .= $client->preparedToSendBuffer;
-            }
-
-            $client->sendBuffer.= $client->protocol->getKeepAlive();
-
-
-            $client->protocol->flush();
-
-            // TODO MUST TEST, IT WAS REMOVED FROM FUNCTION
-            // BECAUSE IT SIMPLY LOOKS LIKE THE LINES BEFORE
-            // ADDED AN IF TO CHECK THE CHANNEL In CASE OF
-            //
-
-            if (isset($client->protocol->handler->channel) &&
-                    !preg_match('/EmptyChannel/', get_class($client->protocol->handler->channel))) {
-                $client->protocol->keepAlive();
-            }
-
-            // Added but needs more tests
-            //unset($client);// = null;
-            
-            self::$client = null;
-            self::$instance = null;
-            
-        }
-    }
-
+    
     /**
      * Return a Java class
      *
@@ -446,6 +449,8 @@ class PjbProxyClient
         return $infos;
     }
     
+    
+    
 
     /**
      * For compatibility usage all constants have been kept
@@ -456,12 +461,17 @@ class PjbProxyClient
         /// BOOTSTRAP
         /// A lot to rework, remove constants
         //define("JAVA_PEAR_VERSION", "6.2.1");
+        
+        /*
         if (!defined("JAVA_DISABLE_AUTOLOAD") || !JAVA_DISABLE_AUTOLOAD) {
             //spl_autoload_register(array(__CLASS__, "autoload"));
             spl_autoload_register(array('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', "autoload"));
         }
+         
+        */
+        
         //register_shutdown_function(array(__CLASS__, 'shutdown'));
-        register_shutdown_function(array('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', 'shutdown'));
+        register_shutdown_function(array('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', 'unregisterInstance'));
 
         /*       
         if (!defined("JAVA_SEND_SIZE")) {
@@ -503,4 +513,66 @@ class PjbProxyClient
             }
         }
     }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getOptions() {
+        return $this->options;
+    }
+    
+    /**
+     * Clean up PjbProxyClient instance
+     * @return void
+     */
+    public static function unregisterInstance()
+    {
+        if (self::isInitialized()) {
+            
+            // TODO CHECK WITH SESSIONS
+            if (session_id()) {
+                session_write_close();
+            }
+            if (!isset(self::$client->protocol) || self::$client->inArgs) {
+                return;
+            }
+            if (self::$client->preparedToSendBuffer) {
+                self::$client->sendBuffer .= self::$client->preparedToSendBuffer;
+            }
+
+            self::$client->sendBuffer.= self::$client->protocol->getKeepAlive();
+
+
+            self::$client->protocol->flush();
+
+            // TODO MUST TEST, IT WAS REMOVED FROM FUNCTION
+            // BECAUSE IT SIMPLY LOOKS LIKE THE LINES BEFORE
+            // ADDED AN IF TO CHECK THE CHANNEL In CASE OF
+            //
+            if (isset(self::$client->protocol->handler->channel) &&
+                    !preg_match('/EmptyChannel/', get_class(self::$client->protocol->handler->channel))) {
+                self::$client->protocol->keepAlive();
+            }
+
+            // Added but needs more tests
+            //unset($client);// = null;
+            
+            self::$client = null;
+            self::$instance = null;
+            self::$instanceOptionsKey = null;
+            
+        }
+    }
+    
+    
+    /**
+     * Before removing instance
+     * @return void
+     */
+    public function __destroy()
+    {
+       $this->unregisterInstance(); 
+    }
+    
 }

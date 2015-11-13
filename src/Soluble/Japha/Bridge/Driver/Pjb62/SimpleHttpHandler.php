@@ -61,20 +61,48 @@ class SimpleHttpHandler extends SocketHandler
      */
     protected $cachedValues = array();
 
+    
+    /**
+     *
+     * @var string
+     */
+    protected $java_servlet;
+    
+    /**
+     *
+     * @var int
+     */
+    protected $java_recv_size;
+    
+    /**
+     *
+     * @var int
+     */
+    protected $java_send_size;
+    
     /**
      *
      * @param Protocol $protocol
      * @param string $ssl
      * @param string $host
      * @param integer $port
+     * @param string $java_servlet
+     * @param int $java_recv_size
+     * @param int $java_send_size
      */
-    public function __construct(Protocol $protocol, $ssl, $host, $port)
+    public function __construct(Protocol $protocol, $ssl, $host, $port, $java_servlet, $java_recv_size, $java_send_size)
     {        
         $this->cookies = array();
         $this->protocol = $protocol;
         $this->ssl = $ssl;
         $this->host = $host;
         $this->port = $port;
+        $this->java_servlet = $java_servlet;
+        
+        $this->java_send_size = $java_send_size;
+        $this->java_recv_size = $java_recv_size;
+        
+        
         $this->cachedValues = array(
             'getContext' => null
         );
@@ -90,7 +118,7 @@ class SimpleHttpHandler extends SocketHandler
         $len1 = chr($len & 0xFF);
         $len>>=8;
         $len2 = chr($len & 0xFF);
-        $this->channel = new EmptyChannel($this);
+        $this->channel = new EmptyChannel($this, $this->java_recv_size, $this->java_send_size);
         $this->channel = $this->getChannel($channelName);
         $this->protocol->setSocketHandler(new SocketHandler($this->protocol, $this->channel));
         $this->protocol->write("\177${len0}${len1}${len2}${context}");
@@ -154,16 +182,24 @@ class SimpleHttpHandler extends SocketHandler
         if (isset($context)) {
             return $context;
         }
+        
+        return ($this->java_servlet == "User" &&
+                array_key_exists('PHP_SELF', $_SERVER) &&
+                array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . "javabridge" : null;
+        /**
         return (JAVA_SERVLET == "User" &&
                 array_key_exists('PHP_SELF', $_SERVER) &&
                 array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . "javabridge" : null;
+         * 
+         *
+         */
     }
 
     public function getWebApp()
     {
         $context = $this->getWebAppInternal();
         if (is_null($context)) {
-            $context = JAVA_SERVLET;
+            $context = $this->java_servlet;
         }
         if (is_null($context) || $context[0] != "/") {
             $context = "/JavaBridge/JavaBridge.phpjavabridge";
@@ -211,7 +247,7 @@ class SimpleHttpHandler extends SocketHandler
             throw new Exception\IllegalStateException("No ContextServer for {$this->host}:{$channelName}. Error: $errstr ($errno)\n");
         }
         stream_set_timeout($peer, -1);
-        return new SocketChannelP($peer, $this->host);
+        return new SocketChannelP($peer, $this->host, $this->java_recv_size, $this->java_send_size);
     }
 
     public function keepAlive()

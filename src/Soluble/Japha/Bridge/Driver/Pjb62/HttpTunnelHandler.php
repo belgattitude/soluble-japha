@@ -38,6 +38,8 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class HttpTunnelHandler extends SimpleHttpTunnelHandler
 {
+    
+    
     public function fread($size)
     {
         if ($this->hasContentLength) {
