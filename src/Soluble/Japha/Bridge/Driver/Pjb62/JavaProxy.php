@@ -38,12 +38,13 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-/*
+/**
  * Some annotations for java.lang.Object
- * 
+ * @see http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
+ *
  * @method JavaClass getClass() return object class name
  * @method boolean equals(JavaObject $object)
- * @method string toString() 
+ * @method string toString()
  */
 
 class JavaProxy implements JavaType
