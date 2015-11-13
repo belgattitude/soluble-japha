@@ -43,15 +43,15 @@ class EmptyChannel
      * @var SocketHandler
      */
     protected $handler;
-    
+
     private $res;
-    
+
     /**
      *
      * @var int
      */
     protected $recv_size;
-    
+
     /**
      *
      * @var int
@@ -59,7 +59,7 @@ class EmptyChannel
     protected $send_size;
 
     /**
-     * 
+     *
      * @param SocketHandler $handler
      * @param int $recv_size
      * @param int $send_size

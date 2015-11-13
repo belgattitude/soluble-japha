@@ -38,7 +38,8 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-class Protocol {
+class Protocol
+{
 
     /**
      *
@@ -73,22 +74,22 @@ class Protocol {
 
     /**
      *
-     * @var string 
+     * @var string
      */
-    protected $java_hosts;    
-    
+    protected $java_hosts;
+
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $java_servlet;
-    
+
     /**
      *
      * @var int
      */
     public $java_recv_size;
-    
+
     /**
      *
      * @var int
@@ -96,20 +97,21 @@ class Protocol {
     public $java_send_size;
 
 
-    
+
     /**
-     * 
+     *
      * @param Client $client
      * @param string $java_hosts
      * @param string $java_servlet
      * @param int $java_recv_size
      * @param int $java_send_size
      */
-    public function __construct(Client $client, $java_hosts, $java_servlet, $java_recv_size, $java_send_size) {
+    public function __construct(Client $client, $java_hosts, $java_servlet, $java_recv_size, $java_send_size)
+    {
         $this->client = $client;
         $this->java_hosts = $java_hosts;
         $this->java_servlet = $java_servlet;
-        $this->java_recv_size = $java_recv_size;        
+        $this->java_recv_size = $java_recv_size;
         $this->java_send_size = $java_send_size;
         $this->setHost($java_hosts);
         $this->handler = $this->createHandler();
@@ -119,7 +121,8 @@ class Protocol {
      *
      * @return string
      */
-    public function getOverrideHosts() {
+    public function getOverrideHosts()
+    {
         if (array_key_exists('X_JAVABRIDGE_OVERRIDE_HOSTS', $_ENV)) {
             $override = $_ENV['X_JAVABRIDGE_OVERRIDE_HOSTS'];
             if (!is_null($override) && $override != '/') {
@@ -133,7 +136,8 @@ class Protocol {
      *
      * @param SocketHandler $socketHandler
      */
-    public function setSocketHandler(SocketHandler $socketHandler) {
+    public function setSocketHandler(SocketHandler $socketHandler)
+    {
         $this->socketHandler = $socketHandler;
     }
 
@@ -141,15 +145,17 @@ class Protocol {
      *
      * @return SocketHandler  socket handler
      */
-    public function getSocketHandler() {
+    public function getSocketHandler()
+    {
         return $this->socketHandler;
     }
 
     /**
-     * 
+     *
      * @param string $java_hosts
      */
-    public function setHost($java_hosts) {
+    public function setHost($java_hosts)
+    {
         $hosts = explode(";", $java_hosts);
         //$hosts = explode(";", JAVA_HOSTS);
         $host = explode(":", $hosts[0]);
@@ -166,7 +172,8 @@ class Protocol {
      *
      * @return array
      */
-    public function getHost() {
+    public function getHost()
+    {
         return $this->host;
     }
 
@@ -174,7 +181,8 @@ class Protocol {
      *
      * @return SimpleHttpHandler|HttpTunnelHandler
      */
-    public function createHttpHandler() {
+    public function createHttpHandler()
+    {
         $overrideHosts = $this->getOverrideHosts();
         $ssl = "";
         if ($overrideHosts) {
@@ -207,7 +215,6 @@ class Protocol {
             }
             $this->webContext = $webCtx;
         } else {
-
             $hostVec = $this->getHost();
             if ($ssl = $hostVec[0]) {
                 $ssl .="://";
@@ -216,11 +223,10 @@ class Protocol {
             $port = $hostVec[2];
         }
         $this->serverName = "${ssl}${host}:$port";
-        
-        
+
+
         if ((array_key_exists("X_JAVABRIDGE_REDIRECT", $_SERVER)) ||
                 (array_key_exists("HTTP_X_JAVABRIDGE_REDIRECT", $_SERVER))) {
-
             return new SimpleHttpHandler($this, $ssl, $host, $port, $this->java_servlet, $this->java_recv_size, $this->java_send_size);
         }
 
@@ -235,7 +241,8 @@ class Protocol {
      * @throws Exception\ConnectException
      * @throws Exception\IOException
      */
-    public function createSimpleHandler($name, $again = true) {
+    public function createSimpleHandler($name, $again = true)
+    {
         $channelName = $name;
         $errno = null;
         $errstr = null;
@@ -277,7 +284,8 @@ class Protocol {
      *
      * @return string
      */
-    public function java_get_simple_channel() {
+    public function java_get_simple_channel()
+    {
         $java_hosts = $this->java_hosts;
         $java_servlet = $this->java_servlet;
 
@@ -285,7 +293,8 @@ class Protocol {
         //return (JAVA_HOSTS && (!JAVA_SERVLET || (JAVA_SERVLET == "Off"))) ? JAVA_HOSTS : null;
     }
 
-    public function createHandler() {
+    public function createHandler()
+    {
         if (!java_getHeader('X_JAVABRIDGE_OVERRIDE_HOSTS', $_SERVER) &&
                 ((function_exists("java_get_default_channel") && ($defaultChannel = java_get_default_channel())) ||
                 ($defaultChannel = $this->java_get_simple_channel()))) {
@@ -295,40 +304,49 @@ class Protocol {
         }
     }
 
-    public function redirect() {
+    public function redirect()
+    {
         $this->handler->redirect();
     }
 
-    public function read($size) {
+    public function read($size)
+    {
         return $this->handler->read($size);
     }
 
-    public function sendData() {
+    public function sendData()
+    {
         $this->handler->write($this->client->sendBuffer);
         $this->client->sendBuffer = null;
     }
 
-    public function flush() {
+    public function flush()
+    {
         $this->sendData();
     }
 
-    public function getKeepAlive() {
+    public function getKeepAlive()
+    {
         return $this->handler->getKeepAlive();
     }
 
-    public function keepAlive() {
+    public function keepAlive()
+    {
         $this->handler->keepAlive();
     }
 
-    public function handle() {
+    public function handle()
+    {
         $this->client->handleRequests();
     }
 
-    public function write($data) {
+    public function write($data)
+    {
         $this->client->sendBuffer.=$data;
     }
 
-    public function finish() {
+    public function finish()
+    {
         $this->flush();
         $this->handle();
         $this->redirect();
@@ -338,7 +356,8 @@ class Protocol {
      * @param string $name java class name, i.e java.math.BigInteger
      */
 
-    public function referenceBegin($name) {
+    public function referenceBegin($name)
+    {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
         $signature = sprintf("<H p=\"1\" v=\"%s\">", $name);
@@ -347,7 +366,8 @@ class Protocol {
         $this->client->currentArgumentsFormat = $signature;
     }
 
-    public function referenceEnd() {
+    public function referenceEnd()
+    {
         $this->client->currentArgumentsFormat.=$format = "</H>";
         $this->write($format);
         $this->finish();
@@ -358,7 +378,8 @@ class Protocol {
      *
      * @param string $name java class name i.e java.math.BigInteger
      */
-    public function createObjectBegin($name) {
+    public function createObjectBegin($name)
+    {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
         $signature = sprintf("<K p=\"1\" v=\"%s\">", $name);
@@ -367,7 +388,8 @@ class Protocol {
         $this->client->currentArgumentsFormat = $signature;
     }
 
-    public function createObjectEnd() {
+    public function createObjectEnd()
+    {
         $this->client->currentArgumentsFormat.=$format = "</K>";
         $this->write($format);
         $this->finish();
@@ -379,14 +401,16 @@ class Protocol {
      * @param integer $object object id
      * @param string $method method name
      */
-    public function propertyAccessBegin($object, $method) {
+    public function propertyAccessBegin($object, $method)
+    {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
         $this->write(sprintf("<G p=\"1\" v=\"%x\" m=\"%s\">", $object, $method));
         $this->client->currentArgumentsFormat = "<G p=\"2\" v=\"%x\" m=\"${method}\">";
     }
 
-    public function propertyAccessEnd() {
+    public function propertyAccessEnd()
+    {
         $this->client->currentArgumentsFormat.=$format = "</G>";
         $this->write($format);
         $this->finish();
@@ -398,27 +422,31 @@ class Protocol {
      * @param integer $object object id
      * @param string $method method name
      */
-    public function invokeBegin($object, $method) {
+    public function invokeBegin($object, $method)
+    {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
         $this->write(sprintf("<Y p=\"1\" v=\"%x\" m=\"%s\">", $object, $method));
         $this->client->currentArgumentsFormat = "<Y p=\"2\" v=\"%x\" m=\"${method}\">";
     }
 
-    public function invokeEnd() {
+    public function invokeEnd()
+    {
         $this->client->currentArgumentsFormat.=$format = "</Y>";
         $this->write($format);
         $this->finish();
         $this->client->currentCacheKey = null;
     }
 
-    public function resultBegin() {
+    public function resultBegin()
+    {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
         $this->write("<R>");
     }
 
-    public function resultEnd() {
+    public function resultEnd()
+    {
         $this->client->currentCacheKey = null;
         $this->write("</R>");
         $this->flush();
@@ -428,7 +456,8 @@ class Protocol {
      *
      * @param string $name
      */
-    public function writeString($name) {
+    public function writeString($name)
+    {
         $this->client->currentArgumentsFormat.=$format = "<S v=\"%s\"/>";
         $this->write(sprintf($format, htmlspecialchars($name, ENT_COMPAT)));
     }
@@ -437,7 +466,8 @@ class Protocol {
      *
      * @param boolean $boolean
      */
-    public function writeBoolean($boolean) {
+    public function writeBoolean($boolean)
+    {
         $this->client->currentArgumentsFormat.=$format = "<T v=\"%s\"/>";
         $this->write(sprintf($format, $boolean));
     }
@@ -446,7 +476,8 @@ class Protocol {
      *
      * @param integer $l
      */
-    public function writeLong($l) {
+    public function writeLong($l)
+    {
         $this->client->currentArgumentsFormat.="<J v=\"%d\"/>";
         if ($l < 0) {
             $this->write(sprintf("<L v=\"%x\" p=\"A\"/>", -$l));
@@ -459,7 +490,8 @@ class Protocol {
      *
      * @param integer $l
      */
-    public function writeULong($l) {
+    public function writeULong($l)
+    {
         $this->client->currentArgumentsFormat.=$format = "<L v=\"%x\" p=\"O\"/>";
         $this->write(sprintf($format, $l));
     }
@@ -468,7 +500,8 @@ class Protocol {
      *
      * @param double $d
      */
-    public function writeDouble($d) {
+    public function writeDouble($d)
+    {
         $this->client->currentArgumentsFormat.=$format = "<D v=\"%.14e\"/>";
         $this->write(sprintf($format, $d));
     }
@@ -477,7 +510,8 @@ class Protocol {
      *
      * @param integer $object
      */
-    public function writeObject($object) {
+    public function writeObject($object)
+    {
         $this->client->currentArgumentsFormat.=$format = "<O v=\"%x\"/>";
         $this->write(sprintf($format, $object));
     }
@@ -487,19 +521,23 @@ class Protocol {
      * @param integer $object
      * @param string $str
      */
-    public function writeException($object, $str) {
+    public function writeException($object, $str)
+    {
         $this->write(sprintf("<E v=\"%x\" m=\"%s\"/>", $object, htmlspecialchars($str, ENT_COMPAT)));
     }
 
-    public function writeCompositeBegin_a() {
+    public function writeCompositeBegin_a()
+    {
         $this->write("<X t=\"A\">");
     }
 
-    public function writeCompositeBegin_h() {
+    public function writeCompositeBegin_h()
+    {
         $this->write("<X t=\"H\">");
     }
 
-    public function writeCompositeEnd() {
+    public function writeCompositeEnd()
+    {
         $this->write("</X>");
     }
 
@@ -507,7 +545,8 @@ class Protocol {
      *
      * @param string $key
      */
-    public function writePairBegin_s($key) {
+    public function writePairBegin_s($key)
+    {
         $this->write(sprintf("<P t=\"S\" v=\"%s\">", htmlspecialchars($key, ENT_COMPAT)));
     }
 
@@ -515,15 +554,18 @@ class Protocol {
      *
      * @param integer $key
      */
-    public function writePairBegin_n($key) {
+    public function writePairBegin_n($key)
+    {
         $this->write(sprintf("<P t=\"N\" v=\"%x\">", $key));
     }
 
-    public function writePairBegin() {
+    public function writePairBegin()
+    {
         $this->write("<P>");
     }
 
-    public function writePairEnd() {
+    public function writePairEnd()
+    {
         $this->write("</P>");
     }
 
@@ -531,7 +573,8 @@ class Protocol {
      *
      * @param integer $object
      */
-    public function writeUnref($object) {
+    public function writeUnref($object)
+    {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
         $this->write(sprintf("<U v=\"%x\"/>", $object));
@@ -541,8 +584,8 @@ class Protocol {
      *
      * @return string
      */
-    public function getServerName() {
+    public function getServerName()
+    {
         return $this->serverName;
     }
-
 }

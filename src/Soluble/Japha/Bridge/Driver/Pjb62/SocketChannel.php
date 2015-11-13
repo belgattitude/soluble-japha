@@ -46,19 +46,19 @@ abstract class SocketChannel extends EmptyChannel
      * @var int
      */
     protected $recv_size;
-    
+
     /**
      *
      * @var int
      */
-    protected $send_size;    
-    
+    protected $send_size;
+
     /**
      *
      * @param resource $peer
      * @param string $host
      * @param int $recv_size
-     * @param int $send_size     
+     * @param int $send_size
      */
     public function __construct($peer, $host, $recv_size, $send_size)
     {
@@ -66,7 +66,7 @@ abstract class SocketChannel extends EmptyChannel
         $this->host = $host;
         $this->recv_size = $recv_size;
         $this->send_size = $send_size;
-        
+
     }
 
     public function fwrite($data)

@@ -75,7 +75,6 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
 
 
     public function createSimpleChannel()
-
     {
         $this->channel = new EmptyChannel($this, $this->java_recv_size, $this->java_send_size);
     }
@@ -217,7 +216,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     public function parseHeaders()
     {
         $this->headers = array();
-        
+
 
         $line = trim(fgets($this->socket, $this->java_recv_size));
         $ar = explode(" ", $line);
@@ -269,7 +268,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     public function getSimpleChannel()
     {
         //public function __construct($peer, $host, $recv_size, $send_size)
-        
+
         // Originally found in Pjb - no sense
         //return new ChunkedSocketChannel($this->socket, $this->protocol, $this->host);
         return new ChunkedSocketChannel($this->socket, $this->host, $this->java_recv_size, $this->java_send_size);

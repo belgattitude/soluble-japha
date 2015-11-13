@@ -33,8 +33,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
+ *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
+
+/*
+ * Some annotations for java.lang.Object
+ * 
+ * @method JavaClass getClass() return object class name
+ * @method boolean equals(JavaObject $object)
+ * @method string toString() 
+ */
 
 class JavaProxy implements JavaType
 {

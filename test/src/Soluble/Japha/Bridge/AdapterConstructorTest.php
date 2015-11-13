@@ -44,7 +44,7 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
         $ba = new Adapter(array(
             'driver' => 'InvalidDriver'
         ));
-        
+
     }
 
     public function testConstructorThrowsInvalidArgumentException()
@@ -55,7 +55,7 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
             'driver' => 'Pjb62',
             'missing_servlet_address' => ''
         ));
-        
+
     }
 
     public function testConstructorThrowsInvalidArgumentException2()
@@ -65,6 +65,6 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
             'driver' => 'Pjb62',
             'servlet_address' => 'an invalid url'
         ));
-        
+
     }
 }

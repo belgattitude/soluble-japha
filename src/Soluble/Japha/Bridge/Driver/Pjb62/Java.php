@@ -44,7 +44,7 @@ class Java extends AbstractJava
 {
     /**
      * Internal java constructor
-     * 
+     *
      * //public function __construct($java_fqdn, $java_args=null)
      */
     public function __construct()

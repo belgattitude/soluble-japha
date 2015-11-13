@@ -54,32 +54,32 @@ class SimpleHttpHandler extends SocketHandler
      * @var string
      */
     public $host;
-    
+
     /**
      *
      * @var array
      */
     protected $cachedValues = array();
 
-    
+
     /**
      *
      * @var string
      */
     protected $java_servlet;
-    
+
     /**
      *
      * @var int
      */
     protected $java_recv_size;
-    
+
     /**
      *
      * @var int
      */
     protected $java_send_size;
-    
+
     /**
      *
      * @param Protocol $protocol
@@ -91,18 +91,18 @@ class SimpleHttpHandler extends SocketHandler
      * @param int $java_send_size
      */
     public function __construct(Protocol $protocol, $ssl, $host, $port, $java_servlet, $java_recv_size, $java_send_size)
-    {        
+    {
         $this->cookies = array();
         $this->protocol = $protocol;
         $this->ssl = $ssl;
         $this->host = $host;
         $this->port = $port;
         $this->java_servlet = $java_servlet;
-        
+
         $this->java_send_size = $java_send_size;
         $this->java_recv_size = $java_recv_size;
-        
-        
+
+
         $this->cachedValues = array(
             'getContext' => null
         );
@@ -160,7 +160,7 @@ class SimpleHttpHandler extends SocketHandler
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getContext()
@@ -173,7 +173,7 @@ class SimpleHttpHandler extends SocketHandler
             }
             $this->cachedValues['getContext'] = $context;
         }
-        return $this->cachedValues['getContext'];                
+        return $this->cachedValues['getContext'];
     }
 
     public function getWebAppInternal()
@@ -182,7 +182,7 @@ class SimpleHttpHandler extends SocketHandler
         if (isset($context)) {
             return $context;
         }
-        
+
         return ($this->java_servlet == "User" &&
                 array_key_exists('PHP_SELF', $_SERVER) &&
                 array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . "javabridge" : null;
@@ -190,7 +190,7 @@ class SimpleHttpHandler extends SocketHandler
         return (JAVA_SERVLET == "User" &&
                 array_key_exists('PHP_SELF', $_SERVER) &&
                 array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . "javabridge" : null;
-         * 
+         *
          *
          */
     }

@@ -100,7 +100,7 @@ class NativeParser
 
         do {
             $this->event = false;
-            
+
             $buf = $this->buf = $this->client->read($java_recv_size);
             $len = strlen($buf);
             if (!xml_parse($this->parser, $buf, $len == 0)) {

@@ -138,15 +138,15 @@ class Client
      * @var Protocol
      */
     public $protocol;
-    
-    
+
+
     /**
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $cachedValues = array();
 
-    
+
     /**
      *
      * @var ArrayObject
@@ -157,20 +157,20 @@ class Client
      *
      * @var string
      */
-    public $java_servlet;    
+    public $java_servlet;
 
     /**
      *
      * @var string
      */
-    public $java_hosts;        
-    
+    public $java_hosts;
+
     /**
      *
      * @var int
      */
     public $java_recv_size;
-    
+
     /**
      *
      * @var int
@@ -182,15 +182,15 @@ class Client
      * @var int
      */
     protected $default_buffer_size = 8192;
-    
+
     /**
-     * 
+     *
      * @param ArrayObject $params
      */
     public function __construct(ArrayObject $params)
     {
         $this->params = $params;
-        
+
 
         if (array_key_exists('JAVA_SEND_SIZE', $params) && $params['JAVA_SEND_SIZE'] != 0) {
             $this->java_send_size = $params['JAVA_SEND_SIZE'];
@@ -203,15 +203,15 @@ class Client
         } else {
             $this->java_recv_size = $this->default_buffer_size;
         }
-        
+
         $this->java_hosts = $params['JAVA_HOSTS'];
         $this->java_servlet = $params['JAVA_SERVLET'];
-        
-        
+
+
         $this->RUNTIME = array();
         $this->RUNTIME["NOTICE"] = '***USE echo java_inspect(jVal) OR print_r(java_values(jVal)) TO SEE THE CONTENTS OF THIS JAVA OBJECT!***';
         $this->parser = new Parser($this);
-        $this->protocol = new Protocol($this, $this->java_hosts,$this->java_servlet, $this->java_recv_size, $this->java_send_size);
+        $this->protocol = new Protocol($this, $this->java_hosts, $this->java_servlet, $this->java_recv_size, $this->java_send_size);
         $this->simpleFactory = new SimpleFactory($this);
         $this->proxyFactory = new ProxyFactory($this);
         $this->arrayProxyFactory = new ArrayProxyFactory($this);
@@ -224,13 +224,13 @@ class Client
         $this->asyncCtx = $this->cancelProxyCreationCounter = 0;
         $this->methodCache = $this->defaultCache;
         $this->inArgs = false;
-        
+
         $this->cachedValues = array(
             'getContext' => null,
             'getServerName' => null
         );
-        
-        
+
+
     }
 
     public function read($size)
@@ -633,7 +633,7 @@ class Client
 
     /**
      * Cast an object to a certain type
-     * 
+     *
      * @param mixed $object
      * @param array $type
      * @return mixed
@@ -665,7 +665,7 @@ class Client
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getContext()
@@ -688,24 +688,26 @@ class Client
         }
         return $this->cachedValues['getServerName'];
     }
-    
-    
+
+
     /**
      * Return client parameters
      * @return ArrayObject
      */
-    public function getParams() {
+    public function getParams()
+    {
         return $this->params;
     }
-    
-    
+
+
     /**
      * Return client parameter by name
-     * 
+     *
      * @param string $param
      * @return string|int
      */
-    public function getParam($param) {        
+    public function getParam($param)
+    {
         return $this->params[$param];
     }
 }

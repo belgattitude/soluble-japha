@@ -37,9 +37,9 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function testCompatFunctions()
     {
-        
+
         PjbProxyClient::unregisterInstance();
-        
+
         $adapter = new Adapter(array(
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
