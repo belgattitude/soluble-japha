@@ -78,13 +78,16 @@ echo $bigint->intValue() + 10; // prints 11
 
 ```
 
-### Using "final" classes
+### Using java classes
 
 ```php
 <?php
 
 $system = $ba->javaClass('java.lang.System');
 echo  $system->getProperties()->get('java.vm_name);
+
+$calendar = $ba->javaClass('java.util.Calendar')->getInstance();
+$date = $calendar->getTime();
 
 ```
 
