@@ -205,14 +205,15 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $pattern = "yyyy-MM-dd HH:mm:ss";
         
         $formatter = $ba->java("java.text.SimpleDateFormat", $pattern);
-        $tz = $ba->javaClass('java.util.TimeZone')->getTimezone("Europe/London");
         
         $phpTz = new \DateTimeZone("Europe/Paris");
         
         $reference_date = "2012-11-07 12:52:23";
         $phpDate  = \DateTime::createFromFormat("Y-m-d H:i:s", $reference_date, $phpTz);
+        
+        $formatter->setTimeZone($ba->javaClass('java.util.TimeZone')->getTimezone("Europe/Paris"));        
         $date = $formatter->parse($reference_date);
-        $formatter->setTimeZone($tz);
+        $formatter->setTimeZone($ba->javaClass('java.util.TimeZone')->getTimezone("Europe/London"));        
         $javaDate = (string) $formatter->format($date);
         $this->assertNotEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
         $this->assertEquals($reference_date, $phpDate->format('Y-m-d H:i:s'));
