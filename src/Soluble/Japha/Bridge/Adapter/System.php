@@ -8,37 +8,38 @@ use Soluble\Japha\Interfaces;
 use Soluble\Japha\Util\TimeZone;
 use Soluble\Japha\Util\Exception\UnsupportedTzException;
 
-class System 
+class System
 {
     /**
-     * @var Bridge\Adapter; 
+     * @var Bridge\Adapter;
      */
     protected $ba;
-    
-    
+
+
     /**
      * @var TimeZone
      */
     protected $timeZone;
-    
+
     /**
-     * 
+     *
      * @param Bridge\Adapter $ba
      */
-    public function __construct(Bridge\Adapter $ba) {
+    public function __construct(Bridge\Adapter $ba)
+    {
         $this->ba = $ba;
         $this->timeZone = new TimeZone($ba);
     }
-    
+
     /**
      * Get php DateTime helper object
      * @return TimeZone
      */
     public function getTimeZone()
     {
-        return $this->TimeZone;
+        return $this->timeZone;
     }
-    
+
     /**
      * Return system default timezone id
      * @return string
@@ -47,10 +48,10 @@ class System
     {
         return (string) $this->timeZone->getDefault()->getId();
     }
-    
+
     /**
      * Set system default timezone
-     * 
+     *
      * @throws UnsupportedTzException
      * @param string|Interfaces\JavaObject|DateTimeZone $timeZone timezone id, Java(java.util.Timezone) or php DateTimeZone
      * @return void
@@ -59,6 +60,4 @@ class System
     {
         $this->timeZone->setDefault($timezone);
     }
-    
-    
 }

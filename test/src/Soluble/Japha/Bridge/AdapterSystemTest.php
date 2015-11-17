@@ -27,8 +27,8 @@ class AdapterSystemTest extends \PHPUnit_Framework_TestCase
      * @var Interfaces\JavaObject
      */
     protected $backupTz;
-    
-    
+
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -52,16 +52,16 @@ class AdapterSystemTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->ba->javaClass('java.util.TimeZone')->setDefault($this->backupTz);        
+        $this->ba->javaClass('java.util.TimeZone')->setDefault($this->backupTz);
     }
-    
+
     public function testGetSystemTimeZoneId()
     {
         $tzId = $this->ba->getSystem()->getTimeZoneId();
         $this->assertInternalType('string', $tzId);
-        
+
     }
-    
+
     public function testSetSystemTimeZoneId()
     {
         $this->ba->getSystem()->setTimeZoneId('Europe/London');
@@ -71,14 +71,13 @@ class AdapterSystemTest extends \PHPUnit_Framework_TestCase
         $this->ba->getSystem()->setTimeZoneId('CET');
         $tzId = $this->ba->getSystem()->getTimeZoneId();
         $this->assertEquals('CET', $tzId);
-        
+
     }
-    
+
     public function testGetTimeZone()
     {
         $tz = $this->ba->getSystem()->getTimeZone();
         $this->assertInstanceOf('Soluble\Japha\Util\TimeZone', $tz);
-        
+
     }
-    
 }

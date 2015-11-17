@@ -67,7 +67,7 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
         ));
 
     }
-    
+
     public function testConstructorSetsDefaultTimeZone()
     {
         $ba = new Adapter(array(
@@ -75,12 +75,12 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
             'servlet_address' => $this->servlet_address,
             //'java_default_timezone' =>
         ));
-        
+
         $phpTz = date_default_timezone_get();
         $javaTz = $ba->getSystem()->getTimeZoneId();
         $this->assertEquals($phpTz, $javaTz);
     }
-    
+
     public function testConstructorSetsCustomDefaultTimeZone()
     {
         $ba = new Adapter(array(
@@ -88,12 +88,10 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
             'servlet_address' => $this->servlet_address,
             'java_default_timezone' => 'Europe/London'
         ));
-        
-        
+
+
         $javaTz = $ba->getSystem()->getTimeZoneId();
         $this->assertEquals('Europe/London', $javaTz);
 
     }
-    
-    
 }

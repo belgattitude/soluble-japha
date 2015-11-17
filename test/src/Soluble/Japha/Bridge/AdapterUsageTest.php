@@ -170,7 +170,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $ba = $this->adapter;
 
         // Step 1: Check with system java timezone
-        
+
         $pattern = "yyyy-MM-dd HH:mm";
         $formatter = $ba->java("java.text.SimpleDateFormat", $pattern);
         $tz = $ba->javaClass('java.util.TimeZone')->getTimezone("GMT+0");
@@ -178,9 +178,9 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
         $first = $formatter->format($ba->java("java.util.Date", 0));
         $this->assertEquals('1970-01-01 00:00', $first);
-        
+
         $systemJavaTz = (string) $formatter->getTimeZone()->getId();
-        
+
         $dateTime = new \DateTime(null, new \DateTimeZone($systemJavaTz));
 
         $now = $formatter->format($ba->java("java.util.Date"));
@@ -188,13 +188,13 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
 
         // Step 2: Check with system php timezone
-        
+
         $pattern = "yyyy-MM-dd HH:mm";
         $formatter = $ba->java("java.text.SimpleDateFormat", $pattern);
         $systemPhpTz  = date_default_timezone_get();
         $tz = $ba->javaClass('java.util.TimeZone')->getTimezone($systemPhpTz);
         $formatter->setTimeZone($tz);
-        
+
         $dateTime = new \DateTime(null);
 
         $now = $formatter->format($ba->java("java.util.Date"));
@@ -203,21 +203,21 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         // Step 3: Different Timezones (europe/london and europe/paris -> 1 hour difference)
 
         $pattern = "yyyy-MM-dd HH:mm:ss";
-        
+
         $formatter = $ba->java("java.text.SimpleDateFormat", $pattern);
-        
+
         $phpTz = new \DateTimeZone("Europe/Paris");
-        
+
         $reference_date = "2012-11-07 12:52:23";
         $phpDate  = \DateTime::createFromFormat("Y-m-d H:i:s", $reference_date, $phpTz);
-        
-        $formatter->setTimeZone($ba->javaClass('java.util.TimeZone')->getTimezone("Europe/Paris"));        
+
+        $formatter->setTimeZone($ba->javaClass('java.util.TimeZone')->getTimezone("Europe/Paris"));
         $date = $formatter->parse($reference_date);
-        $formatter->setTimeZone($ba->javaClass('java.util.TimeZone')->getTimezone("Europe/London"));        
+        $formatter->setTimeZone($ba->javaClass('java.util.TimeZone')->getTimezone("Europe/London"));
         $javaDate = (string) $formatter->format($date);
         $this->assertNotEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
         $this->assertEquals($reference_date, $phpDate->format('Y-m-d H:i:s'));
-        
+
         $phpDate->sub(new \DateInterval('PT1H'));
         $this->assertEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
 
@@ -253,13 +253,13 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
             }
         }
     }
-    
-    
+
+
     public function testGetSystem()
     {
-        
+
         $system = $this->adapter->getSystem();
         $this->assertInstanceOf('Soluble\Japha\Bridge\Adapter\System', $system);
-        
+
     }
 }

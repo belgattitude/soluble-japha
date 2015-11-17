@@ -5,7 +5,6 @@ namespace Soluble\Japha\Bridge;
 use Soluble\Japha\Interfaces;
 use Soluble\Japha\Util\Exception\UnsupportedTzException;
 
-
 class Adapter
 {
     /**
@@ -20,8 +19,8 @@ class Adapter
      * @var Driver\AbstractDriver
      */
     protected $driver;
-    
-    
+
+
     /**
      *
      * @var Adapter\System
@@ -62,7 +61,7 @@ class Adapter
 
         $driver_class = self::$registeredDrivers[$driver];
         $this->driver = new $driver_class($options);
-        
+
         $tz = array_key_exists('java_default_timezone', $options) ? $options['java_default_timezone'] : null;
         $this->setJavaDefaultTimezone($tz);
     }
@@ -75,7 +74,7 @@ class Adapter
      * $hash   = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
      * echo $hash->get('new_key'); // prints "保éà"
      * </code>
-     * 
+     *
      * @param string $class Java class name (FQDN)
      * @param mixed|null $args arguments passed to the constructor of the java object
      *
@@ -93,16 +92,16 @@ class Adapter
 
     /**
      * Load a java class
-     * 
+     *
      * <code>
      * $calendar = $ba->javaClass('java.util.Calendar')->getInstance();
      * $date = $calendar->getTime();
-     * 
+     *
      * $system = $ba->javaClass('java.lang.System');
      * echo  $system->getProperties()->get('java.vm_name);
      *
      * $tzClass = $ba->javaClass('java.util.TimeZone');
-     * echo $tz->getDisplayName(false, $tzClass->SHORT);     
+     * echo $tz->getDisplayName(false, $tzClass->SHORT);
      * </code>
      *
      * @param string $class Java class name (FQDN)
@@ -129,20 +128,20 @@ class Adapter
     {
         return $this->driver->isInstanceOf($javaObject, $className);
     }
-    
+
     /**
      * Return system properties
-     * 
+     *
      * @return Adapter\System
      */
     public function getSystem()
     {
-       if ($this->system === null) {
-           $this->system = new Adapter\System($this);
-       } 
-       return $this->system;
+        if ($this->system === null) {
+            $this->system = new Adapter\System($this);
+        }
+        return $this->system;
     }
-    
+
     /**
      * Return underlying driver
      *
@@ -151,20 +150,19 @@ class Adapter
     public function getDriver()
     {
         return $this->driver;
-    }    
-    
+    }
+
     /**
      * Set the JVM/Java default timezone
-     * 
+     *
      * @throws Exception\ConfigurationException
      * @throws UnsupportedTzException
-     * 
+     *
      * @param string $timezone
      */
     protected function setJavaDefaultTimezone($timezone = null)
     {
         if ($timezone == '') {
-        
             $phpTz = date_default_timezone_get();
 
             // In case there's a mismatch between PHP and Java see also :
@@ -178,12 +176,11 @@ class Adapter
                 $message .= " or provide a 'java_default_timezone' in the adapter options.";
                 throw new Exception\ConfigurationException($message);
             }
-            
+
             $timezone = $phpTz;
         }
-        
+
         $this->getSystem()->setTimeZoneId($timezone);
-        
+
     }
-    
 }

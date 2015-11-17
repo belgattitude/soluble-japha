@@ -34,7 +34,7 @@ class Pjb62Driver extends AbstractDriver
      *    ]);
      *
      * </code>
-     *  
+     *
      * @var array $options
      */
     public function __construct(array $options)
