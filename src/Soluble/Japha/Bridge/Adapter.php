@@ -63,7 +63,9 @@ class Adapter
         $this->driver = new $driver_class($options);
 
         $tz = array_key_exists('java_default_timezone', $options) ? $options['java_default_timezone'] : null;
-        $this->setJavaDefaultTimezone($tz);
+        if ($tz !== null) {
+            $this->setJavaDefaultTimezone($tz);
+        }
     }
 
 
