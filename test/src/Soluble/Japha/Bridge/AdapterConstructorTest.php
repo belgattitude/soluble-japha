@@ -68,18 +68,6 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testConstructorSetsDefaultTimeZone()
-    {
-        $ba = new Adapter(array(
-            'driver' => 'Pjb62',
-            'servlet_address' => $this->servlet_address,
-            //'java_default_timezone' =>
-        ));
-
-        $phpTz = date_default_timezone_get();
-        $javaTz = $ba->getSystem()->getTimeZoneId();
-        $this->assertEquals($phpTz, $javaTz);
-    }
 
     public function testConstructorSetsCustomDefaultTimeZone()
     {
