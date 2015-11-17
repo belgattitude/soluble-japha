@@ -155,7 +155,7 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
 
         $pattern = "yyyy-MM-dd HH:mm";
         $formatter = $ba->java("java.text.SimpleDateFormat", $pattern);
-        $tz = $ba->javaClass('java.util.TimeZone')->getTimezone("GMT+0");
+        $tz = $ba->javaClass('java.util.TimeZone')->getTimezone("UTC");
         $formatter->setTimeZone($tz);
 
         $first = $formatter->format($ba->java("java.util.Date", 0));
