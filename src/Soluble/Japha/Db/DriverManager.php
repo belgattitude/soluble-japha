@@ -2,7 +2,7 @@
 
 namespace Soluble\Japha\Db;
 
-use Soluble\Japha\Bridge\Adapter;
+use Soluble\Japha\Bridge;
 use Soluble\Japha\Bridge\Exception;
 
 class DriverManager
@@ -15,17 +15,17 @@ class DriverManager
 
     /**
      *
-     * @var Adapter
+     * @var Bridge\Adapter
      */
-    protected $adapter;
+    protected $ba;
 
     /**
      *
-     * @param Adapter $adapter
+     * @param Bridge\Adapter $ba
      */
-    public function __construct(Adapter $adapter)
+    public function __construct(Bridge\Adapter $ba)
     {
-        $this->adapter = $adapter;
+        $this->ba = $ba;
     }
 
     /**
@@ -46,7 +46,7 @@ class DriverManager
             throw new Exception\InvalidArgumentException(__METHOD__ . ' ' . $message);
         }
 
-        $class = $this->adapter->javaClass("java.lang.Class");
+        $class = $this->ba->javaClass("java.lang.Class");
         try {
             $class->forName($driverClass);
         } catch (\Exception $e) {
@@ -74,7 +74,7 @@ class DriverManager
     public function getDriverManager()
     {
         if ($this->driverManager === null) {
-            $this->driverManager = $this->adapter->javaClass('java.sql.DriverManager');
+            $this->driverManager = $this->ba->javaClass('java.sql.DriverManager');
         }
         return $this->driverManager;
     }

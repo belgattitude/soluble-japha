@@ -105,7 +105,8 @@ class PjbProxyClient
      *
      * <code>
      *    $options = [
-     *      'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
+     *      'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge'
+     *      //'java_
      *      //'java_disable_autoload' => false,
      *      //'java_prefer_values' => true,
      *      //'load_pjb_compatibility' => false

@@ -78,7 +78,7 @@ echo $bigint->intValue() + 10; // prints 11
 
 ```
 
-### Using java classes
+### Using java final classes
 
 ```php
 <?php
@@ -86,10 +86,32 @@ echo $bigint->intValue() + 10; // prints 11
 $system = $ba->javaClass('java.lang.System');
 echo  $system->getProperties()->get('java.vm_name);
 
+```
+
+### Static class methods
+
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
 $calendar = $ba->javaClass('java.util.Calendar')->getInstance();
 $date = $calendar->getTime();
 
 ```
+
+### Class constants
+
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$tzClass = $ba->javaClass('java.util.TimeZone');
+echo $tz->getDisplayName(false, $tzClass->SHORT);
+
+```
+
 
 ### Iterations
 

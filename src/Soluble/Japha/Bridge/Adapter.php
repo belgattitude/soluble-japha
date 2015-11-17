@@ -3,18 +3,8 @@
 namespace Soluble\Japha\Bridge;
 
 use Soluble\Japha\Interfaces;
+use Soluble\Japha\Util\Exception\UnsupportedTzException;
 
-/**
- *
-  class Foo {
-        function toString() {return "php::foo";}
-  }
-  $foo = new Foo();
-  $jObj = java_closure($foo);
-  $String = java("java.lang.String");
-  echo $String->valueOf($jObj);|
- *
- */
 
 class Adapter
 {
@@ -30,6 +20,13 @@ class Adapter
      * @var Driver\AbstractDriver
      */
     protected $driver;
+    
+    
+    /**
+     *
+     * @var Adapter\System
+     */
+    protected $system;
 
 
     /**
@@ -40,26 +37,24 @@ class Adapter
      * $ba = new Adapter([
      *     'driver' => 'Pjb62',
      *     'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
-     *      //"java_disable_autoload' => false,
-     *      //"java_prefer_values' => true,
-     *      //"load_pjb_compatibility' => false
+     *      //'java_default_timezone' => null,
+     *      //'java_disable_autoload' => false,
+     *      //'java_prefer_values' => true,
+     *      //'load_pjb_compatibility' => false
      *    ]);
      *
      * </code>
-
-     *  ));
      *
-     * </code>
      *
      * @throws Exception\UnsupportedDriverException
      * @throws Exception\InvalidArgumentException
+     * @throws Exception\ConfigurationException
      *
      * @param array options
      *
      */
     public function __construct(array $options)
     {
-
         $driver = strtolower($options['driver']);
         if (!array_key_exists($driver, self::$registeredDrivers)) {
             throw new Exception\UnsupportedDriverException(__METHOD__ . "Driver '$driver' is not supported");
@@ -67,29 +62,27 @@ class Adapter
 
         $driver_class = self::$registeredDrivers[$driver];
         $this->driver = new $driver_class($options);
-    }
-
-    /**
-     * Return underlying driver
-     *
-     * @return Driver\AbstractDriver
-     */
-    public function getDriver()
-    {
-        return $this->driver;
+        
+        $tz = array_key_exists('java_default_timezone', $options) ? $options['java_default_timezone'] : null;
+        $this->setJavaDefaultTimezone($tz);
     }
 
 
     /**
      * Instanciate a new java object
      *
+     * <code>
+     * $hash   = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
+     * echo $hash->get('new_key'); // prints "保éà"
+     * </code>
+     * 
      * @param string $class Java class name (FQDN)
      * @param mixed|null $args arguments passed to the constructor of the java object
      *
      * @throws Soluble\Japha\Bridge\Exception\JavaException
      * @throws Soluble\Japha\Bridge\Exception\ClassNotFoundException
      *
-     * @see Adapter\javaClass($class)
+     * @see Adapter\javaClass($class) for information about classes
      *
      * @return Interfaces\JavaObject
      */
@@ -98,14 +91,23 @@ class Adapter
         return $this->driver->instanciate($class, $args);
     }
 
-
-
     /**
      * Load a java class
+     * 
+     * <code>
+     * $calendar = $ba->javaClass('java.util.Calendar')->getInstance();
+     * $date = $calendar->getTime();
+     * 
+     * $system = $ba->javaClass('java.lang.System');
+     * echo  $system->getProperties()->get('java.vm_name);
+     *
+     * $tzClass = $ba->javaClass('java.util.TimeZone');
+     * echo $tz->getDisplayName(false, $tzClass->SHORT);     
+     * </code>
      *
      * @param string $class Java class name (FQDN)
      *
-     * @see Adapter\java($class, $args)
+     * @see Adapter\java($class, $args) for object creation
      *
      * @param string $class
      * @return Interfaces\JavaClass
@@ -127,4 +129,61 @@ class Adapter
     {
         return $this->driver->isInstanceOf($javaObject, $className);
     }
+    
+    /**
+     * Return system properties
+     * 
+     * @return Adapter\System
+     */
+    public function getSystem()
+    {
+       if ($this->system === null) {
+           $this->system = new Adapter\System($this);
+       } 
+       return $this->system;
+    }
+    
+    /**
+     * Return underlying driver
+     *
+     * @return Driver\AbstractDriver
+     */
+    public function getDriver()
+    {
+        return $this->driver;
+    }    
+    
+    /**
+     * Set the JVM/Java default timezone
+     * 
+     * @throws Exception\ConfigurationException
+     * @throws UnsupportedTzException
+     * 
+     * @param string $timezone
+     */
+    protected function setJavaDefaultTimezone($timezone = null)
+    {
+        if ($timezone == '') {
+        
+            $phpTz = date_default_timezone_get();
+
+            // In case there's a mismatch between PHP and Java see also :
+            // - date('T');
+            // - http://php.net/manual/en/datetimezone.listabbreviations.php
+
+            if ($phpTz == '') {
+                $message = "Japha\Bridge requires a valid php default timezone set prior to run";
+                $message .= ", check you php configuration ini settings 'date.timezone' or";
+                $message .= " set it with 'date_default_timezone_set' ";
+                $message .= " or provide a 'java_default_timezone' in the adapter options.";
+                throw new Exception\ConfigurationException($message);
+            }
+            
+            $timezone = $phpTz;
+        }
+        
+        $this->getSystem()->setTimeZoneId($timezone);
+        
+    }
+    
 }

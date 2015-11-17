@@ -253,4 +253,13 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
             }
         }
     }
+    
+    
+    public function testGetSystem()
+    {
+        
+        $system = $this->adapter->getSystem();
+        $this->assertInstanceOf('Soluble\Japha\Bridge\Adapter\System', $system);
+        
+    }
 }
