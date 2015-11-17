@@ -46,14 +46,14 @@ class System
      */
     public function getTimeZoneId()
     {
-        return (string) $this->timeZone->getDefault()->getId();
+        return (string) $this->timeZone->getDefault()->getID();
     }
 
     /**
      * Set system default timezone
      *
      * @throws UnsupportedTzException
-     * @param string|Interfaces\JavaObject|DateTimeZone $timeZone timezone id, Java(java.util.Timezone) or php DateTimeZone
+     * @param string|Interfaces\JavaObject|DateTimeZone $timezone timezone id, Java(java.util.Timezone) or php DateTimeZone
      * @return void
      */
     public function setTimeZoneId($timezone)
