@@ -23,7 +23,7 @@ An enhanced compatible version of the [PHP/Java bridge](http://php-java-bridge.s
 ## Requirements
 
 - PHP engine 5.3+, 7.0 or HHVM >= 3.2.
-- A Java application server (Tomcat, Jetty,...) with the JavaBridge servlet running
+- The [PHPJavaBridge server running](./docs/install_server.md)
 
 ## Installation
 
