@@ -181,7 +181,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
         $systemJavaTz = (string) $formatter->getTimeZone()->getId();
 
-        
+
         $dateTime = new \DateTime(null, new \DateTimeZone($systemJavaTz));
 
         $now = $formatter->format($ba->java("java.util.Date"));

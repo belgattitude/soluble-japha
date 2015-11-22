@@ -36,12 +36,18 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Exception;
+
 class ChunkedSocketChannel extends SocketChannel
 {
     public function fwrite($data)
     {
         $len = dechex(strlen($data));
-        return fwrite($this->peer, "${len}\r\n${data}\r\n");
+        $res = @fwrite($this->peer, "${len}\r\n${data}\r\n");
+        if (!$res) {
+            $msg = "Cannot write to socket";
+            throw new Exception\RuntimeException($msg);
+        }
     }
 
     public function fread($size)

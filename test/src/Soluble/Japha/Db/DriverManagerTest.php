@@ -106,8 +106,11 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
 
         $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
 
-        $conn = $this->driverManager->createConnection($dsn);
-
+        try {
+            $conn = $this->driverManager->createConnection($dsn);
+        } catch (\Exception $e) {
+            $this->assertFalse(true, "Cannot connect: " . $e->getMessage());
+        }
         $className = $this->adapter->getDriver()->getClassName($conn);
         $this->assertEquals('com.mysql.jdbc.JDBC4Connection', $className);
     }

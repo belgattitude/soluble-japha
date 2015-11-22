@@ -23,6 +23,9 @@
     "require": {
         "php": ">=5.3.3"
     },
+    "require-dev": {
+        "belgattitude/pjbserver-tools": "1.*"        
+    },
     "archive": {
         "exclude": ["test", "doc", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore"]
     }

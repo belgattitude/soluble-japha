@@ -553,7 +553,11 @@ class PjbProxyClient
             //
             if (isset(self::$client->protocol->handler->channel) &&
                     !preg_match('/EmptyChannel/', get_class(self::$client->protocol->handler->channel))) {
-                self::$client->protocol->keepAlive();
+                try {
+                    self::$client->protocol->keepAlive();
+                } catch (\Exception $e) {
+                    // silently discard exceptions when unregistering
+                }
             }
 
             // Added but needs more tests

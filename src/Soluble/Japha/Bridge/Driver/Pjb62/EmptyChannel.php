@@ -36,6 +36,8 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Exception;
+
 class EmptyChannel
 {
     /**
@@ -101,7 +103,8 @@ class EmptyChannel
 
     public function error()
     {
-        trigger_error("An unchecked exception occured during script execution. Please check the server log files for details.", E_USER_ERROR);
+        $msg = "An unchecked exception occured during script execution. Please check the server log files for details.";
+        throw new Exception\RuntimeException($msg);
     }
 
     public function checkA($peer)
