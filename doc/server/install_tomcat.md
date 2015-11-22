@@ -1,10 +1,6 @@
+# PHPJavaBridge Tomcat install
 
-# Installing on Ubuntu 14.04+
-
-## Installing Tomcat
-
-The recommended setup is based on Tomcat 7 Java Servlet engine. 
- 
+## on Debian/Ubuntu
 
 ```bash
 sudo apt-get install tomcat7 tomcat7-admin
@@ -172,6 +168,9 @@ Here's an example web.xml configuration, be aware of php-cgi location if you nee
     </welcome-file-list>
 </web-app>
 ```
+
+
+
 
 
 
