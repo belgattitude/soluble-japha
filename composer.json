@@ -21,8 +21,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.3",
-        "belgattitude/pjbserver-tools": "^1.0"
+        "php": ">=5.3.3"
     },
     "suggest": {
         "belgattitude/pjbserver-tools": "PHPJavabridge standalone server support (unit tests)"
