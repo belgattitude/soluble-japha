@@ -35,6 +35,7 @@ An enhanced compatible version of the [PHP/Java bridge](http://php-java-bridge.s
 ```sh
 php composer require soluble/japha:0.*
 ```
+
 Most modern frameworks will include Composer out of the box, but ensure the following file is included:
 
 ```php
