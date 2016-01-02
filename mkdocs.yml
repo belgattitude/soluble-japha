@@ -1,0 +1,29 @@
+docs_dir: doc
+site_dir: build/doc
+pages:
+    - index.md
+    - { 'Compatibility': pjb62_compatibility.md }
+
+    - { 'Server install': [
+            { 'Introduction': install_server.md }, 
+            { 'Java': server/install_java.md }, 
+            { 'Tomcat': server/install_tomcat.md }, 
+            { 'Tomcat': server/install_standalone.md }
+        ] 
+      }
+    - { 'Use cases': use_cases.md }
+site_name: soluble-japha
+site_description: "soluble-japha documentation"
+theme: readthedocs
+#theme: bootstrap
+#theme: united
+repo_url: 'https://github.com/belgattitude/soluble-japha'
+markdown_extensions:
+    - toc:
+        permalink: True
+    - codehilite:
+        linenums: False
+        guess_lang: True
+        #pygments_style: monokai
+        #use_pygments: True
+    

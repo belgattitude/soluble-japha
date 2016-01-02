@@ -9,3 +9,4 @@ composer.lock
 phpunit.xml
 /vendor
 /nbproject
+/build

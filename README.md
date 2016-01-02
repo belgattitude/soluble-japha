@@ -26,6 +26,10 @@ An enhanced compatible version of the [PHP/Java bridge](http://php-java-bridge.s
 - PHP engine 5.3+, 7.0 or HHVM >= 3.2.
 - The [PHPJavaBridge server running](./doc/install_server.md)
 
+## Documentation
+
+ - [Manual](http://docs.soluble.io/soluble-japha/manual/) in progress and [API documentation](http://docs.soluble.io/soluble-japha/api/) available.
+
 ## Installation
 
 ### Installation in your PHP project
