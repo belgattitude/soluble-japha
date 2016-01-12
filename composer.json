@@ -7,12 +7,12 @@
         "bridge",
         "phpjavabridge"
     ],
-    "homepage": "https://github.com/belgattitude/soluble-japha",
+    "homepage": "https://www.soluble.io",
     "type": "library",
     "authors": [
         {
             "name": "Sébastien Vanvelthem",
-            "homepage": "http://www.nuvolia.com/"
+            "homepage": "https://github.com/belgattitude"
         }
     ],
     "autoload": {
