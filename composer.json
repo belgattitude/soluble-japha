@@ -27,6 +27,6 @@
         "belgattitude/pjbserver-tools": "PHPJavabridge standalone server support (unit tests)"
     },
     "archive": {
-        "exclude": ["test", "doc", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore"]
+        "exclude": ["test", "doc", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
     }
 }
