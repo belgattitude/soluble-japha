@@ -10,7 +10,7 @@
 
 ## Introduction
 
-An enhanced compatible version of the [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) php client.
+An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sourceforge.net/pjb/) php client.
 
 ## Features
 
