@@ -32,27 +32,26 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
 
 ## Installation
 
-### Installation in your PHP project
+1. Installation in your PHP project
 
-`Soluble\Japha` works best via [composer](http://getcomposer.org/).
+   `Soluble\Japha` works best via [composer](http://getcomposer.org/).
 
-```console
-$ composer require soluble/japha:0.*
-```
+   ```console
+   $ composer require soluble/japha:0.*
+   ```
 
-Most modern frameworks will include Composer out of the box, but ensure the following file is included:
+   Most modern frameworks will include Composer out of the box, but ensure the following file is included:
 
-```php
-<?php
-// include the Composer autoloader
-require 'vendor/autoload.php';
-```
+   ```php
+   <?php
+   // include the Composer autoloader
+   require 'vendor/autoload.php';
+   ```
 
-### PHPJavaBridge server
+2. Installation of the phpjavabridge server
 
-PHP-Java communication requires a php-java-bridge server running on your webserver (on a non-public port).
-
-The installation is fairly simple, a [documentation](./doc/install_server.md) is on its way.
+   PHP-Java communication requires a php-java-bridge server running on your webserver (on a non-public port).
+   The installation is fairly simple, a [documentation](./doc/install_server.md) is on its way.
 
 ## Examples
 
