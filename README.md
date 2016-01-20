@@ -19,7 +19,7 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
 - Flexible API and abstraction layer (and a [legacy compatibility layer](./doc/pjb62_compatibility.md)).
 - Fast, does not rely on system `exec`, no vm startup extra effort.
 - Based on reliable and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) implementation.
-- Conform to the Java [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specification.
+- Conform to Java [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specification.
 
 ## Requirements
 
@@ -36,8 +36,8 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
 
 `Soluble\Japha` works best via [composer](http://getcomposer.org/).
 
-```sh
-php composer require soluble/japha:0.*
+```console
+$ composer require soluble/japha:0.*
 ```
 
 Most modern frameworks will include Composer out of the box, but ensure the following file is included:
@@ -48,13 +48,17 @@ Most modern frameworks will include Composer out of the box, but ensure the foll
 require 'vendor/autoload.php';
 ```
 
-### Java servlet engine
+### PHPJavaBridge server
 
-See Java server installation in the doc folder for more information. 
+PHP-Java communication requires a php-java-bridge server running on your webserver (on a non-public port).
+
+The installation is fairly simple, a [documentation](./doc/install_server.md) is on its way.
 
 ## Examples
 
 ### Connection example
+
+Once your phpjavabridge servlet is running, you first have to initiate a connection.
 
 ```php
 <?php
