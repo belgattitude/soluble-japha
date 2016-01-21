@@ -58,7 +58,7 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
     {
         $ba = $this->adapter;
         $save_mem = ini_get('memory_limit');
-        ini_set('memory_limit', '300M');
+        ini_set('memory_limit', '640M');
         
         // Very big string
         $initial_mem = memory_get_usage();        
