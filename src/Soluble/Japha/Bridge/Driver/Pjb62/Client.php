@@ -248,11 +248,14 @@ class Client
         $this->methodCache = $this->asyncCache;
     }
 
+    /**
+     * Handle request
+     * @return null
+     */
     public function handleRequests()
     {
         $tail_call = false;
         do {
-            //$this->arg = $this->simpleArg;
             $this->stack = array($this->arg = $this->simpleArg);
             $this->idx = 0;
             $this->parser->parse();
@@ -260,12 +263,10 @@ class Client
                 $arg = array_pop($this->stack);
                 $this->apply($arg);
                 $tail_call = true;
-            } else {
-                $tail_call = false;
-            }
+            } 
             $this->stack = null;
         } while ($tail_call);
-        return 1;
+        return;
     }
 
     /**
@@ -469,7 +470,7 @@ class Client
             foreach ($arg as $key => $val) {
                 if (is_string($key)) {
                     if (!$wrote_begin) {
-                        $wrote_begin = 1;
+                        $wrote_begin = true;
                         $this->protocol->writeCompositeBegin_h();
                     }
                     $this->protocol->writePairBegin_s($key);
@@ -477,7 +478,7 @@ class Client
                     $this->protocol->writePairEnd();
                 } else {
                     if (!$wrote_begin) {
-                        $wrote_begin = 1;
+                        $wrote_begin = true;
                         $this->protocol->writeCompositeBegin_h();
                     }
                     $this->protocol->writePairBegin_n($key);
@@ -589,10 +590,10 @@ class Client
 
     /**
      *
-     * @param Arg $arg
+     * @param ApplyArg $arg
      * @throws JavaException
      */
-    public function apply($arg)
+    public function apply(ApplyArg $arg)
     {
         $name = $arg->p;
         $object = $arg->v;

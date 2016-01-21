@@ -71,9 +71,8 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
 
     public function __createDelegate()
     {
-
         $proxy = $this->__factory->create($this->__java, $this->__signature);
-        $this->__delegate = $proxy;
+        $this->__delegate = $proxy;        
         $this->__java = $proxy->__java;
         $this->__signature = $proxy->__signature;
     }

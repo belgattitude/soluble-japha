@@ -106,6 +106,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $ba = $this->adapter;
         $cls = $ba->javaClass('java.lang.Class');
         $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $cls);
+                
     }
 
     public function testIsInstanceOf()

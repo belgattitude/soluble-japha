@@ -373,7 +373,7 @@ class PjbProxyClient
      * => h
      * </code>
      *
-     * @param JavaType $object
+     * @param JavaType|null $object
      * @return mixed
      */
     public function getValues($object)
@@ -381,7 +381,6 @@ class PjbProxyClient
         if (!$object instanceof JavaType) {
             return $object;
         }
-
         return self::$client->invokeMethod(0, "getValues", array($object));
     }
 
