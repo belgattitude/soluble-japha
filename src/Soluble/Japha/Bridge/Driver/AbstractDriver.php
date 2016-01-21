@@ -6,6 +6,14 @@ use Soluble\Japha\Interfaces;
 
 abstract class AbstractDriver implements DriverInterface, ConnectionInterface
 {
+    const CAST_TYPE_STRING  = 'string';
+    const CAST_TYPE_BOOLEAN = 'boolean';
+    const CAST_TYPE_INTEGER = 'integer';
+    const CAST_TYPE_FLOAT   = 'float';
+    const CAST_TYPE_ARRAY   = 'array';
+    const CAST_TYPE_NULL    = 'null';
+    const CAST_TYPE_OBJECT  = 'object';
+    
     /**
      *
      *
@@ -58,4 +66,18 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return Interfaces\JavaObject
      */
     abstract public function instanciate($class_name, $args = null);
+    
+    /**
+     * Cast a java object into a php type 
+     * 
+     * @see self::CAST_TYPE_*
+     * 
+     * @throws Exception\RuntimeException
+     * 
+     * @param Interfaces\JavaObject $javaObject
+     * @param string $cast_type
+     * @return mixed 
+     */
+    abstract public function cast(Interfaces\JavaObject $javaObject, $cast_type);
+    
 }

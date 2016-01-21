@@ -119,15 +119,50 @@ class Pjb62Driver extends AbstractDriver
     }
 
     /**
-     *
-     *
-     * @param Interfaces\JavaObject $javaObject
-     * @return mixed
+     * {@inheritdoc}
      */
     public function values(Interfaces\JavaObject $javaObject)
     {
         return $this->pjbProxyClient->getValues($javaObject);
     }
+
+    /**
+     * {@inheritdoc}
+     */    
+    public function cast(Interfaces\JavaObject $javaObject, $cast_type)
+    {
+        /* @todo see how can it be possible to clean up to new structure
+            const CAST_TYPE_STRING  = 'string';
+            const CAST_TYPE_BOOLEAN = 'boolean';
+            const CAST_TYPE_INTEGER = 'integer';
+            const CAST_TYPE_FLOAT   = 'float';
+            const CAST_TYPE_ARRAY   = 'array';
+            const CAST_TYPE_NULL    = 'null';
+            const CAST_TYPE_OBJECT  = 'object';
+         */
+        $first_char = strtoupper(substr($cast_type, 0, 1));
+        switch ($first_char) {
+            case 'S':
+                return (string) $javaObject;
+            case 'B':
+                return (boolean) $javaObject;
+            case 'L':
+            case 'I':
+                return (integer) $javaObject;
+            case 'D':
+            case 'F':
+                return (float) $javaObject;
+            case 'N':
+                return;
+            case 'A':
+                return (array) $javaObject;
+            case 'O':
+                return (object) $javaObject;
+            default:
+                throw new Exception\RuntimeException("Unsupported cast_type parameter: $cast_type");
+        }
+    }
+    
 
 
 
