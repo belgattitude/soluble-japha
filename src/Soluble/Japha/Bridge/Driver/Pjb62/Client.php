@@ -622,7 +622,7 @@ class Client
             $this->protocol->resultEnd();
         } catch (\Exception $ex) {
             $msg = "Unchecked exception detected in callback (" . $ex->__toString() . ')';
-            $uncheckedException = new Exception\RuntimeException($message);
+            $uncheckedException = new Exception\RuntimeException($msg);
             throw $uncheckedException;
         }
         $this->isAsync = $isAsync;
