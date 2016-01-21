@@ -7,7 +7,11 @@ if (!$loader = @include __DIR__ . '/../vendor/autoload.php') {
 }
 
 ini_set('error_reporting', E_ALL | E_STRICT);
-ini_set('memory_limit', '384M');
+if (defined('HHVM_VERSION')) {
+   ini_set('memory_limit', '640M');    
+} else {
+   ini_set('memory_limit', '384M');
+}
 $baseDir = dirname(__DIR__);
 require_once(dirname(__FILE__) . '/SolubleTestFactories.php');
 
