@@ -1,8 +1,10 @@
 <?php
 
-namespace Soluble\Japha\Util;
+namespace SolubleTest\Japha\Util;
+
 
 use Soluble\Japha\Bridge;
+use Soluble\Japha\Util\TimeZone;
 use Soluble\Japha\Interfaces;
 use DateTimeZone;
 

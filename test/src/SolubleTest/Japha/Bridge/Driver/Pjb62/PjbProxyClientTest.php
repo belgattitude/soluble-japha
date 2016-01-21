@@ -1,6 +1,6 @@
 <?php
 
-namespace Soluble\Japha\Bridge\Driver\Pjb62;
+namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
 use Soluble\Japha\Bridge\Adapter;

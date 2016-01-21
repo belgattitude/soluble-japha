@@ -1,8 +1,9 @@
 <?php
 
-namespace Soluble\Japha\Db;
+namespace SolubleTest\Japha\Db;
 
 use Soluble\Japha\Bridge\Adapter as Adapter;
+use Soluble\Japha\Db\DriverManager;
 
 class DriverManagerTest extends \PHPUnit_Framework_TestCase
 {

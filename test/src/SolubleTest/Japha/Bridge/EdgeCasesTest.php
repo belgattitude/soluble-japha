@@ -1,7 +1,8 @@
 <?php
 
-namespace Soluble\Japha\Bridge;
+namespace SolubleTest\Japha\Bridge;
 
+use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Interfaces;
 use Soluble\Japha\Bridge\Exception;
 
