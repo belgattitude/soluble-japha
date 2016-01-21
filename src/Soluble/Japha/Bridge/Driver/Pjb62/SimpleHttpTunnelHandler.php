@@ -129,13 +129,12 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      */
     public function fread($size)
     {
-
         $length = hexdec(fgets($this->socket, $this->java_recv_size));
         $data = "";
         while ($length > 0) {
             $str = fread($this->socket, $length);
             if (feof($this->socket)) {
-                return null;
+                return;
             }
             $length -=strlen($str);
             $data .=$str;

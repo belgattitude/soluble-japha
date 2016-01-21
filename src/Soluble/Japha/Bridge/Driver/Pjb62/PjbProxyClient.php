@@ -121,14 +121,12 @@ class PjbProxyClient
      */
     public static function getInstance($options = null)
     {
-
         if (self::$instance === null) {
             if (!is_array($options) || count($options) == 0) {
                 $message = 'You must provide $options array parameter prior to get an instance of PjbProxyClient';
                 throw new Exception\InvalidArgumentException(__METHOD__ . $message);
             }
             self::$instance = new PjbProxyClient($options);
-
         }
         /* todo order array
         elseif (is_array($options) && self::$instanceOptionsKey != serialize($options)) {
@@ -324,7 +322,6 @@ class PjbProxyClient
      */
     public function isInstanceOf(JavaType $object, $class)
     {
-
         if (is_string($class)) {
             // Attempt to autoload classname
             $name = $class;
@@ -565,7 +562,6 @@ class PjbProxyClient
             self::$client = null;
             self::$instance = null;
             self::$instanceOptionsKey = null;
-
         }
     }
 

@@ -66,7 +66,6 @@ abstract class SocketChannel extends EmptyChannel
         $this->host = $host;
         $this->recv_size = $recv_size;
         $this->send_size = $send_size;
-
     }
 
     public function fwrite($data)

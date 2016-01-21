@@ -219,7 +219,7 @@ class Java extends AbstractJava
             $client->preparedToSendBuffer = vsprintf($cacheEntry->fmt, $args2);
             if ($cacheEntry->resultVoid) {
                 $client->cancelProxyCreationTag +=1;
-                return null;
+                return;
             } else {
                 $result = clone($client->cachedJavaPrototype);
                 $result->__factory = $cacheEntry->factory;

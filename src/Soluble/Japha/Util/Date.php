@@ -4,7 +4,6 @@ namespace Soluble\Japha\Util;
 
 use Soluble\Japha\Bridge;
 use Soluble\Japha\Interfaces;
-use DateTimeZone;
 use DateTime;
 
 class Date

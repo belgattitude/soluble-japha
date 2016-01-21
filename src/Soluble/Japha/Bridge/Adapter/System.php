@@ -4,7 +4,6 @@ namespace Soluble\Japha\Bridge\Adapter;
 
 use Soluble\Japha\Bridge;
 use Soluble\Japha\Interfaces;
-
 use Soluble\Japha\Util\TimeZone;
 use Soluble\Japha\Util\Exception\UnsupportedTzException;
 

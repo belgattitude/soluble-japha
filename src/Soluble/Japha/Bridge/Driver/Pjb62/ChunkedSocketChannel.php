@@ -57,7 +57,7 @@ class ChunkedSocketChannel extends SocketChannel
         while ($length > 0) {
             $str = fread($this->peer, $length);
             if (feof($this->peer)) {
-                return null;
+                return;
             }
             $length -=strlen($str);
             $data .=$str;

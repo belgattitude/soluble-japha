@@ -229,8 +229,6 @@ class Client
             'getContext' => null,
             'getServerName' => null
         );
-
-
     }
 
     public function read($size)
@@ -263,7 +261,7 @@ class Client
                 $arg = array_pop($this->stack);
                 $this->apply($arg);
                 $tail_call = true;
-            } 
+            }
             $this->stack = null;
         } while ($tail_call);
         return;
@@ -655,7 +653,7 @@ class Client
             case 'F':
                 return $this->invokeMethod(0, "castToInExact", array($object));
             case 'N':
-                return null;
+                return;
             case 'A':
                 return $this->invokeMethod(0, "castToArray", array($object));
             case 'O':

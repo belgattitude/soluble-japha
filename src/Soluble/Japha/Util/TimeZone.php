@@ -128,7 +128,6 @@ class TimeZone
      */
     public function setDefault($timeZone)
     {
-
         if (is_string($timeZone) || $timeZone instanceof DateTimeZone) {
             $timeZone = $this->getTimeZone($timeZone);
         }

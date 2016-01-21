@@ -183,6 +183,5 @@ class Adapter
         }
 
         $this->getSystem()->setTimeZoneId($timezone);
-
     }
 }
