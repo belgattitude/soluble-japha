@@ -24,8 +24,7 @@
         "php": "^5.3 || ^7.0"
     },
     "require-dev" : {
-        "belgattitude/pjbserver-tools": "^1.0.1",
-        "satooshi/php-coveralls": "dev-master"
+        "belgattitude/pjbserver-tools": "^1.0.1"
     },
     "suggest": {
         "belgattitude/pjbserver-tools": "PHPJavabridge standalone server support (unit tests)"

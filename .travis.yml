@@ -1,7 +1,6 @@
 language: php
 
 matrix:
-  fast_finish: true
   include:
     - php: 5.3
     - php: 5.5
@@ -11,16 +10,10 @@ matrix:
         - SEND_COVERAGE=true
     - php: 7
     - php: hhvm 
-          
-          
-env:
-    global:
-        - SEND_COVERAGE=false
-
-before_install:
+                    
+before_script:
   - sudo apt-get install --yes ant
   - travis_retry composer self-update
-  - composer require belgattitude/pjbserver-tools
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
   - mysql -e "create database phpunit_soluble_test_db;" -uroot
   - zcat test/data/mysql/schema.sql.gz | mysql -uroot phpunit_soluble_test_db
@@ -28,9 +21,6 @@ before_install:
   - mkdir build
   - mkdir -p build/logs
   - mkdir -p test/logs
-
-before_script:
-  #- if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then composer require --dev --no-update satooshi/php-coveralls:dev-master ; fi
   
 script: 
   - phpunit -v 
