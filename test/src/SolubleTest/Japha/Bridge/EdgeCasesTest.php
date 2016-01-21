@@ -58,7 +58,11 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
     {
         $ba = $this->adapter;
         $save_mem = ini_get('memory_limit');
-        ini_set('memory_limit', '512M');
+        if (defined('HHVM_VERSION')) {
+           ini_set('memory_limit', '800M');    
+        } else {
+           ini_set('memory_limit', '512M');
+        }        
         
         // Very big string
         $initial_mem = memory_get_usage();        
