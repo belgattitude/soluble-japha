@@ -52,12 +52,11 @@
 
         <server name="PHPUNIT_CACHE_DIR" value="./test/tmp/cache" />		          
         <ini name="date.timezone" value="Europe/Brussels"/>
-        
     </php>
 
     <testsuites>
         <testsuite name="soluble/japha">
-            <directory>./test/src/Soluble/Japha</directory>
+            <directory>./test/src/SolubleTest/Japha</directory>
         </testsuite>
     </testsuites>
     
