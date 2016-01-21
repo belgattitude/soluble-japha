@@ -621,9 +621,9 @@ class Client
             $this->protocol->writeException($e->__java, $trace);
             $this->protocol->resultEnd();
         } catch (\Exception $ex) {
-            error_log($ex->__toString());
-            trigger_error("Unchecked exception detected in callback", E_USER_ERROR);
-            die(1);
+            $msg = "Unchecked exception detected in callback (" . $ex->__toString() . ')';
+            $uncheckedException = new Exception\RuntimeException($message);
+            throw $uncheckedException;
         }
         $this->isAsync = $isAsync;
         $this->methodCache = $methodCache;
