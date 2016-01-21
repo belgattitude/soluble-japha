@@ -36,7 +36,9 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-interface JavaType
+use Soluble\Japha\Interfaces;
+
+interface JavaType extends Interfaces\JavaType
 {
     /**
      * @return int

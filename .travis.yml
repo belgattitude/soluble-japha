@@ -1,24 +1,25 @@
 language: php
 
-php:
-  - 5.3
-  - 5.5
-  - 7.0
-  - hhvm
-  
 matrix:
-    include:
-        - php: 5.6
-          env: SEND_COVERAGE=true
+  fast_finish: true
+  include:
+    - php: 5.3
+    - php: 5.5
+    - php: 5.6
+      env:
+        - EXECUTE_TEST_COVERALLS=true
+        - SEND_COVERAGE=true
+    - php: 7
+    - php: hhvm 
+          
           
 env:
     global:
         - SEND_COVERAGE=false
 
-before_script:
+before_install:
   - sudo apt-get install --yes ant
   - travis_retry composer self-update
-  - travis_retry composer --prefer-source --dev install
   - composer require belgattitude/pjbserver-tools
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
   - mysql -e "create database phpunit_soluble_test_db;" -uroot
@@ -27,6 +28,9 @@ before_script:
   - mkdir build
   - mkdir -p build/logs
   - mkdir -p test/logs
+
+before_script:
+  #- if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then composer require --dev --no-update satooshi/php-coveralls:dev-master ; fi
   
 script: 
   - phpunit -v 
@@ -34,3 +38,4 @@ script:
 after_script:
   - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
   - if [[ $SEND_COVERAGE == true ]]; then php ocular.phar code-coverage:upload --format=php-clover test/build/logs/clover.xml; fi
+  #- if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then coveralls ; fi

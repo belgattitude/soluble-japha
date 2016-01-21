@@ -5,7 +5,7 @@ namespace Soluble\Japha\Interfaces;
 /**
  * @method string __toString()
  */
-interface JavaObject
+interface JavaObject extends JavaType
 {
     /**
      * Returns the runtime class of this Object.

@@ -4,7 +4,7 @@
  * Soluble Japha / PhpJavaBridge
  *
  * @author Vanvelthem Sébastien
- * @license   MIT
+ * @license MIT
  *
  */
 
