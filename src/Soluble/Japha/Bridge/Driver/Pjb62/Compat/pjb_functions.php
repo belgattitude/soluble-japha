@@ -175,9 +175,8 @@ function java_values($object)
 {
     if ($object === null || ! $object instanceof Pjb62\JavaType) {
         return $object;
-    } 
+    }
     return Pjb62\PjbProxyClient::getInstance()->getValues($object);
-    
 }
 
 /**
