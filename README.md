@@ -228,17 +228,23 @@ try {
     
     $conn = $driverManager->getConnection($dsn);
 
+} catch (Exception\JavaException $e) {
+    echo $e->getMessage();
+    echo $e->getStackTrace();
+}
+
+try {
     $stmt = $conn->createStatement();
     $rs = $stmt->executeQuery('select * from product');
     while ($rs->next()) {
         $title = $rs->getString("title");
         echo $title;            
     }        
-
-
+    $rs->close();
+    $stmt->close();
+    $conn->close();
 } catch (Exception\JavaException $e) {
-    echo $e->getMessage();
-    echo $e->getStackTrace();
+    //...
 }
 
 ```

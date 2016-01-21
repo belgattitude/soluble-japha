@@ -106,18 +106,9 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         }
         $className = $this->adapter->getDriver()->getClassName($conn);
         $this->assertEquals('com.mysql.jdbc.JDBC4Connection', $className);
+        $conn->close();
     }
     
-    protected function getWorkingDSN() {
-
-        $config = \SolubleTestFactories::getDatabaseConfig();
-        $host = $config['hostname'];
-        $db = $config['database'];
-        $user = $config['username'];
-        $password = $config["password"];
-        $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
-        return $dsn;
-    }
     
     function testStatement() 
     {
@@ -133,7 +124,22 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         while ($rs->next()) {
             $category_id = $rs->getString("category_id");
             $this->assertTrue(is_numeric($category_id->__toString()));
-        }        
+        } 
+        
+        $rs->close();
+        $stmt->close();
+        $conn->close();
+    }
+
+    protected function getWorkingDSN() {
+
+        $config = \SolubleTestFactories::getDatabaseConfig();
+        $host = $config['hostname'];
+        $db = $config['database'];
+        $user = $config['username'];
+        $password = $config["password"];
+        $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
+        return $dsn;
     }
     
 }
