@@ -8,7 +8,7 @@ before_commands:
     - 'composer require belgattitude/pjbserver-tools'
 tools:
     external_code_coverage: 
-        timeout: 20
+        timeout: 120
     php_cpd:
         excluded_dirs: [vendor, test, bin, doc]    
     php_pdepend:
