@@ -62,26 +62,16 @@ class Pjb62Driver extends AbstractDriver
         }
     }
 
-
     /**
-     * Return a new java class
-     *
-     * @param string $class_name
-     * @return Interfaces\JavaClass
+     * {@inheritdoc}
      */
     public function getJavaClass($class_name)
     {
         return $this->pjbProxyClient->getJavaClass($class_name);
     }
 
-
     /**
-     * Instanciate a java object
-     *
-     * @throws Exception\ClassFoundException
-     * @param string $class_name
-     * @param mixed|null $args
-     * @return Interfaces\JavaObject
+     * {@inheritdoc}
      */
     public function instanciate($class_name, $args = null)
     {
@@ -105,13 +95,8 @@ class Pjb62Driver extends AbstractDriver
         return $this->pjbProxyClient->inspect($javaObject);
     }
 
-
     /**
-     * Checks whether object is an instance of a class or interface
-     *
-     * @param Interfaces\JavaObject $javaObject
-     * @param string|Interfaces\JavaObject|Interfaces\JavaClass $className java class name or JavaObject
-     * @return boolean
+     * {@inheritdoc}
      */
     public function isInstanceOf(Interfaces\JavaObject $javaObject, $className)
     {
@@ -128,7 +113,7 @@ class Pjb62Driver extends AbstractDriver
 
     /**
      * {@inheritdoc}
-     */    
+     */
     public function cast(Interfaces\JavaObject $javaObject, $cast_type)
     {
         /* @todo see how can it be possible to clean up to new structure
@@ -162,9 +147,6 @@ class Pjb62Driver extends AbstractDriver
                 throw new Exception\RuntimeException("Unsupported cast_type parameter: $cast_type");
         }
     }
-    
-
-
 
     /**
      * Return object java class name

@@ -13,7 +13,7 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
     const CAST_TYPE_ARRAY   = 'array';
     const CAST_TYPE_NULL    = 'null';
     const CAST_TYPE_OBJECT  = 'object';
-    
+
     /**
      *
      *
@@ -66,7 +66,7 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return Interfaces\JavaObject
      */
     abstract public function instanciate($class_name, $args = null);
-    
+
     /**
      * Cast a java object into a php type 
      * 
@@ -79,5 +79,4 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return mixed 
      */
     abstract public function cast(Interfaces\JavaObject $javaObject, $cast_type);
-    
 }
