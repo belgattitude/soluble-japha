@@ -370,10 +370,10 @@ class PjbProxyClient
      * => h
      * </code>
      *
-     * @param JavaType|null $object
+     * @param JavaType $object
      * @return mixed
      */
-    public function getValues($object)
+    public function getValues(JavaType $object)
     {
         if (!$object instanceof JavaType) {
             return $object;
