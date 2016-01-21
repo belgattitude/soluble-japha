@@ -205,9 +205,9 @@ try {
 
 ```
 
-### Database connection example
+### JDBC example
 
-Ensure your servelt installation can locate the JDBC driver and try :
+Ensure your servlet installation can locate the JDBC driver and try :
 
 ```php
 <?php
@@ -221,10 +221,20 @@ $dsn = "jdbc:mysql://localhost/my_database?user=login&password=pwd";
 
 try {
 
+    $driverManager = $ba->javaClass('java.sql.DriverManager');
+
     $class = $ba->javaClass('java.lang.Class');
     $class->forName($driverClass);
-
+    
     $conn = $driverManager->getConnection($dsn);
+
+    $stmt = $conn->createStatement();
+    $rs = $stmt->executeQuery('select * from product');
+    while ($rs->next()) {
+        $title = $rs->getString("title");
+        echo $title;            
+    }        
+
 
 } catch (Exception\JavaException $e) {
     echo $e->getMessage();

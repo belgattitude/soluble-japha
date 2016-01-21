@@ -58,13 +58,33 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
     {
         $ba = $this->adapter;
         $save_mem = ini_get('memory_limit');
-        ini_set('memory_limit', '256M');
-        $s = str_repeat("1", 33554432);
+        ini_set('memory_limit', '300M');
+        
+        // Very big string
+        $initial_mem = memory_get_usage();        
+        $s = str_repeat("1", 39554432);
         $str = $ba->java('java.lang.String', $s);
-        $this->assertEquals(33554432, $str->length());
-        unset($str); unset($s);
+        $this->assertEquals(39554432, $str->length());
+        $full_mem = memory_get_usage();                
+        
+        // releasing
+        unset($s);
+        unset($str); 
         gc_collect_cycles();
+        $released_mem = memory_get_usage();                
+        
+        echo "\n";
+        echo "Debug for java big memory test\n";
+        echo "Released memory must be approx equal to initial memory\n";
+        echo "- Initial memory   : " . number_format($initial_mem, 0, '.', ',') . "\n";
+        echo "- Max memory       : " . number_format($full_mem, 0, '.', ',') . "\n";
+        echo "- After release    : " . number_format($released_mem, 0, '.', ',') . "\n";
+        echo "\n";
+        
+        $this->assertLessThanOrEqual($full_mem, $released_mem);
+        // restore memory limit
         ini_set('memory_limit', $save_mem);
+
     }
     
 }

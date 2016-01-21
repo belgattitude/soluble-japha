@@ -98,15 +98,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateConnection()
     {
-        //$this->driverManager->createConnection()
-        $config = \SolubleTestFactories::getDatabaseConfig();
-        $host = $config['hostname'];
-        $db = $config['database'];
-        $user = $config['username'];
-        $password = $config["password"];
-
-        $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
-
+        $dsn = $this->getWorkingDSN();
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
@@ -115,4 +107,33 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         $className = $this->adapter->getDriver()->getClassName($conn);
         $this->assertEquals('com.mysql.jdbc.JDBC4Connection', $className);
     }
+    
+    protected function getWorkingDSN() {
+
+        $config = \SolubleTestFactories::getDatabaseConfig();
+        $host = $config['hostname'];
+        $db = $config['database'];
+        $user = $config['username'];
+        $password = $config["password"];
+        $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
+        return $dsn;
+    }
+    
+    function testStatement() 
+    {
+        $dsn = $this->getWorkingDSN();
+        try {
+            $conn = $this->driverManager->createConnection($dsn);
+        } catch (\Exception $e) {
+            $this->assertFalse(true, "Cannot connect: " . $e->getMessage());
+        }
+        
+        $stmt = $conn->createStatement();
+        $rs = $stmt->executeQuery('select * from product_category_translation limit 100');
+        while ($rs->next()) {
+            $category_id = $rs->getString("category_id");
+            $this->assertTrue(is_numeric($category_id->__toString()));
+        }        
+    }
+    
 }
