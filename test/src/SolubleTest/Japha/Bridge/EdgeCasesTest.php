@@ -85,7 +85,12 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
         echo "- After release    : " . number_format($released_mem, 0, '.', ',') . "\n";
         echo "\n";
         
-        $this->assertLessThanOrEqual($full_mem, $released_mem);
+        if (defined('HHVM_VERSION')) {        
+            // because hhvm does not really return memory consumption
+            $this->assertLessThanOrEqual($full_mem, $released_mem);
+        } else {
+            $this->assertLessThan($full_mem, $released_mem);
+        }
         // restore memory limit
         ini_set('memory_limit', $save_mem);
 
