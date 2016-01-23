@@ -1,0 +1,49 @@
+template:
+    # Name of the directory containing the website template (default is "website")
+    directory: website
+    # Or if you are using a remote template, you can set the Git URL
+    url: https://github.com/CouscousPHP/Template-Light.git
+    # Name of the index file (default is "README.md")
+    index: README.md
+
+title: soluble-japha
+
+exclude:
+    - vendor
+    - bin
+    - tests
+
+scripts:
+    before:
+#        - lessc --clean-css website/less/main.less website/css/all.min.css
+
+baseUrl: http://soluble.io
+cname: soluble.io
+
+menu:
+    items:
+        getting-started:
+            text: Get started
+            relativeUrl: docs/getting-started.html
+        documentation:
+            text: Index
+            relativeUrl: docs/
+        configuration:
+            text: Configuration
+            relativeUrl: docs/configuration.html
+        templates:
+            text: Templates
+            relativeUrl: docs/templates.html
+        metadata:
+            text: Metadata
+            relativeUrl: docs/metadata.html
+        travis:
+            text: Travis integration
+            relativeUrl: docs/travis.html
+        faq:
+            text: FAQ
+            relativeUrl: docs/faq.html
+        contributing:
+            text: Contributing
+            relativeUrl: CONTRIBUTING.md
+

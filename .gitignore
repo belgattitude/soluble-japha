@@ -6,6 +6,7 @@ composer.lock
 .settings/
 .*.sw*
 .*.un~
+.couscous/
 phpunit.xml
 /vendor
 /nbproject
