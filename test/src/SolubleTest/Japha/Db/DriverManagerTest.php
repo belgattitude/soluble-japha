@@ -108,9 +108,9 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('com.mysql.jdbc.JDBC4Connection', $className);
         $conn->close();
     }
-    
-    
-    function testStatement() 
+
+
+    function testStatement()
     {
         $dsn = $this->getWorkingDSN();
         try {
@@ -118,20 +118,21 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         } catch (\Exception $e) {
             $this->assertFalse(true, "Cannot connect: " . $e->getMessage());
         }
-        
+
         $stmt = $conn->createStatement();
         $rs = $stmt->executeQuery('select * from product_category_translation limit 100');
         while ($rs->next()) {
             $category_id = $rs->getString("category_id");
             $this->assertTrue(is_numeric($category_id->__toString()));
-        } 
-        
+        }
+
         $rs->close();
         $stmt->close();
         $conn->close();
     }
 
-    protected function getWorkingDSN() {
+    protected function getWorkingDSN()
+    {
 
         $config = \SolubleTestFactories::getDatabaseConfig();
         $host = $config['hostname'];
@@ -141,5 +142,4 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
         return $dsn;
     }
-    
 }

@@ -68,15 +68,15 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
     abstract public function instanciate($class_name, $args = null);
 
     /**
-     * Cast a java object into a php type 
-     * 
+     * Cast a java object into a php type
+     *
      * @see self::CAST_TYPE_*
-     * 
+     *
      * @throws Exception\RuntimeException
-     * 
+     *
      * @param Interfaces\JavaObject $javaObject
      * @param string $cast_type
-     * @return mixed 
+     * @return mixed
      */
     abstract public function cast(Interfaces\JavaObject $javaObject, $cast_type);
 }

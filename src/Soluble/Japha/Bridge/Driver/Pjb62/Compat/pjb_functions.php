@@ -324,40 +324,78 @@ function java_get_server_name()
     return java_server_name();
 }
 
+/**
+ * Test whether a java object value is null
+ * 
+ * @deprecated
+ * @param Pjb62\JavaType $value
+ * @return boolean
+ */
 function java_isnull($value)
 {
-    return is_null(java_values($value));
+    return java_is_null($value);
 }
 
+/**
+ * Test whether a java object value is null
+ * 
+ * @param Pjb62\JavaType $value
+ * @return boolean
+ */
 function java_is_null($value)
 {
     return is_null(java_values($value));
 }
 
+/**
+ * Test whether a java object value is true
+ * 
+ * @param Pjb62\JavaType $value
+ * @return boolean
+ */
 function java_istrue($value)
 {
-    return (boolean) (java_values($value));
+    return java_is_true($value);
 }
 
+/**
+ * Test whether a java object value is null
+ * 
+ * @deprecated
+ * @param Pjb62\JavaType $value
+ * @return boolean
+ */
 function java_is_true($value)
 {
     return (boolean) (java_values($value));
 }
 
+/**
+ * Test whether a java object value is false
+ * 
+ * @deprecated
+ * @param Pjb62\JavaType $value
+ * @return boolean
+ */
 function java_isfalse($value)
 {
-    return !(java_values($value));
+    return java_is_false($value);
 }
 
+/**
+ * Test whether a java object value is false
+ * 
+ * Warning: originally this method contained a long standing issue: an empty string 
+ * is considered as false. To not break compatibility it's remaining like this
+ * 
+ * @param Pjb62\JavaType $value
+ * @return boolean
+ */
 function java_is_false($value)
 {
     return !(java_values($value));
 }
 
-function java_set_encoding($enc)
-{
-    return java_set_file_encoding($enc);
-}
 
 function java_call_with_continuation($kontinuation = null)
 {
@@ -413,6 +451,20 @@ function java_unwrap(Pjb62\JavaType $object)
     return $client->globalRef->get($client->invokeMethod(0, "unwrapClosure", array($object)));
 }
 
+
+/**
+ * 
+ * @param string $enc encoding 
+ */
+function java_set_encoding($enc)
+{
+    return java_set_file_encoding($enc);
+}
+
+/**
+ * 
+ * @param string $enc encoding 
+ */
 function java_set_file_encoding($enc)
 {
     $client = Pjb62\PjbProxyClient::getInstance()->getClient();

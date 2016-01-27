@@ -59,24 +59,24 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
         $ba = $this->adapter;
         $save_mem = ini_get('memory_limit');
         if (defined('HHVM_VERSION')) {
-           ini_set('memory_limit', '800M');    
+            ini_set('memory_limit', '800M');
         } else {
-           ini_set('memory_limit', '512M');
-        }        
-        
+            ini_set('memory_limit', '512M');
+        }
+
         // Very big string
-        $initial_mem = memory_get_usage();        
+        $initial_mem = memory_get_usage();
         $s = str_repeat("1", 31554432);
         $str = $ba->java('java.lang.String', $s);
         $this->assertEquals(31554432, $str->length());
-        $full_mem = memory_get_usage();                
-        
+        $full_mem = memory_get_usage();
+
         // releasing
         unset($s);
-        unset($str); 
+        unset($str);
         gc_collect_cycles();
-        $released_mem = memory_get_usage();                
-        
+        $released_mem = memory_get_usage();
+
         echo "\n";
         echo "Debug for java big memory test\n";
         echo "Released memory must be approx equal to initial memory\n";
@@ -84,8 +84,8 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
         echo "- Max memory       : " . number_format($full_mem, 0, '.', ',') . "\n";
         echo "- After release    : " . number_format($released_mem, 0, '.', ',') . "\n";
         echo "\n";
-        
-        if (defined('HHVM_VERSION')) {        
+
+        if (defined('HHVM_VERSION')) {
             // because hhvm does not really return memory consumption
             $this->assertLessThanOrEqual($full_mem, $released_mem);
         } else {
@@ -95,5 +95,4 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
         ini_set('memory_limit', $save_mem);
 
     }
-    
 }

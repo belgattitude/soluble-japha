@@ -92,15 +92,23 @@ The following table maps old and new recommended API.
 
 
 
+
+
 (under review, soon to be implemented)
 
-|Legacy                          | `Bridge\Adapter` ($ba)                      |
-|-----------------------------------|------------------------------------------|
-|`java_values($object)` : `mixed`                 | `$ba->getValues($object)` : `mixed`               |
+|Legacy                                      | `Bridge\Adapter` ($ba)                      |
+|--------------------------------------------|------------------------------------------|
+|`java_values($object)` : `mixed`            | `$ba->getValues($object)` : `mixed`               |
 |`java_invoke($object, $method, $args=null)` : `mixed|null` | `$ba->invokeMethod($object, $method, $args=null) : `string\null`  |
-|`java_inspect($object)` : `string`               | `$ba->debug()->inspect($object)` : `string`               |
-|`getLastException` : `Exception` | `$ba->debug()->getLastException() : `Exception`  |
-|`clearLastException` | `$ba->debug()->clearLastException()  |
+|`java_inspect($object)` : `string`          | `$ba->debug()->inspect($object)` : `string`               |
+|`getLastException` : `Exception`            | `$ba->debug()->getLastException()` : `Exception`  |
+|`clearLastException`                        | `$ba->debug()->clearLastException()`  |
+
+
+function java_is_null($value)
+function java_is_true($value)
+function java_is_false($value)
+
 
 
 ## Refactoring guidelines
