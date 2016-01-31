@@ -132,6 +132,29 @@ class Adapter
     }
 
     /**
+     * Whether a java internal value is null
+     *
+     * @param Interfaces\JavaObject|null $javaObject
+     * @return boolean
+     */
+    public function isNull(Interfaces\JavaObject $javaObject = null)
+    {
+        return $this->driver->isNull($javaObject);
+    }
+
+    /**
+     * Check wether a java value is true (boolean)
+     *
+     * @param Interfaces\JavaObject|null $javaObject
+     * @return boolean
+     */
+    public function isTrue(Interfaces\JavaObject $javaObject)
+    {
+        return $this->driver->isTrue($javaObject);
+    }
+
+
+    /**
      * Return system properties
      *
      * @return Adapter\System

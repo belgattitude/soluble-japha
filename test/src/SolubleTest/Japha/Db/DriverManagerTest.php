@@ -125,9 +125,13 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
             $category_id = $rs->getString("category_id");
             $this->assertTrue(is_numeric($category_id->__toString()));
         }
-
-        $rs->close();
-        $stmt->close();
+        $ba = $this->adapter;
+        if (!$ba->isNull($rs)) {
+            $rs->close();
+        }
+        if (!$ba->isNull($stmt)) {
+            $stmt->close();
+        }
         $conn->close();
     }
 

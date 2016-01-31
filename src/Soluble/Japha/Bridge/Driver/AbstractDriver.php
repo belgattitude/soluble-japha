@@ -32,38 +32,24 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
 
 
     /**
-     * Whether object is an instance of specific java class or interface
-     *
-     * @param Interfaces\JavaObject $javaObject
-     * @param string|Interfaces\JavaClass|Interfaces\JavaObject $className java class or interface name
-     * @return boolean
+     * {@inheritdoc}
      */
     abstract public function isInstanceOf(Interfaces\JavaObject $javaObject, $className);
 
+
     /**
-     * Return object java class name
-     *
-     * @param Interfaces\JavaObject $javaObject
-     * @return string
+     * {@inheritdoc}
      */
     abstract public function getClassName(Interfaces\JavaObject $javaObject);
 
 
     /**
-     * Return a new java class
-     *
-     * @param string $class_name
-     * @return Interfaces\JavaClass
+     * {@inheritdoc}
      */
     abstract public function getJavaClass($class_name);
 
     /**
-     * Instanciate a java object
-     *
-     * @throws Exception\ClassFoundException
-     * @param string $class_name
-     * @param mixed|null $args
-     * @return Interfaces\JavaObject
+     * {@inheritdoc}
      */
     abstract public function instanciate($class_name, $args = null);
 
@@ -79,4 +65,35 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      * @return mixed
      */
     abstract public function cast(Interfaces\JavaObject $javaObject, $cast_type);
+
+    /**
+     * Check wether a java value is null
+     *
+     * @param Interfaces\JavaObject|null $javaObject
+     * @return boolean
+     */
+    public function isNull(Interfaces\JavaObject $javaObject = null)
+    {
+        if ($javaObject === null) {
+            return true;
+        }
+        return ($this->values($javaObject) === null);
+    }
+
+
+    /**
+     * Check wether a java value is true (boolean and int values are considered)
+     *
+     * @param Interfaces\JavaObject $javaObject
+     * @return boolean
+     */
+    public function isTrue(Interfaces\JavaObject $javaObject)
+    {
+        $values = $this->values($javaObject);
+        if (is_int($values) || is_bool($values)) {
+            return ($values == true);
+        }
+        return false;
+
+    }
 }

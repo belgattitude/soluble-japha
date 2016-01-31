@@ -59,6 +59,7 @@ java_values($bigint);
 
 ## Migration mappings
 
+http://php-java-bridge.sourceforge.net/doc/docs/php-api/JavaBridge/_JavaBridge.inc.html
 
 ### Constants
 

@@ -226,6 +226,74 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    public function testIsNull()
+    {
+        $ba = $this->adapter;
+        $this->assertTrue($ba->isNull(null));
+        $this->assertTrue($ba->isNull());
+
+        $system = $ba->javaClass('java.lang.System');
+        $this->assertFalse($ba->isNull($system));
+
+        $emptyString = $ba->java('java.lang.String', '');
+        $this->assertFalse($ba->isNull($emptyString));
+
+        //because in this case it's empty
+        $nullString = $ba->java('java.lang.String', null);
+        $this->assertFalse($ba->isNull($nullString));
+
+
+        $v = $ba->java('java.util.Vector', array(1,2,3));
+        $v->add(1, null);
+        $v->add(2, 0);
+
+        $this->assertTrue($ba->isNull($v->get(1)));
+        $this->assertFalse($ba->isNull($v->get(2)));
+    }
+
+    public function testIsTrue()
+    {
+        $ba = $this->adapter;
+
+
+        // initial capacity of 10
+        $v = $ba->java('java.util.Vector', array(1,2,3,4,5));
+        $this->assertFalse($ba->isTrue($v));
+
+        $v->add(1, 1);
+        $v->add(2, $ba->java('java.lang.Boolean', true));
+        $v->add(3, $ba->java('java.lang.Boolean', false));
+        $v->add(4, true);
+        $v->add(5, false);
+
+        $this->assertTrue($ba->isTrue($v->get(1)));
+        $this->assertTrue($ba->isTrue($v->get(2)));
+        $this->assertTrue(!$ba->isTrue($v->get(3)));
+        $this->assertTrue($ba->isTrue($v->get(4)));
+        $this->assertTrue(!$ba->isTrue($v->get(5)));
+
+        // Empty string are considered as false
+        $s = $ba->java('java.lang.String');
+        $this->assertFalse($ba->isTrue($s));
+
+        $s = $ba->java('java.lang.String', '');
+        $this->assertFalse($ba->isTrue($s));
+
+        $s = $ba->java('java.lang.String', 'true');
+        $this->assertFalse($ba->isTrue($s));
+
+        $s = $ba->java('java.lang.String', '1');
+        $this->assertFalse($ba->isTrue($s));
+
+        $this->assertTrue($ba->isTrue($ba->java('java.lang.Boolean', 1)));
+        $this->assertTrue($ba->isTrue($ba->java('java.lang.Boolean', true)));
+
+        $this->assertFalse($ba->isTrue($ba->java('java.lang.Boolean', 0)));
+        $this->assertFalse($ba->isTrue($ba->java('java.lang.Boolean', false)));
+
+
+    }
+
     public function testIterator()
     {
 

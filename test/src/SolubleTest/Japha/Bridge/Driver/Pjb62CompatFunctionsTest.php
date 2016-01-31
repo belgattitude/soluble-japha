@@ -113,10 +113,12 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
         // Found in test.php5/sendArray.php
         $ar = array(1, 2, 3, 5, 7, 11, -13, -17.01, 19);
         unset($ar[1]);
+
         $v = new java("java.util.Vector", $ar);
         $Arrays = new java_class("java.util.Arrays");
         $l = $Arrays->asList($ar);
         $v->add(1, null);
+
         $l2 = $v->sublist(0, $v->size());
 
         $this->assertEquals('[1, null, 3, 5, 7, 11, -13, -17.01, 19]', java_cast($l, "S"));
@@ -198,35 +200,45 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($jsn);
         $this->assertContains($jsn, $this->servlet_address);
     }
-    
-    function testValues() {
-        
+
+
+    function testValues()
+    {
+
         $false = new Java('java.lang.Boolean', false);
         $this->assertTrue(java_is_false($false));
         $this->assertFalse(java_is_true($false));
-        
+
         $true = new Java('java.lang.Boolean', true);
         $this->assertFalse(java_is_false($true));
         $this->assertTrue(java_is_true($true));
 
-        
+
         $string = new Java('java.lang.String');
         $this->assertFalse(java_is_null($string));
         $this->assertFalse(java_isnull($string));
         $this->assertFalse(java_is_true($string));
         $this->assertFalse(java_istrue($string));
-        // Warning: originally java_is_false contained a long standing issue: an empty string 
-        // is considered as false. To not break compatibility it's remaining like this        
+        // Warning: originally java_is_false contained a long standing issue: an empty string
+        // is considered as false. To not break compatibility it's remaining like this
         $this->assertTrue(java_isfalse($string));
         $this->assertTrue(java_is_false($string));
-        
+
         $string2 = new Java('java.lang.String', 'Hello');
         $this->assertFalse(java_isfalse($string2));
         $this->assertFalse(java_is_false($string2));
-        
-        
+
+
+        $s = new JavaClass("java.lang.System");
+        $null = $s->getProperty("foo");
+        // null is php type null
+        $this->assertNull($null);
+        $this->assertTrue(java_is_null($null));
+        $this->assertTrue(java_is_false($null));
+        $this->assertFalse(java_is_true($null));
+
     }
-    
+
 
     function testNotPassing()
     {
@@ -249,5 +261,4 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(0, sizeof($result));
     }
-    
 }

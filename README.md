@@ -240,8 +240,12 @@ try {
         $title = $rs->getString("title");
         echo $title;            
     }        
-    $rs->close();
-    $stmt->close();
+    if (!$ba->isNull($rs)) {
+        $rs->close();
+    }
+    if (!$ba->isNull($stmt)) {
+        $stmt->close();
+    }
     $conn->close();
 } catch (Exception\JavaException $e) {
     //...

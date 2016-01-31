@@ -173,7 +173,7 @@ function java_instanceof($ob, $clazz)
  */
 function java_values($object)
 {
-    if ($object === null || ! $object instanceof Pjb62\JavaType) {
+    if ($object === null || !$object instanceof Pjb62\JavaType) {
         return $object;
     }
     return Pjb62\PjbProxyClient::getInstance()->getValues($object);
@@ -328,7 +328,7 @@ function java_get_server_name()
  * Test whether a java object value is null
  * 
  * @deprecated
- * @param Pjb62\JavaType $value
+ * @param Pjb62\JavaType|null $value
  * @return boolean
  */
 function java_isnull($value)
@@ -339,7 +339,7 @@ function java_isnull($value)
 /**
  * Test whether a java object value is null
  * 
- * @param Pjb62\JavaType $value
+ * @param Pjb62\JavaType|null $value
  * @return boolean
  */
 function java_is_null($value)
@@ -350,7 +350,8 @@ function java_is_null($value)
 /**
  * Test whether a java object value is true
  * 
- * @param Pjb62\JavaType $value
+ * @deprecated
+ * @param Pjb62\JavaType|null $value
  * @return boolean
  */
 function java_istrue($value)
@@ -361,8 +362,7 @@ function java_istrue($value)
 /**
  * Test whether a java object value is null
  * 
- * @deprecated
- * @param Pjb62\JavaType $value
+ * @param Pjb62\JavaType|null $value
  * @return boolean
  */
 function java_is_true($value)
@@ -374,7 +374,7 @@ function java_is_true($value)
  * Test whether a java object value is false
  * 
  * @deprecated
- * @param Pjb62\JavaType $value
+ * @param Pjb62\JavaType|null $value
  * @return boolean
  */
 function java_isfalse($value)
@@ -388,7 +388,7 @@ function java_isfalse($value)
  * Warning: originally this method contained a long standing issue: an empty string 
  * is considered as false. To not break compatibility it's remaining like this
  * 
- * @param Pjb62\JavaType $value
+ * @param Pjb62\JavaType|null $value
  * @return boolean
  */
 function java_is_false($value)
