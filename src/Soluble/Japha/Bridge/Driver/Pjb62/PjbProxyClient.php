@@ -375,10 +375,6 @@ class PjbProxyClient
      */
     public function getValues(JavaType $object)
     {
-        /*
-        if (!$object instanceof JavaType) {
-            return $object;
-        }*/
         return self::$client->invokeMethod(0, "getValues", array($object));
     }
 
