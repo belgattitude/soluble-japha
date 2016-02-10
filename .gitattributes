@@ -4,6 +4,8 @@
 # Ignore all test, special files and documentation with "export-ignore".
 # So when someone will install that package through with composer --prefer-dist option, 
 # all the files and directories listed in .gitattributes file will be excluded. 
+/doc                export-ignore
+/test               export-ignore
 /.apigen.yml        export-ignore
 /.coveralls.yml     export-ignore
 /.editorconfig.yml  export-ignore
@@ -12,6 +14,8 @@
 /.php_cs            export-ignore
 /.scrutinizer.yml   export-ignore
 /.travis.yml        export-ignore
-/doc                export-ignore
-/test               export-ignore
+/couscous.yml       export-ignore
+/mkdocs.yml         export-ignore
+/phpcs.yml         export-ignore
 /phpunit.xml.dist   export-ignore
+
