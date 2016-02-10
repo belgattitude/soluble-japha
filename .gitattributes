@@ -16,6 +16,6 @@
 /.travis.yml        export-ignore
 /couscous.yml       export-ignore
 /mkdocs.yml         export-ignore
-/phpcs.yml         export-ignore
+/phpcs.yml          export-ignore
 /phpunit.xml.dist   export-ignore
 
