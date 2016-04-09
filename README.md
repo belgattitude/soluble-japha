@@ -24,7 +24,7 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
 
 ## Requirements
 
-- PHP engine 5.3+, 7.0 or HHVM >= 3.2.
+- PHP 5.3+, 7.0 or HHVM >= 3.2.
 - The [PHPJavaBridge server running](./doc/install_server.md)
 
 ## Documentation

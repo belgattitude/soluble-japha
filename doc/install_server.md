@@ -3,7 +3,7 @@
 ## Introduction
 
 in order to use the `soluble/japha` bridge, a PHPJavaBridge java server must be running 
-on a Java JVM or a servlet engine container.
+on a Java JVM or a J2EE servlet container.
 
 For production Apache Tomcat server is highly recommended and should be supported by most hosting providers.
 
@@ -23,6 +23,6 @@ See [Java installation instructions](./server/install_java.md).
 
 For development usage, see the [Standalone docs](./server/install_standalone.md)
 
-## Tomcat (development and production)
+## Tomcat / J2EE (development and production)
 
 For production or development usage, see the [Tomcat docs](./server/install_tomcat.md)
