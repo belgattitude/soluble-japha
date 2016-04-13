@@ -21,7 +21,7 @@
         }
     },
     "require": {
-        "php": "^5.3 || ^7.0"
+        "php": "^5.4 || ^7.0"
     },
     "require-dev" : {
         "belgattitude/pjbserver-tools": "^1.0.1"

@@ -159,7 +159,7 @@ class Pjb62Driver extends AbstractDriver
     {
         $inspect = $this->inspect($javaObject);
         // [class java.sql.DriverManager:
-        $matches = array();
+        $matches = [];
         preg_match('/^\[class (.+)\:/', $inspect, $matches);
         if (!isset($matches[1]) || $matches[1] == '') {
             throw new Exception\UnexpectedException(__METHOD__ . " Cannot determine class name");

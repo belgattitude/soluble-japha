@@ -1,6 +1,6 @@
 <?php
 $finder = Symfony\CS\Finder\DefaultFinder::create()
-    ->in('src')
+    ->in(['src', 'test'])
     ->filter(function (SplFileInfo $file) {
         if (strstr($file->getPath(), 'compatibility')) {
             return false;
@@ -29,7 +29,7 @@ $config->fixers(
         'object_operator',
         'php_closing_tag',
         'remove_lines_between_uses',
-        //'short_array_syntax',
+        'short_array_syntax',
         'short_tag',
         'standardize_not_equal',
         'trailing_spaces',

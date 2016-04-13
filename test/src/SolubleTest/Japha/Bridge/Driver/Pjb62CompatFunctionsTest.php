@@ -1,8 +1,6 @@
 <?php
 
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
-
-
 use Soluble\Japha\Bridge\Adapter;
 
 /**
@@ -32,19 +30,17 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
     public function testCompatFunctions()
     {
-
         PjbProxyClient::unregisterInstance();
 
-        $adapter = new Adapter(array(
+        $adapter = new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
             'load_pjb_compatibility' => true
-        ));
+        ]);
 
         $i1 = new Java("java.math.BigInteger", 1);
         $i2 = new Java("java.math.BigInteger", 2);
@@ -88,14 +84,13 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testOriginalCases()
     {
-
         PjbProxyClient::unregisterInstance();
 
-        $adapter = new Adapter(array(
+        $adapter = new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
             'load_pjb_compatibility' => true
-        ));
+        ]);
 
         // Found in test.php5/testClass.php
         $cls = java_class('java.lang.Class');
@@ -103,7 +98,7 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, sizeof($arr));
 
         // Found in test.php5/sendHash.php
-        $h = array("k" => "v", "k2" => "v2");
+        $h = ["k" => "v", "k2" => "v2"];
         $m = new java("java.util.HashMap", $h);
         $this->assertEquals(2, $m->size());
         $this->assertEquals('v', $m['k']);
@@ -111,7 +106,7 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
 
 
         // Found in test.php5/sendArray.php
-        $ar = array(1, 2, 3, 5, 7, 11, -13, -17.01, 19);
+        $ar = [1, 2, 3, 5, 7, 11, -13, -17.01, 19];
         unset($ar[1]);
 
         $v = new java("java.util.Vector", $ar);
@@ -126,8 +121,8 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
 
         $res1 = java_values($l);
         $res2 = java_values($l2);
-        $res3 = array();
-        $res4 = array();
+        $res3 = [];
+        $res4 = [];
         $i = 0;
 
         foreach ($v as $key => $val) {
@@ -164,11 +159,9 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('class java.lang.Object', $Object->__toString());
 
         $this->assertStringStartsWith('java.lang.Object@', $object->__toString());
-
-
     }
 
-    function testUTF8()
+    public function testUTF8()
     {
         $utf8_string = "Cześć! -- שלום -- Grüß Gott -- Dobrý deň -- Dobrý den -- こんにちは, ｺﾝﾆﾁﾊ";
         //java_set_file_encoding("ASCII");
@@ -178,9 +171,8 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
 
 
 
-    function testOutputStream()
+    public function testOutputStream()
     {
-
         $file_encoding = "ASCII";
         java_set_file_encoding($file_encoding);
 
@@ -194,7 +186,7 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Cześć! -- שלום -- Grüß Gott', java_cast($out->toByteArray(), "S"));
     }
 
-    function testJavaServerName()
+    public function testJavaServerName()
     {
         $jsn = java_server_name();
         $this->assertNotEmpty($jsn);
@@ -202,9 +194,8 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    function testValues()
+    public function testValues()
     {
-
         $false = new Java('java.lang.Boolean', false);
         $this->assertTrue(java_is_false($false));
         $this->assertFalse(java_is_true($false));
@@ -236,11 +227,10 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(java_is_null($null));
         $this->assertTrue(java_is_false($null));
         $this->assertFalse(java_is_true($null));
-
     }
 
 
-    function testNotPassing()
+    public function testNotPassing()
     {
         $this->markTestSkipped('Test todo before releasing version 1');
 
@@ -253,11 +243,11 @@ class Pjb62CompatFunctionsTest extends \PHPUnit_Framework_TestCase
 
         // Test taken from test.php5/nestedArrays
         $v = new java("java.util.Vector");
-        $ar = array("one" => 1, "two" => 2, "three" => 3, array("a", array(1, 2, 3, array("a", "b"), 5, "c", "d"), "five" => 5, "six" => 6));
+        $ar = ["one" => 1, "two" => 2, "three" => 3, ["a", [1, 2, 3, ["a", "b"], 5, "c", "d"], "five" => 5, "six" => 6]];
         $v->add($ar);
 
         $this->assertInternalType('array', java_values($v));
-        $result = array_diff_assoc(java_values($v), array($ar));
+        $result = array_diff_assoc(java_values($v), [$ar]);
 
         $this->assertEquals(0, sizeof($result));
     }

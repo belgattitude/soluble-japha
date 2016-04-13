@@ -62,7 +62,7 @@ class Java extends AbstractJava
 
         $sig = "&{$this->__signature}@{$name}";
         $len = count($args);
-        $args2 = array();
+        $args2 = [];
         for ($i = 0; $i < $len; $i++) {
             $val = $args[$i];
             switch (gettype($val)) {
@@ -161,7 +161,7 @@ class Java extends AbstractJava
         $client = $this->__client;
         $sig = "@{$this->__signature}@$method";
         $len = count($args);
-        $args2 = array($this->__java);
+        $args2 = [$this->__java];
         for ($i = 0; $i < $len; $i++) {
             switch (gettype($val = $args[$i])) {
                 case 'boolean':

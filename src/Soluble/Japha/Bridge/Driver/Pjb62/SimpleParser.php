@@ -76,7 +76,7 @@ class SimpleParser
     public function __construct(Client $client)
     {
         $this->handler = $client;
-        $this->tag = array(new ParserTag(), new ParserTag(), new ParserTag());
+        $this->tag = [new ParserTag(), new ParserTag(), new ParserTag()];
         $this->len = $this->SLEN;
         $this->s = str_repeat(" ", $this->SLEN);
         $this->type = $this->VOJD;
@@ -109,7 +109,7 @@ class SimpleParser
         $t = &$this->tag[0]->strings[0];
         $name = $t->string[$t->off];
         $n = $this->tag[2]->n;
-        $ar = array();
+        $ar = [];
         for ($i = 0; $i < $n; $i++) {
             $ar[$pt[$i]->getString()] = $st[$i]->getString();
         }

@@ -82,15 +82,15 @@ class JavaProxy implements JavaType
 
     public function __sleep()
     {
-        $args = array($this, java_get_lifetime());
+        $args = [$this, java_get_lifetime()];
         $this->__serialID = $this->__client->invokeMethod(0, "serialize", $args);
         $this->__tempGlobalRef = $this->__client->globalRef;
-        return array("__serialID", "__tempGlobalRef");
+        return ["__serialID", "__tempGlobalRef"];
     }
 
     public function __wakeup()
     {
-        $args = array($this->__serialID, java_get_lifetime());
+        $args = [$this->__serialID, java_get_lifetime()];
         $this->__client = PjbProxyClient::getInstance()->getClient();
         if ($this->__tempGlobalRef) {
             $this->__client->globalRef = $this->__tempGlobalRef;
@@ -124,7 +124,7 @@ class JavaProxy implements JavaType
     public function __toString()
     {
         try {
-            return $this->__client->invokeMethod(0, "ObjectToString", array($this));
+            return $this->__client->invokeMethod(0, "ObjectToString", [$this]);
         } catch (Exception\JavaException $ex) {
             trigger_error("Exception in Java::__toString(): " . java_truncate((string) $ex), E_USER_WARNING);
             return "";

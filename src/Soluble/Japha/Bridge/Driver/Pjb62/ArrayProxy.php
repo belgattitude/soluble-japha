@@ -40,25 +40,25 @@ class ArrayProxy extends IteratorProxy implements \ArrayAccess
 {
     public function offsetExists($idx)
     {
-        $ar = array($this, $idx);
+        $ar = [$this, $idx];
         return $this->__client->invokeMethod(0, "offsetExists", $ar);
     }
 
     public function offsetGet($idx)
     {
-        $ar = array($this, $idx);
+        $ar = [$this, $idx];
         return $this->__client->invokeMethod(0, "offsetGet", $ar);
     }
 
     public function offsetSet($idx, $val)
     {
-        $ar = array($this, $idx, $val);
+        $ar = [$this, $idx, $val];
         return $this->__client->invokeMethod(0, "offsetSet", $ar);
     }
 
     public function offsetUnset($idx)
     {
-        $ar = array($this, $idx);
+        $ar = [$this, $idx];
         return $this->__client->invokeMethod(0, "offsetUnset", $ar);
     }
 }

@@ -46,7 +46,7 @@ class GlobalRef
 
     public function __construct()
     {
-        $this->map = array();
+        $this->map = [];
     }
 
     /**

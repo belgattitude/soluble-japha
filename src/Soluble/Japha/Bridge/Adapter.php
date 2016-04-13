@@ -10,9 +10,9 @@ class Adapter
     /**
      * @var array
      */
-    protected static $registeredDrivers = array(
+    protected static $registeredDrivers = [
         'pjb62' => 'Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver'
-    );
+    ];
 
 
     /**

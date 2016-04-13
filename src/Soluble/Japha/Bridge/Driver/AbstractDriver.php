@@ -94,6 +94,5 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
             return ($values == true);
         }
         return false;
-
     }
 }

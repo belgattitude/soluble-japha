@@ -29,7 +29,6 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-
         if (!isset($_SERVER['JAPHA_ENABLE_JDBC_TESTS']) ||
                 $_SERVER['JAPHA_ENABLE_JDBC_TESTS'] != "true") {
             $this->markTestSkipped(
@@ -39,10 +38,10 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
 
         \SolubleTestFactories::startJavaBridgeServer();
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
-        $this->adapter = new Adapter(array(
+        $this->adapter = new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
-        ));
+        ]);
         $this->driverManager = new DriverManager($this->adapter);
     }
 
@@ -110,7 +109,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    function testStatement()
+    public function testStatement()
     {
         $dsn = $this->getWorkingDSN();
         try {
@@ -137,7 +136,6 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
 
     protected function getWorkingDSN()
     {
-
         $config = \SolubleTestFactories::getDatabaseConfig();
         $host = $config['hostname'];
         $db = $config['database'];

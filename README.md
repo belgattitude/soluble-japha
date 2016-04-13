@@ -1,6 +1,6 @@
 # Soluble\Japha
 
-[![PHP Version](http://img.shields.io/badge/php-5.3+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
+[![PHP Version](http://img.shields.io/badge/php-5.4+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
 [![HHVM Status](http://hhvm.h4cc.de/badge/soluble/japha.png?style=flat)](http://hhvm.h4cc.de/package/soluble/japha)
 [![Build Status](https://travis-ci.org/belgattitude/soluble-japha.png?branch=master)](https://travis-ci.org/belgattitude/soluble-japha)
 [![Code Coverage](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/coverage.png?s=aaa552f6313a3a50145f0e87b252c84677c22aa9)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/)
@@ -20,11 +20,11 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
 - Flexible API and abstraction layer (and a [legacy compatibility layer](./doc/pjb62_compatibility.md)).
 - Fast, does not rely on system `exec`, no vm startup extra effort.
 - Based on reliable and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) implementation.
-- Conform to Java [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specification.
+- Compliant with Java [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specification.
 
 ## Requirements
 
-- PHP 5.3+, 7.0 or HHVM >= 3.2.
+- PHP 5.4+, 7.0 or HHVM >= 3.2.
 - The [PHPJavaBridge server running](./doc/install_server.md)
 
 ## Documentation
@@ -280,22 +280,22 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
   - No allow_url_open possible (security)
   - Removed deprecated code.
 
-## Future enhancements
-
-- Supporting more drivers
-  - [Zend Java bridge](http://files.zend.com/help/Zend-Platform/about.htm) driver compatibility.
-
-- Use latests PHP features
-  - Drop 5.3 support and use short array syntax, traits, ...
+## Future ideas
 
 - Original code improvements
   - Achieve at least 80% of unit testing for legacy code.
   - Refactor as much as possible and remove dead code.
 
+- Supporting more drivers or techs
+  - [Zend Java bridge](http://files.zend.com/help/Zend-Platform/about.htm) driver compatibility.
+  - [GRPC](http://www.grpc.io/) 
+  - Support the [MethodHandles](http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/MethodHandles.html) and [InvokeDynamic](http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/package-summary.html) APIs described in [JSR-292](https://jcp.org/en/jsr/detail?id=292).
+
+- Improve proxy
+  - see [ProxyManager](https://github.com/Ocramius/ProxyManager)
+
 - Explore new possibilities 
   - Create a JSR-223 php extension in Go, like this [experiment](https://github.com/do-aki/gophp_sample)
-  - Use the [MethodHandles](http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/MethodHandles.html) and [InvokeDynamic](http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/package-summary.html) APIs described in [JSR-292](https://jcp.org/en/jsr/detail?id=292).
-   
 
 
 ## Credits

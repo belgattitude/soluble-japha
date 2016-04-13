@@ -1,13 +1,9 @@
 <?php
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Cache\StorageFactory;
-use Soluble\Normalist\Synthetic\TableManager;
-use Soluble\Normalist\Driver;
-use Symfony\Component\Process\Process;
 use PjbServer\Tools\StandaloneServer;
 
-class SolubleTestFactories {
+class SolubleTestFactories
+{
 
     /**
      *
@@ -25,20 +21,17 @@ class SolubleTestFactories {
      * Start (and eventually install) the standalone
      * java bridge server
      */
-    public static function startJavaBridgeServer() {
-
-        
+    public static function startJavaBridgeServer()
+    {
         if ($_SERVER['AUTORUN_PJB_STANDALONE'] == 'true') {
-
             if (self::$standaloneServer === null) {
-
                 $server_address = self::getJavaBridgeServerAddress();
                 //$url = parse_url($server_address, PHP_URL_HOST);
                 $port = parse_url($server_address, PHP_URL_PORT);
 
-                $options = array(
+                $options = [
                     'port' => $port
-                );
+                ];
 
                 try {
                     self::$standaloneServer = new StandaloneServer($options);
@@ -47,13 +40,14 @@ class SolubleTestFactories {
                 } catch (\Exception $e) {
                     die($e->getMessage());
                 }
-                
-                register_shutdown_function(array(__CLASS__, 'killStandaloneServer'));
+
+                register_shutdown_function([__CLASS__, 'killStandaloneServer']);
             }
         }
     }
 
-    public static function killStandaloneServer() {
+    public static function killStandaloneServer()
+    {
         if (self::$standaloneServer !== null) {
             if (self::$standaloneServer->isRunning()) {
                 self::$standaloneServer->stop();
@@ -61,7 +55,8 @@ class SolubleTestFactories {
         }
     }
 
-    public static function isStandaloneServerRunning() {
+    public static function isStandaloneServerRunning()
+    {
         $test_dir = dirname(__FILE__);
         $pid_file = "$test_dir/logs/pjb-standalone.pid";
         if (file_exists($pid_file)) {
@@ -80,14 +75,16 @@ class SolubleTestFactories {
      *
      * @return string
      */
-    public static function getJavaBridgeServerAddress() {
+    public static function getJavaBridgeServerAddress()
+    {
         return $_SERVER['PJB_SERVLET_ADDRESS'];
     }
 
     /**
      * @return string
      */
-    public static function getCachePath() {
+    public static function getCachePath()
+    {
         $cache_dir = $_SERVER['PHPUNIT_CACHE_DIR'];
         if (!preg_match('/^\//', $cache_dir)) {
             $cache_dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $cache_dir;
@@ -95,21 +92,21 @@ class SolubleTestFactories {
         return $cache_dir;
     }
 
-    public static function getDatabaseConfig() {
-        $mysql_config = array();
+    public static function getDatabaseConfig()
+    {
+        $mysql_config = [];
         $mysql_config['hostname'] = $_SERVER['MYSQL_HOSTNAME'];
         $mysql_config['username'] = $_SERVER['MYSQL_USERNAME'];
         $mysql_config['password'] = $_SERVER['MYSQL_PASSWORD'];
         $mysql_config['database'] = $_SERVER['MYSQL_DATABASE'];
-        $mysql_config['driver_options'] = array(
+        $mysql_config['driver_options'] = [
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'",
-        );
-        $mysql_config['options'] = array(
+        ];
+        $mysql_config['options'] = [
             'buffer_results' => true
-        );
+        ];
         $mysql_config['charset'] = 'UTF8';
 
         return $mysql_config;
     }
-
 }

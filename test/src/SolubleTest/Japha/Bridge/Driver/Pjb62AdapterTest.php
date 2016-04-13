@@ -25,13 +25,11 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
-        $this->adapter = new Adapter(array(
+        $this->adapter = new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
-        ));
-
+        ]);
     }
 
     /**
@@ -87,7 +85,7 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
     public function testJavaHashMap()
     {
         $ba = $this->adapter;
-        $hash = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
+        $hash = $ba->java('java.util.HashMap', ['my_key' => 'my_value']);
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Java', $hash);
         $this->assertEquals('my_value', $hash->get('my_key'));
         $hash->put('new_key', 'oooo');
@@ -126,12 +124,10 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
 
         $vm_name = $properties->get('java.vm.name');
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\InternalJava', $vm_name);
-
     }
 
     public function testIterator()
     {
-
         $ba = $this->adapter;
 
         $system = $ba->javaClass('java.lang.System');

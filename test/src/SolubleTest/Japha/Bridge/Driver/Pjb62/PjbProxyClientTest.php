@@ -30,7 +30,6 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-
     }
 
     /**
@@ -39,7 +38,6 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
     }
 
 
@@ -70,8 +68,6 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
 
         */
         //$this->assertFalse(PjbProxyClient::isInitialized());
-
-
     }
 
 

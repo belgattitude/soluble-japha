@@ -59,7 +59,7 @@ class SimpleHttpHandler extends SocketHandler
      *
      * @var array
      */
-    protected $cachedValues = array();
+    protected $cachedValues = [];
 
 
     /**
@@ -92,7 +92,7 @@ class SimpleHttpHandler extends SocketHandler
      */
     public function __construct(Protocol $protocol, $ssl, $host, $port, $java_servlet, $java_recv_size, $java_send_size)
     {
-        $this->cookies = array();
+        $this->cookies = [];
         $this->protocol = $protocol;
         $this->ssl = $ssl;
         $this->host = $host;
@@ -103,9 +103,9 @@ class SimpleHttpHandler extends SocketHandler
         $this->java_recv_size = $java_recv_size;
 
 
-        $this->cachedValues = array(
+        $this->cachedValues = [
             'getContext' => null
-        );
+        ];
         $this->createChannel();
     }
 

@@ -43,31 +43,28 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
     public function testConstructorThrowsUnsupportedDriverException()
     {
         $this->setExpectedException('Soluble\Japha\Bridge\Exception\UnsupportedDriverException');
-        $ba = new Adapter(array(
+        $ba = new Adapter([
             'driver' => 'InvalidDriver'
-        ));
-
+        ]);
     }
 
     public function testConstructorThrowsInvalidArgumentException()
     {
         $this->setExpectedException('Soluble\Japha\Bridge\Exception\InvalidArgumentException');
 
-        $ba = new Adapter(array(
+        $ba = new Adapter([
             'driver' => 'Pjb62',
             'missing_servlet_address' => ''
-        ));
-
+        ]);
     }
 
     public function testConstructorThrowsInvalidArgumentException2()
     {
         $this->setExpectedException('Soluble\Japha\Bridge\Exception\InvalidArgumentException');
-        $ba = new Adapter(array(
+        $ba = new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => 'an invalid url'
-        ));
-
+        ]);
     }
 /*
     public function testConstructorSetsDefaultTimeZone()
@@ -85,15 +82,14 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
 */
     public function testConstructorSetsCustomDefaultTimeZone()
     {
-        $ba = new Adapter(array(
+        $ba = new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
             'java_default_timezone' => 'Europe/London'
-        ));
+        ]);
 
 
         $javaTz = $ba->getSystem()->getTimeZoneId();
         $this->assertEquals('Europe/London', $javaTz);
-
     }
 }

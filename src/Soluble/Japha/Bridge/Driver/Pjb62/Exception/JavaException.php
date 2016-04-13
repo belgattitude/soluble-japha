@@ -84,7 +84,7 @@ class JavaException extends Exception implements JavaType, JavaExceptionInterfac
     public function __sleep()
     {
         $this->__delegate->__sleep();
-        return array("__delegate");
+        return ["__delegate"];
     }
 
     public function __wakeup()

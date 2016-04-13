@@ -62,7 +62,7 @@ class CompositeArg extends Arg
     {
         parent::__construct($client);
         $this->type = $type;
-        $this->val = array();
+        $this->val = [];
         $this->counter = 0;
     }
 

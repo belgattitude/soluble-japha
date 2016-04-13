@@ -37,7 +37,6 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-
         if (!isset($_SERVER['JAPHA_ENABLE_JDBC_TESTS']) ||
                 $_SERVER['JAPHA_ENABLE_JDBC_TESTS'] != "true") {
             $this->markTestSkipped(
@@ -47,14 +46,12 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
 
         \SolubleTestFactories::startJavaBridgeServer();
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
-        $this->ba = new Bridge\Adapter(array(
+        $this->ba = new Bridge\Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
-        ));
+        ]);
         $this->timeZone = new TimeZone($this->ba);
         $this->backupTz = $this->ba->javaClass('java.util.TimeZone')->getDefault();
-
-
     }
 
     /**
@@ -63,7 +60,6 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
         $this->ba->javaClass('java.util.TimeZone')->setDefault($this->backupTz);
         TimeZone::enableTzCache();
     }
@@ -85,7 +81,7 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
 
     public function testGetTimezone()
     {
-        $ids = array('Europe/Paris', 'CET', 'GMT');
+        $ids = ['Europe/Paris', 'CET', 'GMT'];
         foreach ($ids as $id) {
             $tz = $this->timeZone->getTimeZone($id);
             $iof = $this->ba->isInstanceOf($tz, 'java.util.TimeZone');
@@ -110,7 +106,7 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
     public function testSetDefault()
     {
         $originalTz = $this->timeZone->getDefault();
-        $ids = array('Europe/Paris', 'CET', 'GMT');
+        $ids = ['Europe/Paris', 'CET', 'GMT'];
         foreach ($ids as $id) {
             $tz = $this->timeZone->getTimeZone($id);
             $this->timeZone->setDefault($tz);
@@ -142,7 +138,6 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Europe/London', (string) $uncachedTz);
 
         $this->timeZone->setDefault($originalTz);
-
     }
 
     public function testGetDefaultStaticCache()
@@ -169,6 +164,5 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Europe/London', (string) $uncachedTz);
 
         $this->timeZone->setDefault($originalTz);
-
     }
 }

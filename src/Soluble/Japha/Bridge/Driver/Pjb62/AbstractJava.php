@@ -91,7 +91,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
             $this->__createDelegate();
         }
         $this->__delegate->__sleep();
-        return array("__delegate");
+        return ["__delegate"];
     }
 
     public function __wakeup()

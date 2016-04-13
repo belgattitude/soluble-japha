@@ -214,7 +214,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
 
     public function parseHeaders()
     {
-        $this->headers = array();
+        $this->headers = [];
 
 
         $line = trim(fgets($this->socket, $this->java_recv_size));

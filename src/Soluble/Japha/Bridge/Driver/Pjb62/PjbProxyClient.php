@@ -26,13 +26,13 @@ class PjbProxyClient
      *
      * @var array
      */
-    protected $defaultOptions = array(
+    protected $defaultOptions = [
         'java_disable_autoload' => false,
         'java_prefer_values' => true,
         'load_pjb_compatibility' => true,
         'java_send_size' => 8192,
         'java_recv_size' => 8192
-    );
+    ];
 
     /**
      *
@@ -44,7 +44,7 @@ class PjbProxyClient
      * Internal cache for already loaded Java classes
      * @var array
      */
-    protected $classMapCache = array();
+    protected $classMapCache = [];
 
     /**
      *
@@ -253,7 +253,7 @@ class PjbProxyClient
         $c = self::getInstance()->getClient();
         if ($c) {
             $s = str_replace("_", ".", $x);
-            if (!($c->invokeMethod(0, "typeExists", array($s)))) {
+            if (!($c->invokeMethod(0, "typeExists", [$s]))) {
                 return false;
             }
             $i = "class ${x} extends Java {" .
@@ -283,7 +283,7 @@ class PjbProxyClient
             $str = str_replace("\\", ".", $x);
 
 
-            if (!($client->invokeMethod(0, "typeExists", array($str)))) {
+            if (!($client->invokeMethod(0, "typeExists", [$str]))) {
                 return false;
             }
             $package = substr($x, 0, $idx);
@@ -309,7 +309,7 @@ class PjbProxyClient
     {
         //$client = self::getClient();
         //return $client->invokeMethod(0, "inspect", array($object));
-        return self::$client->invokeMethod(0, "inspect", array($object));
+        return self::$client->invokeMethod(0, "inspect", [$object]);
     }
 
     /**
@@ -335,7 +335,7 @@ class PjbProxyClient
         if (!$class instanceof JavaType) {
             throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, class parameter must be a valid JavaType or class name as string");
         }
-        return self::$client->invokeMethod(0, "instanceOf", array($object, $class));
+        return self::$client->invokeMethod(0, "instanceOf", [$object, $class]);
     }
 
     /**
@@ -375,7 +375,7 @@ class PjbProxyClient
      */
     public function getValues(JavaType $object)
     {
-        return self::$client->invokeMethod(0, "getValues", array($object));
+        return self::$client->invokeMethod(0, "getValues", [$object]);
     }
 
     /**
@@ -383,14 +383,14 @@ class PjbProxyClient
      */
     public function getLastException()
     {
-        return self::$client->invokeMethod(0, "getLastException", array());
+        return self::$client->invokeMethod(0, "getLastException", []);
     }
 
     /**
      */
     public function clearLastException()
     {
-        self::$client->invokeMethod(0, "clearLastException", array());
+        self::$client->invokeMethod(0, "clearLastException", []);
     }
 
     /**
@@ -436,10 +436,10 @@ class PjbProxyClient
         $port = $url["port"];
         $path = isset($url["path"]) ? $url['path'] : '';
 
-        $infos = array(
+        $infos = [
             'servlet_host' => "${scheme}${host}:${port}",
             'servlet_uri' => "$path",
-        );
+        ];
         return $infos;
     }
 
@@ -449,7 +449,7 @@ class PjbProxyClient
     /**
      * For compatibility usage all constants have been kept
      */
-    protected function boostrap($options = array())
+    protected function boostrap($options = [])
     {
 
         /// BOOTSTRAP
@@ -465,7 +465,7 @@ class PjbProxyClient
         */
 
         //register_shutdown_function(array(__CLASS__, 'shutdown'));
-        register_shutdown_function(array('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', 'unregisterInstance'));
+        register_shutdown_function(['Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', 'unregisterInstance']);
 
         /*
         if (!defined("JAVA_SEND_SIZE")) {

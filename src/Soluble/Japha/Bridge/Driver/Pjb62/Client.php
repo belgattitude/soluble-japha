@@ -116,8 +116,8 @@ class Client
      */
     public $globalRef;
     public $stack;
-    public $defaultCache = array();
-    public $asyncCache = array();
+    public $defaultCache = [];
+    public $asyncCache = [];
     public $methodCache;
     public $isAsync = 0;
     public $currentCacheKey;
@@ -144,7 +144,7 @@ class Client
      *
      * @var array
      */
-    protected $cachedValues = array();
+    protected $cachedValues = [];
 
 
     /**
@@ -208,7 +208,7 @@ class Client
         $this->java_servlet = $params['JAVA_SERVLET'];
 
 
-        $this->RUNTIME = array();
+        $this->RUNTIME = [];
         $this->RUNTIME["NOTICE"] = '***USE echo java_inspect(jVal) OR print_r(java_values(jVal)) TO SEE THE CONTENTS OF THIS JAVA OBJECT!***';
         $this->parser = new Parser($this);
         $this->protocol = new Protocol($this, $this->java_hosts, $this->java_servlet, $this->java_recv_size, $this->java_send_size);
@@ -225,10 +225,10 @@ class Client
         $this->methodCache = $this->defaultCache;
         $this->inArgs = false;
 
-        $this->cachedValues = array(
+        $this->cachedValues = [
             'getContext' => null,
             'getServerName' => null
-        );
+        ];
     }
 
     public function read($size)
@@ -254,7 +254,7 @@ class Client
     {
         $tail_call = false;
         do {
-            $this->stack = array($this->arg = $this->simpleArg);
+            $this->stack = [$this->arg = $this->simpleArg];
             $this->idx = 0;
             $this->parser->parse();
             if ((count($this->stack)) > 1) {
@@ -595,7 +595,7 @@ class Client
     {
         $name = $arg->p;
         $object = $arg->v;
-        $ob = ($object == null) ? $name : array(&$object, $name);
+        $ob = ($object == null) ? $name : [&$object, $name];
         $isAsync = $this->isAsync;
         $methodCache = $this->methodCache;
         $currentArgumentsFormat = $this->currentArgumentsFormat;
@@ -643,19 +643,19 @@ class Client
         $code = strtoupper($type[0]);
         switch ($code) {
             case 'S':
-                return $this->invokeMethod(0, "castToString", array($object));
+                return $this->invokeMethod(0, "castToString", [$object]);
             case 'B':
-                return $this->invokeMethod(0, "castToBoolean", array($object));
+                return $this->invokeMethod(0, "castToBoolean", [$object]);
             case 'L':
             case 'I':
-                return $this->invokeMethod(0, "castToExact", array($object));
+                return $this->invokeMethod(0, "castToExact", [$object]);
             case 'D':
             case 'F':
-                return $this->invokeMethod(0, "castToInExact", array($object));
+                return $this->invokeMethod(0, "castToInExact", [$object]);
             case 'N':
                 return;
             case 'A':
-                return $this->invokeMethod(0, "castToArray", array($object));
+                return $this->invokeMethod(0, "castToArray", [$object]);
             case 'O':
                 return $object;
             default:
@@ -670,7 +670,7 @@ class Client
     public function getContext()
     {
         if ($this->cachedValues['getContext'] === null) {
-            $this->cachedValues['getContext'] = $this->invokeMethod(0, "getContext", array());
+            $this->cachedValues['getContext'] = $this->invokeMethod(0, "getContext", []);
         }
         return $this->cachedValues['getContext'];
     }

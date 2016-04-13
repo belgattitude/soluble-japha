@@ -448,7 +448,7 @@ function java_checkCliSapi()
 function java_unwrap(Pjb62\JavaType $object)
 {
     $client = Pjb62\PjbProxyClient::getInstance()->getClient();
-    return $client->globalRef->get($client->invokeMethod(0, "unwrapClosure", array($object)));
+    return $client->globalRef->get($client->invokeMethod(0, "unwrapClosure", [$object]));
 }
 
 
@@ -468,7 +468,7 @@ function java_set_encoding($enc)
 function java_set_file_encoding($enc)
 {
     $client = Pjb62\PjbProxyClient::getInstance()->getClient();
-    return $client->invokeMethod(0, "setFileEncoding", array($enc));
+    return $client->invokeMethod(0, "setFileEncoding", [$enc]);
 }
 
 /**

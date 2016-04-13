@@ -3,7 +3,6 @@
 namespace SolubleTest\Japha\Bridge;
 
 use Soluble\Japha\Bridge\Adapter;
-use Soluble\Japha\Interfaces;
 use Soluble\Japha\Bridge\Exception;
 
 /**
@@ -33,11 +32,10 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
 
-        $this->adapter = new Adapter(array(
+        $this->adapter = new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
-        ));
-
+        ]);
     }
 
     /**
@@ -87,7 +85,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
     public function testJavaHashMap()
     {
         $ba = $this->adapter;
-        $hash = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
+        $hash = $ba->java('java.util.HashMap', ['my_key' => 'my_value']);
         $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $hash);
         $this->assertEquals('my_value', $hash->get('my_key'));
         $hash->put('new_key', 'oooo');
@@ -107,7 +105,6 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $ba = $this->adapter;
         $cls = $ba->javaClass('java.lang.Class');
         $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $cls);
-
     }
 
     public function testIsInstanceOf()
@@ -118,7 +115,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $system = $ba->javaClass('java.lang.System');
         $string = $ba->java('java.lang.String', 'Hello');
         $bigint = $ba->java('java.math.BigInteger', 1234567890123);
-        $hash = $ba->java('java.util.HashMap', array());
+        $hash = $ba->java('java.util.HashMap', []);
 
         $this->assertFalse($ba->isInstanceOf($system, $string));
         $this->assertFalse($ba->isInstanceOf($hash, $string));
@@ -168,7 +165,6 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
     public function testDate()
     {
-
         $ba = $this->adapter;
 
         // Step 1: Check with system java timezone
@@ -223,7 +219,6 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
         $phpDate->sub(new \DateInterval('PT1H'));
         $this->assertEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
-
     }
 
     public function testIsNull()
@@ -243,7 +238,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($ba->isNull($nullString));
 
 
-        $v = $ba->java('java.util.Vector', array(1,2,3));
+        $v = $ba->java('java.util.Vector', [1, 2, 3]);
         $v->add(1, null);
         $v->add(2, 0);
 
@@ -257,7 +252,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
 
         // initial capacity of 10
-        $v = $ba->java('java.util.Vector', array(1,2,3,4,5));
+        $v = $ba->java('java.util.Vector', [1, 2, 3, 4, 5]);
         $this->assertFalse($ba->isTrue($v));
 
         $v->add(1, 1);
@@ -290,13 +285,10 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($ba->isTrue($ba->java('java.lang.Boolean', 0)));
         $this->assertFalse($ba->isTrue($ba->java('java.lang.Boolean', false)));
-
-
     }
 
     public function testIterator()
     {
-
         $ba = $this->adapter;
 
         $system = $ba->javaClass('java.lang.System');
@@ -328,9 +320,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSystem()
     {
-
         $system = $this->adapter->getSystem();
         $this->assertInstanceOf('Soluble\Japha\Bridge\Adapter\System', $system);
-
     }
 }

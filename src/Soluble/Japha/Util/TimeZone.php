@@ -57,7 +57,7 @@ class TimeZone
     public function getAvailableIDs()
     {
         if ($this->availableTz === null) {
-            $this->availableTz = array();
+            $this->availableTz = [];
             $available = $this->timeZoneClass->getAvailableIDs();
             foreach ($available as $id) {
                 $this->availableTz[] = $id;

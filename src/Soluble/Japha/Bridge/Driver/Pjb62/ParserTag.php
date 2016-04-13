@@ -42,7 +42,7 @@ class ParserTag
 
     public function __construct()
     {
-        $this->strings = array();
+        $this->strings = [];
         $this->n = 0;
     }
 }

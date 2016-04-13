@@ -40,7 +40,7 @@ class ExceptionProxy extends JavaProxy
 {
     public function __toExceptionString($trace)
     {
-        $args = array($this, $trace);
+        $args = [$this, $trace];
         return $this->__client->invokeMethod(0, "ObjectToString", $args);
     }
 }
