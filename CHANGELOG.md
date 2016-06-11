@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 0.11.1 (2016-06-11)
+
+- [Cleanup] Cleanup some minor issues
+
 ### 0.11.0 (2016-06-11)
 
 - [BC-Break] Split legacy pjb62 compatibility layer in a separate repo
