@@ -100,6 +100,21 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(6, $hash->get('key')->length());
     }
 
+    public function testJavaConstructorOverloading()
+    {
+        $ba = $this->adapter;
+        $vec1 = $ba->java('java.util.Vector', $initialCapacity=1, $capacityIncrement=2);
+        $this->assertEquals('java.util.Vector', $ba->getDriver()->getClassName($vec1));
+        $vec2 = $ba->java('java.util.Vector', [1, 2, 3]);
+        $this->assertEquals('java.util.Vector', $ba->getDriver()->getClassName($vec2));
+
+        $mathContext = $ba->java('java.math.MathContext', $precision=2);
+        $bigint = $ba->java('java.math.BigInteger', 123456);
+        $bigdec = $ba->java('java.math.BigDecimal', $bigint, $scale=2, $mathContext);
+
+        $this->assertEquals(1200, $bigdec->floatValue());
+    }
+
     public function testJavaClass()
     {
         $ba = $this->adapter;
@@ -111,7 +126,6 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
     {
         $ba = $this->adapter;
 
-        $system = $ba->javaClass('java.lang.System');
         $system = $ba->javaClass('java.lang.System');
         $string = $ba->java('java.lang.String', 'Hello');
         $bigint = $ba->java('java.math.BigInteger', 1234567890123);
@@ -234,7 +248,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($ba->isNull($emptyString));
 
         //because in this case it's empty
-        $nullString = $ba->java('java.lang.String', null);
+        $nullString = $ba->java('java.lang.String');
         $this->assertFalse($ba->isNull($nullString));
 
 

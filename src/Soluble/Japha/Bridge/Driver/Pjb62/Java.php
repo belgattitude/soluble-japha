@@ -43,13 +43,15 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 class Java extends AbstractJava
 {
     /**
-     * Internal java constructor
+     * Java constructor
      *
-     * //public function __construct($java_fqdn, $java_args=null)
+     * 
+     *
      */
     public function __construct()
     {
         $this->__client = PjbProxyClient::getInstance()->getClient();
+
         $client = $this->__client;
         $args = func_get_args();
 

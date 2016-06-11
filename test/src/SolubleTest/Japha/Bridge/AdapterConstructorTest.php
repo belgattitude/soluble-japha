@@ -28,7 +28,6 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         \SolubleTestFactories::startJavaBridgeServer();
-
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
     }
 

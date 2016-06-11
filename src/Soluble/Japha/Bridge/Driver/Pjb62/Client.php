@@ -565,16 +565,23 @@ class Client
 
 
     /**
+     * Invoke a method on java object
      *
+     * <code>
+     * $bigint1 = new Java('java.math.BigInteger', 10);
+     * $bigint2 = new Java('java.math.BigInteger', 20);
+     * $bigint3 = $client->invokeMethod($bigint, "add", [$bigint2])
+     * </code>
      * @param integer $object object id
      * @param string $method method name
-     * @param array $args
+     * @param array $args arguments to send with method
      * @return mixed
      */
-    public function invokeMethod($object, $method, $args)
+    public function invokeMethod($object, $method, array $args=[])
     {
         $this->protocol->invokeBegin($object, $method);
         $this->writeArgs($args);
+
         $this->protocol->invokeEnd();
         $val = $this->getResult();
         return $val;

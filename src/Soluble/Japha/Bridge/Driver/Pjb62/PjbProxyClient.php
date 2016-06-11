@@ -193,7 +193,7 @@ class PjbProxyClient
             // Added in order to work with custom exceptions
             self::$client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory(self::$client);
 
-            $this->boostrap();
+            $this->bootstrap();
         }
     }
 
@@ -221,10 +221,12 @@ class PjbProxyClient
 
     /**
      * Invoke a method dynamically.
-
+     *
      * Example:
      * <code>
-     * PjbProxyClient::invokeMethod(new java("java.lang.String","hello"), "toString", array())
+     * $bigint1 = new Java('java.math.BigInteger', 10);
+     * $bigint2 = new Java('java.math.BigInteger', 20);
+     * $bigint3 = PjbProxyClient::invokeMethod($bigint, "add", [$bigint2])
      * </code>
      *
      * <br> Any declared exception can be caught by PHP code. <br>
@@ -234,10 +236,10 @@ class PjbProxyClient
      *
      * @param JavaType $object A java object or type
      * @param string $method A method string
-     * @param array $args An argument array
+     * @param mixed $args Arguments to send to method
      * @return mixed
      */
-    public function invokeMethod($object, $method, $args)
+    public function invokeMethod($object, $method, array $args=[])
     {
         $id = ($object == null) ? 0 : $object->__java;
         return self::$client->invokeMethod($id, $method, $args);
@@ -399,7 +401,7 @@ class PjbProxyClient
     /**
      * For compatibility usage all constants have been kept
      */
-    protected function boostrap($options = [])
+    protected function bootstrap($options = [])
     {
 
         /// BOOTSTRAP
@@ -460,7 +462,7 @@ class PjbProxyClient
     }
 
     /**
-     *
+     * Return options
      * @return array
      */
     public function getOptions()
@@ -469,6 +471,7 @@ class PjbProxyClient
     }
 
     /**
+     * Return specific option
      * @param $name
      * @return mixed
      */
