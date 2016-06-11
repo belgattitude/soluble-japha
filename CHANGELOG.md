@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 0.11.2 (2016-06-11)
+
+- [Cleanup] Removed obsolete connection error message
+
 ### 0.11.1 (2016-06-11)
 
 - [Cleanup] Cleanup some minor issues
