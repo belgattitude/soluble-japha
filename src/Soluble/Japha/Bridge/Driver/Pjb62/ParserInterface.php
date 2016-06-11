@@ -44,7 +44,7 @@ interface ParserInterface
     public function parse();
 
     /**
-     * @param $string $str
+     * @param string $str
      * @return mixed
      */
     public function getData($str);

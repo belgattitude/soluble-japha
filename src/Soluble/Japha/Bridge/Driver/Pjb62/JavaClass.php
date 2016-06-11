@@ -45,6 +45,9 @@ use Soluble\Japha\Interfaces;
 
 class JavaClass extends Java implements Interfaces\JavaClass
 {
+    /**
+     * JavaClass constructor.
+     */
     public function __construct()
     {
         $this->__client = PjbProxyClient::getInstance()->getClient();
