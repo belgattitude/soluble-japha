@@ -115,6 +115,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1200, $bigdec->floatValue());
     }
 
+
     public function testJavaClass()
     {
         $ba = $this->adapter;
