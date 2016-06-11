@@ -80,9 +80,9 @@ $ba = new BridgeAdapter([
 
 // An utf8 string
 $string = $ba->java('java.lang.String', "保éà");
-$hash   = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
-echo $hash->get('new_key'); // prints "保éà"
-echo $hash->get('new_key')->length(); // prints 3
+$hash   = $ba->java('java.util.HashMap', ['key1' => $string, 'key2' => 'hello']);
+echo $hash->get('key1'); // prints "保éà"
+echo $hash->get('key2')->length(); // prints 4
 
 // Java dates
 $pattern = "yyyy-MM-dd";
@@ -90,10 +90,32 @@ $fmt     = $ba->java("java.text.SimpleDateFormat", $pattern);
 $fmt->format($ba->java("java.util.Date")); // print today
 
 // Some maths
-$bigint = new Java("java.math.BigInteger", 1);
+$bigint = $ba->java("java.math.BigInteger", 1);
 echo $bigint->intValue() + 10; // prints 11
 
 ```
+
+### Instanciating java objects
+
+Use the `BridgeAdapter->java($class, ...$args)` to instanciate new java objects.
+
+The corresponding constructor is selected from given arguments as illustrated by the following code snippet.
+
+
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$mathContext = $ba->java('java.math.MathContext', $precision=2);
+$bigint = $ba->java('java.math.BigInteger', 123456);
+$bigdec = $ba->java('java.math.BigDecimal', $bigint, $scale=2, $mathContext);
+
+echo $bigdec->floatValue(); // will print 1200
+
+```
+  
+
 
 ### Using java final classes
 
@@ -105,7 +127,12 @@ echo  $system->getProperties()->get('java.vm_name);
 
 ```
 
-### Static class methods
+
+### Calling static methods
+
+Static java method have to be called like regular methods (`->` instead of `::`) in php.
+ 
+It doesn't mean they aren't static, simply the are called like regular methods.   
 
 ```php
 <?php
@@ -117,7 +144,10 @@ $date = $calendar->getTime();
 
 ```
 
+
 ### Class constants
+
+Constants on java classes are called like regular properties (no `::`).
 
 ```php
 <?php
