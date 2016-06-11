@@ -105,7 +105,6 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     {
         if (!$socket) {
             $message  = " Could not connect to the JEE server {$this->ssl}{$this->host}:{$this->port}. Please start it.";
-            $message .= java_checkCliSapi() ? " Or define('JAVA_HOSTS',9267); define('JAVA_SERVLET',false); before including 'Java.inc' and try again. Error message: $errstr ($errno)\n" : " Error message: $errstr ($errno)\n";
             throw new Exception\ConnectException(__METHOD__ . $message);
         }
     }
