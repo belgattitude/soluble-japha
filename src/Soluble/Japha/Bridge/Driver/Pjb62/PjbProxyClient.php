@@ -29,7 +29,6 @@ class PjbProxyClient
     protected $defaultOptions = [
         'java_disable_autoload' => false,
         'java_prefer_values' => true,
-        'load_pjb_compatibility' => false,
         'java_log_level' => null,
         'java_send_size' => 8192,
         'java_recv_size' => 8192
@@ -74,7 +73,7 @@ class PjbProxyClient
      *  Optionnaly :
      *  'java_disable_autoload' => false,
      *  'java_prefer_values' => true,
-     *  'load_pjb_compatibility' => false
+     *  'java_log_level' => null
      *  'java_send_size' => 8192,
      *  'java_recv_size' => 8192
      *
@@ -100,7 +99,7 @@ class PjbProxyClient
      *  $options can be :
      *  "java_disable_autoload' => false,
      *  "java_prefer_values' => true,
-     *  "load_pjb_compatibility' => false
+     *  "java_log_level' => null
      *  "java_send_size" => 8192,
      *  "java_recv_size" => 8192
      *
@@ -178,10 +177,7 @@ class PjbProxyClient
                 define('JAVA_PREFER_VALUES', $options['java_prefer_values']);
             }*/
 
-            if ($options['load_pjb_compatibility']) {
-                $ds = DIRECTORY_SEPARATOR;
-                require_once dirname(__FILE__) . $ds . "Compat" . $ds . "pjb_functions.php";
-            }
+
 
             $params = new ArrayObject();
             $params['JAVA_HOSTS'] = $connection["servlet_host"];
