@@ -9,7 +9,7 @@ or legacy code running the original [PHP/Java bridge](http://php-java-bridge.sou
 
 ## Enable compatibility layer
 
-- Compatibility layer is enabled through the 'load_pjb_compatibility' option in the `Bridge\Adapter`.
+- Compatibility layer is enabled through by adding a separate repo 'soluble/japha-pjb62-compat'
 
 - The original PHP\Java bridge (`Java.inc`) must not be loaded anymore, 
   you can disable any calls to `include(.../Java.inc)` in your code and 
@@ -29,7 +29,6 @@ $servlet_address = 'localhost:8083/servlet.phpjavabridge';
 $ba = new BridgeAdapter([
     'driver' => 'Pjb62',
     'servlet_address' => $servlet_address,
-    'load_pjb_compatibility' => true
 ]);
 ```
 
@@ -44,7 +43,6 @@ use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 $ba = new BridgeAdapter([
     'driver' => 'Pjb62',
     'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
-    'load_pjb_compatibility' => true
 ]);
 
 $bigint = new Java("java.math.BigInteger", 1);
@@ -65,20 +63,20 @@ http://php-java-bridge.sourceforge.net/doc/docs/php-api/JavaBridge/_JavaBridge.i
 
 |Constant                    | Example                                   |
 |----------------------------|-------------------------------------------|
-| `JAVA_HOSTS`               | `define("JAVA_HOSTS", "127.0.0.1:8787");` |
-| `JAVA_SERVLET`             | `define ("JAVA_SERVLET", "/MyWebApp/servlet.phpjavabridge"); |
-| `JAVA_PREFER_VALUES`       | `define ("JAVA_PREFER_VALUES", 1);` |
-| `JAVA_LOG_LEVEL`           | ? - wip |
-| `JAVA_DISABLE_AUTOLOAD`    | int - wip |
-| `JAVA_SEND_SIZE`           | int (8192) ? - wip |
-| `JAVA_RECV_SIZE`           | int (8192) ? - wip |
+| `JAVA_HOSTS`               | `define("JAVA_HOSTS", "127.0.0.1:8787")` |
+| `JAVA_SERVLET`             | `define("JAVA_SERVLET", "/MyWebApp/servlet.phpjavabridge")` |
+| `JAVA_PREFER_VALUES`       | `define("JAVA_PREFER_VALUES", 1)` |
+| `JAVA_LOG_LEVEL`           | `define("JAVA_LOG_LEVEL", null)` |
+| `JAVA_SEND_SIZE`           | `define("JAVA_SEND_SIZE", 8192)` |
+| `JAVA_RECV_SIZE`           | `define("JAVA_RECV_SIZE", 8192)` |
+| `JAVA_DISABLE_AUTOLOAD`    | Not applicable anymore - PSR4 ;) |
 
 
 ### Initialization
 
-|Old                         | New                      |
-|-------------------------------|-------------------------------------------|
-|`include(... /Java.inc)`       | `$ba = new Bridge\Adapter($option);` |
+| Old way                    | New way                     |
+|----------------------------|-------------------------------------------|
+|`include(... /Java.inc)`    | `$ba = new Bridge\Adapter($option);` |
 
 
 ### API
