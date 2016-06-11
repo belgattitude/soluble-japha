@@ -202,7 +202,7 @@ class PjbProxyClient
     }
 
     /**
-     *
+     * @return Client
      */
     public function getClient()
     {
@@ -239,6 +239,7 @@ class PjbProxyClient
      * @param JavaType $object A java object or type
      * @param string $method A method string
      * @param array $args An argument array
+     * @return mixed
      */
     public function invokeMethod($object, $method, $args)
     {
@@ -246,61 +247,6 @@ class PjbProxyClient
         return self::$client->invokeMethod($id, $method, $args);
     }
 
-    /**
-     *
-     * @param mixed $x
-     * @return boolean
-     */
-    public static function autoload5($x)
-    {
-        $c = self::getInstance()->getClient();
-        if ($c) {
-            $s = str_replace("_", ".", $x);
-            if (!($c->invokeMethod(0, "typeExists", [$s]))) {
-                return false;
-            }
-            $i = "class ${x} extends Java {" .
-                    "static function type(\$sub=null) {if(\$sub) \$sub='\$'.\$sub; return java('${s}'.\"\$sub\");}" .
-                    'function __construct() {$args=func_get_args();' .
-                    'array_unshift($args,' . "'$s'" . '); parent::__construct($args);}}';
-            eval("$i");
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     *
-     * @param mixed $x
-     * @return boolean
-     */
-    public static function autoload($x)
-    {
-        $client = self::getInstance()->getClient();
-
-        if ($client !== null) {
-            $idx = strrpos($x, "\\");
-            if (!$idx) {
-                return java_autoload_function5($x);
-            }
-            $str = str_replace("\\", ".", $x);
-
-
-            if (!($client->invokeMethod(0, "typeExists", [$str]))) {
-                return false;
-            }
-            $package = substr($x, 0, $idx);
-            $name = substr($x, 1 + $idx);
-            $instance = "namespace $package; class ${name} extends \\Java {" .
-                    "static function type(\$sub=null) {if(\$sub) \$sub='\$'.\$sub;return \\java('${str}'.\"\$sub\");}" .
-                    "static function __callStatic(\$procedure,\$args) {return \\java_invoke(\\java('${str}'),\$procedure,\$args);}" .
-                    'function __construct() {$args=func_get_args();' .
-                    'array_unshift($args,' . "'$str'" . '); parent::__construct($args);}}';
-            eval("$instance");
-            return true;
-        }
-        return false;
-    }
 
     /**
      *
