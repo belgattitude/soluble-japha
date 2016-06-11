@@ -40,7 +40,7 @@ class Parser
 {
     /**
      *
-     * @var NativeParser|SimpleParser
+     * @var ParserInterface
      */
     public $parser;
 

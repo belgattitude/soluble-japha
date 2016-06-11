@@ -38,24 +38,39 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class ArrayProxy extends IteratorProxy implements \ArrayAccess
 {
+    /**
+     * @param string|int $idx
+     * @return boolean
+     */
     public function offsetExists($idx)
     {
         $ar = [$this, $idx];
         return $this->__client->invokeMethod(0, "offsetExists", $ar);
     }
 
+    /**
+     * @param string|int $idx
+     * @return mixed
+     */
     public function offsetGet($idx)
     {
         $ar = [$this, $idx];
         return $this->__client->invokeMethod(0, "offsetGet", $ar);
     }
 
+    /**
+     * @param string|int $idx
+     * @param mixed $val
+     */
     public function offsetSet($idx, $val)
     {
         $ar = [$this, $idx, $val];
         return $this->__client->invokeMethod(0, "offsetSet", $ar);
     }
 
+    /**
+     * @param string|int $idx
+     */
     public function offsetUnset($idx)
     {
         $ar = [$this, $idx];

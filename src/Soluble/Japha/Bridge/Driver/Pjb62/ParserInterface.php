@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Soluble Japha / PhpJavaBridge
  *
@@ -34,24 +35,19 @@
  * THE SOFTWARE.
  *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-/**
- * Class IteratorProxy
- * @method boolean offsetExists(string $name)
- * @method mixed offsetGet(string $name)
- * @method offsetSet(string $name, mixed $value)
- * @method offsetUnset(string $name)
- * @method string getName()
- */
-class IteratorProxy extends JavaProxy implements \IteratorAggregate
+interface ParserInterface
 {
+
+    public function parse();
+
     /**
-     *
-     * @return ObjectIterator
+     * @param $string $str
+     * @return mixed
      */
-    public function getIterator()
-    {
-        return new ObjectIterator($this);
-    }
+    public function getData($str);
+
+    public function parserError();
 }

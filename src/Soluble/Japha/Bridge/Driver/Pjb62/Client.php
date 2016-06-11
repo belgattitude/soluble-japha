@@ -569,6 +569,7 @@ class Client
      * @param integer $object object id
      * @param string $method method name
      * @param array $args
+     * @return mixed
      */
     public function invokeMethod($object, $method, $args)
     {

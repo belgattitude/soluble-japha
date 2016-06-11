@@ -36,7 +36,7 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-class NativeParser
+class NativeParser implements ParserInterface
 {
     /**
      *

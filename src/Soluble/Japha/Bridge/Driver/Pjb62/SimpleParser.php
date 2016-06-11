@@ -38,7 +38,7 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-class SimpleParser
+class SimpleParser implements ParserInterface
 {
     /**
      *
