@@ -70,15 +70,15 @@ class Adapter
 
 
     /**
-     * Instanciate a new java object
+     * Instanciate a new java object with class name and variadic arguments
      *
      * <code>
-     * $hash   = $ba->java('java.util.HashMap', array('my_key' => 'my_value'));
-     * echo $hash->get('new_key'); // prints "保éà"
+     * $hash   = $ba->java('java.util.HashMap', ['key' => '保éà']);
+     * echo $hash->get('key'); // prints "保éà"
      * </code>
      *
      * @param string $class Java class name (FQDN)
-     * @param mixed|null $args arguments passed to the constructor of the java object
+     * @param mixed|null $args,... arguments passed to the constructor of the java object
      *
      * @throws \Soluble\Japha\Bridge\Exception\JavaException
      * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
@@ -89,7 +89,11 @@ class Adapter
      */
     public function java($class, $args = null)
     {
-        return $this->driver->instanciate($class, $args);
+        // @todo when minimum is php5.6+ use variadic notation
+        // instead in the method signature
+        // function java($class, ...$args)
+        $args = func_get_args();
+        return $this->driver->instanciate($args);
     }
 
     /**
