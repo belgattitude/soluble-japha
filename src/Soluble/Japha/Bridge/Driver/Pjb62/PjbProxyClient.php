@@ -82,7 +82,7 @@ class PjbProxyClient
      * @see PjbProxyClient::getInstance()
      * @param array $options
      */
-    private function __construct($options)
+    private function __construct(array $options)
     {
         self::$instanceOptionsKey = serialize($options);
         $this->options = array_merge($options, $this->defaultOptions);
@@ -119,13 +119,9 @@ class PjbProxyClient
      * @param array|null $options
      * @return PjbProxyClient
      */
-    public static function getInstance($options = null)
+    public static function getInstance(array $options = null)
     {
         if (self::$instance === null) {
-            if (!is_array($options) || count($options) == 0) {
-                $message = 'You must provide $options array parameter prior to get an instance of PjbProxyClient';
-                throw new Exception\InvalidArgumentException(__METHOD__ . $message);
-            }
             self::$instance = new PjbProxyClient($options);
         }
         /* todo order array
