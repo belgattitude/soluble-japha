@@ -48,7 +48,7 @@ class ObjectIterator implements Iterator
      */
     public function __construct($javaProxy)
     {
-        $this->var = java_cast($javaProxy, "A");
+        $this->var = Pjb62Driver::castPjbInternal($javaProxy, "A");
     }
 
     public function rewind()

@@ -112,6 +112,60 @@ class Pjb62Driver extends AbstractDriver
     }
 
     /**
+     * Return java bridge header
+     *
+     * @param string $name
+     * @param array $array
+     * @return string|void
+     */
+    public static function getJavaBridgeHeader($name, array $array)
+    {
+        if (array_key_exists($name, $array)) {
+            return $array[$name];
+        }
+        $name = "HTTP_$name";
+        if (array_key_exists($name, $array)) {
+            return $array[$name];
+        }
+        return;
+    }
+
+
+    /**
+     * Cast internal objects to a new type
+     * 
+     * @param Interfaces\JavaObject|JavaType $javaObject
+     * @param $cast_type
+     * @return mixed
+     */
+    public static function castPjbInternal($javaObject, $cast_type)
+    {
+        if (!$javaObject instanceof JavaType) {
+            $first_char = strtoupper(substr($cast_type, 0, 1));
+            switch ($first_char) {
+                case 'S':
+                    return (string) $javaObject;
+                case 'B':
+                    return (boolean) $javaObject;
+                case 'L':
+                case 'I':
+                    return (integer) $javaObject;
+                case 'D':
+                case 'F':
+                    return (float) $javaObject;
+                case 'N':
+                    return;
+                case 'A':
+                    return (array) $javaObject;
+                case 'O':
+                    return (object) $javaObject;
+            }
+        }
+
+        return $javaObject->__cast($cast_type);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function cast(Interfaces\JavaObject $javaObject, $cast_type)

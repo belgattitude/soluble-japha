@@ -29,7 +29,8 @@ class PjbProxyClient
     protected $defaultOptions = [
         'java_disable_autoload' => false,
         'java_prefer_values' => true,
-        'load_pjb_compatibility' => true,
+        'load_pjb_compatibility' => false,
+        'java_log_level' => null,
         'java_send_size' => 8192,
         'java_recv_size' => 8192
     ];
@@ -172,9 +173,10 @@ class PjbProxyClient
             define('JAVA_SEND_SIZE', $options['java_send_size']);
             define('JAVA_RECV_SIZE', $options['java_recv_size']);
             */
+            /*
             if (!defined('JAVA_PREFER_VALUES')) {
                 define('JAVA_PREFER_VALUES', $options['java_prefer_values']);
-            }
+            }*/
 
             if ($options['load_pjb_compatibility']) {
                 $ds = DIRECTORY_SEPARATOR;
@@ -188,6 +190,7 @@ class PjbProxyClient
             $params['JAVA_PREFER_VALUES'] =  $options['java_prefer_values'];
             $params['JAVA_SEND_SIZE'] = $options['java_send_size'];
             $params['JAVA_RECV_SIZE'] = $options['java_recv_size'];
+            $params['JAVA_LOG_LEVEL'] = $options['java_log_level'];
 
             self::$client = new Client($params);
 
@@ -402,15 +405,20 @@ class PjbProxyClient
     {
         if ($this->compatibilityOption === null) {
             $client = self::getClient();
-            @$compatibility = $client->RUNTIME["PARSER"] == "NATIVE" ? (0103 - JAVA_PREFER_VALUES) : (0100 + JAVA_PREFER_VALUES);
-            if (@is_int(JAVA_LOG_LEVEL)) {
-                $compatibility |=128 | (7 & JAVA_LOG_LEVEL) << 2;
+            $java_prefer_values = $this->getOption('java_prefer_values');
+            $java_log_level = $this->getOption('java_log_level');
+            @$compatibility = $client->RUNTIME["PARSER"] == "NATIVE" ? (0103 - $java_prefer_values) : (0100 + $java_prefer_values);
+            if (@is_int($java_log_level)) {
+                $compatibility |=128 | (7 & $java_log_level) << 2;
             }
             $this->compatibilityOption = chr($compatibility);
         }
 
         return $this->compatibilityOption;
     }
+
+
+
 
 
     /**
@@ -493,7 +501,7 @@ class PjbProxyClient
             }
         }*/
 
-
+/*
         if (!defined("JAVA_LOG_LEVEL")) {
             if (!(($java_ini = get_cfg_var("java.log_level")) === false)) {
                 define("JAVA_LOG_LEVEL", (int) $java_ini);
@@ -506,6 +514,7 @@ class PjbProxyClient
                 define("JAVA_PREFER_VALUES", $java_ini);
             }
         }
+*/
     }
 
     /**
@@ -515,6 +524,18 @@ class PjbProxyClient
     public function getOptions()
     {
         return $this->options;
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getOption($name)
+    {
+        if (!array_key_exists($name, $this->options)) {
+            throw new Exception\InvalidArgumentException("Option '$name' does not exists'");
+        }
+        return $this->options[$name];
     }
 
     /**

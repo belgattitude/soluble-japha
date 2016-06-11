@@ -50,7 +50,7 @@ class ThrowExceptionProxyFactory extends ExceptionProxyFactory
 
     public function checkResult($result)
     {
-        if (JAVA_PREFER_VALUES || ($result->__hasDeclaredExceptions == 'T')) {
+        if (PjbProxyClient::getInstance()->getOption('java_prefer_values') || ($result->__hasDeclaredExceptions == 'T')) {
             throw $result;
         } else {
             trigger_error("Unchecked exception detected: " . java_truncate($result->__toString()), E_USER_WARNING);

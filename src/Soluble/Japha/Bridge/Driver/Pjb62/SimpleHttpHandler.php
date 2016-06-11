@@ -111,8 +111,8 @@ class SimpleHttpHandler extends SocketHandler
 
     public function createChannel()
     {
-        $channelName = java_getHeader("X_JAVABRIDGE_REDIRECT", $_SERVER);
-        $context = java_getHeader("X_JAVABRIDGE_CONTEXT", $_SERVER);
+        $channelName = Pjb62Driver::getJavaBridgeHeader("X_JAVABRIDGE_REDIRECT", $_SERVER);
+        $context = Pjb62Driver::getJavaBridgeHeader("X_JAVABRIDGE_CONTEXT", $_SERVER);
         $len = strlen($context);
         $len0 = PjbProxyClient::getInstance()->getCompatibilityOption($this->protocol->client);
         $len1 = chr($len & 0xFF);
@@ -155,7 +155,7 @@ class SimpleHttpHandler extends SocketHandler
      */
     public function getContextFromCgiEnvironment()
     {
-        $ctx = java_getHeader('X_JAVABRIDGE_CONTEXT', $_SERVER);
+        $ctx = Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_CONTEXT', $_SERVER);
         return $ctx;
     }
 

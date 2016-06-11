@@ -129,7 +129,7 @@ class Protocol
                 return $override;
             }
         }
-        return java_getHeader('X_JAVABRIDGE_OVERRIDE_HOSTS_REDIRECT', $_SERVER);
+        return Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_OVERRIDE_HOSTS_REDIRECT', $_SERVER);
     }
 
     /**
@@ -295,7 +295,7 @@ class Protocol
 
     public function createHandler()
     {
-        if (!java_getHeader('X_JAVABRIDGE_OVERRIDE_HOSTS', $_SERVER) &&
+        if (!Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_OVERRIDE_HOSTS', $_SERVER) &&
                 ((function_exists("java_get_default_channel") && ($defaultChannel = java_get_default_channel())) ||
                 ($defaultChannel = $this->java_get_simple_channel()))) {
             return $this->createSimpleHandler($defaultChannel);

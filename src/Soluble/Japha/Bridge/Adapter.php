@@ -80,8 +80,8 @@ class Adapter
      * @param string $class Java class name (FQDN)
      * @param mixed|null $args arguments passed to the constructor of the java object
      *
-     * @throws Soluble\Japha\Bridge\Exception\JavaException
-     * @throws Soluble\Japha\Bridge\Exception\ClassNotFoundException
+     * @throws \Soluble\Japha\Bridge\Exception\JavaException
+     * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
      *
      * @see Adapter\javaClass($class) for information about classes
      *
@@ -195,10 +195,10 @@ class Adapter
             // - http://php.net/manual/en/datetimezone.listabbreviations.php
 
             if ($phpTz == '') {
-                $message = "Japha\Bridge requires a valid php default timezone set prior to run";
-                $message .= ", check you php configuration ini settings 'date.timezone' or";
-                $message .= " set it with 'date_default_timezone_set' ";
-                $message .= " or provide a 'java_default_timezone' in the adapter options.";
+                $message = 'Japha\Bridge requires a valid php default timezone set prior to run';
+                $message .= ', check you php configuration ini settings "date.timezone" or';
+                $message .= ' set it with "date_default_timezone_set" ';
+                $message .= ' or provide a "java_default_timezone" in the adapter options.';
                 throw new Exception\ConfigurationException($message);
             }
 

@@ -18,6 +18,5 @@
     <file>src</file>
     <file>test/src</file>
     
-    <!-- exclude from checks -->
-    <exclude-pattern>*Compat*pjb_functions.php</exclude-pattern>
+
 </ruleset>

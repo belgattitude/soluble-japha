@@ -73,7 +73,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
         $code = $result->getCode();
 
         $driverException = null;
-        if ($result instanceof Soluble\Japha\Bridge\Exception\JavaExceptionInterface) {
+        if ($result instanceof \Soluble\Japha\Bridge\Exception\JavaExceptionInterface) {
             $driverException = $result;
         }
         $e = new $cls($message, $cause, $stackTrace, $code, $driverException, null);
