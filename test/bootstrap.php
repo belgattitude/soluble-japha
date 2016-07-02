@@ -16,5 +16,3 @@ $baseDir = dirname(__DIR__);
 require_once(dirname(__FILE__) . '/SolubleTestFactories.php');
 
 $loader = require __DIR__ . '/../vendor/autoload.php';
-$loader->add('SolubleTest', [$baseDir . '/test/']);
-$loader->register();

@@ -49,26 +49,8 @@ class SolubleTestFactories
     public static function killStandaloneServer()
     {
         if (self::$standaloneServer !== null) {
-            if (self::$standaloneServer->isRunning()) {
-                self::$standaloneServer->stop();
-            }
+            self::$standaloneServer->stop();
         }
-    }
-
-    public static function isStandaloneServerRunning()
-    {
-        $test_dir = dirname(__FILE__);
-        $pid_file = "$test_dir/logs/pjb-standalone.pid";
-        if (file_exists($pid_file)) {
-            $pid = trim(file_get_contents($pid_file));
-            if (is_numeric($pid)) {
-                $result = shell_exec(sprintf("ps %d", $pid));
-                if (count(preg_split("/\n/", $result)) > 2) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     /**

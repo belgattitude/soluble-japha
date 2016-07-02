@@ -87,7 +87,7 @@ echo $hash->get('key2')->length(); // prints 4
 // Java dates
 $pattern = "yyyy-MM-dd";
 $fmt     = $ba->java("java.text.SimpleDateFormat", $pattern);
-$fmt->format($ba->java("java.util.Date")); // print today
+echo $fmt->format($ba->java("java.util.Date")); // print today
 
 // Some maths
 $bigint = $ba->java("java.math.BigInteger", 1);
