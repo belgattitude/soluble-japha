@@ -29,12 +29,18 @@ class SolubleTestFactories
                 //$url = parse_url($server_address, PHP_URL_HOST);
                 $port = parse_url($server_address, PHP_URL_PORT);
 
-                $options = [
-                    'port' => $port
+                $params = [
+                    'port' => $port,
+                    'classpaths' => [
+                        //__DIR__ . '/resources/mysql-connector-java-5.1.36-bin.jar',
+                        __DIR__ . '/resources/*.jar'
+                    ]
                 ];
 
+                $config = new StandaloneServer\Config($params);
+
                 try {
-                    self::$standaloneServer = new StandaloneServer($options);
+                    self::$standaloneServer = new StandaloneServer($config);
                     self::$standaloneServer->start();
                     //$output = self::$standaloneServer->getOutput();
                 } catch (\Exception $e) {

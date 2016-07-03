@@ -29,7 +29,7 @@
         "php": "^5.4 || ^7.0"
     },
     "require-dev" : {
-        "belgattitude/pjbserver-tools": "^1.0.2 || ^1.1.0",
+        "belgattitude/pjbserver-tools": "^2.0.0",
         "phpunit/phpunit": "^4.8 || ^5.4"
     },
     "scripts": {
