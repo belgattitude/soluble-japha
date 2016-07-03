@@ -8,7 +8,6 @@
 
 - Support for pjbserver-tools updated to ^1.1.0.
 
-
 ### 0.11.3 (2016-06-11)
 
 - [Bug] Fix issue #17, [constructor overloading](https://github.com/belgattitude/soluble-japha/issues/17)
