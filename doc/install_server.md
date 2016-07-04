@@ -41,7 +41,7 @@ See the [pjbserver-tools documentation](https://github.com/belgattitude/pjbserve
 *Note: The standalone server is perfect for development, but if you're looking for a more robust production-ready install method,
 please use the J2EE option.*  
        
-### Option 2: PHP-Java-bridge in a J2EE/Tomcat server *(production ore development)*
+### Option 2: PHP-Java-bridge in a J2EE/Tomcat server *(production or dev)*
 
 Tomcat installation is recommended for production environments. It's fast and robust. 
 
