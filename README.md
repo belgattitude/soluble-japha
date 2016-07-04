@@ -353,9 +353,6 @@ try {
 ----------------------
 
 
-If you have legacy code using the original PHPJavaBridge implementation, 
-just enable compatibility layer through the 'load_pjb_compatibility' option.
-
 Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for more information.
 
 
