@@ -85,7 +85,7 @@ use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
 $ba = new BridgeAdapter([
     'driver' => 'Pjb62', 
-    'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
+    'servlet_address' => 'localhost:8089/servlet.phpjavabridge'
 ]);
 ```
  
@@ -210,6 +210,12 @@ $javaBoolean = $ba->java('java.lang.Boolean', true);
 if ($ba->isTrue($javaBoolean)) {
     echo "Yes, it is.";
 }
+
+$javaBoolean = $ba->java('java.lang.Boolean', false);
+if (!$ba->isTrue($javaBoolean)) {
+    echo "Yes, it is not.";
+}
+
 
 if (!$ba->isNull($rs)) {
     $rs->close();

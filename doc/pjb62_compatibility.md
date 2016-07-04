@@ -1,125 +1,19 @@
-# PHP/Java bridge client compatibility 
+# PHP/Java bridge legacy compatibility 
 
 ## Introduction
 
-`Soluble\Japha\Bridge\Pjb62` driver provides a compatibility layer for existing 
-or legacy code running the original [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) implementation (`Java.inc`).
+Historically the [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) client implementation didn't
+support namespaces. If you have existing code relying on previous implementations and don't want to refactor, 
+you can install a [compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).
+ 
+## Installation
 
+Simply add the `soluble/japha` compatibility layer to your [composer](http://getcomposer.org/) dependencies :
 
-
-## Enable compatibility layer
-
-- Compatibility layer is enabled through by adding a separate repo 'soluble/japha-pjb62-compat'
-
-- The original PHP\Java bridge (`Java.inc`) must not be loaded anymore, 
-  you can disable any calls to `include(.../Java.inc)` in your code and 
-  replace by the bridge adapter initialization.
-
-- Any previous PJB constants settings will be ignored `JAVA_HOSTS`, `JAVA_SERVLET`...
-  pass them as `Bridge\Adapter` options.
-
-
-```php
-<?php
-
-use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
-
-$servlet_address = 'localhost:8083/servlet.phpjavabridge';
-
-$ba = new BridgeAdapter([
-    'driver' => 'Pjb62',
-    'servlet_address' => $servlet_address,
-]);
+```console
+$ composer require "soluble/japha-pjb62-compat:^0.11.0"
 ```
 
+## Documentation
 
-## Original API usage
-
-```php
-<?php
-
-use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
-
-$ba = new BridgeAdapter([
-    'driver' => 'Pjb62',
-    'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
-]);
-
-$bigint = new Java("java.math.BigInteger", 1);
-$system = java_class('java.lang.System);
-
-java_instanceof($bigint, 'java.math.BigInteger'); // -> true
-java_inspect($bigint); 
-java_values($bigint);
-//java_invoke();
-
-```
-
-## Migration mappings
-
-http://php-java-bridge.sourceforge.net/doc/docs/php-api/JavaBridge/_JavaBridge.inc.html
-
-### Constants
-
-|Constant                    | Example                                   |
-|----------------------------|-------------------------------------------|
-| `JAVA_HOSTS`               | `define("JAVA_HOSTS", "127.0.0.1:8787")` |
-| `JAVA_SERVLET`             | `define("JAVA_SERVLET", "/MyWebApp/servlet.phpjavabridge")` |
-| `JAVA_PREFER_VALUES`       | `define("JAVA_PREFER_VALUES", 1)` |
-| `JAVA_LOG_LEVEL`           | `define("JAVA_LOG_LEVEL", null)` |
-| `JAVA_SEND_SIZE`           | `define("JAVA_SEND_SIZE", 8192)` |
-| `JAVA_RECV_SIZE`           | `define("JAVA_RECV_SIZE", 8192)` |
-| `JAVA_DISABLE_AUTOLOAD`    | Not applicable anymore - PSR4 ;) |
-
-
-### Initialization
-
-| Old way                    | New way                     |
-|----------------------------|-------------------------------------------|
-|`include(... /Java.inc)`    | `$ba = new Bridge\Adapter($option);` |
-
-
-### API
-
-The following table maps old and new recommended API.
-
-|Legacy                                           | `Bridge\Adapter` ($ba)                      |
-|-------------------------------------------------|-------------------------------------------|
-|`new Java($class, $args=null)` : `Java`          | `$ba->java($class, $args=null)` : `Interfaces\JavaObject`          |
-|`java_class($class)` : `JavaClass`               | `$ba->javaClass($class)` `Interfaces\JavaClass`                |
-|`java_instanceof($object, $class)` : `boolean`   | `$ba->isInstanceOf($object, $class)` : `boolean`    |
-
-
-
-
-
-(under review, soon to be implemented)
-
-|Legacy                                      | `Bridge\Adapter` ($ba)                      |
-|--------------------------------------------|------------------------------------------|
-|`java_values($object)` : `mixed`            | `$ba->getValues($object)` : `mixed`               |
-|`java_invoke($object, $method, $args=null)` : `mixed|null` | `$ba->invokeMethod($object, $method, $args=null) : `string\null`  |
-|`java_inspect($object)` : `string`          | `$ba->debug()->inspect($object)` : `string`               |
-|`getLastException` : `Exception`            | `$ba->debug()->getLastException()` : `Exception`  |
-|`clearLastException`                        | `$ba->debug()->clearLastException()`  |
-
-
-function java_is_null($value)
-function java_is_true($value)
-function java_is_false($value)
-
-
-
-## Refactoring guidelines
-
-Keep a step by step approach... you can use both API at the same time.
-
-1. Try to change intialization sequence 
-
-
-## Motivation to refactor
-
-
-## References
-
-See the `Soluble\Japha\Bridge\Driver\Pjb62\Compat\pjb_functions.php` for more detail.
+See the [official repo](https://github.com/belgattitude/soluble-japha-pjb62-compat).
