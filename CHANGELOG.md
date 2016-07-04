@@ -1,5 +1,10 @@
 # CHANGELOG
 
+### 0.11.5 (2016-07-04)
+
+- Support for pjbserver-tools updated to ^2.0.3.
+- Updated documentation
+
 ### 0.11.5 (2016-07-03)
 
 - Support for pjbserver-tools updated to ^2.0.0.
