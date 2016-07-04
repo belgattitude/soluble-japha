@@ -18,7 +18,7 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
 - Use Java from PHP *(and vice-versa)*.
 - Direct access awesome Java libraries (i.e. Jasper Reports, Apache POI, iText...).
 - Flexible API and abstraction layer (and a [legacy compatibility layer](./doc/pjb62_compatibility.md)).
-- Fast XML-based network protocol. *(does not rely on system `exec`, no vm startup extra effort).
+- Fast XML-based network protocol. *(does not rely on system `exec`, no vm startup extra effort)*.
 - Based on reliable and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) implementation.
 - Compliant with Java [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specification.
 
