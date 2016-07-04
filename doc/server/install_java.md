@@ -23,7 +23,6 @@ JDK versions and let them co-exists on your system.
    $ sudo update-alternatives --config java
    ```
 
-
 2. Option 2: Oracle JDK (preferred - most compatible)
 
    The Oracle JDK is available through an external repo.
