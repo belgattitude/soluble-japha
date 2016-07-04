@@ -15,10 +15,10 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
 
 ## Features
 
-- Use Java from PHP (and vice-versa).
+- Use Java from PHP *(and vice-versa)*.
 - Direct access awesome Java libraries (i.e. Jasper Reports, Apache POI, iText...).
 - Flexible API and abstraction layer (and a [legacy compatibility layer](./doc/pjb62_compatibility.md)).
-- Fast, does not rely on system `exec`, no vm startup extra effort.
+- Fast XML-based network protocol. *(does not rely on system `exec`, no vm startup extra effort).
 - Based on reliable and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) implementation.
 - Compliant with Java [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) specification.
 
@@ -33,32 +33,50 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
 
 ## Installation
 
-1. Installation in your PHP project
+1. PHP installation *(client)*
 
-   `Soluble\Japha` works best via [composer](http://getcomposer.org/).
+   `soluble-japha` works best via [composer](http://getcomposer.org/).
 
    ```console
-   $ composer require soluble/japha:0.*
+   $ composer require "soluble/japha:^0.11.5"
    ```
 
    Most modern frameworks will include Composer out of the box, but ensure the following file is included:
 
    ```php
    <?php
-   // include the Composer autoloader
+   // include the composer autoloader
    require 'vendor/autoload.php';
    ```
 
-2. Installation of the phpjavabridge server
+2. PHP-Java-bridge server
 
-   PHP-Java communication requires a php-java-bridge server running on your webserver (on a non-public port).
-   The installation is fairly simple, a [documentation](./doc/install_server.md) is on its way.
-
+   PHP-Java communication requires a PHP-Java-bridge server running on your local machine or network *(on a non-plublic port)*.
+   
+   For development (*nix systems) or small apps, the [pjbserver-tools](https://github.com/belgattitude/pjbserver-tools) 
+   component can be installed in minutes and provides scripts to start and stop a standalone PHP-Java-bridge server. 
+   Installation of the standalone server can be made with composer, just ensure you have a [JDK installed](./doc/server/install_java.md):
+   
+   ```console
+   $ mkdir -p /my/path/pjbserver-tools
+   $ cd /my/path/pjbserver-tools
+   $ composer create-project --no-dev --prefer-dist "belgattitude/pjbserver-tools"
+   $ ./bin/pjbserver-tools pjbserver:start -vvv ./config/pjbserver.config.php.dist
+   ```
+   The server will start on default port ***8089***. If you like to change it, create a local copy of `./config/pjbserver.config.php.dist`
+   and refer it in the above command.
+   
+   Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
+       
+   *For production the recommended way is to deploy the JavaBridge servlet into a J2EE compatible server (Tomcat,...).
+   Have a look to the complete [java server installation documentation](./doc/install_server.md).*
+       
+   
 ## Examples
 
 ### Connection example
 
-Once your phpjavabridge servlet is running, you first have to initiate a connection.
+Configure your bridge adapter with the correct driver (currently only Pjb62 is supported) and the PHP-Java-bridge server address.
 
 ```php
 <?php
@@ -66,17 +84,25 @@ Once your phpjavabridge servlet is running, you first have to initiate a connect
 use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
 $ba = new BridgeAdapter([
-    'driver' => 'Pjb62',
+    'driver' => 'Pjb62', 
     'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
 ]);
 ```
+ 
 
-### Basic Java usage
+### Basic Java example
+
+The following example shows how to create and use standard Java objects. 
 
 ```php
 <?php
 
-// $ba = new BridgeAdapter(...); 
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
+
+$ba = new BridgeAdapter([
+    'driver' => 'Pjb62', 
+    'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
+]);
 
 // An utf8 string
 $string = $ba->java('java.lang.String', "保éà");
@@ -95,17 +121,27 @@ echo $bigint->intValue() + 10; // prints 11
 
 ```
 
-### Instanciating java objects
+### Create java objects
 
-Use the `BridgeAdapter->java($class, ...$args)` to instanciate new java objects.
-
-The corresponding constructor is selected from given arguments as illustrated by the following code snippet.
-
+To create (instanciate) new Java objects, use the `Bridge\Adapter->java($class, ...$args)` method.
 
 ```php
 <?php
 
-// $ba = new BridgeAdapter(...); 
+// $ba = new BridgeAdapter([...]);
+
+$javaString = $ba->java('java.lang.String', "Hello world");
+echo $javaString->__toString();     // -> Hello world
+echo $javaString;                   // -> Hello world
+echo ($javaString instanceof \Soluble\Japha\Interfaces\JavaObject) ? 'true'; 'false'; // -> true
+```
+
+In case of multiple constructors, select the constructor signature needed and provide the corresponding arguments: 
+
+```php
+<?php
+
+// $ba = new BridgeAdapter([...]); 
 
 $mathContext = $ba->java('java.math.MathContext', $precision=2);
 $bigint = $ba->java('java.math.BigInteger', 123456);
@@ -116,8 +152,9 @@ echo $bigdec->floatValue(); // will print 1200
 ```
   
 
+### Using java *final* classes
 
-### Using java final classes
+
 
 ```php
 <?php
@@ -130,9 +167,7 @@ echo  $system->getProperties()->get('java.vm_name);
 
 ### Calling static methods
 
-Static java method have to be called like regular methods (`->` instead of `::`) in php.
- 
-It doesn't mean they aren't static, simply the are called like regular methods.   
+To call static java methods from PHP, use the `->` as for usual PHP methods :
 
 ```php
 <?php
@@ -159,6 +194,28 @@ echo $tz->getDisplayName(false, $tzClass->SHORT);
 
 ```
 
+### Type handling
+
+
+#### Null and boolean values
+
+Due to internal proxying between java and php objects, 'null', 'false' and 'true' values must be tested through the bridge object :
+
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$javaBoolean = $ba->java('java.lang.Boolean', true);
+if ($ba->isTrue($javaBoolean)) {
+    echo "Yes, it is.";
+}
+
+if (!$ba->isNull($rs)) {
+    $rs->close();
+}
+```
+ 
 
 ### Iterations
 

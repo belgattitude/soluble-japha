@@ -1,16 +1,16 @@
-# Install PHPJavaBridge server (Java)
+# Install PHP-Java-bridge server (Java)
 
 ## Introduction
 
-in order to use the `soluble/japha` bridge, a PHPJavaBridge java server must be running 
-on a Java JVM or a J2EE servlet container.
+To communicate with the JVM, `soluble/japha` requires a server running on your local machine. 
 
+For quick and easy installation, you can use the [pjbserver-tools standalone server]().   
 For production Apache Tomcat server is highly recommended and should be supported by most hosting providers.
 
 Alternatively the phpjavabridge standalone client can be easily installed on Linux 
 using the `pjbserver-tools` package.
 
-## Requirement
+## Requirements
 
 - A Java virtual machine (JRE or JDK)
 - The PHPJavaBridge server (standalone or in a servlet container)

@@ -32,14 +32,10 @@ class Adapter
      * Constructor
      *
      * <code>
-     *
      * $ba = new Adapter([
      *     'driver' => 'Pjb62',
      *     'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
      *      //'java_default_timezone' => null,
-     *      //'java_disable_autoload' => false,
-     *      //'java_prefer_values' => true,
-     *      //'load_pjb_compatibility' => false
      *    ]);
      *
      * </code>

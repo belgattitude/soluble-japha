@@ -265,6 +265,11 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
     {
         $ba = $this->adapter;
 
+        $b = $ba->java('java.lang.Boolean', true);
+        $this->assertTrue($ba->isTrue($b));
+
+        $b = $ba->java('java.lang.Boolean', false);
+        $this->assertFalse($ba->isTrue($b));
 
         // initial capacity of 10
         $v = $ba->java('java.util.Vector', [1, 2, 3, 4, 5]);
