@@ -28,10 +28,12 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
 - The [PHPJavaBridge server running](./doc/install_server.md)
 
 ## Documentation
+----------------
 
  - [Manual](http://docs.soluble.io/soluble-japha/manual/) in progress and [API documentation](http://docs.soluble.io/soluble-japha/api/) available.
 
 ## Installation
+---------------
 
 1. PHP installation *(client)*
 
@@ -73,8 +75,9 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
        
    
 ## Examples
+---------------
 
-### Connection example
+### 1. Connection example
 
 Configure your bridge adapter with the correct driver (currently only Pjb62 is supported) and the PHP-Java-bridge server address.
 
@@ -90,7 +93,7 @@ $ba = new BridgeAdapter([
 ```
  
 
-### Basic Java example
+### 2. Basic Java example
 
 The following example shows how to create and use standard Java objects. 
 
@@ -121,7 +124,7 @@ echo $bigint->intValue() + 10; // prints 11
 
 ```
 
-### Create java objects
+### 3. Create java objects
 
 To create (instanciate) new Java objects, use the `Bridge\Adapter->java($class, ...$args)` method.
 
@@ -152,9 +155,9 @@ echo $bigdec->floatValue(); // will print 1200
 ```
   
 
-### Using java *final* classes
+### 4. Using java *final* classes
 
-
+For static classes, use the `Bridge\Adapter->javaClass($class)` method.
 
 ```php
 <?php
@@ -165,7 +168,7 @@ echo  $system->getProperties()->get('java.vm_name);
 ```
 
 
-### Calling static methods
+### 5. Calling static methods
 
 To call static java methods from PHP, use the `->` as for usual PHP methods :
 
@@ -180,7 +183,7 @@ $date = $calendar->getTime();
 ```
 
 
-### Class constants
+### 6. Class constants
 
 Constants on java classes are called like regular properties (no `::`).
 
@@ -194,10 +197,10 @@ echo $tz->getDisplayName(false, $tzClass->SHORT);
 
 ```
 
-### Type handling
+### 7. Type handling
 
 
-#### Null and boolean values
+#### 7.1. Null and boolean values
 
 Due to internal proxying between java and php objects, 'null', 'false' and 'true' values must be tested through the bridge object :
 
@@ -223,7 +226,7 @@ if (!$ba->isNull($rs)) {
 ```
  
 
-### Iterations
+### 8. Iterations
 
 Java iterable objects can be looped with a simple `foreach`.
 
@@ -238,7 +241,7 @@ foreach ($properties as $key => $value) {
 }
 ```
 
-### Handling Java exceptions
+### 9. Handling Java exceptions
 
 Java exceptions works as regular PHP exceptions. 
 
@@ -298,7 +301,7 @@ try {
 
 ```
 
-### JDBC example
+### 10. JDBC example
 
 Ensure your servlet installation can locate the JDBC driver and try :
 
@@ -346,7 +349,9 @@ try {
 
 ```
 
-### Compatibility layer
+## Compatibility layer
+----------------------
+
 
 If you have legacy code using the original PHPJavaBridge implementation, 
 just enable compatibility layer through the 'load_pjb_compatibility' option.
@@ -355,6 +360,7 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
 
 
 ## Original PHPJavaBridge (Java.inc) differences
+------------------------------------------------
 
 - New API
   - A fresh new API to allow future drivers and enhancements.
@@ -374,6 +380,7 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
   - Removed deprecated code.
 
 ## Future ideas
+---------------
 
 - Original code improvements
   - Achieve at least 80% of unit testing for legacy code.
@@ -392,11 +399,13 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
 
 
 ## Credits
+----------
 
 Thanks to the fantastic PHPJavaBridge project leaders and contributors who made it possible. 
 See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
 
 ## Coding standards
+-------------------
 
 * [PSR 4 Autoloader](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
 * [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
