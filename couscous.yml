@@ -1,49 +1,60 @@
 template:
     # Name of the directory containing the website template (default is "website")
     directory: website
-    # Or if you are using a remote template, you can set the Git URL
-    url: https://github.com/CouscousPHP/Template-Light.git
-    # Name of the index file (default is "README.md")
-    index: README.md
+    url: https://github.com/soluble-php/soluble-doc-template.git
+    index: introduction.md
 
+## Linked to the native template
 title: soluble-japha
+subTitle: Where PHP meets Java (again).
+github:
+    user: belgattitude
+    repo: soluble-japha
+
+cname: docs.soluble.io
+# Base URL of the published website (no "/" at the end!)
+# You are advised to set and use this variable to write your links in the HTML layouts
+baseUrl: .
+
+include:
+    - doc
 
 exclude:
     - vendor
     - bin
-    - tests
+    - test
 
 scripts:
     before:
 #        - lessc --clean-css website/less/main.less website/css/all.min.css
 
-baseUrl: http://soluble.io
-cname: soluble.io
 
+# the icon next to page title from Font Awesome library
+highlightStyle: default
+fontAwesomeIcon: fa fa-american-sign-language-interpreting
+footerText: This is a footer text
+
+# The left menu bar
 menu:
-    items:
-        getting-started:
-            text: Get started
-            relativeUrl: docs/getting-started.html
-        documentation:
-            text: Index
-            relativeUrl: docs/
-        configuration:
-            text: Configuration
-            relativeUrl: docs/configuration.html
-        templates:
-            text: Templates
-            relativeUrl: docs/templates.html
-        metadata:
-            text: Metadata
-            relativeUrl: docs/metadata.html
-        travis:
-            text: Travis integration
-            relativeUrl: docs/travis.html
-        faq:
-            text: FAQ
-            relativeUrl: docs/faq.html
-        contributing:
-            text: Contributing
-            relativeUrl: CONTRIBUTING.md
+    sections:
+        main:
+            name: Introduction
+            items:
+                installation:
+                    text: Installation
+                    relativeUrl: ./quick_install.html
+                connection:
+                    text: Connecting
+                    relativeUrl: ./bridge_connection.html
+
+                language:
+                    text: Language
+                    relativeUrl: ./language_reference.html
+
+        other:
+            name: Other
+            items:
+                contributing:
+                    text: Notes
+                    relativeUrl: ./notes.html
 

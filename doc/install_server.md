@@ -1,4 +1,10 @@
-# Install PHP-Java-bridge server (Java)
+## Install PHP-Java-bridge server (Java)
+
+
+### Requirements
+ 
+- PHP 5.5+, 7.0+ or HHVM >= 3.2.
+- A [PHPJavaBridge server](./install_server.md) running
 
 ## Introduction
 
@@ -7,7 +13,7 @@ To communicate with the JVM, `soluble/japha` requires a bridge server running on
 First you need to ensure you have a valid JDK installed, see the [*nix java install guide](./server/install_java.md). 
 You can test if you have a JDK/JRE installed by typing :
 
-```console
+```sh
 $ java -version 
 ``` 
 

@@ -1,5 +1,7 @@
 docs_dir: doc
 site_dir: build/doc
+site_name: soluble-japha
+site_description: "soluble-japha documentation"
 pages:
     - index.md
     - { 'Compatibility': pjb62_compatibility.md }
@@ -12,17 +14,16 @@ pages:
         ] 
       }
     - { 'Use cases': use_cases.md }
-site_name: soluble-japha
-site_description: "soluble-japha documentation"
-theme: readthedocs
+
+#theme: readthedocs
 #theme: bootstrap
-#theme: united
+theme: united
 repo_url: 'https://github.com/belgattitude/soluble-japha'
 markdown_extensions:
     - toc:
         permalink: True
     - codehilite:
-        linenums: False
+        linenums: True
         guess_lang: True
         #pygments_style: monokai
         #use_pygments: True
