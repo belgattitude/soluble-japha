@@ -18,6 +18,12 @@ in a PHP project or your next creative Java-based wrapper library.
 - Use a fast XML-based network protocol behind the scenes. *(no JVM startup efforts)*
 - MIT opensource license.
 
+### Requirements
+
+- PHP 5.5+, 7.0+ or HHVM >= 3.2.
+- Installed [JRE or JDK 7+](./server/install_java.md).
+- A PHP-Java bridge server [installed](./quick_install.md).
+
 ### Basic example
 
 Here's a meaningless code snippet for the impatient :
@@ -45,8 +51,3 @@ echo $bigint->intValue() + 10; // prints 11
 ```
 
 
-### Requirements
-
-- PHP 5.5+, 7.0+ or HHVM >= 3.2.
-- Installed [JRE or JDK 7+](./server/install_java.md)
-- The [PHPJavaBridge server running](./install_server.md)

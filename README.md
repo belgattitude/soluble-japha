@@ -349,14 +349,12 @@ try {
 ```
 
 ## Compatibility layer
-----------------------
 
 
 Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for more information.
 
 
 ## Original PHPJavaBridge (Java.inc) differences
-------------------------------------------------
 
 - New API
   - A fresh new API to allow future drivers and enhancements.
@@ -376,7 +374,6 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
   - Removed deprecated code.
 
 ## Future ideas
----------------
 
 - Original code improvements
   - Achieve at least 80% of unit testing for legacy code.
@@ -395,13 +392,11 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
 
 
 ## Credits
-----------
 
 Thanks to the fantastic PHPJavaBridge project leaders and contributors who made it possible. 
 See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
 
 ## Coding standards
--------------------
 
 * [PSR 4 Autoloader](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
 * [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)

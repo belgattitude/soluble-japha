@@ -272,68 +272,6 @@ try {
 
 ```
 
-## Compatibility layer
-----------------------
-
-
-Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for more information.
-
-
-## Original PHPJavaBridge (Java.inc) differences
-------------------------------------------------
-
-- New API
-  - A fresh new API to allow future drivers and enhancements.
-  - A more intuitive and verbose exception handling.
-  - No global namespace pollution.
-  - For legacy code a compatibility layer can be loaded.
-
-- Performance
-  - Reduced memory usage and faster execution.
-  - Opcache friendly (no allow_url_open)
-
-- PHPJavaBridge refactorings (Java.inc)
-  - PHP 5.3+ namespaces, PSR-4 autoloading and PSR-2 coding style.
-  - Removed global variables, functions and unscoped statics.
-  - Removed most notices and warnings.
-  - No allow_url_open possible (security)
-  - Removed deprecated code.
-
-## Future ideas
----------------
-
-- Original code improvements
-  - Achieve at least 80% of unit testing for legacy code.
-  - Refactor as much as possible and remove dead code.
-
-- Supporting more drivers or techs
-  - [Zend Java bridge](http://files.zend.com/help/Zend-Platform/about.htm) driver compatibility.
-  - [GRPC](http://www.grpc.io/) 
-  - Support the [MethodHandles](http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/MethodHandles.html) and [InvokeDynamic](http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/package-summary.html) APIs described in [JSR-292](https://jcp.org/en/jsr/detail?id=292).
-
-- Improve proxy
-  - see [ProxyManager](https://github.com/Ocramius/ProxyManager)
-
-- Explore new possibilities 
-  - Create a JSR-223 php extension in Go, like this [experiment](https://github.com/do-aki/gophp_sample)
-
-
-## Credits
-----------
-
-Thanks to the fantastic PHPJavaBridge project leaders and contributors who made it possible. 
-See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
-
-## Coding standards
--------------------
-
-* [PSR 4 Autoloader](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
-* [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
-* [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
-* [PSR 0 Autoloading standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
-
-
-
 
 
 

@@ -1,20 +1,24 @@
-# Tomcat J2EE install
+## Tomcat J2EE installation
 
-## Installation on Debian/Ubuntu 14.04+ 
-
-### Install
+### For Debian, Ubuntu 14.04 / 16.04
 
 First install the tomcat server
 
-```console
+```shell
 $ sudo apt-get install tomcat7 tomcat7-admin
 ```
 
-### Configuration
+### For other systems
 
-#### Tomcat administration interface (optional)
+Google is your best friend ;)
 
-Optionally set admin credentials to tomcat users.xml configuration
+## Configuration
+
+### Ubuntu 14.04/16.04
+
+#### Admin interface (optional)
+
+An optional but nice move to do is to configure the Tomcat admin interface : 
 
 ```console
 $ sudo vi /etc/tomcat7/tomcat-users.xml
@@ -30,23 +34,7 @@ Replace username and password in the <tomcat-users> section
 
 Restart tomcat to apply changes with `sudo service tomcat7 restart` or `sudo /etc/init.d/tomcat7 restart`.
 
-#### JVM parameters (optional)
-
-Optionally increase the JVM memory
-
-```console
-$ sudo vi /etc/default/tomcat7
-```
-
-And modify VM execution parameters (-Xmx and -XX params)
-
-```console
-$ JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"
-```
-
-Restart tomcat to apply changes with `sudo service tomcat7 restart` or `sudo /etc/init.d/tomcat7 restart`.
-
-#### Setting JDK (optional)
+#### Setting Oracle JDK (optional)
 
 ```console
 $ sudo vi /etc/default/tomcat7

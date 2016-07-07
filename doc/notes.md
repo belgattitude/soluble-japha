@@ -1,4 +1,7 @@
-## Notes
+### Support
+
+Please fill any issues on the [offical tracker](https://github.com/belgattitude/soluble-japha/issues). 
+If you like to contribute, see our the <a href="https://github.com/belgattitude/soluble-japha/blob/master/CONTRIBUTING.md">contribution guidelines</a>
 
 ### Status
 
@@ -16,10 +19,9 @@ At time of writing this document (Jul 16), the version 0.11.6 passes 57 unit tes
 for a coverage of 58%. *(The low degree of coverage is mainly due to a lot of obsolete code in 
 the pjb driver code that is still to be removed once reaching v1).*
 
-### Support
+### Changelog
 
-Please fill any issues on the [offical tracker](https://github.com/belgattitude/soluble-japha/issues). 
-If you like to contribute, see our the [contribution guidelines](https://github.com/belgattitude/soluble-japha/blob/master/CONTRIBUTING.md)
+Versions and changelog are documented on the <a href="https://github.com/belgattitude/soluble-japha/blob/master/CHANGELOG.md">changelog page</a>
 
 ### Personal comment
 
@@ -68,8 +70,26 @@ for the server communication it seems fair to share some comments on the library
 > might be some use and perhaps some fun with it. 
 >
 
+### Original PHPJavaBridge (Java.inc) differences
+
+- New API
+  - A fresh new API to allow future drivers and enhancements.
+  - A more intuitive and verbose exception handling.
+  - No global namespace pollution.
+  - For legacy code a compatibility layer can be loaded.
+
+- Performance
+  - Reduced memory usage and faster execution.
+  - Opcache friendly (no allow_url_open)
+
+- PHPJavaBridge refactorings (Java.inc)
+  - PHP 5.3+ namespaces, PSR-4 autoloading and PSR-2 coding style.
+  - Removed global variables, functions and unscoped statics.
+  - Removed most notices and warnings.
+  - No allow_url_open possible (security)
+  - Removed deprecated code.
+
 ### Credits
 
 This project wouldn't be possible without the PHPJavaBridge project leaders and contributors. 
 See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
-  
