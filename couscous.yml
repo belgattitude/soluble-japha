@@ -56,10 +56,12 @@ menu:
                 language:
                     text: Reference
                     relativeUrl: ./language_reference.html
-
                 exception:
-                    text: Exceptions
+                    text: Handling exceptions
                     relativeUrl: ./language_exceptions.html
+                recipes:
+                    text: Exceptions
+                    relativeUrl: ./language_recipes.html
 
         other:
             text: Notes

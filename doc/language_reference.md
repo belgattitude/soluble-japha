@@ -1,8 +1,8 @@
 ## Language reference
 
-### 1. Connection example
+### Introduction
 
-Configure your bridge adapter with the correct driver (currently only Pjb62 is supported) and the PHP-Java-bridge server address.
+All examples assumes a BridgeAdapter instance is available.
 
 ```php
 <?php
@@ -16,7 +16,7 @@ $ba = new BridgeAdapter([
 ```
  
 
-### 2. Basic Java example
+### Basic Java example
 
 The following example shows how to create and use standard Java objects. 
 
@@ -47,7 +47,7 @@ echo $bigint->intValue() + 10; // prints 11
 
 ```
 
-### 3. Create java objects
+### Create java objects
 
 To create (instanciate) new Java objects, use the `Bridge\Adapter->java($class, ...$args)` method.
 
@@ -78,7 +78,7 @@ echo $bigdec->floatValue(); // will print 1200
 ```
   
 
-### 4. Using java *final* classes
+### Using java *final* classes
 
 For static classes, use the `Bridge\Adapter->javaClass($class)` method.
 
@@ -91,7 +91,7 @@ echo  $system->getProperties()->get('java.vm_name);
 ```
 
 
-### 5. Calling static methods
+### Calling static methods
 
 To call static java methods from PHP, use the `->` as for usual PHP methods :
 
@@ -106,7 +106,7 @@ $date = $calendar->getTime();
 ```
 
 
-### 6. Class constants
+### Class constants
 
 Constants on java classes are called like regular properties (no `::`).
 
@@ -120,10 +120,10 @@ echo $tz->getDisplayName(false, $tzClass->SHORT);
 
 ```
 
-### 7. Type handling
+### Type handling
 
 
-#### 7.1. Null and boolean values
+#### Null and boolean values
 
 Due to internal proxying between java and php objects, 'null', 'false' and 'true' values must be tested through the bridge object :
 
@@ -149,7 +149,7 @@ if (!$ba->isNull($rs)) {
 ```
  
 
-### 8. Iterations
+### Iterations
 
 Java iterable objects can be looped with a simple `foreach`.
 
@@ -163,115 +163,4 @@ foreach ($properties as $key => $value) {
     echo "$key: $value\n";
 }
 ```
-
-### 9. Handling Java exceptions
-
-Java exceptions works as regular PHP exceptions. 
-
-Internal Java exceptions extends the `Soluble\Japha\Bridge\Exception\JavaException` class and expose
-internal java stack trace as well as corresponding jvm messages through 
-the `JavaException::getStackTrace()`, `JavaException::getCause()` methods.
-
-Some common implementations are available in the `Soluble\Japha\Bridge\Exception` namespace.
-
-| Exception                         | Description                              |
-|-----------------------------------|------------------------------------------|
-|`Exception\JavaException`          | Generic java exception                   |
-|`Exception\ClassNotFoundException` | A Java class is not found on the jvm side|
-|`Exception\NoSuchMethodException`  | Call to an undefined method on the java object |
-
-
-```php
-<?php
-
-use Soluble\Japha\Bridge\Exception;
-
-// $ba = new BridgeAdapter(...); 
-
-// Invalid method
-try {
-    $string = $ba->java('java.lang.String', "Hello world");
-    $string->anInvalidMethod();
-} catch (Exception\NoSuchMethodException $e) {
-    echo $e->getMessage();
-    echo $e->getStackTrace();
-}
-
-
-// Class not found
-try {
-    $string = $ba->java('java.INVALID.String', "Hello world");
-} catch (Exception\ClassNotFoundException $e) {
-    echo $e->getMessage();
-    echo $e->getStackTrace();
-} 
-
-// `JavaExceptionInterface` vs php `\Exception` family
-
-$dynamic_var = 'PACKAGE';
-try {
-    $string = $ba->java("java.$dynamic_var.String", "Hello world");
-    throw new \Exception('No error in java String creation');
-} catch (Exception\ClassNotFoundException $e) {
-    echo "The package $dynamic_var should be 'lang'";
-    echo $e->getStackTrace();
-} catch (Exception\JavaException $e) {
-    echo "An unexpected java exception";
-    echo $e->getStackTrace();
-} catch (\Exception $e) {
-    echo "No Problem at all";
-}
-
-```
-
-### 10. JDBC example
-
-Ensure your servlet installation can locate the JDBC driver and try :
-
-```php
-<?php
-
-use Soluble\Japha\Bridge\Exception;
-
-// $ba = new BridgeAdapter(...); 
-
-$driverClass = 'com.mysql.jdbc.Driver';
-$dsn = "jdbc:mysql://localhost/my_database?user=login&password=pwd";
-
-try {
-
-    $driverManager = $ba->javaClass('java.sql.DriverManager');
-
-    $class = $ba->javaClass('java.lang.Class');
-    $class->forName($driverClass);
-    
-    $conn = $driverManager->getConnection($dsn);
-
-} catch (Exception\JavaException $e) {
-    echo $e->getMessage();
-    echo $e->getStackTrace();
-}
-
-try {
-    $stmt = $conn->createStatement();
-    $rs = $stmt->executeQuery('select * from product');
-    while ($rs->next()) {
-        $title = $rs->getString("title");
-        echo $title;            
-    }        
-    if (!$ba->isNull($rs)) {
-        $rs->close();
-    }
-    if (!$ba->isNull($stmt)) {
-        $stmt->close();
-    }
-    $conn->close();
-} catch (Exception\JavaException $e) {
-    //...
-}
-
-```
-
-
-
 

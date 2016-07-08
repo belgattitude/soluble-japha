@@ -1,7 +1,7 @@
 ### Support
 
 Please fill any issues on the [offical tracker](https://github.com/belgattitude/soluble-japha/issues). 
-If you like to contribute, see our the <a href="https://github.com/belgattitude/soluble-japha/blob/master/CONTRIBUTING.md">contribution guidelines</a>
+If you like to contribute, see the <a href="https://github.com/belgattitude/soluble-japha/blob/master/CONTRIBUTING.md">contribution guidelines</a>
 
 ### Status
 
