@@ -1,10 +1,11 @@
 # CHANGELOG
 
-### 0.11.x (2016-xx-xx)
+### 0.11.7 (2016-07-08)
 
 - Improved documentation
 - Remove server autostart (obsolete code)
 - Added `\Soluble\Japha\Bridge\Exception\ConnectionException`
+- Dropped support for PHP5.5 (should
 
 ### 0.11.5 (2016-07-04)
 

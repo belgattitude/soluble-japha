@@ -50,5 +50,6 @@ During intialization with the BridgeAdapter, the following exceptions could happ
 
 *For clarity replace the '...' by 'Soluble\Japha\Bridge\Exception\'.*
 
-### Bootsrap
+### Bootstrap
 
+The `Bridge\Adapter` should be initialized once. Using a service manager is the best.
