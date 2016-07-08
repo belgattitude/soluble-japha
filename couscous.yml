@@ -60,7 +60,7 @@ menu:
                     text: Handling exceptions
                     relativeUrl: ./language_exceptions.html
                 recipes:
-                    text: Exceptions
+                    text: Recipes
                     relativeUrl: ./language_recipes.html
 
         other:
