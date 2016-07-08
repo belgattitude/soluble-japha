@@ -44,7 +44,8 @@ class Adapter
      * @throws Exception\UnsupportedDriverException
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ConfigurationException
-     *
+     * @throws Exception\ConnectionException
+     * 
      * @param array options
      *
      */

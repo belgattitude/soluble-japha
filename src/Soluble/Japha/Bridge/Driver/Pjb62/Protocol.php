@@ -38,6 +38,8 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Exception\ConnectionException;
+
 class Protocol
 {
 
@@ -238,7 +240,7 @@ class Protocol
      * @param string $name
      * @param boolean $again
      * @return \Soluble\Japha\Bridge\Driver\Pjb62\SocketHandler
-     * @throws Exception\ConnectException
+     * @throws ConnectionException
      * @throws Exception\IOException
      */
     public function createSimpleHandler($name, $again = true)
@@ -253,9 +255,10 @@ class Protocol
             list($host, $channelName) = explode(":", $channelName);
             $peer = pfsockopen($host, $channelName, $errno, $errstr, 20);
             if (!$peer) {
-                throw new Exception\ConnectException("No Java server at $host:$channelName. Error message: $errstr ($errno)");
+                throw new ConnectionException("No Java server at $host:$channelName. Error message: $errstr ($errno)");
             }
         }
+        /* Autostart server disabled for soluble
         if (!$peer) {
             $java = file_exists(ini_get("extension_dir") . "/JavaBridge.jar") ? ini_get("extension_dir") . "/JavaBridge.jar" : (java_get_base() . "/JavaBridge.jar");
             if (!file_exists($java)) {
@@ -263,7 +266,7 @@ class Protocol
             }
             $java_cmd = "java -Dphp.java.bridge.daemon=true -jar \"${java}\" INET_LOCAL:$channelName 0";
             if (!$again) {
-                throw new Exception\ConnectException("No Java back end! Please run it with: $java_cmd. Error message: $errstr ($errno)");
+                throw new ConnectionException("No Java back end! Please run it with: $java_cmd. Error message: $errstr ($errno)");
             }
             if (!java_checkCliSapi()) {
                 trigger_error("This PHP SAPI requires a JEE or SERVLET back end. Start it,define ('JAVA_SERVLET',true); define('JAVA_HOSTS',...); and try again.", E_USER_ERROR);
@@ -271,6 +274,7 @@ class Protocol
             system($java_cmd);
             return $this->createSimpleHandler($name, false);
         }
+        */
         stream_set_timeout($peer, -1);
         $handler = new SocketHandler($this, new SocketChannelP($peer, $host, $this->java_recv_size, $this->java_send_size));
         //$compatibility = java_getCompatibilityOption($this->client);

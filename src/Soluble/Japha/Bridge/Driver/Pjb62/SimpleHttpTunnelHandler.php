@@ -36,6 +36,8 @@
  */
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Exception\ConnectionException;
+
 class SimpleHttpTunnelHandler extends SimpleHttpHandler
 {
     /**
@@ -66,6 +68,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      * @param string $java_servlet
      * @param int $java_recv_size
      * @param int $java_send_size
+     * @throws ConnectionException
      */
     public function __construct($protocol, $ssl, $host, $port, $java_servlet, $java_recv_size, $java_send_size)
     {
@@ -99,16 +102,19 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      * @param resource $socket
      * @param integer|null $errno
      * @param string|null $errstr
-     * @throws Exception\ConnectException
+     * @throws ConnectionException
      */
     public function checkSocket($socket, $errno, $errstr)
     {
         if (!$socket) {
             $message  = " Could not connect to the JEE server {$this->ssl}{$this->host}:{$this->port}. Please start it.";
-            throw new Exception\ConnectException(__METHOD__ . $message);
+            throw new ConnectionException(__METHOD__ . $message);
         }
     }
 
+    /**
+     * @throws ConnectionException
+     */
     public function open()
     {
         $errno = null;

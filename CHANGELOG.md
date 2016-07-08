@@ -1,5 +1,11 @@
 # CHANGELOG
 
+### 0.11.x (2016-xx-xx)
+
+- Improved documentation
+- Remove server autostart (obsolete code)
+- Added `\Soluble\Japha\Bridge\Exception\ConnectionException`
+
 ### 0.11.5 (2016-07-04)
 
 - Support for pjbserver-tools updated to ^2.0.3.

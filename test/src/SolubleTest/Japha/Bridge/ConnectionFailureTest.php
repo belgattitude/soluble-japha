@@ -42,7 +42,8 @@ class ConnectionFailure extends \PHPUnit_Framework_TestCase
 
     public function testServerDownThrowsConnectionException()
     {
-        $this->setExpectedException('Soluble\Japha\Bridge\Driver\Pjb62\Exception\ConnectException');
+        //$this->setExpectedException('Soluble\Japha\Bridge\Driver\Pjb62\Exception\ConnectException');
+        $this->setExpectedException('Soluble\Japha\Bridge\Exception\ConnectionException');
         PjbProxyClient::unregisterInstance();
         $ba = new Adapter([
             'driver' => 'pjb62',

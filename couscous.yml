@@ -30,6 +30,8 @@ scripts:
 
 
 # the icon next to page title from Font Awesome library
+# choose your highlighter between hjs and prism
+highlighter: hjs
 highlightStyle: default
 fontAwesomeIcon: fa fa-american-sign-language-interpreting
 footerText: This is a footer text
@@ -38,23 +40,28 @@ footerText: This is a footer text
 menu:
     sections:
         main:
-            name: Introduction
+            text: Introduction
+            relativeUrl: index.html
             items:
                 installation:
                     text: Installation
                     relativeUrl: ./quick_install.html
                 connection:
-                    text: Connecting
+                    text: Connection
                     relativeUrl: ./bridge_connection.html
-
+        language:
+            text: Language
+            relativeUrl: ./language_basics.html
+            items:
                 language:
-                    text: Language
+                    text: Reference
                     relativeUrl: ./language_reference.html
 
+                exception:
+                    text: Exceptions
+                    relativeUrl: ./language_exceptions.html
+
         other:
-            name: Other
-            items:
-                contributing:
-                    text: Notes
-                    relativeUrl: ./notes.html
+            text: Notes
+            relativeUrl: ./notes.html
 

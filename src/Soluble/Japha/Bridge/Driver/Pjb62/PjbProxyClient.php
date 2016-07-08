@@ -187,6 +187,7 @@ class PjbProxyClient
             self::$client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory(self::$client);
 
             $this->bootstrap();
+
         }
     }
 
