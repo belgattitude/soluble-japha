@@ -37,11 +37,13 @@ you can start in minutes by setting up the [**standalone server**](https://githu
  
 #### Option 1: Standalone bridge server (quick)
 
+Clone the [pjbserver-tools](https://github.com/belgattitude/pjbserver-tools) repository in a custom directory an run [composer](http://getcomposer.org) update command.
    
 ```bash
 $ mkdir -p /my/path/pjbserver-tools
 $ cd /my/path/pjbserver-tools
-$ composer create-project --no-dev --prefer-dist "belgattitude/pjbserver-tools"
+$ git clone https://github.com/belgattitude/pjbserver-tools.git .
+$ composer update   
 $ ./bin/pjbserver-tools pjbserver:start -vvv ./config/pjbserver.config.php.dist
 ```
 

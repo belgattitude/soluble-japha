@@ -1,45 +1,53 @@
 # Soluble\Japha
 
 [![PHP Version](http://img.shields.io/badge/php-5.5+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
-[![HHVM Status](http://hhvm.h4cc.de/badge/soluble/japha.svg)](http://hhvm.h4cc.de/package/soluble/japha)
 [![Build Status](https://travis-ci.org/belgattitude/soluble-japha.svg?branch=master)](https://travis-ci.org/belgattitude/soluble-japha)
 [![Code Coverage](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/soluble/japha/v/stable.svg)](https://packagist.org/packages/soluble/japha)
 [![Total Downloads](https://poser.pugx.org/soluble/japha/downloads.png)](https://packagist.org/packages/soluble/japha)
 [![License](https://poser.pugx.org/soluble/japha/license.png)](https://packagist.org/packages/soluble/japha)
+[![HHVM Status](http://hhvm.h4cc.de/badge/soluble/japha.svg)](http://hhvm.h4cc.de/package/soluble/japha)
 
 ## Introduction
 
-An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sourceforge.net/pjb/) php client.
+**soluble-japha** lets you use Java from PHP by providing a client API to communicate directly with the JVM.
+ 
+It can be used to broaden the PHP possibilities to the Java ecosystem and its bunch of compelling libraries 
+*(i.e. Jasper Reports, Apache POI, iText, PDFBox, DeepLearning...)* or simply establish the bridge whenever a pure-PHP 
+alternative does not exists, reveals itself nonviable or just for the fun.
+
+Originally based on the robust and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) project, 
+**soluble-japha** leverage the initial client implementation by offering a more modern approach 
+*(namespaces, psr standards, php7 ready...)* and support composer for easy dependency requirement 
+in a PHP project or your next creative Java-based wrapper library.
 
 ## Features
 
-- Use Java from PHP *(and vice-versa)*.
-- Direct access awesome Java libraries (i.e. Jasper Reports, Apache POI, iText...).
-- Flexible API and abstraction layer (and a [legacy compatibility layer](./doc/pjb62_compatibility.md)).
-- Fast XML-based network protocol. *(does not rely on system `exec`, no vm startup extra effort)*.
-- Based on robust and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) implementation of [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec.
+- Provides the core to access the Java world from PHP. 
+- Client API for [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) server implementation of the [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec.
+- Use a fast XML-based network protocol behind the scenes. *(no JVM startup efforts)*
+- MIT opensource license.
 
 ## Requirements
 
-- PHP 5.4+, 7.0 or HHVM >= 3.2.
-- The [PHPJavaBridge server running](./doc/install_server.md)
+- PHP 5.5+, 7.0+ or HHVM >= 3.2.
+- Installed [JRE or JDK 7+](./doc/server/install_java.md).
+- A PHP-Java bridge server [installed](./doc/quick_install.md).
 
 ## Documentation
-----------------
 
- - [Manual](http://docs.soluble.io/soluble-japha/manual/) in progress and [API documentation](http://docs.soluble.io/soluble-japha/api/) available.
+ - [Manual](http://docs.soluble.io/soluble-japha/manual/) in progress 
+ - [API documentation](http://docs.soluble.io/soluble-japha/api/) available.
 
 ## Installation
----------------
 
 1. PHP installation *(client)*
 
    `soluble-japha` works best via [composer](http://getcomposer.org/).
 
    ```console
-   $ composer require "soluble/japha:^0.11.5"
+   $ composer require soluble/japha
    ```
 
    Most modern frameworks will include Composer out of the box, but ensure the following file is included:
@@ -50,29 +58,31 @@ An enhanced compatible version of the [PHPJavabridge](http://php-java-bridge.sou
    require 'vendor/autoload.php';
    ```
 
-2. PHP-Java-bridge server
+2. PHP-Java-bridge standalone server
 
    PHP-Java communication requires a PHP-Java-bridge server running on your local machine or network *(on a non-plublic port)*.
    
-   For development (*nix systems) or small apps, the [pjbserver-tools](https://github.com/belgattitude/pjbserver-tools) 
-   component can be installed in minutes and provides scripts to start and stop a standalone PHP-Java-bridge server. 
-   Installation of the standalone server can be made with composer, just ensure you have a [JDK installed](./doc/server/install_java.md):
+   See the [server installation guide](./doc/quick_install.md) to get an overview of possible strategies.
+   
+   
+   Alternatively you can quickly clone the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) repository in a custom directory an run [composer](http://getcomposer.org) update command.
    
    ```console
    $ mkdir -p /my/path/pjbserver-tools
    $ cd /my/path/pjbserver-tools
-   $ composer create-project --no-dev --prefer-dist "belgattitude/pjbserver-tools"
+   $ git clone https://github.com/belgattitude/pjbserver-tools.git .
+   $ composer update   
    $ ./bin/pjbserver-tools pjbserver:start -vvv ./config/pjbserver.config.php.dist
    ```
+
    The server will start on default port ***8089***. If you like to change it, create a local copy of `./config/pjbserver.config.php.dist`
    and refer it in the above command.
    
    Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
+
+   For more information about the standalone server, have a look to the [pjbserver-tools repo](https://github.com/belgattitude/pjbserver-tools). 
        
-   *For production the recommended way is to deploy the JavaBridge servlet into a J2EE compatible server (Tomcat,...).
-   Have a look to the complete [java server installation documentation](./doc/install_server.md).*
-       
-   
+          
 ## Examples
 
 
