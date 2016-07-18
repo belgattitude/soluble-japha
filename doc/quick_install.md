@@ -27,7 +27,7 @@ require 'vendor/autoload.php';
 ### Server installation
 
 The PHP-Java communication is handled by a intermediate server (the bridge) running 
-on your local machine (or network) on which the **soluble/japha** client cant connect. 
+on your local machine (or network) on which the **soluble/japha** client can connect. 
 
 Depending on your use case, the recommended production setup is to deploy the bridge as a servlet on a J2EE server. 
 
