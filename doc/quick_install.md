@@ -59,4 +59,4 @@ For more information about the standalone server, have a look to the [pjbserver-
 Depending on your usage, deploying the bridge server onto a J2EE server like Tomcat offers better performance, 
 scalability and security. 
   
-The documentation is still in progress but you can have a look to the [J2EE server install](./install_server_j2ee.html)
+The documentation is still in progress but you can have a look to the [J2EE server install](./install_server_j2ee.md)
