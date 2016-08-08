@@ -53,7 +53,7 @@ Tomcat installation is recommended for production environments. It's fast and ro
 
 #### Step 1: Install Tomcat.
 
-See the [Tomcat installation documentation](./server/install_tomcat.md)] for *nix systems. 
+See the [Tomcat installation documentation](./server/install_tomcat.md) for *nix systems. 
 
 #### Step 2: Create a java bridge deployable .war file.
  
