@@ -47,8 +47,8 @@ $ composer update
 $ ./bin/pjbserver-tools pjbserver:start -vvv ./config/pjbserver.config.php.dist
 ```
 
-The server will start on default port ***8089***. If you like to change it, create a local copy of `./config/pjbserver.config.php.dist`
-and refer it in the above command.
+The server will start on default port ***8089***. If you would like to change it, create a local copy of `./config/pjbserver.config.php.dist`
+and use that in the above command.
    
 Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
 
