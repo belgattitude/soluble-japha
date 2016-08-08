@@ -148,7 +148,7 @@ try {
 
 ```
 
-For more examples and recipes, heve a look to the [official documentation site](http://docs.soluble.io/soluble-japha/manual/). 
+For more examples and recipes, have a look at the [official documentation site](http://docs.soluble.io/soluble-japha/manual/). 
 
 ## Compatibility layer
 
