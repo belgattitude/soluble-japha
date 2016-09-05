@@ -174,6 +174,7 @@ For more examples and recipes, have a look at the [official documentation site](
 The original `Java.inc` client has been completely refactored to fit current trends in current PHP practices.
 
 - API break
+
     All global functions have been removed (`java_*`) in favour of a more object oriented approach. 
     By doing so, the new API breaks compatibility with existing code (see the 
     [legacy compatibility guide](./doc/pjb62_compatibility.md) if you have code written against 
