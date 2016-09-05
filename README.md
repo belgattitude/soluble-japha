@@ -173,7 +173,7 @@ For more examples and recipes, have a look at the [official documentation site](
 
 The original `Java.inc` client has been completely refactored to fit current trends in current PHP practices.
 
-- API break
+- New API (not backward compatible)
 
     All global functions have been removed (`java_*`) in favour of a more object oriented approach. 
     By doing so, the new API breaks compatibility with existing code (see the 
@@ -181,30 +181,30 @@ The original `Java.inc` client has been completely refactored to fit current tre
     the `Java.inc` original client), but offers the possibility to rely on different driver implementations 
     without breaking your code.
 
-- PHP versions
-    Code is tested on PHP7, HHVM.
-Note that all notices, warnings 
+- PHP version and ecosystem
+
+    - PHP7, HHVM ready.
+    - Installable with composer
+    - Compliant with latests standards: psr0, psr2, psr4
+
+- Enhancements    
+    
+    - Removed global namespace pollution (java_* functions)
+    - Removed global variables, functions and unscoped statics.
+    - No more get_last_exception... (All exceptions are thrown with reference to context)
+    - Autoloading performance (no more one big class, psr4 autoloader is used, less memory)
+    - Removed long time deprecated features in Java.inc
+    - By design, no more allow_url_fopen needed.
+    
+- Fixes
+    
+    - All notices, warnings have been removed
+    - Some minor bugs found thanks to the unit tests suite
+
+- Testing
+   
+    - All code is tested (phpunit, travis), analyzed (scrunitizer)
  
- 
-
-- API
-  - Removed global namespace pollution (global static vars...)
-  
-  - A more intuitive and verbose exception handling.
-  - No global namespace pollution.
-  - For legacy code a compatibility layer can be loaded.
-
-- Performance
-  - Reduced memory usage and faster execution.
-  - Opcache friendly (no allow_url_open)
-
-- PHPJavaBridge refactorings (Java.inc)
-  - PHP 5.3+ namespaces, PSR-4 autoloading and PSR-2 coding style.
-  - Removed global variables, functions and unscoped statics.
-  - Removed most notices and warnings.
-  - No allow_url_open possible (security)
-  - Removed deprecated code.
-
 
 ## Compatibility layer
 
