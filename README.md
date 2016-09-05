@@ -168,6 +168,43 @@ try {
 
 For more examples and recipes, have a look at the [official documentation site](http://docs.soluble.io/soluble-japha/manual/). 
 
+
+### Original PHPJavaBridge (Java.inc) differences
+
+The original `Java.inc` client has been completely refactored to fit current trends in current PHP practices.
+
+- API break
+    All global functions have been removed (`java_*`) in favour of a more object oriented approach. 
+    By doing so, the new API breaks compatibility with existing code (see the 
+    [legacy compatibility guide](./doc/pjb62_compatibility.md) if you have code written against 
+    the `Java.inc` original client), but offers the possibility to rely on different driver implementations 
+    without breaking your code.
+
+- PHP versions
+    Code is tested on PHP7, HHVM.
+Note that all notices, warnings 
+ 
+ 
+
+- API
+  - Removed global namespace pollution (global static vars...)
+  
+  - A more intuitive and verbose exception handling.
+  - No global namespace pollution.
+  - For legacy code a compatibility layer can be loaded.
+
+- Performance
+  - Reduced memory usage and faster execution.
+  - Opcache friendly (no allow_url_open)
+
+- PHPJavaBridge refactorings (Java.inc)
+  - PHP 5.3+ namespaces, PSR-4 autoloading and PSR-2 coding style.
+  - Removed global variables, functions and unscoped statics.
+  - Removed most notices and warnings.
+  - No allow_url_open possible (security)
+  - Removed deprecated code.
+
+
 ## Compatibility layer
 
 Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for more information.
