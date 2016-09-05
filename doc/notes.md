@@ -70,6 +70,8 @@ for the server communication it seems fair to share some comments on the library
 > might be some use and perhaps some fun with it. 
 >
 
+### Differences with the original Java.inc client.
+
 The original `Java.inc` client has been completely refactored to fit current trends in current PHP practices.
 
 - New API (not backward compatible)
