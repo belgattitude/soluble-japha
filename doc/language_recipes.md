@@ -24,6 +24,12 @@ try {
     
     $conn = $driverManager->getConnection($dsn);
 
+} catch (Exception\ClassNotFoundException $e) {
+    // Probably the jdbc driver is not registered
+    // on the JVM side. Check that the mysql-connector.jar
+    // is installed
+    echo $e->getMessage();
+    echo $e->getStackTrace();
 } catch (Exception\JavaException $e) {
     echo $e->getMessage();
     echo $e->getStackTrace();
@@ -43,8 +49,14 @@ try {
         $stmt->close();
     }
     $conn->close();
+    
 } catch (Exception\JavaException $e) {
-    //...
+    echo $e->getMessage();
+    // Because it's a JavaException
+    // you can use the java stack trace
+    echo $e->getStackTrace();
+} catch (\Exception $e) {
+   echo $e->getMessage();
 }
 
 ```
