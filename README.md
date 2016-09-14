@@ -189,7 +189,7 @@ The original `Java.inc` client has been completely refactored to fit current tre
 
 - Enhancements    
     
-    - Namespace introduced.
+    - Namespaces introduced everywhere.
     - Removed global namespace pollution (java_* functions)
     - Removed global variables, functions and unscoped statics.
     - No more get_last_exception... (All exceptions are thrown with reference to context)
