@@ -72,24 +72,25 @@ for the server communication it seems fair to share some comments on the library
 
 ### Differences with the original Java.inc client.
 
-The original `Java.inc` client has been completely refactored to fit current trends in current PHP practices.
+The original `Java.inc` client has been completely refactored to fit current trends modern in PHP practices (2016).
 
 - New API (not backward compatible)
 
     All global functions have been removed (`java_*`) in favour of a more object oriented approach. 
     By doing so, the new API breaks compatibility with existing code (see the 
-    [legacy compatibility guide](./doc/pjb62_compatibility.md) if you have code written against 
+    [legacy compatibility guide](./pjb62_compatibility.md) if you have code written against 
     the `Java.inc` original client), but offers the possibility to rely on different driver implementations 
     without breaking your code.
 
 - PHP version and ecosystem
 
-    - PHP7, HHVM ready.
+    - PHP7, HHVM ready (PHP 5.5+ supported).
     - Installable with composer
-    - Compliant with latests standards: psr0, psr2, psr4
+    - Compliant with latests standards: PSR-2, PSR-3, PSR-4
 
 - Enhancements    
     
+    - Introduced namespaces
     - Removed global namespace pollution (java_* functions)
     - Removed global variables, functions and unscoped statics.
     - No more get_last_exception... (All exceptions are thrown with reference to context)

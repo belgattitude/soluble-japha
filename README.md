@@ -171,7 +171,7 @@ For more examples and recipes, have a look at the [official documentation site](
 
 ### Original PHPJavaBridge (Java.inc) differences
 
-The original `Java.inc` client has been completely refactored to fit current trends in current PHP practices.
+The original `Java.inc` client has been completely refactored to fit current trends in PHP practices (2016).
 
 - New API (not backward compatible)
 
@@ -183,12 +183,13 @@ The original `Java.inc` client has been completely refactored to fit current tre
 
 - PHP version and ecosystem
 
-    - PHP7, HHVM ready.
+    - PHP7, HHVM ready (PHP 5.5+ supported).
     - Installable with composer
-    - Compliant with latests standards: psr0, psr2, psr4
+    - Compliant with latests standards: PSR-2, PSR-3, PSR-4
 
 - Enhancements    
     
+    - Namespace introduced.
     - Removed global namespace pollution (java_* functions)
     - Removed global variables, functions and unscoped statics.
     - No more get_last_exception... (All exceptions are thrown with reference to context)
@@ -228,9 +229,9 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
   - Create a JSR-223 php extension in Go, like this [experiment](https://github.com/do-aki/gophp_sample)
 
 
-## Credits
+### Credits
 
-Thanks to the fantastic PHPJavaBridge project leaders and contributors who made it possible. 
+This project wouldn't be possible without the PHPJavaBridge project leaders and contributors. 
 See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
 
 ## Coding standards
