@@ -2,6 +2,8 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Soluble\Japha\Bridge\Driver\AbstractDriver;
 use Soluble\Japha\Interfaces;
 use Soluble\Japha\Bridge\Exception;
@@ -20,6 +22,11 @@ class Pjb62Driver extends AbstractDriver
     protected $pjbProxyClient;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      *
      * Constructor
      *
@@ -29,16 +36,35 @@ class Pjb62Driver extends AbstractDriver
      *     'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge'
      *      //'java_default_timezone' => null,
      *      //'java_prefer_values' => true,
-     *    ]);
+     *    ], $logger);
      *
      * </code>
      *
-     * @var array $options
+     * @param array $options
+     * @param LoggerInterface $logger
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\ConnectionException
      */
-    public function __construct(array $options)
+
+    public function __construct(array $options, LoggerInterface $logger=null)
     {
+        if ($logger === null) {
+            $logger = new NullLogger();
+        }
+
+        $this->logger = $logger;
+
         try {
             $this->pjbProxyClient = PjbProxyClient::getInstance($options);
+        } catch (Exception\ConnectionException $e) {
+            $address = $options['servlet_address'];
+            $msg = "Cannot connect to php-java-bridge server on '$address', server didn't respond.";
+            $this->logger->critical("[soluble-japha] $msg (" . $e->getMessage() . ')');
+            throw $e;
+        } catch (Exception\InvalidArgumentException $e) {
+            $msg = "Invalid arguments, cannot initiate connection to java-bridge.";
+            $this->logger->error("[soluble-japha] $msg (" . $e->getMessage() . ')');
+            throw $e;
         } catch (\Exception $e) {
             throw $e;
         }

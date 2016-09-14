@@ -26,17 +26,20 @@
         }
     },
     "require": {
-        "php": "^5.4 || ^7.0"
+        "php": "^5.4 || ^7.0",
+        "psr/log": "^1.0"
     },
     "require-dev" : {
-        "belgattitude/pjbserver-tools": "^2.0.3",
-        "phpunit/phpunit": "^4.8 || ^5.4"
+        "belgattitude/pjbserver-tools": "^2.0.4",
+        "phpunit/phpunit": "^4.8 || ^5.4",
+        "monolog/monolog": "^1.21.0"
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "./vendor/bin/phpunit"
     },
     "suggest": {
-        "belgattitude/pjbserver-tools": "PHPJavabridge standalone server support (unit tests)"
+        "belgattitude/pjbserver-tools": "PHPJavabridge standalone server support (unit tests)",
+        "monolog/monolog": "PSR-3 comptatible logger"
     },
     "archive": {
         "exclude": ["test", "doc", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]

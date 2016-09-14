@@ -234,12 +234,12 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
 This project wouldn't be possible without the PHPJavaBridge project leaders and contributors. 
 See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
 
-## Coding standards
+## Coding standards and interop
 
 * [PSR 4 Autoloader](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
+* [PSR 3 Logger interface](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md)
 * [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 * [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
-* [PSR 0 Autoloading standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
 
 
 

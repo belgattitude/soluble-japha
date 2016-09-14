@@ -1,5 +1,11 @@
 # CHANGELOG
 
+### 0.11.8 (2016-09-14)
+
+- Support for PSR-3 logger interface
+- Support for pjbserver-tools updated to ^2.0.4.
+- Minor fixes in documentation
+
 ### 0.11.7 (2016-07-08)
 
 - Improved documentation

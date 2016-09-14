@@ -14,6 +14,8 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
     const CAST_TYPE_NULL    = 'null';
     const CAST_TYPE_OBJECT  = 'object';
 
+
+
     /**
      *
      *
@@ -58,7 +60,7 @@ abstract class AbstractDriver implements DriverInterface, ConnectionInterface
      *
      * @see self::CAST_TYPE_*
      *
-     * @throws Exception\RuntimeException
+     * @throws \Soluble\Japha\Bridge\Exception\RuntimeException
      *
      * @param Interfaces\JavaObject $javaObject
      * @param string $cast_type

@@ -4,6 +4,8 @@ namespace Soluble\Japha\Bridge;
 
 use Soluble\Japha\Interfaces;
 use Soluble\Japha\Util\Exception\UnsupportedTzException;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class Adapter
 {
@@ -29,6 +31,11 @@ class Adapter
 
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Constructor
      *
      * <code>
@@ -46,18 +53,24 @@ class Adapter
      * @throws Exception\ConfigurationException
      * @throws Exception\ConnectionException
      * 
-     * @param array options
+     * @param array $options
+     * @param LoggerInterface $logger any PSR-3 compatible logger
      *
      */
-    public function __construct(array $options)
+    public function __construct(array $options, LoggerInterface $logger=null)
     {
+        if ($logger === null) {
+            $logger = new NullLogger();
+        }
+        $this->logger = $logger;
+
         $driver = strtolower($options['driver']);
         if (!array_key_exists($driver, self::$registeredDrivers)) {
             throw new Exception\UnsupportedDriverException(__METHOD__ . "Driver '$driver' is not supported");
         }
 
         $driver_class = self::$registeredDrivers[$driver];
-        $this->driver = new $driver_class($options);
+        $this->driver = new $driver_class($options, $logger);
 
         $tz = array_key_exists('java_default_timezone', $options) ? $options['java_default_timezone'] : null;
         if ($tz !== null) {

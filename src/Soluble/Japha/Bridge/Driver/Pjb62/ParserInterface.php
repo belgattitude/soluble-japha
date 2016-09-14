@@ -40,7 +40,6 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 interface ParserInterface
 {
-
     public function parse();
 
     /**

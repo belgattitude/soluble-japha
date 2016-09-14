@@ -2,10 +2,18 @@
 
 namespace Soluble\Japha\Bridge\Driver;
 
+use Psr\Log\LoggerInterface;
 use Soluble\Japha\Interfaces;
 
 interface DriverInterface
 {
+
+    /**
+     * DriverInterface constructor.
+     * @param array $options
+     * @param LoggerInterface $logger
+     */
+    public function __construct(array $options, LoggerInterface $logger=null);
 
     /**
      * Return a new java class

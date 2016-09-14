@@ -70,15 +70,14 @@ class PjbProxyClient
      * $options requires :
      *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
      *
-     *  Optionnaly :
-     *  'java_disable_autoload' => false,
-     *  'java_prefer_values' => true,
+     *  Optionaly :
      *  'java_log_level' => null
      *  'java_send_size' => 8192,
      *  'java_recv_size' => 8192
      *
      *
      * @throws Exception\InvalidArgumentException
+     * @throws Exception\ConnectionException
      * @see PjbProxyClient::getInstance()
      * @param array $options
      */
@@ -112,7 +111,7 @@ class PjbProxyClient
      * </code>
      *
      * @throws Exception\InvalidArgumentException
-     * @throws Exception\InvalidUsageException
+     * @throws Exception\ConnectionException
      * @param array|null $options
      * @return PjbProxyClient
      */
@@ -142,8 +141,8 @@ class PjbProxyClient
     /**
      * Load pjb client with options
      *
-
      * @throws Exception\InvalidArgumentException
+     * @throws Exception\ConnectionException
      */
     protected function loadClient()
     {
@@ -187,7 +186,6 @@ class PjbProxyClient
             self::$client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory(self::$client);
 
             $this->bootstrap();
-
         }
     }
 
