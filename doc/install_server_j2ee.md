@@ -9,7 +9,7 @@ A generic Tomcat installation is located [here](./server/install_tomcat.html).
 
 ### Create a java bridge deployable .war file.
  
-Create a deployale servlet, you can use the following snippet :
+Create a deployable servlet, you can use the following snippet :
 
 ```bash
 # Download 
