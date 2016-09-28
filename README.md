@@ -121,7 +121,7 @@ $ba = new BridgeAdapter([
 
 $myJavaString = $ba->java('java.lang.String', "Hello");
 
-// concat method on jave string object
+// concat method on java string object
 // see http://docs.oracle.com/javase/7/docs/api/java/lang/String.html
 
 $myJavaString->concat(" world");  
