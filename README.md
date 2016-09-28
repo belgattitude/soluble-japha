@@ -34,7 +34,7 @@ setup unit testing on a CI server (Travis...)*
 
 - Write Java from PHP (with a little extra php-style ;)  
 - Compatible with [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) server implementation.
-- Efficient, no startup effort, native communication with the JVM (([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
+- Efficient, no startup effort, native communication with the JVM ([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
 - Java objects, methods calls... are proxied to the server through a fast XML-based network protocol.
 - API extensible to multiple server implementations (Adapter pattern). 
 - MIT opensource licensed.
