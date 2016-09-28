@@ -133,8 +133,20 @@ echo $myJavaString;
 
 ```
 
+### 3. Get your JVM info
 
-### 2. JDBC example
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$system = $ba->javaClass('java.lang.System');
+echo  $system->getProperties()->get('java.vm_name);
+
+```
+
+
+### 4. JDBC example
 
 Ensure your servlet installation can locate the JDBC driver and try :
 
