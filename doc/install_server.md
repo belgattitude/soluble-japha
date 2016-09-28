@@ -1,10 +1,8 @@
 ## Install PHP-Java-bridge server (Java)
 
-
 ### Requirements
  
-- PHP 5.5+, 7.0+ or HHVM >= 3.2.
-- A [PHPJavaBridge server](./install_server.md) running
+- Installed [JRE or JDK 7+](./server/install_java.md).
 
 ## Introduction
 
@@ -25,7 +23,7 @@ Be aware that ***the port used for java bridge should not be public*** for secur
 
 ### Option 1: PHP-Java-bridge standalone server *(development or small apps)*
 
-For development (*nix systems) or small apps, you can use the [pjbserver-tools](https://github.com/belgattitude/pjbserver-tools) 
+For development (*nix systems), unit-tests or small apps, you can use the [pjbserver-tools](https://github.com/belgattitude/pjbserver-tools) 
 package. 
  
 It can be installed in minutes and provides scripts to start and stop a standalone PHP-Java-bridge server. 
@@ -82,11 +80,9 @@ $ jar -cvf phpjavabridge-bundle.war .
 
 Use the tomcat admin interface to upload the war file or simply drop the javabridge-bundle.war into /var/lib/tomcat7/webapps/ and reload.
 
-
 #### Notes about web.xml configuration 
 
 The standard web.xml configuration can be used. Alternativly you can provide your own file before building .war file. 
-
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

@@ -71,7 +71,7 @@ setup unit testing on a CI server (Travis...)*
 
 2. PHP-Java-bridge standalone server
 
-   PHP-Java communication requires a PHP-Java-bridge server running on your local machine or network *(on a non-plublic port)*.
+   PHP-Java communication requires a PHP-Java-bridge server running on your local machine or network.
    
    For a quick install, clone the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) repository in a custom directory an run [composer](http://getcomposer.org) update command.
    
@@ -87,8 +87,7 @@ setup unit testing on a CI server (Travis...)*
    and refer it in the above command.
    
    Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
-
-   Get information about the standalone server on the [pjbserver-tools repo](https://github.com/belgattitude/pjbserver-tools). 
+   Get more information about the standalone server on the [pjbserver-tools repo](https://github.com/belgattitude/pjbserver-tools). 
    
    For production systems a Tomcat installation is encouraged, see the [server installation guide](./doc/quick_install.md) to get an overview of possible strategies.
 
