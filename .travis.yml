@@ -8,6 +8,7 @@ matrix:
         - EXECUTE_TEST_COVERALLS=true
         - SEND_COVERAGE=true
     - php: 7
+    - php: 7.1
     - php: hhvm 
                     
 before_script:
@@ -19,7 +20,7 @@ before_script:
   - mkdir -p build/logs
   - mkdir -p test/logs
   - travis_retry composer self-update
-  - travis_retry composer --prefer-source --dev install
+  - travis_retry composer --dev install
     
 script: 
   - ./vendor/bin/phpunit -v
