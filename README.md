@@ -26,6 +26,10 @@ of compelling libraries *(i.e. Jasper Reports, Apache POI, iText, PDFBox, DeepLe
 establish the bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
 or just for the fun.
 
+*If you write a (wrapper) library with soluble-japha, you might be interested in the 
+[pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) that helps to
+setup unit testing on a CI server (Travis...)*
+
 ## Features
 
 - Write Java from PHP (with a little extra php-style ;)  

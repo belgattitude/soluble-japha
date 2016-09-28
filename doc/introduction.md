@@ -15,7 +15,11 @@ you can transparently use Java objects, methods... which will be proxied to the 
 With that in mind you can use it to broaden the PHP possibilities to the Java ecosystem and its bunch 
 of compelling libraries *(i.e. Jasper Reports, Apache POI, iText, PDFBox, DeepLearning...)* or simply 
 establish the bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
-or just for the fun.
+or just for the fun. 
+
+*If you write a (wrapper) library with soluble-japha, you might be interested in the 
+[pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) that helps to
+setup unit testing on a CI server (Travis...)*
 
 ## Features
 
