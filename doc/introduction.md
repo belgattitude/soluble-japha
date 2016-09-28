@@ -2,12 +2,11 @@
 
 **soluble-japha** provides a client to write Java code transparently in regular PHP. 
 
-Originally based on the robust and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) project, 
-**soluble-japha** leverage the initial client implementation by offering a more modern approach 
-*(namespaces, psr standards, php7 ready...)* and support composer for easy dependency requirement 
-in a PHP project or your next creative Java-based wrapper library. 
+*Originally based on the robust and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) project, 
+**soluble-japha** leverage the initial client implementation by offering a refactored and modern 
+approach while preserving compatibility with the server.* 
  
-### Use cases 
+## Use cases 
 
 It differs from the idea of api, microservices... where communication requires a contract 
 between the client and server in order to exchange information. With soluble-japha, 
@@ -18,19 +17,20 @@ of compelling libraries *(i.e. Jasper Reports, Apache POI, iText, PDFBox, DeepLe
 establish the bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
 or just for the fun.
 
-### Features
+## Features
 
-- Provides the core to access the Java world from PHP. 
-- Client API for [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) server implementation of the [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec.
-- Use a fast XML-based network protocol behind the scenes. *(no JVM startup efforts)*
-- For support with original `Java.inc` client, see the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).
-- MIT opensource license.
+- Write Java from PHP (with a little extra php-style ;)  
+- Compatible with [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) server implementation.
+- Efficient, no startup effort, native communication with the JVM (([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
+- Java objects, methods... calls are proxied to the server through a fast XML-based network protocol. 
+- MIT opensource licensed.
+- *For support with older `Java.inc` client, see the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).*
 
-### Requirements
+## Requirements
 
-- PHP 5.5+, 7.0+ or HHVM >= 3.2.
-- Installed [JRE or JDK 7+](./server/install_java.md).
-- A PHP-Java bridge server [installed](./quick_install.md).
+- PHP 5.5+, 7.0+, 7.1+ or HHVM >= 3.2.
+- Installed [JRE or JDK 7+](./doc/server/install_java.md).
+- A PHP-Java bridge server [installed](./doc/quick_install.md).
 
 ### Basic example
 

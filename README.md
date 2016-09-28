@@ -11,10 +11,9 @@
 
 **soluble-japha** provides a client to write Java code transparently in regular PHP. 
 
-Originally based on the robust and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) project, 
-**soluble-japha** leverage the initial client implementation by offering a more modern approach 
-*(namespaces, psr standards, php7 ready...)* and support composer for easy dependency requirement 
-in a PHP project or your next creative Java-based wrapper library. 
+*Originally based on the robust and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) project, 
+**soluble-japha** leverage the initial client implementation by offering a refactored and modern 
+approach while preserving compatibility with the server.* 
  
 ## Use cases 
 
@@ -29,15 +28,16 @@ or just for the fun.
 
 ## Features
 
-- Provides the core to access the Java world from PHP. 
-- Client API for [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) server implementation of the [JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec.
-- Use a fast XML-based network protocol behind the scenes. *(no JVM startup efforts)*
-- For support with original `Java.inc` client, see the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).
-- MIT opensource license.
+- Write Java from PHP (with a little extra php-style ;)  
+- Compatible with [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) server implementation.
+- Efficient, no startup effort, native communication with the JVM (([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
+- Java objects, methods... calls are proxied to the server through a fast XML-based network protocol. 
+- MIT opensource licensed.
+- *For support with older `Java.inc` client, see the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).*
 
 ## Requirements
 
-- PHP 5.5+, 7.0+ or HHVM >= 3.2.
+- PHP 5.5+, 7.0+, 7.1+ or HHVM >= 3.2.
 - Installed [JRE or JDK 7+](./doc/server/install_java.md).
 - A PHP-Java bridge server [installed](./doc/quick_install.md).
 
@@ -68,10 +68,7 @@ or just for the fun.
 
    PHP-Java communication requires a PHP-Java-bridge server running on your local machine or network *(on a non-plublic port)*.
    
-   See the [server installation guide](./doc/quick_install.md) to get an overview of possible strategies.
-   
-   
-   Alternatively you can quickly clone the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) repository in a custom directory an run [composer](http://getcomposer.org) update command.
+   For a quick install, clone the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) repository in a custom directory an run [composer](http://getcomposer.org) update command.
    
    ```console
    $ mkdir -p /my/path/pjbserver-tools
@@ -86,8 +83,10 @@ or just for the fun.
    
    Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
 
-   For more information about the standalone server, have a look to the [pjbserver-tools repo](https://github.com/belgattitude/pjbserver-tools). 
-       
+   Get information about the standalone server on the [pjbserver-tools repo](https://github.com/belgattitude/pjbserver-tools). 
+   
+   For production systems a Tomcat installation is encouraged, see the [server installation guide](./doc/quick_install.md) to get an overview of possible strategies.
+
           
 ## Examples
 
