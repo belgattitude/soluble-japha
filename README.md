@@ -95,6 +95,7 @@ setup unit testing on a CI server (Travis...)*
           
 ## Examples
 
+Here's some quick examples to get a feeling, don't forget to check out the [official documentation site](http://docs.soluble.io/soluble-japha/manual/).
 
 ### 1. Connection example
 
@@ -111,6 +112,27 @@ $ba = new BridgeAdapter([
 ]);
 ```
  
+
+### 2. Hello word
+
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$myJavaString = $ba->java('java.lang.String', "Hello");
+
+// concat method on jave string object
+// see http://docs.oracle.com/javase/7/docs/api/java/lang/String.html
+
+$myJavaString->concat(" world");  
+
+echo $myJavaString;  
+
+// -> Outputs Hello world
+
+```
+
 
 ### 2. JDBC example
 
