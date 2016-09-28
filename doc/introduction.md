@@ -22,7 +22,8 @@ or just for the fun.
 - Write Java from PHP (with a little extra php-style ;)  
 - Compatible with [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) server implementation.
 - Efficient, no startup effort, native communication with the JVM (([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
-- Java objects, methods... calls are proxied to the server through a fast XML-based network protocol. 
+- Java objects, methods calls... are proxied to the server through a fast XML-based network protocol.
+- API extensible to multiple server implementations (Adapter pattern). 
 - MIT opensource licensed.
 - *For support with older `Java.inc` client, see the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).*
 
