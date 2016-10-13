@@ -59,7 +59,7 @@ constructor has been selected from the provided arguments.
 
 ### Dealing with Java classes
 
-When dealing with Java class that cannot be instanciated (private constructor), like system classes,
+When dealing with Java classes that cannot be instanciated (private constructor), like system classes,
 factories, singletons... 
 
 You must first refer the class with the method `$ba->javaClass('[JAVA FQDN]', $arg1=null, ...)` instead of
