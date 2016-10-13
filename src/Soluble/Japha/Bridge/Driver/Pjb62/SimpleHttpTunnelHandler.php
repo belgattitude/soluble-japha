@@ -37,6 +37,7 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Exception\ConnectionException;
+use Soluble\Japha\Bridge\Http\Cookie;
 
 class SimpleHttpTunnelHandler extends SimpleHttpHandler
 {
@@ -203,7 +204,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $this->headers = null;
         $socket = $this->socket;
         $webapp = $this->getWebApp();
-        $cookies = $this->getCookies();
+        $cookies = Cookie::getCookiesHeaderLine($_COOKIE);
         $context = $this->getContext();
         $res = "PUT ";
         $res .= $webapp;
