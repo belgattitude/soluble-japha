@@ -67,7 +67,7 @@ constructor has been selected from the provided arguments.
 todo) explain differences for static '::' calls
 
 
-## Testing Null and Boolean
+### Testing Null and Boolean
 
 Due to internal proxying between java and php objects, 'null', 'false' and 'true' values 
 must be tested through the bridge object. Otherwise the tes is made the php proxied object
