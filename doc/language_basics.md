@@ -57,21 +57,54 @@ $bigdec = $ba->java('java.math.BigDecimal', $bigint, $scale=2, $mathContext);
 and look how the [BigDecimal](https://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html#constructor_summary) 
 constructor has been selected from the provided arguments.  
 
+### Dealing with Java classes
+
+When dealing with Java class that cannot be instanciated (private constructor), like system classes,
+factories, singletons... 
+
+You must first refer the class with the method `$ba->javaClass('[JAVA FQDN]', $arg1=null, ...)` instead of
+`$ba->java()`...
+
+Take a look to the following example with (java.lang.System)[https://docs.oracle.com/javase/7/docs/api/java/lang/System.html] class.   
+
+```php
+$system = $ba->javaClass('java.lang.System');
+echo  $system->getProperties()->get('java.vm_name);
+```
+
+A singleton:
+
+```php
+$calendar = $ba->javaClass('java.util.Calendar')->getInstance();
+$date = $calendar->getTime();
+```
 
 ### Calling methods
 
-(todo) explain differences for static '::' calls
+**TODO**
+
+- multiple signatures (same than constructor)
+- static methods (use the '->', not the '::'. We work with proxies ;) 
 
 ### Class constants
 
-todo) explain differences for static '::' calls
+Constants on java classes are called like regular properties (no `::`).
 
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$tzClass = $ba->javaClass('java.util.TimeZone');
+echo $tz->getDisplayName(false, $tzClass->SHORT);
+
+```
 
 ### Testing Null and Boolean
 
 Due to internal proxying between java and php objects, 'null', 'false' and 'true' values 
-must be tested through the bridge object. Otherwise the tes is made the php proxied object
-and not it's value.
+must be tested through the bridge object. Otherwise the test is made the php proxied object
+and not its value.
 
 ```php
 <?php
