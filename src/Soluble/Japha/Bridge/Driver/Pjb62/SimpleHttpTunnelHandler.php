@@ -204,7 +204,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $this->headers = null;
         $socket = $this->socket;
         $webapp = $this->getWebApp();
-        $cookies = Cookie::getCookiesHeaderLine($_COOKIE);
+        $cookies = Cookie::getCookiesHeaderLine();
         $context = $this->getContext();
         $res = "PUT ";
         $res .= $webapp;

@@ -90,7 +90,8 @@ class CookieTest extends \PHPUnit_Framework_TestCase
                 // Original cookies
                 [
                     'dateTimeObject' => new \DateTime(),
-                    'function' => function() {},
+                    'function' => function () {
+                    },
                 ],
                 // Serialized string
                 'dateTimeObject=' . Cookie::UNSUPPORTED_TYPE_VALUE. ';function=' . Cookie::UNSUPPORTED_TYPE_VALUE

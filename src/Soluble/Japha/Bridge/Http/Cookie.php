@@ -4,6 +4,7 @@ namespace Soluble\Japha\Bridge\Http;
 
 /**
  * Utility class to serialize a PHP cookie array into a valid HTTP cookie header
+ *
  */
 class Cookie
 {
@@ -12,16 +13,23 @@ class Cookie
      */
     const UNSUPPORTED_TYPE_VALUE = '__UNSUPPORTED_TYPE__';
 
+
+
     /**
      * Serialize PHP's $_COOKIE values into a valid HTTP COOKIE string
      *
-     * @param array $cookies -  Usually PHP's superglobal $_COOKIE
+     * @param array $cookies if null
      * @return string
      */
-    static public function getCookiesHeaderLine(array $cookies)
+    public static function getCookiesHeaderLine(array $cookies=null)
     {
+        if ($cookies === null) {
+            $cookies = $_COOKIE;
+        }
+
+
         $cookieParts = [];
-        foreach($cookies as $k => $v) {
+        foreach ($cookies as $k => $v) {
             $cookieParts[] = self::serializePHPCookies($k, $v);
         }
 
@@ -44,11 +52,10 @@ class Cookie
      */
     private static function serializePHPCookies($cookieName, $cookieValue)
     {
-
+        $cookieParts = [];
         $urlEncodedCookieName = urlencode($cookieName);
         $valueType = gettype($cookieValue);
-        switch($valueType) {
-
+        switch ($valueType) {
             case 'integer':
             case 'double':
             case 'string':
@@ -57,7 +64,7 @@ class Cookie
                 break;
 
             case 'array':
-                foreach($cookieValue as $cookieValueKey => $cookieValueValue) {
+                foreach ($cookieValue as $cookieValueKey => $cookieValueValue) {
                     $cookieParts[] = self::serializePHPCookies($cookieName . "[$cookieValueKey]", $cookieValueValue);
                 }
                 break;
@@ -80,5 +87,4 @@ class Cookie
 
         return implode(';', $cookieParts);
     }
-
 }

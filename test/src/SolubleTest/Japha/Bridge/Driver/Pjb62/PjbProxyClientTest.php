@@ -83,6 +83,4 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
         $bigint3 = $pjbProxyClient->invokeMethod($bigint1, 'add', [$bigint2]);
         $this->assertEquals(30, $bigint3->intValue());
     }
-
-
 }
