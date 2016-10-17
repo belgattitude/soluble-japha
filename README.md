@@ -268,9 +268,10 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
 
 ### Credits
 
-This project wouldn't be possible without the PHPJavaBridge project leaders and contributors. 
-See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
-
+* This code is principally developed and maintained by [Sébastien Vanvelthem](https://github.com/belgattitude).
+* Special thanks to [all of these awesome contributors](https://github.com/belgattitude/soluble-japha/graphs/contributors)
+* This project wouldn't be possible without the [PHPJavaBridge project leaders and contributors](http://php-java-bridge.sourceforge.net/pjb/contact.php#code_contrib). 
+  
 ## Coding standards and interop
 
 * [PSR 4 Autoloader](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
