@@ -269,7 +269,7 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
 ### Credits
 
 * This code is principally developed and maintained by [Sébastien Vanvelthem](https://github.com/belgattitude).
-* Special thanks to [all of these awesome contributors](https://github.com/belgattitude/soluble-japha/graphs/contributors)
+* Special thanks to [all of these awesome contributors](https://github.com/belgattitude/soluble-japha/network/members)
 * This project wouldn't be possible without the [PHPJavaBridge project leaders and contributors](http://php-java-bridge.sourceforge.net/pjb/contact.php#code_contrib). 
   
 ## Coding standards and interop

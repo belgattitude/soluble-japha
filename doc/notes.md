@@ -110,5 +110,6 @@ The original `Java.inc` client has been completely refactored to fit current tre
 
 ### Credits
 
-This project wouldn't be possible without the PHPJavaBridge project leaders and contributors. 
-See their official homepage on http://php-java-bridge.sourceforge.net/pjb/index.php.
+* This code is principally developed and maintained by [Sébastien Vanvelthem](https://github.com/belgattitude).
+* Special thanks to [all of these awesome contributors](https://github.com/belgattitude/soluble-japha/network/members)
+* This project wouldn't be possible without the [PHPJavaBridge project leaders and contributors](http://php-java-bridge.sourceforge.net/pjb/contact.php#code_contrib). 
