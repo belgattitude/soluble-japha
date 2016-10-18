@@ -343,4 +343,62 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $system = $this->adapter->getSystem();
         $this->assertInstanceOf('Soluble\Japha\Bridge\Adapter\System', $system);
     }
+
+    public function testReadingFiles() {
+
+        // Server must be on localhost in order to pass.
+        $dir = __DIR__;
+        $f = $this->adapter->java('java.io.File', $dir);
+        $paths = $f->listFiles();
+        foreach($paths as $path) {
+            $this->assertTrue(file_exists((string) $path));
+        }
+
+    }
+
+    public function testSocketFactory() {
+
+        $ba = $this->adapter;
+
+        $serverPort = 443;
+        $host = 'www.google.com';
+
+        $socketFactory = $ba->javaClass('javax.net.ssl.SSLSocketFactory')->getDefault();
+        $socket = $socketFactory->createSocket($host, $serverPort);
+
+        $socket->startHandshake();
+        $bufferedWriter = $ba->java('java.io.BufferedWriter',
+                    $ba->java('java.io.OutputStreamWriter',
+                            $socket->getOutputStream()
+                    )
+                );
+
+        $bufferedReader = $ba->java('java.io.BufferedReader',
+                    $ba->java('java.io.InputStreamReader',
+                        $socket->getInputStream()
+                    )
+                );
+
+        $bufferedWriter->write("GET / HTTP/1.0");
+        $bufferedWriter->newLine();
+        $bufferedWriter->newLine(); // end of HTTP request
+        $bufferedWriter->flush();
+
+        $lines = [];
+        do {
+            $line = $bufferedReader->readLine();
+            $lines[] = $line;
+        } while(!$ba->isNull($line));
+
+        $content = join("\n", $lines);
+        // echo $content;
+
+        $bufferedWriter->close();
+        $bufferedReader->close();
+        $socket->close();
+
+        $this->assertGreaterThan(0, count($lines));
+        $this->assertContains('HTTP/1.0', $content);
+
+    }
 }

@@ -9,7 +9,7 @@ but, by nature, requires a slightly different syntax.
 So when writing Java code from PHP, you need to be aware of some inherent differences between
 the languages :
 
-1. Java support multiple signatures for methods (and constructor).
+1. Java support [method overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).
 2. PHP has a special notation for static method calls (::), Java does not (.).
 3. PHP refers to constants with '::', Java does not (.).
 
@@ -81,10 +81,26 @@ $date = $calendar->getTime();
 
 ### Calling methods
 
-**TODO**
+After creating a java object with `$bridge->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)` you can call
+any public methods on it. Keep it mind that Java supports [method overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html),
+so before calling a method, ensures parameters will match the desired method signature.
 
-- multiple signatures (same than constructor)
-- static methods (use the '->', not the '::'. We work with proxies ;) 
+
+
+#### Calling static methods
+
+Whenever you want to call a static method, please refer it to the class through 
+`$ba->javaClass('[JAVA FQDN]', $arg1=null, ...)` and not the java object. 
+Here's an example on the java calendar class (singleton) :
+
+```php
+<?php
+// $ba = new BridgeAdapter(...); 
+
+$calendarClass = $ba->javaClass('java.util.Calendar')
+$calendarInstance = $calendarClass->getInstance();
+
+```
 
 ### Class constants
 
@@ -102,7 +118,7 @@ echo $tz->getDisplayName(false, $tzClass->SHORT);
 
 ### Testing Null and Boolean
 
-Due to internal proxying between java and php objects, 'null', 'false' and 'true' values 
+Due to internal proxy-ing between java and php objects, 'null', 'false' and 'true' values 
 must be tested through the bridge object. Otherwise the test is made the php proxied object
 and not its value.
 
