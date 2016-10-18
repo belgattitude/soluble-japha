@@ -34,7 +34,7 @@ $bufferedWriter->flush();
 $lines = [];
 do {
     $line = $bufferedReader->readLine();
-    $lines[] = $line;
+    $lines[] = (string) $line;
 } while(!$ba->isNull($line));
 
 $content = join("\n", $lines);

@@ -387,7 +387,7 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $lines = [];
         do {
             $line = $bufferedReader->readLine();
-            $lines[] = $line;
+            $lines[] = (string) $line;
         } while (!$ba->isNull($line));
 
         $content = implode("\n", $lines);
