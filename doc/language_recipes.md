@@ -1,6 +1,6 @@
 ## Recipes
 
-### HTTPs socket, readers and writers
+### SSL client socket, readers and writers
 
 ```php
 <?php
