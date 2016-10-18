@@ -344,20 +344,20 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Soluble\Japha\Bridge\Adapter\System', $system);
     }
 
-    public function testReadingFiles() {
+    public function testReadingFiles()
+    {
 
         // Server must be on localhost in order to pass.
         $dir = __DIR__;
         $f = $this->adapter->java('java.io.File', $dir);
         $paths = $f->listFiles();
-        foreach($paths as $path) {
+        foreach ($paths as $path) {
             $this->assertTrue(file_exists((string) $path));
         }
-
     }
 
-    public function testSocketFactory() {
-
+    public function testSocketFactory()
+    {
         $ba = $this->adapter;
 
         $serverPort = 443;
@@ -388,9 +388,9 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         do {
             $line = $bufferedReader->readLine();
             $lines[] = $line;
-        } while(!$ba->isNull($line));
+        } while (!$ba->isNull($line));
 
-        $content = join("\n", $lines);
+        $content = implode("\n", $lines);
         // echo $content;
 
         $bufferedWriter->close();
@@ -399,6 +399,5 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertGreaterThan(0, count($lines));
         $this->assertContains('HTTP/1.0', $content);
-
     }
 }
