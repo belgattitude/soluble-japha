@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.12.0 (Not released)
+
+### Changed
+
+- Update pjbserver-tools devDependencies to ^2.1.0
+
+
 ## 0.11.9 (2016-10-13)
 
 ### Added

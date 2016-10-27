@@ -20,7 +20,7 @@ before_script:
   - mkdir -p build/logs
   - mkdir -p test/logs
   - travis_retry composer self-update
-  - travis_retry composer --dev install
+  - travis_retry composer install
     
 script: 
   - ./vendor/bin/phpunit -v

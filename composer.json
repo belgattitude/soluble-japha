@@ -30,7 +30,7 @@
         "psr/log": "^1.0"
     },
     "require-dev" : {
-        "belgattitude/pjbserver-tools": "^2.0.4",
+        "belgattitude/pjbserver-tools": "^2.1.0",
         "phpunit/phpunit": "^4.8 || ^5.4",
         "monolog/monolog": "^1.21.0"
     },
