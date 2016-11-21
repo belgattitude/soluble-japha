@@ -44,7 +44,7 @@ $hash   = $ba->java('java.util.HashMap', ['key1' => $string, 'key2' => 'hello'])
 *The **[JAVA FQDN]** is the fully qualified java class name (case-sensitive) optionally 
 followed by a list of arguments (variadic notation: `BridgeAdapter::java(string $javaClass, ...$args)`).*  
 
-In case of multiple constructor signatures *(PHP does not have)*, you can have a look to the following example :
+In case of multiple constructor signatures *(PHP does not have constructor overloading)*, you can have a look to the following example :
 
 ```
 //...
@@ -146,7 +146,74 @@ if (!$ba->isNull($rs)) {
 ### Scalar Types
 
 Most of the scalar types are automatically casted to their own language support: string, int, array, boolean, ...
+
+### Working with dates
+
+Dates are not (yet) automatically casted between Java and PHP. Keep in mind that internally the JVM 
+keeps tracks of milliseconds where PHP is limited to microseconds and that timezones might differs between
+runtimes.
+
+Ignoring deprecated constructors, the [java.util.Date](https://docs.oracle.com/javase/7/docs/api/java/util/Date.html) allows
+creation of dates based on a timestamp expressed in milliseconds : 
  
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$phpDate = \DateTime::createFromFormat('Y-m-d', '2016-12-21');
+$milli = $phpDate->format('U') * 1000; // Internally the JVM handles milliseconds
+                                       // In order to create a new Java date, 
+                                       // php dates must be converted accordingly.
+                                       // The 'U' allows formatting the date as
+                                       // microseconds since epoch time, just multiply
+                                       // by 1000 to get milliseconds.
+                                       // Alternatively you can use 
+                                       // $milli = strtotime('2016-12-21') * 1000;  
+                                       
+$javaDate = $ba->java('java.util.Date', $milli);
+
+$simpleDateFormat= $ba->java("java.text.SimpleDateFormat", 'yyyy-MM-dd');
+
+echo $simpleDateFormat->format($javaDate);
+
+// Will print: "2016-12-21"
+```
+
+Alternatively you can use the [java.text.SimpleDateFormatter](https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html) object 
+to parse the date string without the php conversion.  
+
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$date = '2016-12-21';
+$simpleDateFormat = $ba->java("java.text.SimpleDateFormat", 'yyyy-MM-dd');
+$javaDate = $simpleDateFormat->parse($date); // This is a Java date
+echo $simpleDateFormat->format($javaDate);
+// Will print: "2016-12-21"
+```
+
+Please be aware that timezones might differ from PHP and the JVM. In that case, dates between PHP and Java
+are not guaranteed to be the same (think of 2016-12-31 23:00:00 in London and Paris)
+ 
+In most cases those differences can be easily fixed by ensuring both the JVM and PHP configurations 
+use the same timezone. 
+
+Another option is to pass the current timezone in the formatter :
+
+```php
+$pattern = "yyyy-MM-dd HH:mm";
+$formatter = $ba->java("java.text.SimpleDateFormat", $pattern);
+$tz = $ba->javaClass('java.util.TimeZone')->getTimezone("Europe/Paris");
+$formatter->setTimeZone($tz);
+```
+  
+
+   
 ### Java documentation
 
 (todo) tips for reading basic java resources (jvm api...)
+
+- See the [java api reference](https://docs.oracle.com/javase/7/docs/api/) 
