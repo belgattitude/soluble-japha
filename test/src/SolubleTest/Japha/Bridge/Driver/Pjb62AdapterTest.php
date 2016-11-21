@@ -154,6 +154,9 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
         ];
         $pattern = "yyyy-MM-dd HH:mm:ss";
         $simpleDateFormat = $ba->java("java.text.SimpleDateFormat", $pattern);
+        $systemPhpTz  = date_default_timezone_get();
+        $tz = $ba->javaClass('java.util.TimeZone')->getTimezone($systemPhpTz);
+        $simpleDateFormat->setTimeZone($tz);
 
         foreach ($expectations as $date) {
             $phpMilli = (strtotime($date) * 1000);
@@ -172,11 +175,10 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
         // just check the date part
         $dateFormatter = $ba->java('java.text.SimpleDateFormat', "yyyy-MM-dd");
         $this->assertEquals('1970-01-01', (string) $dateFormatter->format($jDate));
-
     }
 
-    public function testDateWithDateTime() {
-
+    public function testDateWithDateTime()
+    {
         $ba = $this->adapter;
         $expectations = [
             '2012-12-31',
@@ -184,22 +186,22 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
         ];
 
         $jDateFormatter = $ba->java("java.text.SimpleDateFormat", 'yyyy-MM-dd');
+        $systemPhpTz  = date_default_timezone_get();
+        $tz = $ba->javaClass('java.util.TimeZone')->getTimezone($systemPhpTz);
+        $jDateFormatter->setTimeZone($tz);
+
 
         foreach ($expectations as $value) {
-
             $phpDate = \DateTime::createFromFormat('Y-m-d', $value);
             $milli = $phpDate->format('U') * 1000;
 
             $javaDate = $ba->java('java.util.Date', $milli);
-            
+
             $parsedJavaDate = $jDateFormatter->parse($value);
 
             $this->assertEquals($value, (string) $jDateFormatter->format($javaDate));
             $this->assertEquals($value, (string) $jDateFormatter->format($parsedJavaDate));
-
         }
-
-
     }
 
 
@@ -259,6 +261,5 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
 
         $phpDate->sub(new \DateInterval('PT1H'));
         $this->assertEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
-
     }
 }
