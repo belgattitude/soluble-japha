@@ -41,8 +41,9 @@
         <!--
             Configure connection to mysql server for testing 
             mysql jdbc connection
+
         -->
-        <server name="JAPHA_ENABLE_JDBC_TESTS" value="true" />
+        <server name="JAPHA_ENABLE_JDBC_TESTS" value="false" />
         
         <server name="MYSQL_DRIVER" value="Mysqli" />
         <server name="MYSQL_HOSTNAME" value="127.0.0.1" />
