@@ -33,7 +33,7 @@
 
         <!-- 
         Generally if you have tomcat
-        <server name="AUTORUN_PJB_STANDALONE" value="true" />
+        <server name="AUTORUN_PJB_STANDALONE" value="false" />
         <server name="PJB_SERVLET_ADDRESS" value="http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge" />       
         -->
         
