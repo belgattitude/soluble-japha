@@ -52,6 +52,13 @@
 
         <server name="PHPUNIT_CACHE_DIR" value="./test/tmp/cache" />		          
         <ini name="date.timezone" value="Europe/Brussels"/>
+
+        <!-- Default charset: Still errors if different from UTF-8 -->
+        <ini name="default_charset" value="UTF-8"/>
+        <!--
+        <ini name="default_charset" value="latin1"/>
+        -->
+
     </php>
 
     <testsuites>

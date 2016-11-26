@@ -90,5 +90,6 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
 
         $javaTz = $ba->getSystem()->getTimeZoneId();
         $this->assertEquals('Europe/London', $javaTz);
+        
     }
 }
