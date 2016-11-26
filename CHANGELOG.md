@@ -5,6 +5,7 @@
 ### Changed
 
 - Update pjbserver-tools devDependencies to ^2.1.0
+- `phpunit.xml.dist` suite does not check JDBC mysql tests by default.
 
 
 ## 0.11.9 (2016-10-13)
