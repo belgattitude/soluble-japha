@@ -78,7 +78,6 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
         $string = $ba->java('java.lang.String', "保éà");
         $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $string);
         $this->assertEquals('保éà', $string);
-
     }
 
     public function testJavaHashMap()

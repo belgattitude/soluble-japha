@@ -23,7 +23,7 @@ before_script:
   - travis_retry composer install
     
 script: 
-  - ./vendor/bin/phpunit -v
+  - ./vendor/bin/phpunit -c test/phpunit.travis.xml -v
 
 after_script:
   - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi

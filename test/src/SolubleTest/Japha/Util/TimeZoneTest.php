@@ -37,22 +37,20 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        if (!isset($_SERVER['JAPHA_ENABLE_JDBC_TESTS']) ||
-                $_SERVER['JAPHA_ENABLE_JDBC_TESTS'] != "true") {
-            $this->markTestSkipped(
-                'Skipping JDBC mysql driver tests, enable option in phpunit.xml'
-            );
-        }
-
         \SolubleTestFactories::startJavaBridgeServer();
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
         $this->ba = new Bridge\Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
         ]);
+
+
         $this->timeZone = new TimeZone($this->ba);
         $this->backupTz = $this->ba->javaClass('java.util.TimeZone')->getDefault();
+        //var_dump($this->backupTz);
+        //die();
     }
+
 
     /**
      * Tears down the fixture, for example, closes a network connection.

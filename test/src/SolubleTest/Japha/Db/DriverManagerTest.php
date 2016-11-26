@@ -29,8 +29,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        if (!isset($_SERVER['JAPHA_ENABLE_JDBC_TESTS']) ||
-                $_SERVER['JAPHA_ENABLE_JDBC_TESTS'] != "true") {
+        if (!$this->isJdbcTestsEnabled()) {
             $this->markTestSkipped(
                 'Skipping JDBC mysql driver tests, enable option in phpunit.xml'
             );
@@ -44,6 +43,13 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->driverManager = new DriverManager($this->adapter);
     }
+
+    protected function isJdbcTestsEnabled()
+    {
+        return (isset($_SERVER['JAPHA_ENABLE_JDBC_TESTS']) &&
+            $_SERVER['JAPHA_ENABLE_JDBC_TESTS'] == true);
+    }
+
 
     /**
      * Tears down the fixture, for example, closes a network connection.
