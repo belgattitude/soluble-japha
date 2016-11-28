@@ -85,6 +85,20 @@ After creating a java object with `$bridge->java('[JAVA_FQDN]', $arg1=null, $arg
 any public methods on it. Keep it mind that Java supports [method overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html),
 so before calling a method, ensures parameters will match the desired method signature.
 
+For example the [java.lang.String](http://docs.oracle.com/javase/7/docs/api/java/lang/String.html#indexOf(java.lang.String)) object exposes
+two methods for `indexOf()`
+
+```php
+
+$javaString = $ba->java('java.lang.String', 'A key is a key!');
+$index = $javaString->indexOf('key');
+// Will print 2, the selected method is `java.lang.String#indexOf(String str)`
+
+$index = $javaString->indexOf('key', $fromIndex=8);
+// Will print 11, the selected method is `java.lang.String#indexOf(String, $fromIndex)`
+
+```
+
 
 
 #### Calling static methods
@@ -97,10 +111,30 @@ Here's an example on the java calendar class (singleton) :
 <?php
 // $ba = new BridgeAdapter(...); 
 
-$calendarClass = $ba->javaClass('java.util.Calendar')
+$calendarClass = $ba->javaClass('java.util.Calendar');
 $calendarInstance = $calendarClass->getInstance();
 
 ```
+
+### Invoke method
+
+For dynamic calls, the `Adapter::invoke()` method can be used on JavaObject or
+JavaClass objects:
+
+```php
+<?php 
+
+$javaString = $ba->java('java.lang.String', 'A key is a key!');
+$length = $ba->invoke($javaString, 'length');
+
+$index = $ba->invoke($javaString, 'indexOf', ['key']);
+$index = $ba->invoke($javaString, 'indexOf', ['key', $fromIndex=8]);
+
+```
+
+*Be aware that the arguments have to be send as an array which differs from 
+a standard method call `$javaString->indexOf('key', $fromIndex=8)`.* 
+
 
 ### Class constants
 

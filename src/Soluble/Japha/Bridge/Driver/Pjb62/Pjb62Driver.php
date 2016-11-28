@@ -106,6 +106,15 @@ class Pjb62Driver extends AbstractDriver
         return new Java($class_name, $args);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function invoke(Interfaces\JavaType $javaObject, $method, array $args = [])
+    {
+        return $this->pjbProxyClient->invokeMethod($javaObject, $method, $args);
+    }
+
+
 
     /**
      *

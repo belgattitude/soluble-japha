@@ -45,6 +45,19 @@ class AdapterUsageTest extends \PHPUnit_Framework_TestCase
     {
     }
 
+    public function testMethodCall()
+    {
+        $ba = $this->adapter;
+
+        $javaString = $ba->java('java.lang.String', 'A key is a key!');
+        $index = $javaString->indexOf('key');
+        $this->assertEquals(2, $index);
+
+        // Method overloading, use the `indexOf(String, $fromIndex)` method
+        $index = $javaString->indexOf('key', $fromIndex=8);
+        $this->assertEquals(11, $index);
+    }
+
 
     public function testJavaBigInt()
     {

@@ -5,6 +5,7 @@ namespace Soluble\Japha\Bridge\Driver;
 use Psr\Log\LoggerInterface;
 use Soluble\Japha\Interfaces;
 
+
 interface DriverInterface
 {
 
@@ -15,10 +16,22 @@ interface DriverInterface
      */
     public function __construct(array $options, LoggerInterface $logger=null);
 
+
+    /**
+     * Instanciate a new java object
+     *
+     * @throws \Soluble\Japha\Bridge\Exception\ClassFoundException
+     * @param string $class_name Java FQDN i.e: 'java.lang.String'
+     * @param mixed|null $args
+     * @return Interfaces\JavaObject
+     */
+    public function instanciate($class_name, $args = null);
+
+
     /**
      * Return a new java class
      *
-     * @param string $class_name
+     * @param string $class_name Java class FQDN i.e: 'java.lang.String'
      * @return Interfaces\JavaClass
      */
     public function getJavaClass($class_name);
@@ -41,12 +54,12 @@ interface DriverInterface
     public function getClassName(Interfaces\JavaObject $javaObject);
 
     /**
-     * Instanciate a java object
+     * Invoke a method on a JavaObject (or a static method on a JavaClass)
      *
-     * @throws Exception\ClassFoundException
-     * @param string $class_name
-     * @param mixed|null $args
-     * @return Interfaces\JavaObject
+     * @param Interfaces\JavaType $javaObject javaObject can be Interfaces\JavaClass or Interfaces\JavaObject
+     * @param string $method Method name on the JavaObject or JavaClass
+     * @param array $args arguments
+     * @return mixed
      */
-    public function instanciate($class_name, $args = null);
+    public function invoke(Interfaces\JavaType $javaObject, $method, array $args = []);
 }

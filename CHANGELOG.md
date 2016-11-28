@@ -2,10 +2,17 @@
 
 ## 0.12.0 (Not released)
 
+### Added
+
+- Support for `invoke` method in Adapter and DriveInterface.
+ 
+
 ### Changed
 
 - Update pjbserver-tools devDependencies to ^2.1.0
-- `phpunit.xml.dist` suite does not check JDBC mysql tests by default.
+- [Unit tests] JDBC tests are now disabled by default in `phpunit.xml.dist`.
+- [Unit tests] Improved test suite, larger tests files have been splitted.   
+
 
 
 ## 0.11.9 (2016-10-13)

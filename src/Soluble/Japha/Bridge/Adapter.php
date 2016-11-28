@@ -134,6 +134,21 @@ class Adapter
 
 
     /**
+     * Invoke a method on a JavaObject (or a static method on a JavaClass)
+     *
+     * @param Interfaces\JavaType $javaObject javaObject can be Interfaces\JavaClass or Interfaces\JavaObject
+     * @param string $method Method name on the JavaObject or JavaClass
+     * @param array $args arguments
+     * @return mixed
+     */
+    public function invoke(Interfaces\JavaType $javaObject, $method, array $args = [])
+    {
+        return $this->driver->invoke($javaObject, $method, $args);
+    }
+
+
+
+    /**
      * Checks whether object is an instance of a class or interface
      *
      * @param Interfaces\JavaObject $javaObject

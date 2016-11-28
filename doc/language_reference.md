@@ -59,7 +59,7 @@ To create (instanciate) new Java objects, use the `Bridge\Adapter->java($class, 
 $javaString = $ba->java('java.lang.String', "Hello world");
 echo $javaString->__toString();     // -> Hello world
 echo $javaString;                   // -> Hello world
-echo ($javaString instanceof \Soluble\Japha\Interfaces\JavaObject) ? 'true'; 'false'; // -> true
+echo ($javaString instanceof \Soluble\Japha\Interfaces\JavaObject) ? 'true' : 'false'; // -> true
 ```
 
 In case of multiple constructors, select the constructor signature needed and provide the corresponding arguments: 
@@ -76,9 +76,9 @@ $bigdec = $ba->java('java.math.BigDecimal', $bigint, $scale=2, $mathContext);
 echo $bigdec->floatValue(); // will print 1200
 
 ```
-  
 
-### Using java *final* classes
+ 
+### Using java classes
 
 For static classes, use the `Bridge\Adapter->javaClass($class)` method.
 
@@ -86,7 +86,25 @@ For static classes, use the `Bridge\Adapter->javaClass($class)` method.
 <?php
 
 $system = $ba->javaClass('java.lang.System');
-echo  $system->getProperties()->get('java.vm_name);
+echo  $system->getProperties()->get('java.vm_name');
+
+```
+
+### Calling methods
+
+Just call the Java method as a regular PHP one.
+
+For example the [java.lang.String](http://docs.oracle.com/javase/7/docs/api/java/lang/String.html#indexOf(java.lang.String)) object exposes
+two methods for `indexOf()`
+
+```php
+
+$javaString = $ba->java('java.lang.String', 'A key is a key!');
+$index = $javaString->indexOf('key');
+// Will print 2, the selected method is `java.lang.String#indexOf(String str)`
+
+$index = $javaString->indexOf('key', $fromIndex=8);
+// Will print 11, the selected method is `java.lang.String#indexOf(String, $fromIndex)`
 
 ```
 
@@ -105,6 +123,24 @@ $date = $calendar->getTime();
 
 ```
 
+### Invoke method
+
+For dynamic calls, the `Adapter::invoke()` method can be used on JavaObject or
+JavaClass objects:
+
+```php
+<?php 
+
+$javaString = $ba->java('java.lang.String', 'A key is a key!');
+$length = $ba->invoke($javaString, 'length');
+
+$index = $ba->invoke($javaString, 'indexOf', ['key']);
+$index = $ba->invoke($javaString, 'indexOf', ['key', $fromIndex=8]);
+
+```
+
+*Be aware that the arguments have to be send as an array which differs from 
+a standard method call `$javaString->indexOf('key', $fromIndex=8)`.* 
 
 ### Class constants
 
@@ -158,7 +194,7 @@ Java iterable objects can be looped with a simple `foreach`.
 
 // $ba = new BridgeAdapter(...); 
 
-$properties = $ba->javaClass('java.lang.System')->getProperties()
+$properties = $ba->javaClass('java.lang.System')->getProperties();
 foreach ($properties as $key => $value) {
     echo "$key: $value\n";
 }

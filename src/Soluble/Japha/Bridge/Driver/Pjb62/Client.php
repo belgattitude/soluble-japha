@@ -571,8 +571,9 @@ class Client
      * $bigint1 = new Java('java.math.BigInteger', 10);
      * $bigint2 = new Java('java.math.BigInteger', 20);
      * $bigint3 = $client->invokeMethod($bigint, "add", [$bigint2])
+     * $client->invoke(new Java("java.lang.String","hello"), "toString", [])
      * </code>
-     * @param integer $object object id
+     * @param integer $object a java object or type
      * @param string $method method name
      * @param array $args arguments to send with method
      * @return mixed
@@ -672,7 +673,7 @@ class Client
     }
 
     /**
-     *
+     * Return Context
      * @return string
      */
     public function getContext()
@@ -688,6 +689,9 @@ class Client
         return $this->invokeMethod(0, "getSession", $args);
     }
 
+    /**
+     * @return string
+     */
     public function getServerName()
     {
         if ($this->cachedValues['getServerName'] === null) {
