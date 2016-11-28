@@ -423,14 +423,14 @@ class Protocol
 
     /**
      *
-     * @param integer $object object id
+     * @param integer $object_id object id
      * @param string $method method name
      */
-    public function invokeBegin($object, $method)
+    public function invokeBegin($object_id, $method)
     {
         $this->client->sendBuffer.=$this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
-        $this->write(sprintf("<Y p=\"1\" v=\"%x\" m=\"%s\">", $object, $method));
+        $this->write(sprintf("<Y p=\"1\" v=\"%x\" m=\"%s\">", $object_id, $method));
         $this->client->currentArgumentsFormat = "<Y p=\"2\" v=\"%x\" m=\"${method}\">";
     }
 

@@ -123,6 +123,16 @@ class JavaException extends Exception implements JavaType, JavaExceptionInterfac
     }
 
     /**
+     * Return java object id
+     * @return int
+     */
+    public function __getJavaInternalObjectId()
+    {
+        return $this->__java;
+    }
+
+
+    /**
      * @return string
      */
     public function get__signature()

@@ -41,9 +41,16 @@ use Soluble\Japha\Interfaces;
 interface JavaType extends Interfaces\JavaType
 {
     /**
+     * Return object id
      * @return int
      */
     public function get__java();
+
+    /**
+     * Return java object id
+     * @return int
+     */
+    public function __getJavaInternalObjectId();
 
     /**
      * @return string

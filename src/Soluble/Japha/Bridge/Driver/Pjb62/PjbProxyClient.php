@@ -12,9 +12,10 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Exception;
 use Soluble\Japha\Interfaces;
+use Soluble\Japha\Bridge\Driver\ClientInterface;
 use ArrayObject;
 
-class PjbProxyClient
+class PjbProxyClient implements ClientInterface
 {
     /**
      *
@@ -227,14 +228,14 @@ class PjbProxyClient
      * not be caught unless declared in the methods throws clause -- OutOfMemoryErrors cannot be caught at all,
      * even if declared.
      *
-     * @param Interfaces\JavaType $object A java object or type
+     * @param Interfaces\JavaType|null $object a java object or type
      * @param string $method A method string
      * @param mixed $args Arguments to send to method
      * @return mixed
      */
-    public function invokeMethod(Interfaces\JavaType $object, $method, array $args=[])
+    public function invokeMethod(JavaType $object=null, $method, array $args=[])
     {
-        $id = ($object == null) ? 0 : $object->__java;
+        $id = ($object == null) ? 0 : $object->__getJavaInternalObjectId();
         return self::$client->invokeMethod($id, $method, $args);
     }
 
@@ -276,6 +277,14 @@ class PjbProxyClient
             throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, class parameter must be a valid JavaType or class name as string");
         }
         return self::$client->invokeMethod(0, "instanceOf", [$object, $class]);
+    }
+
+    /**
+     * @return
+     */
+    public function getContext()
+    {
+        return self::$client->getContext();
     }
 
     /**

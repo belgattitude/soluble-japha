@@ -6,7 +6,7 @@ interface ConnectionInterface
 {
     /**
      * Return internal client (driver specific)
-     * @return mixed
+     * @return ClientInterface
      */
     public function getClient();
 

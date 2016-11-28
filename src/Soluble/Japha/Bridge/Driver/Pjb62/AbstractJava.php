@@ -77,6 +77,10 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         $this->__signature = $proxy->__signature;
     }
 
+    /**
+     * @param string $type
+     * @return mixed
+     */
     public function __cast($type)
     {
         if (!isset($this->__delegate)) {
@@ -214,6 +218,15 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      * @return integer
      */
     public function get__java()
+    {
+        return $this->__java;
+    }
+
+    /**
+     * Return java object id
+     * @return int
+     */
+    public function __getJavaInternalObjectId()
     {
         return $this->__java;
     }

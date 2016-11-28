@@ -59,6 +59,13 @@ abstract class AbstractDriver implements DriverInterface
 
 
     /**
+     * Return Java context
+     * @return Interfaces\JavaObject
+     */
+    abstract public function getJavaContext();
+
+
+    /**
      * Cast a java object into a php type
      *
      * @see self::CAST_TYPE_*

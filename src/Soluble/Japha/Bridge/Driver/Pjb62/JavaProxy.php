@@ -140,6 +140,16 @@ class JavaProxy implements JavaType
     }
 
     /**
+     * Return java object id
+     * @return int
+     */
+    public function __getJavaInternalObjectId()
+    {
+        return $this->__java;
+    }
+
+
+    /**
      * @return string
      */
     public function get__signature()

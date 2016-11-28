@@ -37,7 +37,6 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use ArrayObject;
-use Soluble\Japha\Interfaces;
 
 class Client
 {
@@ -568,20 +567,14 @@ class Client
     /**
      * Invoke a method on java object
      *
-     * <code>
-     * $bigint1 = new Java('java.math.BigInteger', 10);
-     * $bigint2 = new Java('java.math.BigInteger', 20);
-     * $bigint3 = $client->invokeMethod($bigint, "add", [$bigint2])
-     * $client->invoke(new Java("java.lang.String","hello"), "toString", [])
-     * </code>
-     * @param integer|Interfaces\JavaType $object a java object or type
+     * @param integer $object_id a java object or type
      * @param string $method method name
      * @param array $args arguments to send with method
      * @return mixed
      */
-    public function invokeMethod($object, $method, array $args=[])
+    public function invokeMethod($object_id, $method, array $args=[])
     {
-        $this->protocol->invokeBegin($object, $method);
+        $this->protocol->invokeBegin($object_id, $method);
         $this->writeArgs($args);
 
         $this->protocol->invokeEnd();
@@ -675,7 +668,7 @@ class Client
 
     /**
      * Return Context
-     * @return string
+     * @return \Soluble\Japha\Interfaces\JavaObject
      */
     public function getContext()
     {

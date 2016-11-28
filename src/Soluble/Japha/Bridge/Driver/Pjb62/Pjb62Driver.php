@@ -114,6 +114,14 @@ class Pjb62Driver extends AbstractDriver
         return $this->pjbProxyClient->invokeMethod($javaObject, $method, $args);
     }
 
+    /**
+     * Return Java context
+     * @return Interfaces\JavaObject
+     */
+    public function getJavaContext()
+    {
+        return $this->pjbProxyClient->getClient()->getContext();
+    }
 
 
     /**
