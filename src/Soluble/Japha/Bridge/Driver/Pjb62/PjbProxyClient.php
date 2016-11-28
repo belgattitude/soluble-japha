@@ -233,7 +233,7 @@ class PjbProxyClient implements ClientInterface
      * @param mixed $args Arguments to send to method
      * @return mixed
      */
-    public function invokeMethod(JavaType $object=null, $method, array $args=[])
+    public function invokeMethod(Interfaces\JavaType $object=null, $method, array $args=[])
     {
         $id = ($object == null) ? 0 : $object->__getJavaInternalObjectId();
         return self::$client->invokeMethod($id, $method, $args);

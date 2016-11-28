@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 0.12.0 (Not released)
+## 0.12.0 (2016-11-28)
 
 ### Added
 
@@ -14,7 +14,6 @@
 - Update pjbserver-tools devDependencies to ^2.1.0
 - [Unit tests] JDBC tests are now disabled by default in `phpunit.xml.dist`.
 - [Unit tests] Improved test suite, larger tests files have been splitted.   
-
 
 ## 0.11.9 (2016-10-13)
 

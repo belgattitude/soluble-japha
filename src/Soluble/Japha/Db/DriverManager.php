@@ -33,6 +33,7 @@ class DriverManager
      *
      *
      * @throws Exception\JavaException
+     * @throws Exception\ClassNotFoundException
      * @throws Exception\InvalidArgumentException
      *
      * @param string $dsn
@@ -49,13 +50,8 @@ class DriverManager
         $class = $this->ba->javaClass("java.lang.Class");
         try {
             $class->forName($driverClass);
-        } catch (Exception\ClassNotFoundException $e) {
+        } catch (Exception\JavaException $e) {
             throw $e;
-
-        } catch (\Exception $e) {
-            // Here testing class not found error
-            $message = "Class not found '$driverClass' exception";
-            throw new Exception\ClassNotFoundException(__METHOD__ . ' ' . $message, $code = null, $e);
         }
 
         try {

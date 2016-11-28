@@ -118,16 +118,16 @@ class JavaException extends Exception implements JavaExceptionInterface
      * Return java FQDN exception class name
      * @return string
      */
-    public function getJavaClassName() {
-
+    public function getJavaClassName()
+    {
         return $this->javaClassName;
     }
 
     /**
      * @param string $javaClassName
      */
-    protected function setJavaClassName($javaClassName) {
-
+    protected function setJavaClassName($javaClassName)
+    {
         $this->javaClassName = $javaClassName;
     }
 }

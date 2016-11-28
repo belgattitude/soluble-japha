@@ -3,7 +3,6 @@
 namespace SolubleTest\Japha\Bridge;
 
 use Soluble\Japha\Bridge\Adapter;
-use Soluble\Japha\Bridge\Driver\ClientInterface;
 use Soluble\Japha\Bridge\Driver\DriverInterface;
 use Soluble\Japha\Bridge\Exception\JavaException;
 use Soluble\Japha\Interfaces\JavaObject;
@@ -70,6 +69,5 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
             }
         }
         $this->assertInstanceOf(JavaObject::class, $servletContext);
-
     }
 }
