@@ -50,7 +50,7 @@ menu:
                     text: Connection
                     relativeUrl: ./bridge_connection.html
         language:
-            text: Language
+            text: The basics
             relativeUrl: ./language_basics.html
             items:
                 language:
