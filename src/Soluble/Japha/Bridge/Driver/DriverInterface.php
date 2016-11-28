@@ -6,7 +6,7 @@ use Psr\Log\LoggerInterface;
 use Soluble\Japha\Interfaces;
 
 
-interface DriverInterface
+interface DriverInterface extends ConnectionInterface
 {
 
     /**
@@ -54,6 +54,15 @@ interface DriverInterface
     public function getClassName(Interfaces\JavaObject $javaObject);
 
     /**
+     * Inspect object
+     *
+     * @param Interfaces\JavaObject $javaObject
+     * @return string
+     */
+    public function inspect(Interfaces\JavaObject $javaObject);
+
+
+    /**
      * Invoke a method on a JavaObject (or a static method on a JavaClass)
      *
      * @param Interfaces\JavaType $javaObject javaObject can be Interfaces\JavaClass or Interfaces\JavaObject
@@ -62,4 +71,22 @@ interface DriverInterface
      * @return mixed
      */
     public function invoke(Interfaces\JavaType $javaObject, $method, array $args = []);
+
+
+    /**
+     * Check whether a java value is null
+     *
+     * @param Interfaces\JavaObject $javaObject
+     * @return boolean
+     */
+    public function isNull(Interfaces\JavaObject $javaObject = null);
+
+
+    /**
+     * Check whether a java value is true (boolean and int values are considered)
+     *
+     * @param Interfaces\JavaObject $javaObject
+     * @return boolean
+     */
+    public function isTrue(Interfaces\JavaObject $javaObject);
 }

@@ -80,7 +80,7 @@ class Adapter
 
 
     /**
-     * Instanciate a new java object with class name and variadic arguments
+     * Create a new Java instance from a FQDN (constructor arguments are sent in a variadic way)
      *
      * <code>
      * $hash   = $ba->java('java.util.HashMap', ['key' => '保éà']);
@@ -132,22 +132,6 @@ class Adapter
         return $this->driver->getJavaClass($class);
     }
 
-
-    /**
-     * Invoke a method on a JavaObject (or a static method on a JavaClass)
-     *
-     * @param Interfaces\JavaType $javaObject javaObject can be Interfaces\JavaClass or Interfaces\JavaObject
-     * @param string $method Method name on the JavaObject or JavaClass
-     * @param array $args arguments
-     * @return mixed
-     */
-    public function invoke(Interfaces\JavaType $javaObject, $method, array $args = [])
-    {
-        return $this->driver->invoke($javaObject, $method, $args);
-    }
-
-
-
     /**
      * Checks whether object is an instance of a class or interface
      *
@@ -159,6 +143,18 @@ class Adapter
     {
         return $this->driver->isInstanceOf($javaObject, $className);
     }
+
+    /**
+     * Return object java FQDN class name
+     *
+     * @param Interfaces\JavaObject $javaObject
+     * @return string
+     */
+    public function getClassName(Interfaces\JavaObject $javaObject)
+    {
+        return $this->driver->getClassName($javaObject);
+    }
+
 
     /**
      * Whether a java internal value is null
@@ -199,7 +195,7 @@ class Adapter
     /**
      * Return underlying driver
      *
-     * @return Driver\AbstractDriver
+     * @return Driver\DriverInterface
      */
     public function getDriver()
     {

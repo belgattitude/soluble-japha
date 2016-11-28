@@ -60,35 +60,6 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $cls);
     }
 
-    public function testInvoke()
-    {
-        $ba = $this->adapter;
-        $javaString = $ba->java('java.lang.String', 'Hello');
-        $length = $ba->invoke($javaString, 'length');
-        $this->assertEquals(5, $length);
-        $this->assertEquals($javaString->length(), $length);
-
-        // Multiple arguments
-        $javaString = $ba->java('java.lang.String', 'Hello World! World!');
-
-        $indexStart = $ba->invoke($javaString, 'indexOf', ['World']);
-        $index12 = $ba->invoke($javaString, 'indexOf', ['World', $fromIndex=12]);
-        $index16 = $ba->invoke($javaString, 'indexOf', ['World', $fromIndex=16]);
-
-        $this->assertEquals(6, $indexStart);
-        $this->assertEquals(13, $index12);
-        $this->assertEquals(-1, $index16);
-    }
-
-    public function testInvokeWithClass()
-    {
-        $ba = $this->adapter;
-        $javaClass = $ba->javaClass('java.lang.System');
-        $invokedVersion = $ba->invoke($javaClass, 'getProperty', ['java.version']);
-        $javaVersion = $javaClass->getProperty('java.version');
-        $this->assertEquals((string) $javaVersion, (string) $invokedVersion);
-    }
-
     public function testIsInstanceOf()
     {
         $ba = $this->adapter;
@@ -109,8 +80,6 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($ba->isInstanceOf($system, 'java.lang.System'));
     }
-
-
 
     public function testIsNull()
     {
@@ -181,6 +150,14 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($ba->isTrue($ba->java('java.lang.Boolean', 0)));
         $this->assertFalse($ba->isTrue($ba->java('java.lang.Boolean', false)));
+    }
+
+
+    public function testGetClassName()
+    {
+        $javaString = $this->adapter->java('java.lang.String', 'Hello World');
+        $className = $this->adapter->getClassName($javaString);
+        $this->assertEquals('java.lang.String', $className);
     }
 
 

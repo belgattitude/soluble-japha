@@ -4,15 +4,15 @@
 
 ### Added
 
-- Support for `invoke` method in Adapter and DriveInterface.
- 
+- Support for `getClassName()` in Adapter, Close [#30](https://github.com/belgattitude/soluble-japha/issues/30)
+- Support for `invoke()` method in DriverInterface. Close [28](https://github.com/belgattitude/soluble-japha/issues/28)
+- Support for `getClassName()` and `inspect()` methods in DriverInterface. Close [#29](https://github.com/belgattitude/soluble-japha/issues/29)  
 
 ### Changed
 
 - Update pjbserver-tools devDependencies to ^2.1.0
 - [Unit tests] JDBC tests are now disabled by default in `phpunit.xml.dist`.
 - [Unit tests] Improved test suite, larger tests files have been splitted.   
-
 
 
 ## 0.11.9 (2016-10-13)

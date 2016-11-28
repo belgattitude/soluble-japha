@@ -31,7 +31,7 @@ the `$bridge->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)`. If you look to 
 example:
  
 ```php
-
+<?php
 $ba = new \Soluble\Japha\Bridge\Adapter([
     'driver' => 'Pjb62', 
     'servlet_address' => 'localhost:8083/servlet.phpjavabridge'
@@ -68,13 +68,15 @@ You must first refer the class with the method `$ba->javaClass('[JAVA FQDN]', $a
 Take a look to the following example with (java.lang.System)[https://docs.oracle.com/javase/7/docs/api/java/lang/System.html] class.   
 
 ```php
+<?php
 $system = $ba->javaClass('java.lang.System');
-echo  $system->getProperties()->get('java.vm_name);
+echo  $system->getProperties()->get('java.vm_name');
 ```
 
 A singleton:
 
 ```php
+<?php
 $calendar = $ba->javaClass('java.util.Calendar')->getInstance();
 $date = $calendar->getTime();
 ```
@@ -89,7 +91,7 @@ For example the [java.lang.String](http://docs.oracle.com/javase/7/docs/api/java
 two methods for `indexOf()`
 
 ```php
-
+<?php
 $javaString = $ba->java('java.lang.String', 'A key is a key!');
 $index = $javaString->indexOf('key');
 // Will print 2, the selected method is `java.lang.String#indexOf(String str)`
@@ -115,26 +117,6 @@ $calendarClass = $ba->javaClass('java.util.Calendar');
 $calendarInstance = $calendarClass->getInstance();
 
 ```
-
-### Invoke method
-
-For dynamic calls, the `Adapter::invoke()` method can be used on JavaObject or
-JavaClass objects:
-
-```php
-<?php 
-
-$javaString = $ba->java('java.lang.String', 'A key is a key!');
-$length = $ba->invoke($javaString, 'length');
-
-$index = $ba->invoke($javaString, 'indexOf', ['key']);
-$index = $ba->invoke($javaString, 'indexOf', ['key', $fromIndex=8]);
-
-```
-
-*Be aware that the arguments have to be send as an array which differs from 
-a standard method call `$javaString->indexOf('key', $fromIndex=8)`.* 
-
 
 ### Class constants
 
@@ -175,6 +157,17 @@ if (!$ba->isTrue($javaBoolean)) {
 if (!$ba->isNull($rs)) {
     $rs->close();
 }
+```
+
+### Getting Java classname
+
+To get the fully qulaified java class name on an object, simply call:
+
+```php
+<?php
+$javaString = $this->adapter->java('java.lang.String', 'Hello World');
+$javaFQDN = $this->adapter->getClassName($javaString);
+// should print 'java.lang.String'
 ```
 
 ### Scalar Types
@@ -238,11 +231,59 @@ use the same timezone.
 Another option is to pass the current timezone in the formatter :
 
 ```php
+<?php
 $pattern = "yyyy-MM-dd HH:mm";
 $formatter = $ba->java("java.text.SimpleDateFormat", $pattern);
 $tz = $ba->javaClass('java.util.TimeZone')->getTimezone("Europe/Paris");
 $formatter->setTimeZone($tz);
 ```
+  
+### Driver operations
+
+Advanced operations are handled though the `DriverInterface` object, you can
+retrieve the Driver from the Adapter:
+the driver :
+
+```php
+<?php
+$driver = $this->adapter->getDriver();
+```
+
+#### Inspect a JavaObject
+  
+To inspect the content of a Java object, you can call the inspect method on the Driver:
+  
+```php
+<?php
+$javaString = $ba->java('java.lang.String', 'Hello World');
+echo $ba->getDriver()->inspect($javaString);
+// will print
+// [class java.lang.String:
+// Constructors:
+//  public java.lang.String(byte[],int,int)
+//  public java.lang.String(byte[],java.nio.charset.Charset)
+//  public java.lang.String(byte[],java.lang.String) throws java.io.UnsupportedEncodingException
+//  public java.lang.String(byte[],int,int,java.nio.charset.Charset)
+// ...
+  
+```
+  
+#### Dynamically invoke a method
+
+For dynamic calls, the `DriverInterface::invoke()` method can be used on JavaObject or
+JavaClass objects:
+
+```php
+<?php
+$javaString = $ba->java('java.lang.String', 'A key is a key!');
+$length = $ba->getDriver()->invoke($javaString, 'length');
+
+$index = $ba->getDriver()->invoke($javaString, 'indexOf', ['key']);
+$index = $ba->getDriver()->invoke($javaString, 'indexOf', ['key', $fromIndex=8]);
+```
+
+*Be aware that the arguments have to be send as an array which differs from 
+a standard method call `$javaString->indexOf('key', $fromIndex=8)`.* 
   
 
    

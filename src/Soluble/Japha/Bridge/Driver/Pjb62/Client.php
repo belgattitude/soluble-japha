@@ -37,6 +37,7 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use ArrayObject;
+use Soluble\Japha\Interfaces;
 
 class Client
 {
@@ -573,7 +574,7 @@ class Client
      * $bigint3 = $client->invokeMethod($bigint, "add", [$bigint2])
      * $client->invoke(new Java("java.lang.String","hello"), "toString", [])
      * </code>
-     * @param integer $object a java object or type
+     * @param integer|Interfaces\JavaType $object a java object or type
      * @param string $method method name
      * @param array $args arguments to send with method
      * @return mixed

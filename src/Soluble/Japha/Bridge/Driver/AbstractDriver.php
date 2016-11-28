@@ -4,7 +4,7 @@ namespace Soluble\Japha\Bridge\Driver;
 
 use Soluble\Japha\Interfaces;
 
-abstract class AbstractDriver implements DriverInterface, ConnectionInterface
+abstract class AbstractDriver implements DriverInterface
 {
     const CAST_TYPE_STRING  = 'string';
     const CAST_TYPE_BOOLEAN = 'boolean';

@@ -123,25 +123,6 @@ $date = $calendar->getTime();
 
 ```
 
-### Invoke method
-
-For dynamic calls, the `Adapter::invoke()` method can be used on JavaObject or
-JavaClass objects:
-
-```php
-<?php 
-
-$javaString = $ba->java('java.lang.String', 'A key is a key!');
-$length = $ba->invoke($javaString, 'length');
-
-$index = $ba->invoke($javaString, 'indexOf', ['key']);
-$index = $ba->invoke($javaString, 'indexOf', ['key', $fromIndex=8]);
-
-```
-
-*Be aware that the arguments have to be send as an array which differs from 
-a standard method call `$javaString->indexOf('key', $fromIndex=8)`.* 
-
 ### Class constants
 
 Constants on java classes are called like regular properties (no `::`).
@@ -200,3 +181,33 @@ foreach ($properties as $key => $value) {
 }
 ```
 
+### Getting Java classname
+
+To get the fully qulaified java class name on an object, simply call:
+
+```php
+<?php
+$javaString = $this->adapter->java('java.lang.String', 'Hello World');
+$javaFQDN = $this->adapter->getClassName($javaString);
+// should print 'java.lang.String'
+```
+
+
+### Invoke method
+
+For dynamic calls, the `Adapter::invoke()` method can be used on JavaObject or
+JavaClass objects:
+
+```php
+<?php 
+
+$javaString = $ba->java('java.lang.String', 'A key is a key!');
+$length = $ba->getDriver()->invoke($javaString, 'length');
+
+$index = $ba->getDriver()->invoke($javaString, 'indexOf', ['key']);
+$index = $ba->getDriver()->invoke($javaString, 'indexOf', ['key', $fromIndex=8]);
+
+```
+
+*Be aware that the arguments have to be send as an array which differs from 
+a standard method call `$javaString->indexOf('key', $fromIndex=8)`.* 

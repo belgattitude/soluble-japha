@@ -190,6 +190,7 @@ class PjbProxyClient
     }
 
     /**
+     * Return Pjb62 internal client
      * @return Client
      */
     public function getClient()
@@ -226,12 +227,12 @@ class PjbProxyClient
      * not be caught unless declared in the methods throws clause -- OutOfMemoryErrors cannot be caught at all,
      * even if declared.
      *
-     * @param JavaType $object A java object or type
+     * @param Interfaces\JavaType $object A java object or type
      * @param string $method A method string
      * @param mixed $args Arguments to send to method
      * @return mixed
      */
-    public function invokeMethod(JavaType $object, $method, array $args=[])
+    public function invokeMethod(Interfaces\JavaType $object, $method, array $args=[])
     {
         $id = ($object == null) ? 0 : $object->__java;
         return self::$client->invokeMethod($id, $method, $args);
@@ -239,12 +240,12 @@ class PjbProxyClient
 
 
     /**
-     *
-     * @param JavaType $object
+     * Inspect the java object | type
+     * @param Interfaces\JavaType $object
      * @return string
      * @throws Exception\IllegalArgumentException
      */
-    public function inspect(JavaType $object)
+    public function inspect(Interfaces\JavaType $object)
     {
         //$client = self::getClient();
         //return $client->invokeMethod(0, "inspect", array($object));
@@ -255,11 +256,11 @@ class PjbProxyClient
      * Test whether an object is an instance of java class or interface
      *
      * @throws Exception\InvalidArgumentException
-     * @param JavaType|Interfaces\JavaObject $object
+     * @param Interfaces\JavaObject $object
      * @param JavaType|string|Interfaces\JavaClass|Interfaces\JavaObject|string $class
      * @return boolean
      */
-    public function isInstanceOf(JavaType $object, $class)
+    public function isInstanceOf(Interfaces\JavaObject $object, $class)
     {
         if (is_string($class)) {
             // Attempt to autoload classname
@@ -271,7 +272,7 @@ class PjbProxyClient
             }
         }
 
-        if (!$class instanceof JavaType) {
+        if (!$class instanceof Interfaces\JavaObject) {
             throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, class parameter must be a valid JavaType or class name as string");
         }
         return self::$client->invokeMethod(0, "instanceOf", [$object, $class]);
@@ -337,10 +338,13 @@ class PjbProxyClient
      * @param Client $client
      * @return string
      */
-    public function getCompatibilityOption($client)
+    public function getCompatibilityOption(Client $client=null)
     {
         if ($this->compatibilityOption === null) {
-            $client = self::getClient();
+            if ($client === null) {
+                $client = $client = self::getClient();
+            }
+
             $java_prefer_values = $this->getOption('java_prefer_values');
             $java_log_level = $this->getOption('java_log_level');
             @$compatibility = $client->RUNTIME["PARSER"] == "NATIVE" ? (0103 - $java_prefer_values) : (0100 + $java_prefer_values);
