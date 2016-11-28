@@ -8,6 +8,8 @@ Internal Java exceptions extends the `Soluble\Japha\Bridge\Exception\JavaExcepti
 internal java stack trace as well as corresponding jvm messages through 
 the `JavaException::getStackTrace()`, `JavaException::getCause()` methods.
 
+To get the original java exception, simply call the `JavaException::getJavaClassName()` method.
+
 Some common implementations are available in the `Soluble\Japha\Bridge\Exception` namespace.
 
 | Exception                         | Description                              |
@@ -29,6 +31,7 @@ try {
     $string = $ba->java('java.lang.String', "Hello world");
     $string->anInvalidMethod();
 } catch (Exception\NoSuchMethodException $e) {
+    echo $e->getJavaClassName(); 
     echo $e->getMessage();
     echo $e->getStackTrace();
 }
@@ -38,6 +41,7 @@ try {
 try {
     $string = $ba->java('java.INVALID.String', "Hello world");
 } catch (Exception\ClassNotFoundException $e) {
+    echo $e->getJavaClassName(); 
     echo $e->getMessage();
     echo $e->getStackTrace();
 } 
@@ -53,6 +57,7 @@ try {
     echo $e->getStackTrace();
 } catch (Exception\JavaException $e) {
     echo "An unexpected java exception";
+    echo $e->getJavaClassName(); 
     echo $e->getStackTrace();
 } catch (\Exception $e) {
     echo "No Problem at all";

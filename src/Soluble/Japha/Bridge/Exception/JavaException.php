@@ -10,6 +10,13 @@ class JavaException extends Exception implements JavaExceptionInterface
      *
      * @var string
      */
+    protected $javaClassName;
+
+
+    /**
+     *
+     * @var string
+     */
     protected $cause;
 
     /**
@@ -30,15 +37,23 @@ class JavaException extends Exception implements JavaExceptionInterface
      * @param string $message
      * @param string $javaCause
      * @param string $stackTrace
+     * @param string $javaClassName originating java FQDN
      * @param int $code
      * @param Exception $driverException
      * @param Exception $previous
      */
-    public function __construct($message, $javaCause, $stackTrace, $code = null, Exception $driverException = null, Exception $previous = null)
+    public function __construct($message,
+                                $javaCause,
+                                $stackTrace,
+                                $javaClassName,
+                                $code = null,
+                                Exception $driverException = null,
+                                Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->setCause($javaCause);
         $this->setStackTrace($stackTrace);
+        $this->setJavaClassName($javaClassName);
         if ($driverException !== null) {
             $this->setDriverException($driverException);
         }
@@ -97,5 +112,22 @@ class JavaException extends Exception implements JavaExceptionInterface
     public function getStackTrace()
     {
         return $this->stackTrace;
+    }
+
+    /**
+     * Return java FQDN exception class name
+     * @return string
+     */
+    public function getJavaClassName() {
+
+        return $this->javaClassName;
+    }
+
+    /**
+     * @param string $javaClassName
+     */
+    protected function setJavaClassName($javaClassName) {
+
+        $this->javaClassName = $javaClassName;
     }
 }

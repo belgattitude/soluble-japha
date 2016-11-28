@@ -60,12 +60,6 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
 
 
         //$message, $javaCause, $stackTrace, $code=null, Exception $driverException=null, Exception $previous = null
-
-
-        /**
-         * @todo find the original driver cause
-         */
-
         $cause = $message;
         // Public message, mask any login/passwords
         $message = preg_replace('/user=([^&\ ]+)|password=([^&\ ]+)/', '****', $message);
@@ -76,7 +70,17 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
         if ($result instanceof \Soluble\Japha\Bridge\Exception\JavaExceptionInterface) {
             $driverException = $result;
         }
-        $e = new $cls($message, $cause, $stackTrace, $code, $driverException, null);
+
+        // Getting original class name from cause
+        preg_match('/Cause: ([^:]+):/', $message, $matches);
+        if (count($matches) > 1) {
+            $javaExceptionClass = $matches[1];
+        } else {
+            $javaExceptionClass = 'unkwown';
+        }
+
+        $e = new $cls($message, $cause, $stackTrace,
+                      $javaExceptionClass, $code, $driverException, null);
         return $e;
     }
 }

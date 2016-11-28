@@ -49,6 +49,9 @@ class DriverManager
         $class = $this->ba->javaClass("java.lang.Class");
         try {
             $class->forName($driverClass);
+        } catch (Exception\ClassNotFoundException $e) {
+            throw $e;
+
         } catch (\Exception $e) {
             // Here testing class not found error
             $message = "Class not found '$driverClass' exception";

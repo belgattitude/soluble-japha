@@ -6,7 +6,8 @@
 
 - Support for `getClassName()` in Adapter, Close [#30](https://github.com/belgattitude/soluble-japha/issues/30)
 - Support for `invoke()` method in DriverInterface. Close [28](https://github.com/belgattitude/soluble-japha/issues/28)
-- Support for `getClassName()` and `inspect()` methods in DriverInterface. Close [#29](https://github.com/belgattitude/soluble-japha/issues/29)  
+- Support for `getClassName()` and `inspect()` methods in DriverInterface. Close [#29](https://github.com/belgattitude/soluble-japha/issues/29)
+- Added `JavaException::getJavaClassName()` method to improve exception handling. Close [31](https://github.com/belgattitude/soluble-japha/issues/31)  
 
 ### Changed
 
