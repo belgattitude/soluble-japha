@@ -12,7 +12,7 @@ use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 use Soluble\Japha\Bridge\Exception as BridgeException;
 
 $options = [
-    'driver' => 'Pjb62', 
+    'driver' => 'Pjb62',  
     'servlet_address' => 'localhost:8089/servlet.phpjavabridge'
 ];
 
@@ -29,7 +29,6 @@ try {
 ```
 
 ### Parameters 
-
 
 #### Connection parameters
 
@@ -52,7 +51,7 @@ Optionally you can send any PSR-3 logger as the second parameter, for example wi
 <?php
 
 //...
-
+use Soluble\Japha\Bridge\Exception;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
@@ -68,7 +67,7 @@ try {
 
     $ba = new BridgeAdapter($options, $logger);
     
-} catch (BridgeException\ConnectionException $e) {
+} catch (Exception\ConnectionException $e) {
   
     // The error has been logged in your log file, check for
     // "[soluble-japha] Cannot connect to php-java-bridge server (...)"
