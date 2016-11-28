@@ -49,15 +49,18 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
 
     public function testGetServlet()
     {
-        $context = $this->driver->getJavaContext();
+        // The servlet context allows to call
+        // methods present in on the servlet side
+        // Check issue https://github.com/belgattitude/soluble-japha/issues/26
+        // for more information
 
+        $context = $this->driver->getJavaContext();
         try {
             $servletContext = $context->getServlet();
         } catch (JavaException $e) {
             $msg = $e->getMessage();
             if ($e->getJavaClassName() == 'java.lang.IllegalStateException' &&
                 preg_match('/PHP not running in a servlet environment/', $msg)) {
-
                 // Basically mark this test as skipped as the test
                 // was made on the standalone server
                 $this->markTestIncomplete('Retrieval of servlet context is not supported with the standalone server');
@@ -67,5 +70,6 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
             }
         }
         $this->assertInstanceOf(JavaObject::class, $servletContext);
+
     }
 }
