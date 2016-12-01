@@ -53,7 +53,7 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
         // Check issue https://github.com/belgattitude/soluble-japha/issues/26
         // for more information
 
-        $context = $this->driver->getJavaContext();
+        $context = $this->driver->getContext();
         try {
             $servletContext = $context->getServlet();
         } catch (JavaException $e) {

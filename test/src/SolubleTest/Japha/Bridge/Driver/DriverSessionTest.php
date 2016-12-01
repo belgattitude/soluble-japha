@@ -3,11 +3,10 @@
 namespace SolubleTest\Japha\Bridge;
 
 use Soluble\Japha\Bridge\Adapter;
-use Soluble\Japha\Bridge\Driver\ClientInterface;
 use Soluble\Japha\Bridge\Driver\DriverInterface;
 use Soluble\Japha\Interfaces\JavaObject;
 
-class DriverContextTest extends \PHPUnit_Framework_TestCase
+class DriverSessionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      *
@@ -35,6 +34,7 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
             'servlet_address' => $this->servlet_address,
         ]);
         $this->driver = $this->adapter->getDriver();
+        //$this->markTestSkipped('Not yet implemented');
     }
 
     /**
@@ -45,15 +45,22 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    public function testGetClient()
+
+
+    public function testJavaSessionType()
     {
-        $client = $this->driver->getClient();
-        $this->assertInstanceOf(ClientInterface::class, $client);
+        $session = $this->driver->getJavaSession();
+        $this->assertInstanceOf(JavaObject::class, $session);
     }
 
-    public function testContext()
+    public function testJavaSession()
     {
-        $context = $this->driver->getContext();
-        $this->assertInstanceOf(JavaObject::class, $context);
+        $session = $this->adapter->getDriver()->getJavaSession();
+        $counter = $session->get('counter');
+        if ($this->adapter->isNull($counter)) {
+            $session->put('counter', 1);
+        } else {
+            $session->put('counter', $counter + 1);
+        }
     }
 }

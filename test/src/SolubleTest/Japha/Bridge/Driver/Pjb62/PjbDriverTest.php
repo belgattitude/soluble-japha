@@ -60,7 +60,7 @@ class Pjb62DriverTest extends \PHPUnit_Framework_TestCase
 
     public function testJavaContext()
     {
-        $context = $this->adapter->getDriver()->getJavaContext();
+        $context = $this->adapter->getDriver()->getContext();
         $this->assertInstanceOf(JavaObject::class, $context);
         $this->assertInstanceOf(InternalJava::class, $context);
 

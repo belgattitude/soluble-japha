@@ -6,7 +6,9 @@ if (!$loader = @include __DIR__ . '/../vendor/autoload.php') {
             'php composer.phar install' . PHP_EOL);
 }
 
+ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL | E_STRICT);
+
 if (defined('HHVM_VERSION')) {
     ini_set('memory_limit', '640M');
 } else {

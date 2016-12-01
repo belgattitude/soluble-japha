@@ -37,6 +37,7 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use ArrayObject;
+use Soluble\Japha\Interfaces\JavaObject;
 
 class Client
 {
@@ -666,10 +667,80 @@ class Client
         }
     }
 
+
     /**
-     * Return Context
-     * @return \Soluble\Japha\Interfaces\JavaObject
+     * Returns the jsr223 script context handle.
+     *
+     * Exposes the bindings from the ENGINE_SCOPE to PHP scripts. Values
+     * set with engine.set("key", val) can be fetched from PHP with
+     * java_context()->get("key"). Values set with
+     * java_context()->put("key", java_closure($val)) can be fetched from
+     * Java with engine.get("key"). The get/put methods are convenience shortcuts for getAttribute/setAttribute. Example:
+     * <code>
+     * engine.put("key1", 2);
+     * engine.eval("<?php java_context()->put("key2", 1+(int)(string)java_context()->get('key1'));?>");
+     * System.out.println(engine.get("key2"));
+     *</code>
+     *
+     * A synchronized init() procedure can be called from the context to initialize a library once, and a shutdown hook can be registered to destroy the library before the (web-) context is destroyed. The init hook can be written in PHP, but the shutdown hook must be written in Java. Example:
+     * <code>
+     * function getShutdownHook() { return java("myJavaHelper")->getShutdownHook(); }
+     * function call() { // called by init()
+     *   ...
+     *   // register shutdown hook
+     *   java_context()->onShutdown(getShutdownHook());
+     * }
+     * java_context()->init(java_closure(null, null, java("java.util.concurrent.Callable")));
+     * </code>
+     *
+     * It is possible to access implicit web objects (the session, the
+     * application store etc.) from the context. Example:
+     * <code>
+     * $req = $ctx->getHttpServletRequest();
+     * $res = $ctx->getHttpServletResponse();
+     * $servlet = $ctx->getServlet();
+     * $config = $ctx->getServletConfig();
+     * $context = $ctx->getServletContext();
+     * </code>
+     *
+     * The global bindings (shared with all available script engines) are
+     * available from the GLOBAL_SCOPE, the script engine bindings are
+     * available from the ENGINE_SCOPE. Example
+     *
+     * <code>
+     * define ("ENGINE_SCOPE", 100);
+     * define ("GLOBAL_SCOPE", 200);
+     * echo java_context()->getBindings(ENGINE_SCOPE)->keySet();
+     * echo java_context()->getBindings(GLOBAL_SCOPE)->keySet();
+     * </code>
+     *
+     * Furthermore the context exposes the java continuation to PHP scripts.
+     * Example which closes over the current environment and passes it back to java:
+     * <code>
+     * define ("ENGINE_SCOPE", 100);
+     * $ctx = java_context();
+     * if(java_is_false($ctx->call(java_closure()))) die "Script should be called from java";
+     * </code>
+     *
+     * A second example which shows how to invoke PHP methods without the JSR 223 getInterface() and invokeMethod()
+     * helper procedures. The Java code can fetch the current PHP continuation from the context using the key "php.java.bridge.PhpProcedure":
+     * <code>
+     * String s = "<?php class Runnable { function run() {...} };
+     *            // example which captures an environment and
+     *            // passes it as a continuation back to Java
+     *            $Runnable = java('java.lang.Runnable');
+     *            java_context()->call(java_closure(new Runnable(), null, $Runnable));
+     *            ?>";
+     * ScriptEngine e = new ScriptEngineManager().getEngineByName("php-invocable");
+     * e.eval (s);
+     * Thread t = new Thread((Runnable)e.get("php.java.bridge.PhpProcedure"));
+     * t.join ();
+     * ((Closeable)e).close ();
+     * </code>
+     *
+     * @return JavaObject
      */
+
     public function getContext()
     {
         if ($this->cachedValues['getContext'] === null) {
@@ -678,10 +749,84 @@ class Client
         return $this->cachedValues['getContext'];
     }
 
-    public function getSession($args)
+
+    /**
+     * Return a java (servlet) session handle.
+     *
+     * When getJavaSession() is called without
+     * arguments, the session is shared with java.
+     * Example:
+     * <code>
+     * $driver->getJavaSession()->put("key", new Java("java.lang.Object"));
+     * [...]
+     * </code>
+     * The java components (jsp, servlets) can retrieve the value, for
+     * example with:
+     * <code>
+     * getSession().getAttribute("key");
+     * </code>
+     *
+     * When java_session() is called with a session name, the session
+     * is not shared with java and no cookies are set. Example:
+     * <code>
+     * $driver->getJavaSession("myPublicApplicationStore")->put("key", "value");
+     * </code>
+     *
+     * When java_session() is called with a second argument set to true,
+     * a new session is allocated, the old session is destroyed if necessary.
+     * Example:
+     * <code>
+     * $driver->getJavaSession(null, true)->put("key", "val");
+     * </code>
+     *
+     * The optional third argument specifies the default lifetime of the session, it defaults to <code> session.gc_maxlifetime </code>. The value 0 means that the session never times out.
+     *
+     * The synchronized init() and onShutdown() callbacks from
+     * java_context() and the JPersistenceAdapter (see
+     * JPersistenceAdapter.php from the php_java_lib directory) may also
+     * be useful to load a Java singleton object after the JavaBridge
+     * library has been initialized, and to store it right before the web
+     * context or the entire JVM will be terminated.
+     *
+     * @param array $args
+     *
+     * @return JavaObject
+     */
+    public function getSession(array $args=[])
     {
+        if (!isset($args[0])) {
+            $args[0]=null;
+        }
+
+        if (!isset($args[1])) {
+            $args[1]=0;
+        } // ISession.SESSION_GET_OR_CREATE
+        elseif ($args[1]===true) {
+            $args[1]=1;
+        } // ISession.SESSION_CREATE_NEW
+        else {
+            $args[1]=2;
+        } // ISession.SESSION_GET
+
+        if (!isset($args[2])) {
+            $args[2] = $this->getJavaLifetime();
+        }
+
         return $this->invokeMethod(0, "getSession", $args);
     }
+
+    /**
+     * Return lifetime
+     * @return int
+     */
+    protected function getJavaLifetime()
+    {
+        $session_max_lifetime=ini_get("session.gc_maxlifetime");
+        return $session_max_lifetime ? (int)$session_max_lifetime : 1440;
+    }
+
+
+
 
     /**
      * @return string

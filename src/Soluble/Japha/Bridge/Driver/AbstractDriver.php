@@ -59,10 +59,34 @@ abstract class AbstractDriver implements DriverInterface
 
 
     /**
-     * Return Java context
+     * Return Java servlet context
+     *
+     * <code>
+     *
+     * </code>
+     *
      * @return Interfaces\JavaObject
      */
-    abstract public function getJavaContext();
+    abstract public function getContext();
+
+
+    /**
+     * Return java servlet session
+     *
+     * <code>
+     * $session = $adapter->getDriver()->getJavaSession();
+     * $counter = $session->get('counter');
+     * if ($adapter->isNull($counter)) {
+     *    $session->put('counter', 1);
+     * } else {
+     *    $session->put('counter', $counter + 1);
+     * }
+     * </code>
+     *
+     * @param array $args
+     * @return Interfaces\JavaObject
+     */
+    abstract public function getJavaSession(array $args=[]);
 
 
     /**

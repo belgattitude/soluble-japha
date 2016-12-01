@@ -115,13 +115,35 @@ class Pjb62Driver extends AbstractDriver
     }
 
     /**
-     * Return Java context
-     * @return Interfaces\JavaObject
+     * @inheritdoc
      */
-    public function getJavaContext()
+    public function getContext()
     {
         return $this->pjbProxyClient->getClient()->getContext();
     }
+
+
+    /**
+     * Return java servlet session
+     *
+     * <code>
+     * $session = $adapter->getDriver()->getJavaSession();
+     * $counter = $session->get('counter');
+     * if ($adapter->isNull($counter)) {
+     *    $session->put('counter', 1);
+     * } else {
+     *    $session->put('counter', $counter + 1);
+     * }
+     * </code>
+     *
+     * @param array $args
+     * @return Interfaces\JavaObject
+     */
+    public function getJavaSession(array $args=[])
+    {
+        return $this->pjbProxyClient->getClient()->getSession();
+    }
+
 
     /**
      * Inspect the class internals
