@@ -11,7 +11,7 @@
 
 **soluble-japha** provides a client to write Java code transparently in regular PHP. 
 
-*Originally based on the robust and mature [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) project, 
+*Originally based on the robust and mature [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) project, 
 soluble-japha leverage the initial client implementation by offering a refactored and modern 
 approach while preserving compatibility with the server.* 
  
