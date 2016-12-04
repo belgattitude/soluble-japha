@@ -1,4 +1,7 @@
 language: php
+sudo: required
+dist: trusty
+group: edge
 
 matrix:
   include:
@@ -9,7 +12,7 @@ matrix:
         - SEND_COVERAGE=true
     - php: 7
     - php: 7.1
-    - php: hhvm 
+    - php: hhvm-3.9
                     
 before_script:
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
