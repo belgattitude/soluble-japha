@@ -88,12 +88,12 @@ class Adapter
      * </code>
      *
      * @param string $class Java class name (FQDN)
-     * @param mixed|null $args,... arguments passed to the constructor of the java object
+     * @param mixed|null ...$args arguments passed to the constructor of the java object
      *
      * @throws \Soluble\Japha\Bridge\Exception\JavaException
      * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
      *
-     * @see Adapter\javaClass($class) for information about classes
+     * @see Adapter::javaClass($class) for information about classes
      *
      * @return Interfaces\JavaObject
      */
@@ -102,8 +102,11 @@ class Adapter
         // @todo when minimum is php5.6+ use variadic notation
         // instead in the method signature
         // function java($class, ...$args)
-        $args = func_get_args();
-        return $this->driver->instanciate($args);
+        if ($args !== null) {
+            $func_args = func_get_args();
+            return $this->driver->instanciate($func_args);
+        }
+        return $this->driver->instanciate($class);
     }
 
     /**

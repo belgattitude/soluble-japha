@@ -3,6 +3,7 @@ composer.lock
 .DS_Store
 .idea
 .project
+.php_cs.cache
 .settings/
 .*.sw*
 .*.un~

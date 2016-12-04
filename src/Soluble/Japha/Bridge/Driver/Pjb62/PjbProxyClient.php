@@ -55,7 +55,7 @@ class PjbProxyClient implements ClientInterface
 
     /**
      *
-     * @var array|null
+     * @var array
      */
     public $options;
 
