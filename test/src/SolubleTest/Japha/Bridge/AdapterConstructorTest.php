@@ -10,13 +10,11 @@ use Soluble\Japha\Bridge\Adapter;
 class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
      * @var string
      */
     protected $servlet_address;
 
     /**
-     *
      * @var Adapter
      */
     protected $adapter;
@@ -65,6 +63,7 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
             'servlet_address' => 'an invalid url'
         ]);
     }
+
 /*
     public function testConstructorSetsDefaultTimeZone()
     {
@@ -86,7 +85,6 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
             'servlet_address' => $this->servlet_address,
             'java_default_timezone' => 'Europe/London'
         ]);
-
 
         $javaTz = $ba->getSystem()->getTimeZoneId();
         $this->assertEquals('Europe/London', $javaTz);

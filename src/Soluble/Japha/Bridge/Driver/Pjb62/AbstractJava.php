@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -33,9 +34,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- *
- * Magical methods
- *
  * @method string getName()
  * @method string forName()
  */
@@ -47,13 +45,11 @@ use Soluble\Japha\Interfaces;
 abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaType, Interfaces\JavaObject
 {
     /**
-     *
      * @var Client
      */
     public $__client;
 
     /**
-     *
      * @var IteratorProxy
      */
     public $__delegate;
@@ -61,13 +57,11 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     public $__factory;
 
     /**
-     *
      * @var int
      */
     public $__java;
     public $__signature;
     public $__cancelProxyCreationTag;
-
 
     public function __createDelegate()
     {
@@ -79,6 +73,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
 
     /**
      * @param string $type
+     *
      * @return mixed
      */
     public function __cast($type)
@@ -86,6 +81,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
+
         return $this->__delegate->__cast($type);
     }
 
@@ -95,7 +91,8 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
             $this->__createDelegate();
         }
         $this->__delegate->__sleep();
-        return ["__delegate"];
+
+        return ['__delegate'];
     }
 
     public function __wakeup()
@@ -113,6 +110,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
+
         return $this->__delegate->__get($key);
     }
 
@@ -129,12 +127,11 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
+
         return $this->__delegate->__call($method, $args);
     }
 
-
     /**
-     *
      * @return ObjectIterator
      */
     public function getIterator()
@@ -146,13 +143,14 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
             return $this->__delegate->getIterator();
         }
         $args = func_get_args();
-        return $this->__call("getIterator", $args);
+
+        return $this->__call('getIterator', $args);
     }
 
     /**
+     * @param string|int $idx
      *
-     * @param string|integer $idx
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($idx)
     {
@@ -163,12 +161,13 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
             return $this->__delegate->offsetExists($idx);
         }
         $args = func_get_args();
-        return $this->__call("offsetExists", $args);
+
+        return $this->__call('offsetExists', $args);
     }
 
     /**
+     * @param string|int $idx
      *
-     * @param string|integer $idx
      * @return mixed
      */
     public function offsetGet($idx)
@@ -180,13 +179,14 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
             return $this->__delegate->offsetGet($idx);
         }
         $args = func_get_args();
-        return $this->__call("offsetGet", $args);
+
+        return $this->__call('offsetGet', $args);
     }
 
     /**
+     * @param string|int $idx
+     * @param mixed      $val
      *
-     * @param string|integer $idx
-     * @param mixed $val
      * @return mixed
      */
     public function offsetSet($idx, $val)
@@ -198,9 +198,9 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
             return $this->__delegate->offsetSet($idx, $val);
         }
         $args = func_get_args();
-        return $this->__call("offsetSet", $args);
-    }
 
+        return $this->__call('offsetSet', $args);
+    }
 
     public function offsetUnset($idx)
     {
@@ -211,11 +211,12 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
             return $this->__delegate->offsetUnset($idx);
         }
         $args = func_get_args();
-        return $this->__call("offsetUnset", $args);
+
+        return $this->__call('offsetUnset', $args);
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function get__java()
     {
@@ -223,7 +224,8 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
 
     /**
-     * Return java object id
+     * Return java object id.
+     *
      * @return int
      */
     public function __getJavaInternalObjectId()
@@ -240,7 +242,6 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
 
     /**
-     *
      * @return string
      */
     public function __toString()
@@ -248,13 +249,14 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
+
         return $this->__delegate->__toString();
     }
-
 
     /**
      * Returns the runtime class of this Object.
      * The returned Class object is the object that is locked by static synchronized methods of the represented class.
+     *
      * @return Interfaces\JavaObject Java(java.lang.Object)
      */
     public function getClass()

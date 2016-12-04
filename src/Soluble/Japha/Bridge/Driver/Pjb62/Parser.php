@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -32,32 +33,30 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class Parser
 {
     /**
-     *
      * @var ParserInterface
      */
     public $parser;
 
     /**
-     *
      * @param Client $handler
      */
     public function __construct(Client $handler)
     {
-        if (defined('HHVM_VERSION') || !function_exists("xml_parser_create")) {
+        if (defined('HHVM_VERSION') || !function_exists('xml_parser_create')) {
             // Later on maybe a version_compare(HHVM_VERSION, '3.8.0', '<')
             // xml_parser bugs in hhvm at least version 3.7.0
             $this->parser = new SimpleParser($handler);
-            $handler->RUNTIME["PARSER"] = "SIMPLE";
+            $handler->RUNTIME['PARSER'] = 'SIMPLE';
         } else {
             $this->parser = new NativeParser($handler);
-            $handler->RUNTIME["PARSER"] = "NATIVE";
+            $handler->RUNTIME['PARSER'] = 'NATIVE';
         }
     }
 

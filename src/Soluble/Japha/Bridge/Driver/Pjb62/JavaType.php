@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -32,8 +33,8 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Interfaces;
@@ -41,13 +42,15 @@ use Soluble\Japha\Interfaces;
 interface JavaType extends Interfaces\JavaType
 {
     /**
-     * Return object id
+     * Return object id.
+     *
      * @return int
      */
     public function get__java();
 
     /**
-     * Return java object id
+     * Return java object id.
+     *
      * @return int
      */
     public function __getJavaInternalObjectId();
@@ -58,8 +61,8 @@ interface JavaType extends Interfaces\JavaType
     public function get__signature();
 
     /**
-     *
      * @param mixed $key
+     *
      * @return mixed
      */
     public function __get($key);
@@ -72,10 +75,9 @@ interface JavaType extends Interfaces\JavaType
 
     /**
      * @param string $method
-     * @param array $args
+     * @param array  $args
      */
     public function __call($method, $args);
-
 
     public function __cast($type);
 
@@ -84,7 +86,6 @@ interface JavaType extends Interfaces\JavaType
     public function __wakeup();
 
     /**
-     *
      * @return string
      */
     public function __toString();

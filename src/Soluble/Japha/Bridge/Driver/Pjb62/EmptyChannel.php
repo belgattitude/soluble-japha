@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -32,8 +33,8 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Exception;
@@ -41,7 +42,6 @@ use Soluble\Japha\Bridge\Exception;
 class EmptyChannel
 {
     /**
-     *
      * @var SocketHandler
      */
     protected $handler;
@@ -49,22 +49,19 @@ class EmptyChannel
     private $res;
 
     /**
-     *
      * @var int
      */
     protected $recv_size;
 
     /**
-     *
      * @var int
      */
     protected $send_size;
 
     /**
-     *
      * @param SocketHandler $handler
-     * @param int $recv_size
-     * @param int $send_size
+     * @param int           $recv_size
+     * @param int           $send_size
      */
     public function __construct(SocketHandler $handler, $recv_size, $send_size)
     {
@@ -88,12 +85,12 @@ class EmptyChannel
 
     public function getKeepAliveA()
     {
-        return "<F p=\"A\" />";
+        return '<F p="A" />';
     }
 
     public function getKeepAliveE()
     {
-        return "<F p=\"E\" />";
+        return '<F p="E" />';
     }
 
     public function getKeepAlive()
@@ -103,7 +100,7 @@ class EmptyChannel
 
     public function error()
     {
-        $msg = "An unchecked exception occured during script execution. Please check the server log files for details.";
+        $msg = 'An unchecked exception occured during script execution. Please check the server log files for details.';
         throw new Exception\RuntimeException($msg);
     }
 
@@ -134,7 +131,7 @@ class EmptyChannel
     public function keepAliveSC()
     {
         $this->res = $this->fread(10);
-        $this->fwrite("");
+        $this->fwrite('');
         $this->fread($this->recv_size);
     }
 

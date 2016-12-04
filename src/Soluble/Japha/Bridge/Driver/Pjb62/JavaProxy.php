@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -32,40 +33,35 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
- *
  */
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 /**
- * Some annotations for java.lang.Object
+ * Some annotations for java.lang.Object.
+ *
  * @see http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  *
  * @method JavaClass getClass() return object class name
- * @method boolean equals(JavaObject $object)
+ * @method bool equals(JavaObject $object)
  * @method string toString()
  */
-
 class JavaProxy implements JavaType
 {
     public $__serialID;
     /**
-     *
      * @var int
      */
     public $__java;
     public $__signature;
     /**
-     *
      * @var Client
      */
     public $__client;
     public $__tempGlobalRef;
 
     /**
-     *
-     * @param int $java
+     * @param int    $java
      * @param string $signature
      */
     public function __construct($java, $signature)
@@ -83,9 +79,10 @@ class JavaProxy implements JavaType
     public function __sleep()
     {
         $args = [$this, java_get_lifetime()];
-        $this->__serialID = $this->__client->invokeMethod(0, "serialize", $args);
+        $this->__serialID = $this->__client->invokeMethod(0, 'serialize', $args);
         $this->__tempGlobalRef = $this->__client->globalRef;
-        return ["__serialID", "__tempGlobalRef"];
+
+        return ['__serialID', '__tempGlobalRef'];
     }
 
     public function __wakeup()
@@ -96,7 +93,7 @@ class JavaProxy implements JavaType
             $this->__client->globalRef = $this->__tempGlobalRef;
         }
         $this->__tempGlobalRef = null;
-        $this->__java = $this->__client->invokeMethod(0, "deserialize", $args);
+        $this->__java = $this->__client->invokeMethod(0, 'deserialize', $args);
     }
 
     public function __destruct()
@@ -124,10 +121,11 @@ class JavaProxy implements JavaType
     public function __toString()
     {
         try {
-            return $this->__client->invokeMethod(0, "ObjectToString", [$this]);
+            return $this->__client->invokeMethod(0, 'ObjectToString', [$this]);
         } catch (Exception\JavaException $ex) {
-            trigger_error("Exception in Java::__toString(): " . java_truncate((string) $ex), E_USER_WARNING);
-            return "";
+            trigger_error('Exception in Java::__toString(): ' . java_truncate((string) $ex), E_USER_WARNING);
+
+            return '';
         }
     }
 
@@ -140,14 +138,14 @@ class JavaProxy implements JavaType
     }
 
     /**
-     * Return java object id
+     * Return java object id.
+     *
      * @return int
      */
     public function __getJavaInternalObjectId()
     {
         return $this->__java;
     }
-
 
     /**
      * @return string

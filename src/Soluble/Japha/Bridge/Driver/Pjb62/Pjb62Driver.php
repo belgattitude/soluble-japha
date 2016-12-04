@@ -11,12 +11,11 @@ use Soluble\Japha\Bridge\Exception;
 class Pjb62Driver extends AbstractDriver
 {
     /**
-     * @var boolean
+     * @var bool
      */
     protected $connected = false;
 
     /**
-     *
      * @var PjbProxyClient
      */
     protected $pjbProxyClient;
@@ -27,8 +26,7 @@ class Pjb62Driver extends AbstractDriver
     protected $logger;
 
     /**
-     *
-     * Constructor
+     * Constructor.
      *
      * <code>
      *
@@ -40,13 +38,13 @@ class Pjb62Driver extends AbstractDriver
      *
      * </code>
      *
-     * @param array $options
+     * @param array           $options
      * @param LoggerInterface $logger
+     *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ConnectionException
      */
-
-    public function __construct(array $options, LoggerInterface $logger=null)
+    public function __construct(array $options, LoggerInterface $logger = null)
     {
         if ($logger === null) {
             $logger = new NullLogger();
@@ -62,7 +60,7 @@ class Pjb62Driver extends AbstractDriver
             $this->logger->critical("[soluble-japha] $msg (" . $e->getMessage() . ')');
             throw $e;
         } catch (Exception\InvalidArgumentException $e) {
-            $msg = "Invalid arguments, cannot initiate connection to java-bridge.";
+            $msg = 'Invalid arguments, cannot initiate connection to java-bridge.';
             $this->logger->error("[soluble-japha] $msg (" . $e->getMessage() . ')');
             throw $e;
         } catch (\Exception $e) {
@@ -71,7 +69,8 @@ class Pjb62Driver extends AbstractDriver
     }
 
     /**
-     * Return underlying bridge client
+     * Return underlying bridge client.
+     *
      * @return PjbProxyClient
      */
     public function getClient()
@@ -103,6 +102,7 @@ class Pjb62Driver extends AbstractDriver
         if ($args === null) {
             return new Java($class_name);
         }
+
         return new Java($class_name, $args);
     }
 
@@ -115,16 +115,15 @@ class Pjb62Driver extends AbstractDriver
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getContext()
     {
         return $this->pjbProxyClient->getClient()->getContext();
     }
 
-
     /**
-     * Return java servlet session
+     * Return java servlet session.
      *
      * <code>
      * $session = $adapter->getDriver()->getJavaSession();
@@ -137,18 +136,19 @@ class Pjb62Driver extends AbstractDriver
      * </code>
      *
      * @param array $args
+     *
      * @return Interfaces\JavaObject
      */
-    public function getJavaSession(array $args=[])
+    public function getJavaSession(array $args = [])
     {
         return $this->pjbProxyClient->getClient()->getSession();
     }
 
-
     /**
-     * Inspect the class internals
+     * Inspect the class internals.
      *
      * @param Interfaces\JavaObject $javaObject
+     *
      * @return string
      */
     public function inspect(Interfaces\JavaObject $javaObject)
@@ -173,10 +173,11 @@ class Pjb62Driver extends AbstractDriver
     }
 
     /**
-     * Return java bridge header
+     * Return java bridge header.
      *
      * @param string $name
-     * @param array $array
+     * @param array  $array
+     *
      * @return string|void
      */
     public static function getJavaBridgeHeader($name, array $array)
@@ -188,15 +189,16 @@ class Pjb62Driver extends AbstractDriver
         if (array_key_exists($name, $array)) {
             return $array[$name];
         }
+
         return;
     }
 
-
     /**
-     * Cast internal objects to a new type
-     * 
+     * Cast internal objects to a new type.
+     *
      * @param Interfaces\JavaObject|JavaType $javaObject
      * @param $cast_type
+     *
      * @return mixed
      */
     public static function castPjbInternal($javaObject, $cast_type)
@@ -207,10 +209,10 @@ class Pjb62Driver extends AbstractDriver
                 case 'S':
                     return (string) $javaObject;
                 case 'B':
-                    return (boolean) $javaObject;
+                    return (bool) $javaObject;
                 case 'L':
                 case 'I':
-                    return (integer) $javaObject;
+                    return (int) $javaObject;
                 case 'D':
                 case 'F':
                     return (float) $javaObject;
@@ -245,10 +247,10 @@ class Pjb62Driver extends AbstractDriver
             case 'S':
                 return (string) $javaObject;
             case 'B':
-                return (boolean) $javaObject;
+                return (bool) $javaObject;
             case 'L':
             case 'I':
-                return (integer) $javaObject;
+                return (int) $javaObject;
             case 'D':
             case 'F':
                 return (float) $javaObject;
@@ -264,10 +266,12 @@ class Pjb62Driver extends AbstractDriver
     }
 
     /**
-     * Return object java class name
+     * Return object java class name.
      *
      * @throw Exception\UnexpectedException
+     *
      * @param Interfaces\JavaObject $javaObject
+     *
      * @return string
      */
     public function getClassName(Interfaces\JavaObject $javaObject)
@@ -277,8 +281,9 @@ class Pjb62Driver extends AbstractDriver
         $matches = [];
         preg_match('/^\[class (.+)\:/', $inspect, $matches);
         if (!isset($matches[1]) || $matches[1] == '') {
-            throw new Exception\UnexpectedException(__METHOD__ . " Cannot determine class name");
+            throw new Exception\UnexpectedException(__METHOD__ . ' Cannot determine class name');
         }
+
         return $matches[1];
     }
 }

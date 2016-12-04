@@ -8,40 +8,38 @@ use DateTimeZone;
 
 class TimeZone
 {
-
     /**
-     * Whether to activate TimeZone local cache
-     * @var boolean
+     * Whether to activate TimeZone local cache.
+     *
+     * @var bool
      */
     protected static $enableTzCache = true;
 
     /**
-     *
      * @var Bridge\Adapter;
      */
     protected $ba;
 
     /**
-     * Cache for availableTz
+     * Cache for availableTz.
+     *
      * @var array
      */
     protected $availableTz;
 
     /**
-     * Cache for default TimeZone
+     * Cache for default TimeZone.
+     *
      * @var Interfaces\JavaObject Java(java.util.Timezone)
      */
     protected static $defaultTz;
 
-
     /**
-     *
      * @var Interfaces\JavaClass Java(java.util.Timezone)
      */
     protected $timeZoneClass;
 
     /**
-     *
      * @param Bridge\Adapter $ba
      */
     public function __construct(Bridge\Adapter $ba)
@@ -51,7 +49,8 @@ class TimeZone
     }
 
     /**
-     * Return java available timezone ids
+     * Return java available timezone ids.
+     *
      * @return array
      */
     public function getAvailableIDs()
@@ -63,11 +62,12 @@ class TimeZone
                 $this->availableTz[] = $id;
             }
         }
+
         return $this->availableTz;
     }
 
     /**
-     * Return default jvm TimeZone
+     * Return default jvm TimeZone.
      *
      * If TimeZone::enableTzCache() is active (by default),
      * the default JVM timezone object will be locally cached on the
@@ -82,7 +82,7 @@ class TimeZone
      * or simply call this method with $enableTzCache=false
      *
      *
-     * @param boolean $enableTzCache enable local caching of default timezone
+     * @param bool $enableTzCache enable local caching of default timezone
      *
      * @return Interfaces\JavaObject Java(java.util.TimeZone)
      */
@@ -92,17 +92,18 @@ class TimeZone
         if (!$enableCache || self::$defaultTz === null) {
             self::$defaultTz = $this->timeZoneClass->getDefault();
         }
+
         return self::$defaultTz;
     }
 
-
     /**
-     * Create a Java(java.util.TimeZone) object from id
+     * Create a Java(java.util.TimeZone) object from id.
      *
      * @throws Exception\UnsupportedTzException
      * @throws \Soluble\Japha\Bridge\Exception\JavaException
      *
      * @param string|DateTimeZone $id string identifier or php DateTimeZone
+     *
      * @return Interfaces\JavaObject Java('java.util.TimeZone')
      */
     public function getTimeZone($id)
@@ -116,14 +117,16 @@ class TimeZone
             $msg = "The timezone id '$id' could not be understood by JVM (JVM returned defaulted to GMT)";
             throw new Exception\UnsupportedTzException($msg);
         }
+
         return $tz;
     }
 
     /**
-     * Set default JVM/servlet timezone
+     * Set default JVM/servlet timezone.
      *
      * @throws \Soluble\Japha\Bridge\Exception\JavaException
      * @throws Exception\UnsupportedTzException
+     *
      * @param string|Interfaces\JavaObject|DateTimeZone $timeZone timezone id, Java(java.util.Timezone) or php DateTimeZone
      */
     public function setDefault($timeZone)
@@ -134,9 +137,8 @@ class TimeZone
         self::$defaultTz = $timeZone;
     }
 
-
     /**
-     * Enable local timezone cache
+     * Enable local timezone cache.
      *
      * TimeZone::enableTzCache() enable local object caching
      * for defaultTimezone
@@ -155,7 +157,7 @@ class TimeZone
     }
 
     /**
-     * Disable local timezone cache
+     * Disable local timezone cache.
      *
      * TimeZone::disbaleTzCache() disable local object caching
      * for defaultTimezone

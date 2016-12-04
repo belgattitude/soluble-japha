@@ -18,7 +18,6 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
     protected $adapter;
 
     /**
-     *
      * @var DriverManager
      */
     protected $driverManager;
@@ -46,10 +45,9 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
 
     protected function isJdbcTestsEnabled()
     {
-        return (isset($_SERVER['JAPHA_ENABLE_JDBC_TESTS']) &&
-            $_SERVER['JAPHA_ENABLE_JDBC_TESTS'] == true);
+        return isset($_SERVER['JAPHA_ENABLE_JDBC_TESTS']) &&
+            $_SERVER['JAPHA_ENABLE_JDBC_TESTS'] == true;
     }
-
 
     /**
      * Tears down the fixture, for example, closes a network connection.
@@ -67,7 +65,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         $host = $config['hostname'];
         $db = $config['database'];
         $user = $config['username'];
-        $password = $config["password"];
+        $password = $config['password'];
         $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
         $conn = $this->driverManager->createConnection($dsn, 'com.nuvolia.jdbc.JDBC4Connection');
     }
@@ -80,7 +78,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         $host = $config['hostname'];
         $db = $config['database'];
         $user = $config['username'];
-        $password = $config["password"];
+        $password = $config['password'];
         $dsn = "jdbc:invaliddbdriver://$host/$db?user=$user&password=$password";
         $conn = $this->driverManager->createConnection($dsn, 'com.mysql.jdbc.Driver');
     }
@@ -88,7 +86,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
     public function testCreateConnectionThrowsInvalidArgumentException()
     {
         $this->setExpectedException('Soluble\Japha\Bridge\Exception\InvalidArgumentException');
-        $dsn = "";
+        $dsn = '';
         $conn = $this->driverManager->createConnection($dsn, 'com.nuvolia.jdbc.JDBC4Connection');
     }
 
@@ -107,13 +105,12 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            $this->assertFalse(true, "Cannot connect: " . $e->getMessage());
+            $this->assertFalse(true, 'Cannot connect: ' . $e->getMessage());
         }
         $className = $this->adapter->getDriver()->getClassName($conn);
         $this->assertEquals('com.mysql.jdbc.JDBC4Connection', $className);
         $conn->close();
     }
-
 
     public function testStatement()
     {
@@ -121,13 +118,13 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            $this->assertFalse(true, "Cannot connect: " . $e->getMessage());
+            $this->assertFalse(true, 'Cannot connect: ' . $e->getMessage());
         }
 
         $stmt = $conn->createStatement();
         $rs = $stmt->executeQuery('select * from product_category_translation limit 100');
         while ($rs->next()) {
-            $category_id = $rs->getString("category_id");
+            $category_id = $rs->getString('category_id');
             $this->assertTrue(is_numeric($category_id->__toString()));
         }
         $ba = $this->adapter;
@@ -146,8 +143,9 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         $host = $config['hostname'];
         $db = $config['database'];
         $user = $config['username'];
-        $password = $config["password"];
+        $password = $config['password'];
         $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
+
         return $dsn;
     }
 }

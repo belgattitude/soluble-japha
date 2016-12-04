@@ -7,24 +7,19 @@ use Exception;
 class JavaException extends Exception implements JavaExceptionInterface
 {
     /**
-     *
      * @var string
      */
     protected $javaClassName;
 
-
     /**
-     *
      * @var string
      */
     protected $cause;
 
     /**
-     *
      * @var string
      */
     protected $stackTrace;
-
 
     /**
      * @var Exception
@@ -32,13 +27,13 @@ class JavaException extends Exception implements JavaExceptionInterface
     protected $driverException;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param string $message
-     * @param string $javaCause
-     * @param string $stackTrace
-     * @param string $javaClassName originating java FQDN
-     * @param int $code
+     * @param string    $message
+     * @param string    $javaCause
+     * @param string    $stackTrace
+     * @param string    $javaClassName   originating java FQDN
+     * @param int       $code
      * @param Exception $driverException
      * @param Exception $previous
      */
@@ -60,7 +55,8 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * Set original exception as throw by the driver
+     * Set original exception as throw by the driver.
+     *
      * @param Exception $driverException
      */
     protected function setDriverException(Exception $driverException)
@@ -69,7 +65,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * Return underlying driver exception
+     * Return underlying driver exception.
      *
      * @return Exception
      */
@@ -79,7 +75,8 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * Set Java cause
+     * Set Java cause.
+     *
      * @param string $cause
      */
     protected function setCause($cause)
@@ -88,7 +85,8 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * Return Java cause
+     * Return Java cause.
+     *
      * @return string
      */
     public function getCause()
@@ -97,7 +95,6 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     *
      * @param string $stackTrace
      */
     protected function setStackTrace($stackTrace)
@@ -106,7 +103,8 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * Return Java stack trace
+     * Return Java stack trace.
+     *
      * @return string
      */
     public function getStackTrace()
@@ -115,7 +113,8 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * Return java FQDN exception class name
+     * Return java FQDN exception class name.
+     *
      * @return string
      */
     public function getJavaClassName()

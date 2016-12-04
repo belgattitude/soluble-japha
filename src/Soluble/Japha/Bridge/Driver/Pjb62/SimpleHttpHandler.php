@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -9,7 +9,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -33,7 +34,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
@@ -46,7 +46,7 @@ class SimpleHttpHandler extends SocketHandler
     public $ssl;
 
     /**
-     * @var integer
+     * @var int
      */
     public $port;
 
@@ -56,39 +56,33 @@ class SimpleHttpHandler extends SocketHandler
     public $host;
 
     /**
-     *
      * @var array
      */
     protected $cachedValues = [];
 
-
     /**
-     *
      * @var string
      */
     protected $java_servlet;
 
     /**
-     *
      * @var int
      */
     protected $java_recv_size;
 
     /**
-     *
      * @var int
      */
     protected $java_send_size;
 
     /**
-     *
      * @param Protocol $protocol
-     * @param string $ssl
-     * @param string $host
-     * @param integer $port
-     * @param string $java_servlet
-     * @param int $java_recv_size
-     * @param int $java_send_size
+     * @param string   $ssl
+     * @param string   $host
+     * @param int      $port
+     * @param string   $java_servlet
+     * @param int      $java_recv_size
+     * @param int      $java_send_size
      */
     public function __construct(Protocol $protocol, $ssl, $host, $port, $java_servlet, $java_recv_size, $java_send_size)
     {
@@ -102,7 +96,6 @@ class SimpleHttpHandler extends SocketHandler
         $this->java_send_size = $java_send_size;
         $this->java_recv_size = $java_recv_size;
 
-
         $this->cachedValues = [
             'getContext' => null
         ];
@@ -111,12 +104,12 @@ class SimpleHttpHandler extends SocketHandler
 
     public function createChannel()
     {
-        $channelName = Pjb62Driver::getJavaBridgeHeader("X_JAVABRIDGE_REDIRECT", $_SERVER);
-        $context = Pjb62Driver::getJavaBridgeHeader("X_JAVABRIDGE_CONTEXT", $_SERVER);
+        $channelName = Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_REDIRECT', $_SERVER);
+        $context = Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_CONTEXT', $_SERVER);
         $len = strlen($context);
         $len0 = PjbProxyClient::getInstance()->getCompatibilityOption($this->protocol->client);
         $len1 = chr($len & 0xFF);
-        $len>>=8;
+        $len >>= 8;
         $len2 = chr($len & 0xFF);
         $this->channel = new EmptyChannel($this, $this->java_recv_size, $this->java_send_size);
         $this->channel = $this->getChannel($channelName);
@@ -125,36 +118,36 @@ class SimpleHttpHandler extends SocketHandler
         $this->context = sprintf("X_JAVABRIDGE_CONTEXT: %s\r\n", $context);
         $this->protocol->handler = $this->protocol->getSocketHandler();
         $this->protocol->handler->write($this->protocol->client->sendBuffer)
-                or $this->protocol->handler->shutdownBrokenConnection("Broken local connection handle");
+                or $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
         $this->protocol->client->sendBuffer = null;
         $this->protocol->handler->read(1)
-                or $this->protocol->handler->shutdownBrokenConnection("Broken local connection handle");
+                or $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
     }
 
     /**
-     *
      * @return string
      */
     public function getContextFromCgiEnvironment()
     {
         $ctx = Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_CONTEXT', $_SERVER);
+
         return $ctx;
     }
 
     /**
-     *
      * @return string
      */
     public function getContext()
     {
         if ($this->cachedValues['getContext'] === null) {
             $ctx = $this->getContextFromCgiEnvironment();
-            $context = "";
+            $context = '';
             if ($ctx) {
                 $context = sprintf("X_JAVABRIDGE_CONTEXT: %s\r\n", $ctx);
             }
             $this->cachedValues['getContext'] = $context;
         }
+
         return $this->cachedValues['getContext'];
     }
 
@@ -165,10 +158,10 @@ class SimpleHttpHandler extends SocketHandler
             return $context;
         }
 
-        return ($this->java_servlet == "User" &&
+        return ($this->java_servlet == 'User' &&
                 array_key_exists('PHP_SELF', $_SERVER) &&
-                array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . "javabridge" : null;
-        /**
+                array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . 'javabridge' : null;
+        /*
         return (JAVA_SERVLET == "User" &&
                 array_key_exists('PHP_SELF', $_SERVER) &&
                 array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . "javabridge" : null;
@@ -183,9 +176,10 @@ class SimpleHttpHandler extends SocketHandler
         if (is_null($context)) {
             $context = $this->java_servlet;
         }
-        if (is_null($context) || $context[0] != "/") {
-            $context = "/JavaBridge/JavaBridge.phpjavabridge";
+        if (is_null($context) || $context[0] != '/') {
+            $context = '/JavaBridge/JavaBridge.phpjavabridge';
         }
+
         return $context;
     }
 
@@ -199,14 +193,14 @@ class SimpleHttpHandler extends SocketHandler
         $path = trim($path);
         $webapp = $this->getWebAppInternal();
         if (!$webapp) {
-            $path = "/";
+            $path = '/';
         }
         setcookie($key, $val, 0, $path);
     }
 
     /**
+     * @param int $size
      *
-     * @param integer $size
      * @return string
      */
     public function read($size)
@@ -215,9 +209,10 @@ class SimpleHttpHandler extends SocketHandler
     }
 
     /**
-     *
      * @param string $channelName
+     *
      * @return SocketChannelP
+     *
      * @throws Exception\IllegalStateException
      */
     public function getChannel($channelName)
@@ -229,6 +224,7 @@ class SimpleHttpHandler extends SocketHandler
             throw new Exception\IllegalStateException("No ContextServer for {$this->host}:{$channelName}. Error: $errstr ($errno)\n");
         }
         stream_set_timeout($peer, -1);
+
         return new SocketChannelP($peer, $this->host, $this->java_recv_size, $this->java_send_size);
     }
 

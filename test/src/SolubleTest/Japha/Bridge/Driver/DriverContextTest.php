@@ -10,13 +10,11 @@ use Soluble\Japha\Interfaces\JavaObject;
 class DriverContextTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
      * @var string
      */
     protected $servlet_address;
 
     /**
-     *
      * @var Adapter
      */
     protected $adapter;

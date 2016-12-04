@@ -10,13 +10,11 @@ use Soluble\Japha\Bridge\Adapter;
 class AdapterTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
      * @var string
      */
     protected $servlet_address;
 
     /**
-     *
      * @var Adapter
      */
     protected $adapter;
@@ -50,8 +48,6 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $driver = $this->adapter->getDriver();
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\AbstractDriver', $driver);
     }
-
-
 
     public function testJavaClass()
     {
@@ -96,7 +92,6 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         //because in this case it's empty
         $nullString = $ba->java('java.lang.String');
         $this->assertFalse($ba->isNull($nullString));
-
 
         $v = $ba->java('java.util.Vector', [1, 2, 3]);
         $v->add(1, null);
@@ -152,15 +147,12 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($ba->isTrue($ba->java('java.lang.Boolean', false)));
     }
 
-
     public function testGetClassName()
     {
         $javaString = $this->adapter->java('java.lang.String', 'Hello World');
         $className = $this->adapter->getClassName($javaString);
         $this->assertEquals('java.lang.String', $className);
     }
-
-
 
     public function testGetSystem()
     {

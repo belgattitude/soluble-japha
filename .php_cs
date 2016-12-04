@@ -114,7 +114,7 @@ return PhpCsFixer\Config::create()
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
-            ->in(['src', 'test', 'bin'])
+            ->in(['src', 'test'])
             ->filter(function (SplFileInfo $file) {
                 if (strstr($file->getPath(), 'compatibility')) {
                     return false;

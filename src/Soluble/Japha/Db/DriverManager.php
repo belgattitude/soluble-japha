@@ -8,19 +8,16 @@ use Soluble\Japha\Bridge\Exception;
 class DriverManager
 {
     /**
-     *
      * @Java(java.sql.DriverManager)
      */
     protected $driverManager;
 
     /**
-     *
      * @var Bridge\Adapter
      */
     protected $ba;
 
     /**
-     *
      * @param Bridge\Adapter $ba
      */
     public function __construct(Bridge\Adapter $ba)
@@ -29,7 +26,7 @@ class DriverManager
     }
 
     /**
-     * Create an sql connection to database
+     * Create an sql connection to database.
      *
      *
      * @throws Exception\JavaException
@@ -38,16 +35,17 @@ class DriverManager
      *
      * @param string $dsn
      * @param string $driverClass
+     *
      * @return Java(java.sql.Connection)
      */
     public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
     {
         if (!is_string($dsn) || trim($dsn) == '') {
-            $message = "DSN param must be a valid (on-empty) string";
+            $message = 'DSN param must be a valid (on-empty) string';
             throw new Exception\InvalidArgumentException(__METHOD__ . ' ' . $message);
         }
 
-        $class = $this->ba->javaClass("java.lang.Class");
+        $class = $this->ba->javaClass('java.lang.Class');
         try {
             $class->forName($driverClass);
         } catch (Exception\JavaException $e) {
@@ -59,14 +57,15 @@ class DriverManager
         } catch (Exception\JavaExceptionInterface $e) {
             throw $e;
         } catch (\Exception $e) {
-            $message = "Unexpected exception thrown with message " . $e->getMessage();
+            $message = 'Unexpected exception thrown with message ' . $e->getMessage();
             throw new Exception\UnexpectedException(__METHOD__ . ' ' . $message);
         }
+
         return $conn;
     }
 
     /**
-     * Return underlying java driver manager
+     * Return underlying java driver manager.
      *
      * @return Java(java.sql.DriverManager)
      */
@@ -75,16 +74,17 @@ class DriverManager
         if ($this->driverManager === null) {
             $this->driverManager = $this->ba->javaClass('java.sql.DriverManager');
         }
+
         return $this->driverManager;
     }
 
     /**
-     * Return a JDBC DSN string
+     * Return a JDBC DSN string.
      *
-     * @param string $db database name
-     * @param string $host server ip or name
-     * @param string $user username to connect
-     * @param string $password password to connect
+     * @param string $db         database name
+     * @param string $host       server ip or name
+     * @param string $user       username to connect
+     * @param string $password   password to connect
      * @param string $driverType diverType (mysql/oracle/postgres...)
      *
      * @return string

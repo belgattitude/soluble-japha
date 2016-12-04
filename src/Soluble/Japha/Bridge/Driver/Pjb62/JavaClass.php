@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -32,9 +33,8 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
- *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Interfaces;
@@ -42,7 +42,6 @@ use Soluble\Japha\Interfaces;
 /**
  * @method JavaObject forName(string $name)
  */
-
 class JavaClass extends Java implements Interfaces\JavaClass
 {
     /**
@@ -62,9 +61,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
         $this->__signature = $this->__delegate->__signature;
     }
 
-
     /**
-     *
      * @return Interfaces\JavaClass Java(java.lang.Class)
      */
     public function getClass()
@@ -73,7 +70,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
     }
 
     /**
-     * Return class name
+     * Return class name.
      *
      * @return Interfaces\JavaObject Java(java.lang.String)
      */

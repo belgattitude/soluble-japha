@@ -8,13 +8,11 @@ use Soluble\Japha\Bridge\Driver\DriverInterface;
 class DriverInterfaceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
      * @var string
      */
     protected $servlet_address;
 
     /**
-     *
      * @var Adapter
      */
     protected $adapter;
@@ -42,7 +40,6 @@ class DriverInterfaceTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
     }
-
 
     public function testGetClassName()
     {
@@ -74,8 +71,8 @@ class DriverInterfaceTest extends \PHPUnit_Framework_TestCase
         $javaString = $this->adapter->java('java.lang.String', 'Hello World! World!');
 
         $indexStart = $this->driver->invoke($javaString, 'indexOf', ['World']);
-        $index12 = $this->driver->invoke($javaString, 'indexOf', ['World', $fromIndex=12]);
-        $index16 = $this->driver->invoke($javaString, 'indexOf', ['World', $fromIndex=16]);
+        $index12 = $this->driver->invoke($javaString, 'indexOf', ['World', $fromIndex = 12]);
+        $index16 = $this->driver->invoke($javaString, 'indexOf', ['World', $fromIndex = 16]);
 
         $this->assertEquals(6, $indexStart);
         $this->assertEquals(13, $index12);

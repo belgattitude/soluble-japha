@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -32,40 +33,45 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class ArrayProxy extends IteratorProxy implements \ArrayAccess
 {
     /**
      * @param string|int $idx
-     * @return boolean
+     *
+     * @return bool
      */
     public function offsetExists($idx)
     {
         $ar = [$this, $idx];
-        return $this->__client->invokeMethod(0, "offsetExists", $ar);
+
+        return $this->__client->invokeMethod(0, 'offsetExists', $ar);
     }
 
     /**
      * @param string|int $idx
+     *
      * @return mixed
      */
     public function offsetGet($idx)
     {
         $ar = [$this, $idx];
-        return $this->__client->invokeMethod(0, "offsetGet", $ar);
+
+        return $this->__client->invokeMethod(0, 'offsetGet', $ar);
     }
 
     /**
      * @param string|int $idx
-     * @param mixed $val
+     * @param mixed      $val
      */
     public function offsetSet($idx, $val)
     {
         $ar = [$this, $idx, $val];
-        return $this->__client->invokeMethod(0, "offsetSet", $ar);
+
+        return $this->__client->invokeMethod(0, 'offsetSet', $ar);
     }
 
     /**
@@ -74,6 +80,7 @@ class ArrayProxy extends IteratorProxy implements \ArrayAccess
     public function offsetUnset($idx)
     {
         $ar = [$this, $idx];
-        return $this->__client->invokeMethod(0, "offsetUnset", $ar);
+
+        return $this->__client->invokeMethod(0, 'offsetUnset', $ar);
     }
 }

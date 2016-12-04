@@ -3,30 +3,27 @@
 namespace Soluble\Japha\Bridge\Http;
 
 /**
- * Utility class to serialize a PHP cookie array into a valid HTTP cookie header
- *
+ * Utility class to serialize a PHP cookie array into a valid HTTP cookie header.
  */
 class Cookie
 {
     /**
-     * Value used for values that cannot be serialized
+     * Value used for values that cannot be serialized.
      */
     const UNSUPPORTED_TYPE_VALUE = '__UNSUPPORTED_TYPE__';
 
-
-
     /**
-     * Serialize PHP's $_COOKIE values into a valid HTTP COOKIE string
+     * Serialize PHP's $_COOKIE values into a valid HTTP COOKIE string.
      *
      * @param array $cookies if null
+     *
      * @return string
      */
-    public static function getCookiesHeaderLine(array $cookies=null)
+    public static function getCookiesHeaderLine(array $cookies = null)
     {
         if ($cookies === null) {
             $cookies = $_COOKIE;
         }
-
 
         $cookieParts = [];
         foreach ($cookies as $k => $v) {
@@ -43,10 +40,10 @@ class Cookie
     }
 
     /**
-     * Escapes $cookieValue taking into account its type to serialize it as a valid cookie value
+     * Escapes $cookieValue taking into account its type to serialize it as a valid cookie value.
      *
      * @param string $cookieName
-     * @param mixed $cookieValue
+     * @param mixed  $cookieValue
      *
      * @return string
      */

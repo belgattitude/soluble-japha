@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -9,7 +9,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -33,7 +34,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
@@ -41,8 +41,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 class SimpleParser implements ParserInterface
 {
     /**
-     *
-     * @var integer
+     * @var int
      */
     public $SLEN = 256;
     public $handler;
@@ -68,9 +67,7 @@ class SimpleParser implements ParserInterface
     public $i0 = 0;
     public $e;
 
-
     /**
-     *
      * @param Client $client
      */
     public function __construct(Client $client)
@@ -78,10 +75,9 @@ class SimpleParser implements ParserInterface
         $this->handler = $client;
         $this->tag = [new ParserTag(), new ParserTag(), new ParserTag()];
         $this->len = $this->SLEN;
-        $this->s = str_repeat(" ", $this->SLEN);
+        $this->s = str_repeat(' ', $this->SLEN);
         $this->type = $this->VOJD;
     }
-
 
     public function RESET()
     {
@@ -97,7 +93,7 @@ class SimpleParser implements ParserInterface
     {
         if ($this->i >= $this->len - 1) {
             $this->s = str_repeat($this->s, 2);
-            $this->len*=2;
+            $this->len *= 2;
         }
         $this->s[$this->i++] = $c;
     }
@@ -110,7 +106,7 @@ class SimpleParser implements ParserInterface
         $name = $t->string[$t->off];
         $n = $this->tag[2]->n;
         $ar = [];
-        for ($i = 0; $i < $n; $i++) {
+        for ($i = 0; $i < $n; ++$i) {
             $ar[$pt[$i]->getString()] = $st[$i]->getString();
         }
         $this->handler->begin($name, $ar);
@@ -147,7 +143,7 @@ class SimpleParser implements ParserInterface
             if ($this->c >= $this->pos) {
                 $this->buf = $this->handler->read($java_recv_size);
                 if (is_null($this->buf) || strlen($this->buf) == 0) {
-                    $this->handler->protocol->handler->shutdownBrokenConnection("protocol error. Check the back end log for OutOfMemoryErrors.");
+                    $this->handler->protocol->handler->shutdownBrokenConnection('protocol error. Check the back end log for OutOfMemoryErrors.');
                 }
                 $this->pos = strlen($this->buf);
                 if ($this->pos == 0) {
@@ -161,7 +157,7 @@ class SimpleParser implements ParserInterface
                         $this->APPEND($ch);
                         break;
                     }
-                    $this->level+=1;
+                    $this->level += 1;
                     $this->type = $this->BEGIN;
                     break;
                 case '\t':
@@ -193,9 +189,9 @@ class SimpleParser implements ParserInterface
                     }
                     if ($this->type == $this->BEGIN) {
                         $this->type = $this->END;
-                        $this->level-=1;
+                        $this->level -= 1;
                     }
-                    $this->level-=1;
+                    $this->level -= 1;
                     $this->eot = true;
                     break;
                 case '>':
@@ -261,7 +257,7 @@ class SimpleParser implements ParserInterface
                 default:
                     $this->APPEND($ch);
             }
-            $this->c+=1;
+            $this->c += 1;
         }
         $this->RESET();
     }
@@ -274,7 +270,7 @@ class SimpleParser implements ParserInterface
     public function parserError()
     {
         $this->handler->protocol->handler->shutdownBrokenConnection(
-            sprintf("protocol error: %s. Check the back end log for details.", $this->s)
+            sprintf('protocol error: %s. Check the back end log for details.', $this->s)
         );
     }
 }

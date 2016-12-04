@@ -10,10 +10,9 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
     /**
      * @string
      */
-    protected $defaultException = "JavaException";
+    protected $defaultException = 'JavaException';
 
     /**
-     *
      * @var array
      */
     protected $msgPatternsMapping = [
@@ -24,8 +23,8 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
     ];
 
     /**
-     *
      * @param Exception\InternalException $result
+     *
      * @return Exception\JavaException
      */
     public function checkResult($result)
@@ -35,7 +34,6 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
     }
 
     /**
-     *
      * @return \Exception
      */
     protected function getExceptionFromResult($result)
@@ -57,7 +55,6 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
         }
 
         $cls = '\\Soluble\\Japha\\Bridge\\Exception\\' . $exceptionClass;
-
 
         //$message, $javaCause, $stackTrace, $code=null, Exception $driverException=null, Exception $previous = null
         $cause = $message;
@@ -81,6 +78,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
 
         $e = new $cls($message, $cause, $stackTrace,
                       $javaExceptionClass, $code, $driverException, null);
+
         return $e;
     }
 }

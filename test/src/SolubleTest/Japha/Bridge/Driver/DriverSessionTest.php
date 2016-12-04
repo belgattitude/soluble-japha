@@ -9,13 +9,11 @@ use Soluble\Japha\Interfaces\JavaObject;
 class DriverSessionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
      * @var string
      */
     protected $servlet_address;
 
     /**
-     *
      * @var Adapter
      */
     protected $adapter;
@@ -44,8 +42,6 @@ class DriverSessionTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
     }
-
-
 
     public function testJavaSessionType()
     {

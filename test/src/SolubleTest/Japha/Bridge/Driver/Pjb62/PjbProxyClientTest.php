@@ -11,9 +11,7 @@ use Soluble\Japha\Bridge\Driver\Pjb62\Java;
  */
 class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
-     *
      * @var string
      */
     protected $servlet_address;
@@ -24,7 +22,6 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
     protected $options;
 
     /**
-     *
      * @var Adapter
      */
     protected $adapter;
@@ -37,7 +34,7 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
         $this->options = [
-            'servlet_address' =>  $this->servlet_address,
+            'servlet_address' => $this->servlet_address,
             'java_prefer_values' => true,
         ];
     }
@@ -49,7 +46,6 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
     }
-
 
     public function testGetInstance()
     {
@@ -63,7 +59,6 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(PjbProxyClient::isInitialized());
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', $pjbProxyClient);
     }
-
 
     public function testGetJavaClass()
     {

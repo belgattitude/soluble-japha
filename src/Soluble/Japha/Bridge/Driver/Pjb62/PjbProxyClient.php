@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * @author Vanvelthem Sébastien
  * @license MIT
- *
  */
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
@@ -18,13 +17,11 @@ use ArrayObject;
 class PjbProxyClient implements ClientInterface
 {
     /**
-     *
      * @var PjbProxyClient
      */
     protected static $instance;
 
     /**
-     *
      * @var array
      */
     protected $defaultOptions = [
@@ -36,37 +33,34 @@ class PjbProxyClient implements ClientInterface
     ];
 
     /**
-     *
      * @var Client|null
      */
     protected static $client;
 
     /**
-     * Internal cache for already loaded Java classes
+     * Internal cache for already loaded Java classes.
+     *
      * @var array
      */
     protected $classMapCache = [];
 
     /**
-     *
      * @var string
      */
     protected $compatibilityOption;
 
     /**
-     *
      * @var array
      */
     public $options;
 
     /**
-     *
      * @var string|null
      */
     protected static $instanceOptionsKey;
 
     /**
-     * Private contructor
+     * Private contructor.
      *
      * $options requires :
      *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
@@ -79,7 +73,9 @@ class PjbProxyClient implements ClientInterface
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ConnectionException
+     *
      * @see PjbProxyClient::getInstance()
+     *
      * @param array $options
      */
     private function __construct(array $options)
@@ -89,10 +85,9 @@ class PjbProxyClient implements ClientInterface
         $this->loadClient();
     }
 
-
     /**
      * Return a unique instance of the phpjavabridge client
-     * $options is an associative array and requires :
+     * $options is an associative array and requires :.
      *
      *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
      *
@@ -113,13 +108,15 @@ class PjbProxyClient implements ClientInterface
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ConnectionException
+     *
      * @param array|null $options
+     *
      * @return PjbProxyClient
      */
     public static function getInstance(array $options = null)
     {
         if (self::$instance === null) {
-            self::$instance = new PjbProxyClient($options);
+            self::$instance = new self($options);
         }
         /* todo order array
         elseif (is_array($options) && self::$instanceOptionsKey != serialize($options)) {
@@ -130,17 +127,15 @@ class PjbProxyClient implements ClientInterface
     }
 
     /**
-     *
      * @return bool
      */
     public static function isInitialized()
     {
-        return (self::$instance !== null);
+        return self::$instance !== null;
     }
 
-
     /**
-     * Load pjb client with options
+     * Load pjb client with options.
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ConnectionException
@@ -151,11 +146,10 @@ class PjbProxyClient implements ClientInterface
             $options = $this->options;
 
             if (!isset($options['servlet_address'])) {
-                throw new Exception\InvalidArgumentException(__METHOD__ . " Missing required parameter servlet_address");
+                throw new Exception\InvalidArgumentException(__METHOD__ . ' Missing required parameter servlet_address');
             }
 
             $connection = $this->parseServletUrl($options['servlet_address']);
-
 
             /*
             define("JAVA_HOSTS", $connection["servlet_host"]);
@@ -170,13 +164,11 @@ class PjbProxyClient implements ClientInterface
                 define('JAVA_PREFER_VALUES', $options['java_prefer_values']);
             }*/
 
-
-
             $params = new ArrayObject();
-            $params['JAVA_HOSTS'] = $connection["servlet_host"];
-            $params['JAVA_SERVLET'] = $connection["servlet_uri"];
+            $params['JAVA_HOSTS'] = $connection['servlet_host'];
+            $params['JAVA_SERVLET'] = $connection['servlet_uri'];
             $params['JAVA_DISABLE_AUTOLOAD'] = $options['java_disable_autoload'];
-            $params['JAVA_PREFER_VALUES'] =  $options['java_prefer_values'];
+            $params['JAVA_PREFER_VALUES'] = $options['java_prefer_values'];
             $params['JAVA_SEND_SIZE'] = $options['java_send_size'];
             $params['JAVA_RECV_SIZE'] = $options['java_recv_size'];
             $params['JAVA_LOG_LEVEL'] = $options['java_log_level'];
@@ -191,7 +183,8 @@ class PjbProxyClient implements ClientInterface
     }
 
     /**
-     * Return Pjb62 internal client
+     * Return Pjb62 internal client.
+     *
      * @return Client
      */
     public function getClient()
@@ -200,9 +193,10 @@ class PjbProxyClient implements ClientInterface
     }
 
     /**
-     * Return a Java class
+     * Return a Java class.
      *
      * @param string $name Name of the java class
+     *
      * @return JavaClass
      */
     public function getJavaClass($name)
@@ -210,6 +204,7 @@ class PjbProxyClient implements ClientInterface
         if (!array_key_exists($name, $this->classMapCache)) {
             $this->classMapCache[$name] = new JavaClass($name);
         }
+
         return $this->classMapCache[$name];
     }
 
@@ -229,37 +224,43 @@ class PjbProxyClient implements ClientInterface
      * even if declared.
      *
      * @param Interfaces\JavaType|null $object a java object or type
-     * @param string $method A method string
-     * @param mixed $args Arguments to send to method
+     * @param string                   $method A method string
+     * @param mixed                    $args   Arguments to send to method
+     *
      * @return mixed
      */
-    public function invokeMethod(Interfaces\JavaType $object=null, $method, array $args=[])
+    public function invokeMethod(Interfaces\JavaType $object = null, $method, array $args = [])
     {
         $id = ($object == null) ? 0 : $object->__getJavaInternalObjectId();
+
         return self::$client->invokeMethod($id, $method, $args);
     }
 
-
     /**
-     * Inspect the java object | type
+     * Inspect the java object | type.
+     *
      * @param Interfaces\JavaType $object
+     *
      * @return string
+     *
      * @throws Exception\IllegalArgumentException
      */
     public function inspect(Interfaces\JavaType $object)
     {
         //$client = self::getClient();
         //return $client->invokeMethod(0, "inspect", array($object));
-        return self::$client->invokeMethod(0, "inspect", [$object]);
+        return self::$client->invokeMethod(0, 'inspect', [$object]);
     }
 
     /**
-     * Test whether an object is an instance of java class or interface
+     * Test whether an object is an instance of java class or interface.
      *
      * @throws Exception\InvalidArgumentException
-     * @param Interfaces\JavaObject $object
+     *
+     * @param Interfaces\JavaObject                                             $object
      * @param JavaType|string|Interfaces\JavaClass|Interfaces\JavaObject|string $class
-     * @return boolean
+     *
+     * @return bool
      */
     public function isInstanceOf(Interfaces\JavaObject $object, $class)
     {
@@ -274,9 +275,10 @@ class PjbProxyClient implements ClientInterface
         }
 
         if (!$class instanceof Interfaces\JavaObject) {
-            throw new Exception\InvalidArgumentException(__METHOD__ . " Invalid argument, class parameter must be a valid JavaType or class name as string");
+            throw new Exception\InvalidArgumentException(__METHOD__ . ' Invalid argument, class parameter must be a valid JavaType or class name as string');
         }
-        return self::$client->invokeMethod(0, "instanceOf", [$object, $class]);
+
+        return self::$client->invokeMethod(0, 'instanceOf', [$object, $class]);
     }
 
     /**
@@ -320,11 +322,12 @@ class PjbProxyClient implements ClientInterface
      * </code>
      *
      * @param JavaType $object
+     *
      * @return mixed
      */
     public function getValues(JavaType $object)
     {
-        return self::$client->invokeMethod(0, "getValues", [$object]);
+        return self::$client->invokeMethod(0, 'getValues', [$object]);
     }
 
     /**
@@ -332,22 +335,20 @@ class PjbProxyClient implements ClientInterface
      */
     public function getLastException()
     {
-        return self::$client->invokeMethod(0, "getLastException", []);
+        return self::$client->invokeMethod(0, 'getLastException', []);
     }
 
-    /**
-     */
     public function clearLastException()
     {
-        self::$client->invokeMethod(0, "clearLastException", []);
+        self::$client->invokeMethod(0, 'clearLastException', []);
     }
 
     /**
-     *
      * @param Client $client
+     *
      * @return string
      */
-    public function getCompatibilityOption(Client $client=null)
+    public function getCompatibilityOption(Client $client = null)
     {
         if ($this->compatibilityOption === null) {
             if ($client === null) {
@@ -356,9 +357,9 @@ class PjbProxyClient implements ClientInterface
 
             $java_prefer_values = $this->getOption('java_prefer_values');
             $java_log_level = $this->getOption('java_log_level');
-            @$compatibility = $client->RUNTIME["PARSER"] == "NATIVE" ? (0103 - $java_prefer_values) : (0100 + $java_prefer_values);
+            @$compatibility = $client->RUNTIME['PARSER'] == 'NATIVE' ? (0103 - $java_prefer_values) : (0100 + $java_prefer_values);
             if (@is_int($java_log_level)) {
-                $compatibility |=128 | (7 & $java_log_level) << 2;
+                $compatibility |= 128 | (7 & $java_log_level) << 2;
             }
             $this->compatibilityOption = chr($compatibility);
         }
@@ -366,16 +367,14 @@ class PjbProxyClient implements ClientInterface
         return $this->compatibilityOption;
     }
 
-
-
-
-
     /**
      * Utility class to parse servlet_address,
-     * i.e 'http://localhost:8080/javabridge-bundle/java/servlet.phpjavabridge'
+     * i.e 'http://localhost:8080/javabridge-bundle/java/servlet.phpjavabridge'.
      *
      * @throws Exception\InvalidArgumentException
+     *
      * @param string $servlet_address
+     *
      * @return array associative array with 'servlet_host' and 'servlet_uri'
      */
     protected function parseServletUrl($servlet_address)
@@ -390,25 +389,22 @@ class PjbProxyClient implements ClientInterface
             $scheme = $url['scheme'] == 'https' ? 'ssl://' : $scheme;
         }
         $host = $url['host'];
-        $port = $url["port"];
-        $path = isset($url["path"]) ? $url['path'] : '';
+        $port = $url['port'];
+        $path = isset($url['path']) ? $url['path'] : '';
 
         $infos = [
             'servlet_host' => "${scheme}${host}:${port}",
             'servlet_uri' => "$path",
         ];
+
         return $infos;
     }
 
-
-
-
     /**
-     * For compatibility usage all constants have been kept
+     * For compatibility usage all constants have been kept.
      */
     protected function bootstrap($options = [])
     {
-
         /// BOOTSTRAP
         /// A lot to rework, remove constants
         //define("JAVA_PEAR_VERSION", "6.2.1");
@@ -467,7 +463,8 @@ class PjbProxyClient implements ClientInterface
     }
 
     /**
-     * Return options
+     * Return options.
+     *
      * @return array
      */
     public function getOptions()
@@ -476,8 +473,10 @@ class PjbProxyClient implements ClientInterface
     }
 
     /**
-     * Return specific option
+     * Return specific option.
+     *
      * @param $name
+     *
      * @return mixed
      */
     public function getOption($name)
@@ -485,12 +484,12 @@ class PjbProxyClient implements ClientInterface
         if (!array_key_exists($name, $this->options)) {
             throw new Exception\InvalidArgumentException("Option '$name' does not exists'");
         }
+
         return $this->options[$name];
     }
 
     /**
-     * Clean up PjbProxyClient instance
-     * @return void
+     * Clean up PjbProxyClient instance.
      */
     public static function unregisterInstance()
     {
@@ -506,8 +505,7 @@ class PjbProxyClient implements ClientInterface
                 self::$client->sendBuffer .= self::$client->preparedToSendBuffer;
             }
 
-            self::$client->sendBuffer.= self::$client->protocol->getKeepAlive();
-
+            self::$client->sendBuffer .= self::$client->protocol->getKeepAlive();
 
             self::$client->protocol->flush();
 
@@ -533,10 +531,8 @@ class PjbProxyClient implements ClientInterface
         }
     }
 
-
     /**
-     * Before removing instance
-     * @return void
+     * Before removing instance.
      */
     public function __destroy()
     {

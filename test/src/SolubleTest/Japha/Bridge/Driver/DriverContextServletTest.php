@@ -10,13 +10,11 @@ use Soluble\Japha\Interfaces\JavaObject;
 class DriverContextServletTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
      * @var string
      */
     protected $servlet_address;
 
     /**
-     *
      * @var Adapter
      */
     protected $adapter;
@@ -45,7 +43,6 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-
     public function testGetServlet()
     {
         // The servlet context allows to call
@@ -63,6 +60,7 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
                 // Basically mark this test as skipped as the test
                 // was made on the standalone server
                 $this->markTestIncomplete('Retrieval of servlet context is not supported with the standalone server');
+
                 return;
             } else {
                 throw $e;

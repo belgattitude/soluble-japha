@@ -16,19 +16,15 @@ class Adapter
         'pjb62' => 'Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver'
     ];
 
-
     /**
      * @var Driver\AbstractDriver
      */
     protected $driver;
 
-
     /**
-     *
      * @var Adapter\System
      */
     protected $system;
-
 
     /**
      * @var LoggerInterface
@@ -36,7 +32,7 @@ class Adapter
     protected $logger;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * <code>
      * $ba = new Adapter([
@@ -52,12 +48,11 @@ class Adapter
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ConfigurationException
      * @throws Exception\ConnectionException
-     * 
-     * @param array $options
-     * @param LoggerInterface $logger any PSR-3 compatible logger
      *
+     * @param array           $options
+     * @param LoggerInterface $logger  any PSR-3 compatible logger
      */
-    public function __construct(array $options, LoggerInterface $logger=null)
+    public function __construct(array $options, LoggerInterface $logger = null)
     {
         if ($logger === null) {
             $logger = new NullLogger();
@@ -78,9 +73,8 @@ class Adapter
         }
     }
 
-
     /**
-     * Create a new Java instance from a FQDN (constructor arguments are sent in a variadic way)
+     * Create a new Java instance from a FQDN (constructor arguments are sent in a variadic way).
      *
      * <code>
      * $hash   = $ba->java('java.util.HashMap', ['key' => '保éà']);
@@ -104,13 +98,15 @@ class Adapter
         // function java($class, ...$args)
         if ($args !== null) {
             $func_args = func_get_args();
+
             return $this->driver->instanciate($func_args);
         }
+
         return $this->driver->instanciate($class);
     }
 
     /**
-     * Load a java class
+     * Load a java class.
      *
      * <code>
      * $calendar = $ba->javaClass('java.util.Calendar')->getInstance();
@@ -128,6 +124,7 @@ class Adapter
      * @see Adapter\java($class, $args) for object creation
      *
      * @param string $class
+     *
      * @return Interfaces\JavaClass
      */
     public function javaClass($class)
@@ -136,11 +133,12 @@ class Adapter
     }
 
     /**
-     * Checks whether object is an instance of a class or interface
+     * Checks whether object is an instance of a class or interface.
      *
-     * @param Interfaces\JavaObject $javaObject
-     * @param string|Interfaces\JavaObject $className java class name
-     * @return boolean
+     * @param Interfaces\JavaObject        $javaObject
+     * @param string|Interfaces\JavaObject $className  java class name
+     *
+     * @return bool
      */
     public function isInstanceOf(Interfaces\JavaObject $javaObject, $className)
     {
@@ -148,9 +146,10 @@ class Adapter
     }
 
     /**
-     * Return object java FQDN class name
+     * Return object java FQDN class name.
      *
      * @param Interfaces\JavaObject $javaObject
+     *
      * @return string
      */
     public function getClassName(Interfaces\JavaObject $javaObject)
@@ -158,12 +157,12 @@ class Adapter
         return $this->driver->getClassName($javaObject);
     }
 
-
     /**
-     * Whether a java internal value is null
+     * Whether a java internal value is null.
      *
      * @param Interfaces\JavaObject|null $javaObject
-     * @return boolean
+     *
+     * @return bool
      */
     public function isNull(Interfaces\JavaObject $javaObject = null)
     {
@@ -171,19 +170,19 @@ class Adapter
     }
 
     /**
-     * Check wether a java value is true (boolean)
+     * Check wether a java value is true (boolean).
      *
      * @param Interfaces\JavaObject|null $javaObject
-     * @return boolean
+     *
+     * @return bool
      */
     public function isTrue(Interfaces\JavaObject $javaObject)
     {
         return $this->driver->isTrue($javaObject);
     }
 
-
     /**
-     * Return system properties
+     * Return system properties.
      *
      * @return Adapter\System
      */
@@ -192,11 +191,12 @@ class Adapter
         if ($this->system === null) {
             $this->system = new Adapter\System($this);
         }
+
         return $this->system;
     }
 
     /**
-     * Return underlying driver
+     * Return underlying driver.
      *
      * @return Driver\DriverInterface
      */
@@ -206,7 +206,7 @@ class Adapter
     }
 
     /**
-     * Set the JVM/Java default timezone
+     * Set the JVM/Java default timezone.
      *
      * @throws Exception\ConfigurationException
      * @throws UnsupportedTzException

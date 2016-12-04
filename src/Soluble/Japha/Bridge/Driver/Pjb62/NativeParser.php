@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -32,20 +33,18 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class NativeParser implements ParserInterface
 {
     /**
-     *
      * @var resource
      */
     public $parser;
 
     /**
-     *
      * @var Client
      */
     public $client;
@@ -54,7 +53,6 @@ class NativeParser implements ParserInterface
     public $buf;
 
     /**
-     *
      * @param Client $client
      */
     public function __construct(Client $client)
@@ -63,8 +61,8 @@ class NativeParser implements ParserInterface
         $this->parser = xml_parser_create();
         xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, 0);
         xml_set_object($this->parser, $this);
-        xml_set_element_handler($this->parser, "begin", "end");
-        xml_parse($this->parser, "<F>");
+        xml_set_element_handler($this->parser, 'begin', 'end');
+        xml_parse($this->parser, '<F>');
         $this->level = 0;
     }
 
@@ -74,7 +72,7 @@ class NativeParser implements ParserInterface
         switch ($name) {
             case 'X':
             case 'A':
-                $this->level+=1;
+                $this->level += 1;
         }
         $this->client->begin($name, $param);
     }
@@ -85,7 +83,7 @@ class NativeParser implements ParserInterface
         switch ($name) {
             case 'X':
             case 'A':
-                $this->level-=1;
+                $this->level -= 1;
         }
     }
 
@@ -105,7 +103,7 @@ class NativeParser implements ParserInterface
             $len = strlen($buf);
             if (!xml_parse($this->parser, $buf, $len == 0)) {
                 $this->client->protocol->handler->shutdownBrokenConnection(
-                    sprintf("protocol error: %s,%s at col %d. Check the back end log for OutOfMemoryErrors.", $buf, xml_error_string(xml_get_error_code($this->parser)), xml_get_current_column_number($this->parser))
+                    sprintf('protocol error: %s,%s at col %d. Check the back end log for OutOfMemoryErrors.', $buf, xml_error_string(xml_get_error_code($this->parser)), xml_get_current_column_number($this->parser))
                 );
             }
         } while (!$this->event || $this->level > 0);
@@ -114,7 +112,7 @@ class NativeParser implements ParserInterface
     public function parserError()
     {
         $this->client->protocol->handler->shutdownBrokenConnection(
-            sprintf("protocol error: %s. Check the back end log for details.", $this->buf)
+            sprintf('protocol error: %s. Check the back end log for details.', $this->buf)
         );
     }
 }

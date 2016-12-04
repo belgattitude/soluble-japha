@@ -6,7 +6,6 @@ use Soluble\Japha\Bridge\Http\Cookie;
 
 class CookieTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @dataProvider cookiesProvider
      */
@@ -19,11 +18,9 @@ class CookieTest extends \PHPUnit_Framework_TestCase
         \PHPUnit_Framework_Assert::assertEquals($expectedString, $urlDecodedString, 'test that cookie was correctly serialized');
     }
 
-
     public function cookiesProvider()
     {
         return [
-
             // scenario: single scalar
             [
                 // Original cookies
@@ -67,9 +64,9 @@ class CookieTest extends \PHPUnit_Framework_TestCase
                         'thirdNullItem' => null,
                         'fourthArrayItem' => [
                             1,      // index 0
-                            "two",  // index 1
+                            'two',  // index 1
                             true,   // index 2
-                            [ 'ABC' ], // index 3
+                            ['ABC'], // index 3
                             'key' => 'value' // index 'key',
                         ]
                     ]
@@ -94,9 +91,8 @@ class CookieTest extends \PHPUnit_Framework_TestCase
                     },
                 ],
                 // Serialized string
-                'dateTimeObject=' . Cookie::UNSUPPORTED_TYPE_VALUE. ';function=' . Cookie::UNSUPPORTED_TYPE_VALUE
+                'dateTimeObject=' . Cookie::UNSUPPORTED_TYPE_VALUE . ';function=' . Cookie::UNSUPPORTED_TYPE_VALUE
             ]
-
         ];
     }
 }

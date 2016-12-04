@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -32,44 +33,37 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class Arg
 {
     /**
-     *
      * @var Client
      */
     public $client;
     /**
-     *
      * @var string
      */
     public $exception;
 
     /**
-     *
      * @var SimpleFactory
      */
     public $factory;
     public $val;
     /**
-     *
      * @var string
      */
     public $signature;
 
     /**
-     *
      * @var string
      */
     public $type;
 
-
     /**
-     *
      * @param Client $client
      */
     public function __construct(Client $client)
@@ -89,8 +83,7 @@ class Arg
     }
 
     /**
-     *
-     * @param boolean $wrap
+     * @param bool $wrap
      */
     public function getResult($wrap)
     {
@@ -98,11 +91,11 @@ class Arg
         $factory = $this->factory;
         $this->factory = $this->client->simpleFactory;
         $factory->checkResult($rc);
+
         return $rc;
     }
 
     /**
-     *
      * @param SimpleFactory $factory
      */
     public function setFactory(SimpleFactory $factory)
@@ -111,7 +104,6 @@ class Arg
     }
 
     /**
-     *
      * @param string $string
      */
     public function setException($string)
@@ -121,17 +113,16 @@ class Arg
 
     public function setVoidSignature()
     {
-        $this->signature = "@V";
+        $this->signature = '@V';
         $key = $this->client->currentCacheKey;
         if ($key && $key[0] != '~') {
-            $this->client->currentArgumentsFormat[6] = "3";
+            $this->client->currentArgumentsFormat[6] = '3';
             $cacheEntry = new CacheEntry($this->client->currentArgumentsFormat, $this->signature, $this->factory, true);
             $this->client->methodCache[$key] = $cacheEntry;
         }
     }
 
     /**
-     *
      * @param string $signature
      */
     public function setSignature($signature)

@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -32,20 +33,18 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class SocketHandler
 {
     /**
-     *
      * @var Protocol
      */
     public $protocol;
 
     /**
-     *
      * @var EmptyChannel|SocketChannel
      */
     public $channel;
@@ -91,17 +90,15 @@ class SocketHandler
     }
 
     /**
-     *
      * @param null|string $msg
      */
     public function dieWithBrokenConnection($msg)
     {
         unset($this->protocol->client->protocol);
-        trigger_error($msg ? $msg : "unknown error: please see back end log for details", E_USER_ERROR);
+        trigger_error($msg ? $msg : 'unknown error: please see back end log for details', E_USER_ERROR);
     }
 
     /**
-     *
      * @param null|string $msg
      */
     public function shutdownBrokenConnection($msg)

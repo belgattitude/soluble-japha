@@ -14,14 +14,12 @@ class System
      */
     protected $ba;
 
-
     /**
      * @var TimeZone
      */
     protected $timeZone;
 
     /**
-     *
      * @param Bridge\Adapter $ba
      */
     public function __construct(Bridge\Adapter $ba)
@@ -31,7 +29,8 @@ class System
     }
 
     /**
-     * Get php DateTime helper object
+     * Get php DateTime helper object.
+     *
      * @return TimeZone
      */
     public function getTimeZone()
@@ -40,7 +39,8 @@ class System
     }
 
     /**
-     * Return system default timezone id
+     * Return system default timezone id.
+     *
      * @return string
      */
     public function getTimeZoneId()
@@ -49,11 +49,11 @@ class System
     }
 
     /**
-     * Set system default timezone
+     * Set system default timezone.
      *
      * @throws UnsupportedTzException
+     *
      * @param string|Interfaces\JavaObject|DateTimeZone $timezone timezone id, Java(java.util.Timezone) or php DateTimeZone
-     * @return void
      */
     public function setTimeZoneId($timezone)
     {

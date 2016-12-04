@@ -9,7 +9,6 @@ use DateTimeZone;
 
 class TimeZoneTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var string
      */
@@ -21,16 +20,15 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
     protected $ba;
 
     /**
-     *
      * @var TimeZone
      */
     protected $timeZone;
 
     /**
-     *
      * @var Interfaces\JavaObject
      */
     protected $backupTz;
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -44,13 +42,11 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
             'servlet_address' => $this->servlet_address,
         ]);
 
-
         $this->timeZone = new TimeZone($this->ba);
         $this->backupTz = $this->ba->javaClass('java.util.TimeZone')->getDefault();
         //var_dump($this->backupTz);
         //die();
     }
-
 
     /**
      * Tears down the fixture, for example, closes a network connection.
@@ -118,7 +114,7 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
     {
         $originalTz = $this->timeZone->getDefault();
 
-        $this->timeZone->setDefault("Europe/Paris");
+        $this->timeZone->setDefault('Europe/Paris');
         $parisTz = $this->timeZone->getDefault($enableTzCache = true)->getID();
 
         // native setting of a new timezone
@@ -144,7 +140,7 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
 
         TimeZone::disableTzCache();
 
-        $this->timeZone->setDefault("Europe/Paris");
+        $this->timeZone->setDefault('Europe/Paris');
         $parisTz = $this->timeZone->getDefault($enableTzCache = true)->getID();
 
         // native setting of a new timezone

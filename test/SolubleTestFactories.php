@@ -4,22 +4,19 @@ use PjbServer\Tools\StandaloneServer;
 
 class SolubleTestFactories
 {
-
     /**
-     *
      * @var StandaloneServer|null
      */
     protected static $standaloneServer;
 
     /**
-     *
      * @var int
      */
     // protected static $javaBridgeServerPid;
 
     /**
      * Start (and eventually install) the standalone
-     * java bridge server
+     * java bridge server.
      */
     public static function startJavaBridgeServer()
     {
@@ -60,7 +57,6 @@ class SolubleTestFactories
     }
 
     /**
-     *
      * @return string
      */
     public static function getJavaBridgeServerAddress()
@@ -77,6 +73,7 @@ class SolubleTestFactories
         if (!preg_match('/^\//', $cache_dir)) {
             $cache_dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $cache_dir;
         }
+
         return $cache_dir;
     }
 

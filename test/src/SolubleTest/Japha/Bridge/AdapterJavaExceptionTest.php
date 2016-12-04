@@ -11,13 +11,11 @@ use Soluble\Japha\Bridge\Exception;
 class AdapterJavaExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
      * @var string
      */
     protected $servlet_address;
 
     /**
-     *
      * @var Adapter
      */
     protected $adapter;
@@ -52,39 +50,36 @@ class AdapterJavaExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\AbstractDriver', $driver);
     }
 
-
-
     public function testCommonExceptions()
     {
         $ba = $this->adapter;
 
         try {
-            $string = $ba->java('java.lang.String', "Hello world");
+            $string = $ba->java('java.lang.String', 'Hello world');
             $string->anInvalidMethod();
-            $this->assertFalse(true, "This code cannot be reached");
+            $this->assertFalse(true, 'This code cannot be reached');
         } catch (Exception\NoSuchMethodException $e) {
             $this->assertTrue(true);
         } catch (\Exception $e) {
-            $this->assertFalse(true, "This code cannot be reached");
+            $this->assertFalse(true, 'This code cannot be reached');
         }
-
 
         // Class not found
         try {
-            $string = $ba->java('java.INVALID.String', "Hello world");
-            $this->assertFalse(true, "This code cannot be reached");
+            $string = $ba->java('java.INVALID.String', 'Hello world');
+            $this->assertFalse(true, 'This code cannot be reached');
         } catch (Exception\ClassNotFoundException $e) {
             $this->assertTrue(true);
         } catch (\Exception $e) {
-            $this->assertFalse(true, "This code cannot be reached");
+            $this->assertFalse(true, 'This code cannot be reached');
         }
 
         try {
-            $string = $ba->java("java.Invalid.String", "Hello world");
+            $string = $ba->java('java.Invalid.String', 'Hello world');
         } catch (Exception\JavaException $e) {
             $this->assertTrue(true);
         } catch (\Exception $e) {
-            $this->assertFalse(true, "This code cannot be reached");
+            $this->assertFalse(true, 'This code cannot be reached');
         }
     }
 }

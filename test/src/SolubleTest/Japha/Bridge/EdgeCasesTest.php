@@ -10,13 +10,11 @@ use Soluble\Japha\Bridge\Adapter;
 class EdgeCasesTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
      * @var string
      */
     protected $servlet_address;
 
     /**
-     *
      * @var Adapter
      */
     protected $adapter;
@@ -63,7 +61,7 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
 
         // Very big string
         $initial_mem = memory_get_usage();
-        $s = str_repeat("1", 31554432);
+        $s = str_repeat('1', 31554432);
         $str = $ba->java('java.lang.String', $s);
         $this->assertEquals(31554432, $str->length());
         $full_mem = memory_get_usage();
@@ -77,9 +75,9 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
         echo "\n";
         echo "Debug for java big memory test\n";
         echo "Released memory must be approx equal to initial memory\n";
-        echo "- Initial memory   : " . number_format($initial_mem, 0, '.', ',') . "\n";
-        echo "- Max memory       : " . number_format($full_mem, 0, '.', ',') . "\n";
-        echo "- After release    : " . number_format($released_mem, 0, '.', ',') . "\n";
+        echo '- Initial memory   : ' . number_format($initial_mem, 0, '.', ',') . "\n";
+        echo '- Max memory       : ' . number_format($full_mem, 0, '.', ',') . "\n";
+        echo '- After release    : ' . number_format($released_mem, 0, '.', ',') . "\n";
         echo "\n";
 
         if (defined('HHVM_VERSION')) {

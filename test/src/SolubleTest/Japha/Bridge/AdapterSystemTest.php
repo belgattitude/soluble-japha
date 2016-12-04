@@ -11,23 +11,19 @@ use Soluble\Japha\Interfaces;
 class AdapterSystemTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
      * @var string
      */
     protected $servlet_address;
 
     /**
-     *
      * @var Adapter
      */
     protected $ba;
 
     /**
-     *
      * @var Interfaces\JavaObject
      */
     protected $backupTz;
-
 
     /**
      * Sets up the fixture, for example, opens a network connection.

@@ -13,13 +13,11 @@ use Monolog\Handler\TestHandler;
 class LoggerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
      * @var string
      */
     protected $servlet_address;
 
     /**
-     *
      * @var Adapter
      */
     protected $adapter;
@@ -72,10 +70,10 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
             $this->assertTrue($logged, 'Assert that logger actually logs connection exception');
         } catch (\Exception $e) {
-            $this->assertFalse(true, "ConnectionException should be thrown !!!");
+            $this->assertFalse(true, 'ConnectionException should be thrown !!!');
         }
         if (!$logged) {
-            $this->assertFalse(true, "ConnectionException should be logged");
+            $this->assertFalse(true, 'ConnectionException should be logged');
         }
     }
 }

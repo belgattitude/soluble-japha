@@ -1,6 +1,6 @@
 <?php
 /**
- * Soluble Japha / PhpJavaBridge
+ * Soluble Japha / PhpJavaBridge.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
  * with php java bridge 6.2.1
@@ -8,7 +8,8 @@
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
- * @link      http://github.com/belgattitude/soluble-japha
+ * @see      http://github.com/belgattitude/soluble-japha
+ *
  * @copyright Copyright (c) 2014 Soluble components
  * @author Vanvelthem Sébastien
  * @license   MIT
@@ -32,8 +33,8 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Iterator;
@@ -43,12 +44,11 @@ class ObjectIterator implements Iterator
     private $var;
 
     /**
-     *
-     * //@param ArrayProxy|JavaProxy|AbstractJava $javaProxy
+     * //@param ArrayProxy|JavaProxy|AbstractJava $javaProxy.
      */
     public function __construct($javaProxy)
     {
-        $this->var = Pjb62Driver::castPjbInternal($javaProxy, "A");
+        $this->var = Pjb62Driver::castPjbInternal($javaProxy, 'A');
     }
 
     public function rewind()
