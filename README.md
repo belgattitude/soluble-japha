@@ -5,7 +5,7 @@
 [![Latest Stable Version](https://poser.pugx.org/soluble/japha/v/stable.svg)](https://packagist.org/packages/soluble/japha)
 [![Total Downloads](https://poser.pugx.org/soluble/japha/downloads.png)](https://packagist.org/packages/soluble/japha)
 [![License](https://poser.pugx.org/soluble/japha/license.png)](https://packagist.org/packages/soluble/japha)
-[![HHVM Status](http://hhvm.h4cc.de/badge/soluble/japha.svg)](http://hhvm.h4cc.de/package/soluble/japha)
+[![HHVM Status](http://hhvm.h4cc.de/badge/soluble/japha.svg?style=flat)](http://hhvm.h4cc.de/package/soluble/japha)
 
 ## Introduction
 
