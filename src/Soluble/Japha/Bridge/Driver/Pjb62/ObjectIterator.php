@@ -38,17 +38,18 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Iterator;
+use Soluble\Japha\Interfaces\JavaObject;
 
 class ObjectIterator implements Iterator
 {
     private $var;
 
     /**
-     * //@param ArrayProxy|JavaProxy|AbstractJava $javaProxy.
+     * @param JavaObject $javaObject
      */
-    public function __construct($javaProxy)
+    public function __construct($javaObject)
     {
-        $this->var = Pjb62Driver::castPjbInternal($javaProxy, 'A');
+        $this->var = Pjb62Driver::castPjbInternal($javaObject, 'A');
     }
 
     public function rewind()

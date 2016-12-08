@@ -118,10 +118,13 @@ class JavaProxy implements JavaType
         return $this->__client->invokeMethod($this->__java, $method, $args);
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         try {
-            return $this->__client->invokeMethod(0, 'ObjectToString', [$this]);
+            return (string) $this->__client->invokeMethod(0, 'ObjectToString', [$this]);
         } catch (Exception\JavaException $ex) {
             trigger_error('Exception in Java::__toString(): ' . java_truncate((string) $ex), E_USER_WARNING);
 
