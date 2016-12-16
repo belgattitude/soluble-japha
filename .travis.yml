@@ -13,6 +13,8 @@ matrix:
     - php: 7
     - php: 7.1
     - php: hhvm-3.9
+    - php: hhvm-3.12
+    - php: hhvm-nightly
                     
 before_script:
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
