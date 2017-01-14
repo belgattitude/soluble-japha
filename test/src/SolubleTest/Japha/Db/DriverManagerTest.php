@@ -137,6 +137,33 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         $conn->close();
     }
 
+    public function testInvalidQueryThrowsException()
+    {
+        $this->expectException(\Soluble\Japha\Bridge\Exception\JavaException::class);
+        $dsn = $this->getWorkingDSN();
+        try {
+            $conn = $this->driverManager->createConnection($dsn);
+        } catch (\Exception $e) {
+            $this->assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+        }
+
+        $stmt = $conn->createStatement();
+        try {
+            $rs = $stmt->executeQuery('select * from non_existing_table limit 100');
+            $this->assertTrue(false, 'Error: a JavaException exception was expected');
+
+        } catch (\Soluble\Japha\Bridge\Exception\JavaException $e) {
+            $this->assertTrue(true, 'Exception have been thrown');
+            $java_cls = $e->getJavaClassName();
+            $this->assertEquals('com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException', $java_cls);
+            $conn->close();
+
+            throw $e;
+        }
+
+    }
+
+
     protected function getWorkingDSN()
     {
         $config = \SolubleTestFactories::getDatabaseConfig();
