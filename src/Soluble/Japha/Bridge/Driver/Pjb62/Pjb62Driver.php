@@ -53,7 +53,7 @@ class Pjb62Driver extends AbstractDriver
         $this->logger = $logger;
 
         try {
-            $this->pjbProxyClient = PjbProxyClient::getInstance($options);
+            $this->pjbProxyClient = PjbProxyClient::getInstance($options, $this->logger);
         } catch (Exception\ConnectionException $e) {
             $address = $options['servlet_address'];
             $msg = "Cannot connect to php-java-bridge server on '$address', server didn't respond.";

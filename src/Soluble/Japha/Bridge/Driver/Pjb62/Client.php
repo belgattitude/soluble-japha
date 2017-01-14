@@ -38,8 +38,10 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use ArrayObject;
+use Psr\Log\LoggerInterface;
 use Soluble\Japha\Interfaces\JavaObject;
 use Soluble\Japha\Bridge\Driver\Pjb62\Exception\IllegalArgumentException;
+
 
 class Client
 {
@@ -165,11 +167,17 @@ class Client
     protected $default_buffer_size = 8192;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param ArrayObject $params
      */
-    public function __construct(ArrayObject $params)
+    public function __construct(ArrayObject $params, LoggerInterface $logger)
     {
         $this->params = $params;
+        $this->logger = $logger;
 
         if (array_key_exists('JAVA_SEND_SIZE', $params) && $params['JAVA_SEND_SIZE'] != 0) {
             $this->java_send_size = $params['JAVA_SEND_SIZE'];
@@ -207,6 +215,14 @@ class Client
             'getContext' => null,
             'getServerName' => null
         ];
+    }
+
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger() {
+        return $this->logger;
     }
 
     public function read($size)
@@ -418,15 +434,18 @@ class Client
         return new ParserString();
     }
 
+    /**
+     * @param mixed $arg
+     */
     public function writeArg($arg)
     {
         if (is_string($arg)) {
             $this->protocol->writeString($arg);
         } elseif (is_object($arg)) {
             if ((!$arg instanceof JavaType)) {
-
-                error_log((string) new IllegalArgumentException($arg));
-                trigger_error("argument '" . get_class($arg) . "' is not a Java object,using NULL instead", E_USER_WARNING);
+                $msg = "Client failed to writeArg(), IllegalArgument 'arg:" . get_class($arg) . "' not a Java object, using NULL instead";
+                $this->logger->error("[soluble-japha] $msg (" . __METHOD__ . ')');
+                trigger_error($msg, E_USER_WARNING);
                 $this->protocol->writeObject(null);
             } else {
                 $this->protocol->writeObject($arg->get__java());
@@ -571,7 +590,8 @@ class Client
     /**
      * @param ApplyArg $arg
      *
-     * @throws JavaException
+     * @throws Exception\JavaException
+     * @throws Exception\RuntimeException
      */
     public function apply(ApplyArg $arg)
     {
@@ -584,11 +604,15 @@ class Client
         try {
             $res = $arg->getResult(true);
             if ((($object == null) && !function_exists($name)) || (!($object == null) && !method_exists($object, $name))) {
-                throw new Exception\JavaException('java.lang.NoSuchMethodError', "$name");
+                throw new Exception\JavaException('java.lang.NoSuchMethodError', (string) $name);
             }
             $res = call_user_func_array($ob, $res);
             if (is_object($res) && (!($res instanceof JavaType))) {
-                trigger_error("object returned from $name() is not a Java object", E_USER_WARNING);
+
+                $msg = "Client failed to applyArg(), Object returned from '$name()' is not a Java object";
+                $this->logger->warning("[soluble-japha] $msg (" . __METHOD__ . ')');
+                trigger_error($msg, E_USER_WARNING);
+
                 $this->protocol->invokeBegin(0, 'makeClosure');
                 $this->protocol->writeULong($this->globalRef->add($res));
                 $this->protocol->invokeEnd();
@@ -604,6 +628,8 @@ class Client
             $this->protocol->resultEnd();
         } catch (\Exception $ex) {
             $msg = 'Unchecked exception detected in callback (' . $ex->__toString() . ')';
+            $this->logger->error("[soluble-japha] $msg (" . __METHOD__ . ')');
+            trigger_error($msg, E_USER_WARNING);
             $uncheckedException = new Exception\RuntimeException($msg);
             throw $uncheckedException;
         }
@@ -637,7 +663,7 @@ class Client
             case 'F':
                 return $this->invokeMethod(0, 'castToInExact', [$object]);
             case 'N':
-                return;
+                return null;
             case 'A':
                 return $this->invokeMethod(0, 'castToArray', [$object]);
             case 'O':

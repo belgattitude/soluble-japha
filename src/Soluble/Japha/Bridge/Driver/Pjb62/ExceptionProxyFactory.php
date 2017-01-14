@@ -37,8 +37,19 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+
+
 class ExceptionProxyFactory extends SimpleFactory
 {
+
+    /**
+     * @param Client $client
+     */
+    public function __construct(Client $client)
+    {
+        parent::__construct($client);
+    }
+
     /**
      * @return ExceptionProxy
      */

@@ -37,6 +37,9 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+
+use Soluble\Japha\Interfaces;
+
 class SimpleFactory
 {
     /**
@@ -60,7 +63,12 @@ class SimpleFactory
         return $result;
     }
 
-    public function checkResult($result)
+
+    /**
+     * @param Interfaces\JavaType $result
+     */
+    public function checkResult(Interfaces\JavaType $result)
     {
+
     }
 }

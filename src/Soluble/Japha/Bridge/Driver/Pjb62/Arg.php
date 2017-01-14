@@ -37,6 +37,9 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Exception\JavaException;
+use Soluble\Japha\Interfaces;
+
 class Arg
 {
     /**
@@ -84,14 +87,17 @@ class Arg
 
     /**
      * @param bool $wrap
+     * @throws JavaException
      */
     public function getResult($wrap)
     {
         $rc = $this->factory->getProxy($this->val, $this->signature, $this->exception, $wrap);
+
         $factory = $this->factory;
         $this->factory = $this->client->simpleFactory;
-        $factory->checkResult($rc);
-
+        if ($rc instanceof Interfaces\JavaType) {
+            $factory->checkResult($rc);
+        }
         return $rc;
     }
 

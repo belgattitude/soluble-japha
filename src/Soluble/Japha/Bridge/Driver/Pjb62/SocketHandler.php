@@ -90,18 +90,26 @@ class SocketHandler
     }
 
     /**
-     * @param null|string $msg
+     * @param string $msg
      */
-    public function dieWithBrokenConnection($msg)
+    public function dieWithBrokenConnection($msg='')
     {
+        if ($msg == '') {
+            $msg = "Unkown error: please see back end log for detail";
+        }
+
+        // Log error
+        $client = $this->protocol->getClient();
+        $client->getLogger()->critical("[soluble-japha] Broken connection: $msg (" . __METHOD__ . ')');
+
         unset($this->protocol->client->protocol);
-        trigger_error($msg ? $msg : 'unknown error: please see back end log for details', E_USER_ERROR);
+        trigger_error($msg, E_USER_ERROR);
     }
 
     /**
-     * @param null|string $msg
+     * @param string $msg
      */
-    public function shutdownBrokenConnection($msg)
+    public function shutdownBrokenConnection($msg='')
     {
         $this->channel->shutdownBrokenConnection();
         $this->dieWithBrokenConnection($msg);

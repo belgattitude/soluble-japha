@@ -14,6 +14,8 @@ use Soluble\Japha\Interfaces;
 use Soluble\Japha\Bridge\Driver\ClientInterface;
 use ArrayObject;
 use Soluble\Japha\Bridge\Driver\Pjb62\Exception\IllegalArgumentException;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class PjbProxyClient implements ClientInterface
 {
@@ -53,13 +55,20 @@ class PjbProxyClient implements ClientInterface
     /**
      * @var array
      */
-    public $options;
+    protected $options;
 
+
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
 
     /**
      * @var string|null
      */
     protected static $instanceOptionsKey;
+
+
 
     /**
      * Private contructor.
@@ -67,7 +76,7 @@ class PjbProxyClient implements ClientInterface
      * $options requires :
      *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
      *
-     *  Optionaly :
+     *  Optionally :
      *  'java_log_level' => null
      *  'java_send_size' => 8192,
      *  'java_recv_size' => 8192
@@ -79,11 +88,13 @@ class PjbProxyClient implements ClientInterface
      * @see PjbProxyClient::getInstance()
      *
      * @param array $options
+     * @param LoggerInterface $logger
      */
-    protected function __construct(array $options)
+    protected function __construct(array $options, LoggerInterface $logger)
     {
         self::$instanceOptionsKey = serialize($options);
         $this->options = array_merge($options, $this->defaultOptions);
+        $this->logger = $logger;
         $this->loadClient();
     }
 
@@ -105,20 +116,24 @@ class PjbProxyClient implements ClientInterface
      *      "java_recv_size" => 8192
      *
      *    ];
-     *    $pjb = PjbProxyClient::getInstance($options);
+     *    $pjb = PjbProxyClient::getInstance($options, $logger);
      * </code>
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ConnectionException
      *
      * @param array|null $options
+     * @param LoggerInterface $logger any psr3 logger
      *
      * @return PjbProxyClient
      */
-    public static function getInstance(array $options = null)
+    public static function getInstance(array $options = null, LoggerInterface $logger = null)
     {
         if (self::$instance === null) {
-            self::$instance = new PjbProxyClient($options);
+            if ($logger === null) {
+                $logger = new NullLogger();
+            }
+            self::$instance = new self($options, $logger);
         }
         return self::$instance;
     }
@@ -157,10 +172,10 @@ class PjbProxyClient implements ClientInterface
             $params['JAVA_RECV_SIZE'] = $options['java_recv_size'];
             $params['JAVA_LOG_LEVEL'] = $options['java_log_level'];
 
-            self::$client = new Client($params);
+            self::$client = new Client($params, $this->logger);
 
             // Added in order to work with custom exceptions
-            self::$client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory(self::$client);
+            self::$client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory(self::$client, $this->logger);
 
             $this->bootstrap();
         }
@@ -341,7 +356,7 @@ class PjbProxyClient implements ClientInterface
 
             $java_prefer_values = $this->getOption('java_prefer_values');
             $java_log_level = $this->getOption('java_log_level');
-            @$compatibility = $client->RUNTIME['PARSER'] == 'NATIVE' ? (0103 - $java_prefer_values) : (0100 + $java_prefer_values);
+            @$compatibility = $client->RUNTIME['PARSER'] === 'NATIVE' ? (0103 - $java_prefer_values) : (0100 + $java_prefer_values);
             if (@is_int($java_log_level)) {
                 $compatibility |= 128 | (7 & $java_log_level) << 2;
             }
@@ -370,7 +385,7 @@ class PjbProxyClient implements ClientInterface
 
         $scheme = '';
         if (isset($url['scheme'])) {
-            $scheme = $url['scheme'] == 'https' ? 'ssl://' : $scheme;
+            $scheme = $url['scheme'] === 'https' ? 'ssl://' : $scheme;
         }
         $host = $url['host'];
         $port = $url['port'];
@@ -465,7 +480,7 @@ class PjbProxyClient implements ClientInterface
     /**
      * Before removing instance.
      */
-    public function __destroy()
+    public function __destruct()
     {
         $this->unregisterInstance();
     }

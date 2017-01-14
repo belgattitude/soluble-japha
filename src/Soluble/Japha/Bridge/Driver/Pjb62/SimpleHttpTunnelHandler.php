@@ -87,7 +87,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     /**
      * @param string|null $msg
      */
-    public function shutdownBrokenConnection($msg)
+    public function shutdownBrokenConnection($msg='')
     {
         fclose($this->socket);
         $this->dieWithBrokenConnection($msg);
@@ -103,8 +103,10 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     public function checkSocket($socket, $errno, $errstr)
     {
         if (!$socket) {
-            $message = " Could not connect to the JEE server {$this->ssl}{$this->host}:{$this->port}. Please start it.";
-            throw new ConnectionException(__METHOD__ . $message);
+            $msg = "Could not connect to the JEE server {$this->ssl}{$this->host}:{$this->port}. Please start it.";
+            $logger = $this->protocol->getClient()->getLogger();
+            $logger->critical("[soluble-japha] $msg." . __METHOD__);
+            throw new ConnectionException(__METHOD__ . ' ' . $msg);
         }
     }
 
@@ -185,7 +187,6 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
             }
             $this->shutdownBrokenConnection($str);
         }
-
         return $this->fread($this->java_recv_size);
     }
 

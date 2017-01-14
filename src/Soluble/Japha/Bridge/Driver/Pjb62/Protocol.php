@@ -107,6 +107,13 @@ class Protocol
     }
 
     /**
+     * @return Client
+     */
+    public function getClient() {
+        return $this->client;
+    }
+
+    /**
      * @return string
      */
     public function getOverrideHosts()

@@ -2,13 +2,22 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62\Proxy;
 
+use Psr\Log\LoggerInterface;
 use Soluble\Japha\Bridge\Driver\Pjb62;
 use Soluble\Japha\Bridge\Exception;
+use Soluble\Japha\Bridge\Driver\Pjb62\Client;
+use Soluble\Japha\Interfaces;
 
 class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
 {
+
     /**
-     * @string
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
+     * @var string
      */
     protected $defaultException = 'JavaException';
 
@@ -23,20 +32,32 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
     ];
 
     /**
-     * @param Exception\InternalException $result
-     *
-     * @return Exception\JavaException
+     * @param Client $client
+     * @param LoggerInterface $logger
      */
-    public function checkResult($result)
+    public function __construct(Client $client, LoggerInterface $logger)
+    {
+        parent::__construct($client);
+        $this->logger = $logger;
+    }
+
+
+    /**
+     * @param Interfaces\JavaType $result
+     * @throws Exception\JavaExceptionInterface
+     */
+    public function checkResult(Interfaces\JavaType $result)
     {
         $exception = $this->getExceptionFromResult($result);
         throw $exception;
     }
 
+
     /**
-     * @return \Exception
+     * @param Pjb62\JavaType $result
+     * @return Exception\JavaExceptionInterface
      */
-    protected function getExceptionFromResult($result)
+    protected function getExceptionFromResult(Pjb62\JavaType $result)
     {
         $found = false;
         $exceptionClass = '';

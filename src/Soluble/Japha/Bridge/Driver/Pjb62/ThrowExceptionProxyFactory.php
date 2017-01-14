@@ -37,8 +37,21 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Exception\JavaException;
+use Soluble\Japha\Interfaces;
+
 class ThrowExceptionProxyFactory extends ExceptionProxyFactory
 {
+
+    /**
+     * @param Client $client
+     */
+    public function __construct(Client $client)
+    {
+        parent::__construct($client);
+    }
+
+
     /**
      * @return Exception\InternalException
      */
@@ -49,12 +62,19 @@ class ThrowExceptionProxyFactory extends ExceptionProxyFactory
         return new Exception\InternalException($proxy, $exception);
     }
 
-    public function checkResult($result)
+    /**
+     * @param Interfaces\JavaType $result
+     * @throws JavaException
+     */
+    public function checkResult(Interfaces\JavaType $result)
     {
         if (PjbProxyClient::getInstance()->getOption('java_prefer_values') || ($result->__hasDeclaredExceptions == 'T')) {
             throw $result;
         } else {
-            trigger_error('Unchecked exception detected: ' . java_truncate($result->__toString()), E_USER_WARNING);
+            $msg = 'Unchecked exception detected: ' . java_truncate($result->__toString());
+            // Log error
+            $this->client->getLogger()->critical("[soluble-japha] $msg (" . __METHOD__ . ')');
+            trigger_error($msg, E_USER_WARNING);
         }
     }
 }
