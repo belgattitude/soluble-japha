@@ -91,18 +91,9 @@ class Adapter
      *
      * @return Interfaces\JavaObject
      */
-    public function java($class, $args = null)
+    public function java($class, ...$args)
     {
-        // @todo when minimum is php5.6+ use variadic notation
-        // instead in the method signature
-        // function java($class, ...$args)
-        if ($args !== null) {
-            $func_args = func_get_args();
-
-            return $this->driver->instanciate($func_args);
-        }
-
-        return $this->driver->instanciate($class);
+        return $this->driver->instanciate($class, ...$args);
     }
 
     /**

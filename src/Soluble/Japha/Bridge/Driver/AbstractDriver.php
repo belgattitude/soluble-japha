@@ -17,7 +17,7 @@ abstract class AbstractDriver implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    abstract public function instanciate($class_name, $args = null);
+    abstract public function instanciate($class_name, ...$args);
 
     /**
      * @param Interfaces\JavaObject $javaObject

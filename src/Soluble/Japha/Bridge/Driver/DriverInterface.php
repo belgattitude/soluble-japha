@@ -25,7 +25,7 @@ interface DriverInterface extends ConnectionInterface
      *
      * @return Interfaces\JavaObject
      */
-    public function instanciate($class_name, $args = null);
+    public function instanciate($class_name, ...$args);
 
     /**
      * Return a new java class.

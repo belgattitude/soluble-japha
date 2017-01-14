@@ -134,15 +134,15 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     /**
      * @return ObjectIterator
      */
-    public function getIterator()
+    public function getIterator(...$args)
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
-        if (func_num_args() == 0) {
+
+        if (count($args) == 0) {
             return $this->__delegate->getIterator();
         }
-        $args = func_get_args();
 
         return $this->__call('getIterator', $args);
     }
@@ -252,6 +252,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
 
         return $this->__delegate->__toString();
     }
+
 
     /**
      * Returns the runtime class of this Object.

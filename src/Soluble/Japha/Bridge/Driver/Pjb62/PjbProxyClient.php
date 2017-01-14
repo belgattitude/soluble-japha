@@ -78,7 +78,7 @@ class PjbProxyClient implements ClientInterface
      *
      * @param array $options
      */
-    private function __construct(array $options)
+    protected function __construct(array $options)
     {
         self::$instanceOptionsKey = serialize($options);
         $this->options = array_merge($options, $this->defaultOptions);
@@ -243,7 +243,7 @@ class PjbProxyClient implements ClientInterface
      *
      * @return string
      *
-     * @throws Exception\IllegalArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function inspect(Interfaces\JavaType $object)
     {
@@ -321,17 +321,17 @@ class PjbProxyClient implements ClientInterface
      * => h
      * </code>
      *
-     * @param JavaType $object
+     * @param Interfaces\JavaObject $object
      *
      * @return mixed
      */
-    public function getValues(JavaType $object)
+    public function getValues(Interfaces\JavaObject $object)
     {
         return self::$client->invokeMethod(0, 'getValues', [$object]);
     }
 
     /**
-     * @return JavaException
+     * @return \Soluble\Japha\Bridge\Driver\Pjb62\Exception\JavaException
      */
     public function getLastException()
     {

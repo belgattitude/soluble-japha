@@ -46,16 +46,14 @@ class JavaClass extends Java implements Interfaces\JavaClass
 {
     /**
      * JavaClass constructor.
+     * @param string $name Java FQDN
+     * @param array ...$args optional args
      */
-    public function __construct()
+    public function __construct($name)
     {
         $this->__client = PjbProxyClient::getInstance()->getClient();
-        $args = func_get_args();
-        $name = array_shift($args);
-        if (is_array($name)) {
-            $args = $name;
-            $name = array_shift($args);
-        }
+
+        $args = []; // no arguments for JavaClass
         $this->__delegate = $this->__client->referenceObject($name, $args);
         $this->__java = $this->__delegate->__java;
         $this->__signature = $this->__delegate->__signature;

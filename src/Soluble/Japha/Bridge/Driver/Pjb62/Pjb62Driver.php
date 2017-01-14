@@ -96,14 +96,14 @@ class Pjb62Driver extends AbstractDriver
     /**
      * {@inheritdoc}
      */
-    public function instanciate($class_name, $args = null)
+    public function instanciate($class_name, ...$args)
     {
         //return $this->pjbProxyClient->getJavaClass($class_name, $args);
         if ($args === null) {
             return new Java($class_name);
         }
 
-        return new Java($class_name, $args);
+        return new Java($class_name, ...$args);
     }
 
     /**
@@ -178,7 +178,7 @@ class Pjb62Driver extends AbstractDriver
      * @param string $name
      * @param array  $array
      *
-     * @return string|void
+     * @return string|false
      */
     public static function getJavaBridgeHeader($name, array $array)
     {
@@ -189,22 +189,21 @@ class Pjb62Driver extends AbstractDriver
         if (array_key_exists($name, $array)) {
             return $array[$name];
         }
-
-        return;
+        return false;
     }
 
     /**
      * Cast internal objects to a new type.
      *
      * @param Interfaces\JavaObject|JavaType $javaObject
-     * @param $cast_type
+     * @param string $cast_type
      *
      * @return mixed
      */
     public static function castPjbInternal($javaObject, $cast_type)
     {
         if (!$javaObject instanceof JavaType) {
-            $first_char = strtoupper(substr($cast_type, 0, 1));
+            $first_char = strtoupper($cast_type[0]);
             switch ($first_char) {
                 case 'S':
                     return (string) $javaObject;
@@ -217,7 +216,7 @@ class Pjb62Driver extends AbstractDriver
                 case 'F':
                     return (float) $javaObject;
                 case 'N':
-                    return;
+                    return null;
                 case 'A':
                     return (array) $javaObject;
                 case 'O':
@@ -241,6 +240,7 @@ class Pjb62Driver extends AbstractDriver
             const CAST_TYPE_ARRAY   = 'array';
             const CAST_TYPE_NULL    = 'null';
             const CAST_TYPE_OBJECT  = 'object';
+            const CAST_TYPE_NULL -> null
          */
         $first_char = strtoupper(substr($cast_type, 0, 1));
         switch ($first_char) {
@@ -255,7 +255,7 @@ class Pjb62Driver extends AbstractDriver
             case 'F':
                 return (float) $javaObject;
             case 'N':
-                return;
+                return null;
             case 'A':
                 return (array) $javaObject;
             case 'O':
@@ -268,7 +268,7 @@ class Pjb62Driver extends AbstractDriver
     /**
      * Return object java class name.
      *
-     * @throw Exception\UnexpectedException
+     * @throws Exception\UnexpectedException
      *
      * @param Interfaces\JavaObject $javaObject
      *
