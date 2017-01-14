@@ -157,7 +157,6 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
             $java_cls = $e->getJavaClassName();
             $this->assertEquals('com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException', $java_cls);
             $conn->close();
-
             throw $e;
         }
 
