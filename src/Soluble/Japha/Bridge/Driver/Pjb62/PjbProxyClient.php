@@ -13,6 +13,7 @@ use Soluble\Japha\Bridge\Exception;
 use Soluble\Japha\Interfaces;
 use Soluble\Japha\Bridge\Driver\ClientInterface;
 use ArrayObject;
+use Soluble\Japha\Bridge\Driver\Pjb62\Exception\IllegalArgumentException;
 
 class PjbProxyClient implements ClientInterface
 {
@@ -53,6 +54,7 @@ class PjbProxyClient implements ClientInterface
      * @var array
      */
     public $options;
+
 
     /**
      * @var string|null
@@ -243,7 +245,7 @@ class PjbProxyClient implements ClientInterface
      *
      * @return string
      *
-     * @throws Exception\InvalidArgumentException
+     * @throws IllegalArgumentException
      */
     public function inspect(Interfaces\JavaType $object)
     {

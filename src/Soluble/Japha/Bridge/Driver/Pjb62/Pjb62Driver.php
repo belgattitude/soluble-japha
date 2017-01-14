@@ -173,12 +173,12 @@ class Pjb62Driver extends AbstractDriver
     }
 
     /**
-     * Return java bridge header.
+     * Return java bridge header or empty string if nothing.
      *
      * @param string $name
      * @param array  $array
      *
-     * @return string|false
+     * @return string
      */
     public static function getJavaBridgeHeader($name, array $array)
     {
@@ -189,7 +189,7 @@ class Pjb62Driver extends AbstractDriver
         if (array_key_exists($name, $array)) {
             return $array[$name];
         }
-        return false;
+        return '';
     }
 
     /**

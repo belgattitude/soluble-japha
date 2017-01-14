@@ -39,6 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use ArrayObject;
 use Soluble\Japha\Interfaces\JavaObject;
+use Soluble\Japha\Bridge\Driver\Pjb62\Exception\IllegalArgumentException;
 
 class Client
 {
@@ -423,6 +424,7 @@ class Client
             $this->protocol->writeString($arg);
         } elseif (is_object($arg)) {
             if ((!$arg instanceof JavaType)) {
+
                 error_log((string) new IllegalArgumentException($arg));
                 trigger_error("argument '" . get_class($arg) . "' is not a Java object,using NULL instead", E_USER_WARNING);
                 $this->protocol->writeObject(null);
