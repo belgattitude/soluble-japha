@@ -118,13 +118,8 @@ class PjbProxyClient implements ClientInterface
     public static function getInstance(array $options = null)
     {
         if (self::$instance === null) {
-            self::$instance = new self($options);
+            self::$instance = new PjbProxyClient($options);
         }
-        /* todo order array
-        elseif (is_array($options) && self::$instanceOptionsKey != serialize($options)) {
-            $message  = 'PjbProxyClient::getInstance should only be configured once (bootstrap) with $option parameter';
-            throw new Exception\InvalidUsageException(__METHOD__ . $message);
-        } */
         return self::$instance;
     }
 
