@@ -40,6 +40,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62\Exception;
 use Exception;
 use Soluble\Japha\Bridge\Exception\JavaExceptionInterface;
 use Soluble\Japha\Bridge\Driver\Pjb62\JavaType;
+use Soluble\Japha\Bridge\Driver\Pjb62\Client;
 
 class JavaException extends Exception implements JavaType, JavaExceptionInterface
 {
@@ -70,9 +71,9 @@ class JavaException extends Exception implements JavaType, JavaExceptionInterfac
             parent::__construct($args[0]);
         }
 
-        $delegate = $this->__delegate = $this->__client->createObject($name, $args);
-        $this->__java = $delegate->__java;
-        $this->__signature = $delegate->__signature;
+        $this->__delegate = $this->__client->createObject($name, $args);
+        $this->__java = $this->__delegate->__java;
+        $this->__signature = $this->__delegate->__signature;
         $this->__hasDeclaredExceptions = 'T';
     }
 
@@ -110,9 +111,12 @@ class JavaException extends Exception implements JavaType, JavaExceptionInterfac
         return $this->__delegate->__call($method, $args);
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        return $this->__delegate->__toExceptionString($this->getTraceAsString());
+        return (string) $this->__delegate->__toExceptionString($this->getTraceAsString());
     }
 
     /**
