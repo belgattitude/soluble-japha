@@ -9,13 +9,14 @@
   variadic functions. The API is still the same, and if you
   require PHP5.5 support, please install the v0.13.0 instead.
   
-  A branch have been saved for [pre-5.6](https://github.com/belgattitude/soluble-japha/tree/pre5.6_0.13.0) support.
+  A branch have been saved for [pre-5.6](https://github.com/belgattitude/soluble-japha/tree/pre5.6_0.13.0) support. 
+  It can be used to provide 0.13.x patches for php5.5.
    
 ### Improved
 
 - Better logging support and error reporting [see #22](https://github.com/belgattitude/soluble-japha/issues/22).
 - Support for variadic notation [see #16](https://github.com/belgattitude/soluble-japha/issues/16).
-- A lot a minor fixes (doc)
+- A lot a minor fixes (types, phpdoc...)
 
 
 ## 0.13.0 (2016-12-01)

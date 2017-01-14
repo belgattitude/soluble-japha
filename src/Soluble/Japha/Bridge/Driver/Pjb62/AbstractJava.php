@@ -253,7 +253,6 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         return $this->__delegate->__toString();
     }
 
-
     /**
      * Returns the runtime class of this Object.
      * The returned Class object is the object that is locked by static synchronized methods of the represented class.

@@ -129,6 +129,7 @@ class JavaProxy implements JavaType
             $msg = 'Exception in Java::__toString(): ' . java_truncate((string) $ex);
             $this->__client->getLogger()->warning("[soluble-japha] $msg (" . __METHOD__ . ')');
             trigger_error($msg, E_USER_WARNING);
+
             return '';
         }
     }

@@ -40,8 +40,6 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 use ArrayObject;
 use Psr\Log\LoggerInterface;
 use Soluble\Japha\Interfaces\JavaObject;
-use Soluble\Japha\Bridge\Driver\Pjb62\Exception\IllegalArgumentException;
-
 
 class Client
 {
@@ -217,11 +215,11 @@ class Client
         ];
     }
 
-
     /**
      * @return LoggerInterface
      */
-    public function getLogger() {
+    public function getLogger()
+    {
         return $this->logger;
     }
 
@@ -608,7 +606,6 @@ class Client
             }
             $res = call_user_func_array($ob, $res);
             if (is_object($res) && (!($res instanceof JavaType))) {
-
                 $msg = "Client failed to applyArg(), Object returned from '$name()' is not a Java object";
                 $this->logger->warning("[soluble-japha] $msg (" . __METHOD__ . ')');
                 trigger_error($msg, E_USER_WARNING);

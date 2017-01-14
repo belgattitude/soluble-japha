@@ -109,7 +109,8 @@ class Protocol
     /**
      * @return Client
      */
-    public function getClient() {
+    public function getClient()
+    {
         return $this->client;
     }
 

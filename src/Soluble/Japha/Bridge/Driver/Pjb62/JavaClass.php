@@ -46,6 +46,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
 {
     /**
      * JavaClass constructor.
+     *
      * @param string $name Java FQDN
      * @param array ...$args optional args
      */

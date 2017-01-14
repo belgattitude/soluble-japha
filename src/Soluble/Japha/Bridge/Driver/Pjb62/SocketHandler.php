@@ -92,10 +92,10 @@ class SocketHandler
     /**
      * @param string $msg
      */
-    public function dieWithBrokenConnection($msg='')
+    public function dieWithBrokenConnection($msg = '')
     {
         if ($msg == '') {
-            $msg = "Unkown error: please see back end log for detail";
+            $msg = 'Unkown error: please see back end log for detail';
         }
 
         // Log error
@@ -109,7 +109,7 @@ class SocketHandler
     /**
      * @param string $msg
      */
-    public function shutdownBrokenConnection($msg='')
+    public function shutdownBrokenConnection($msg = '')
     {
         $this->channel->shutdownBrokenConnection();
         $this->dieWithBrokenConnection($msg);

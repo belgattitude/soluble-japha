@@ -151,7 +151,6 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         try {
             $rs = $stmt->executeQuery('select * from non_existing_table limit 100');
             $this->assertTrue(false, 'Error: a JavaException exception was expected');
-
         } catch (\Soluble\Japha\Bridge\Exception\JavaException $e) {
             $this->assertTrue(true, 'Exception have been thrown');
             $java_cls = $e->getJavaClassName();
@@ -159,9 +158,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
             $conn->close();
             throw $e;
         }
-
     }
-
 
     protected function getWorkingDSN()
     {

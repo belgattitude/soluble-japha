@@ -57,7 +57,6 @@ class PjbProxyClient implements ClientInterface
      */
     protected $options;
 
-
     /**
      * @var LoggerInterface
      */
@@ -67,8 +66,6 @@ class PjbProxyClient implements ClientInterface
      * @var string|null
      */
     protected static $instanceOptionsKey;
-
-
 
     /**
      * Private contructor.
@@ -87,7 +84,7 @@ class PjbProxyClient implements ClientInterface
      *
      * @see PjbProxyClient::getInstance()
      *
-     * @param array $options
+     * @param array           $options
      * @param LoggerInterface $logger
      */
     protected function __construct(array $options, LoggerInterface $logger)
@@ -122,8 +119,8 @@ class PjbProxyClient implements ClientInterface
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ConnectionException
      *
-     * @param array|null $options
-     * @param LoggerInterface $logger any psr3 logger
+     * @param array|null      $options
+     * @param LoggerInterface $logger  any psr3 logger
      *
      * @return PjbProxyClient
      */
@@ -135,6 +132,7 @@ class PjbProxyClient implements ClientInterface
             }
             self::$instance = new self($options, $logger);
         }
+
         return self::$instance;
     }
 
@@ -405,7 +403,6 @@ class PjbProxyClient implements ClientInterface
     protected function bootstrap($options = [])
     {
         register_shutdown_function(['Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', 'unregisterInstance']);
-
     }
 
     /**
