@@ -6,11 +6,9 @@ use Psr\Log\LoggerInterface;
 use Soluble\Japha\Bridge\Driver\Pjb62;
 use Soluble\Japha\Bridge\Exception;
 use Soluble\Japha\Bridge\Driver\Pjb62\Client;
-use Soluble\Japha\Interfaces;
 
 class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
 {
-
     /**
      * @var LoggerInterface
      */
@@ -32,7 +30,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
     ];
 
     /**
-     * @param Client $client
+     * @param Client          $client
      * @param LoggerInterface $logger
      */
     public function __construct(Client $client, LoggerInterface $logger)
@@ -41,28 +39,28 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
         $this->logger = $logger;
     }
 
-
     /**
-     * @param Interfaces\JavaType $result
+     * @param Pjb62\Exception\JavaException $result
+     *
      * @throws Exception\JavaExceptionInterface
      */
-    public function checkResult(Interfaces\JavaType $result)
+    public function checkResult(Pjb62\Exception\JavaException $result)
     {
         $exception = $this->getExceptionFromResult($result);
         throw $exception;
     }
 
-
     /**
-     * @param Pjb62\JavaType $result
+     * @param Pjb62\Exception\JavaException $result
+     *
      * @return Exception\JavaExceptionInterface
      */
-    protected function getExceptionFromResult(Pjb62\JavaType $result)
+    protected function getExceptionFromResult(Pjb62\Exception\JavaException $result)
     {
         $found = false;
         $exceptionClass = '';
 
-        $message = $result->message->__toString();
+        $message = $result->__get('message')->__toString();
 
         foreach ($this->msgPatternsMapping as $exceptionClass => $pattern) {
             if (preg_match($pattern, $message)) {

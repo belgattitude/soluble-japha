@@ -189,14 +189,15 @@ class Pjb62Driver extends AbstractDriver
         if (array_key_exists($name, $array)) {
             return $array[$name];
         }
+
         return '';
     }
 
     /**
      * Cast internal objects to a new type.
      *
-     * @param Interfaces\JavaObject|JavaType $javaObject
-     * @param string $cast_type
+     * @param Interfaces\JavaObject $javaObject
+     * @param string                $cast_type
      *
      * @return mixed
      */

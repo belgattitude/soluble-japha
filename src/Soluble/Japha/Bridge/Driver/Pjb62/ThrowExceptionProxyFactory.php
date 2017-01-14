@@ -37,12 +37,8 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-use Soluble\Japha\Bridge\Exception\JavaException;
-use Soluble\Japha\Interfaces;
-
 class ThrowExceptionProxyFactory extends ExceptionProxyFactory
 {
-
     /**
      * @param Client $client
      */
@@ -50,7 +46,6 @@ class ThrowExceptionProxyFactory extends ExceptionProxyFactory
     {
         parent::__construct($client);
     }
-
 
     /**
      * @return Exception\InternalException
@@ -63,10 +58,11 @@ class ThrowExceptionProxyFactory extends ExceptionProxyFactory
     }
 
     /**
-     * @param Interfaces\JavaType $result
-     * @throws JavaException
+     * @param Exception\JavaException $result
+     *
+     * @throws Exception\JavaException
      */
-    public function checkResult(Interfaces\JavaType $result)
+    public function checkResult(Exception\JavaException $result)
     {
         if (PjbProxyClient::getInstance()->getOption('java_prefer_values') || ($result->__hasDeclaredExceptions == 'T')) {
             throw $result;

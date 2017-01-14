@@ -87,7 +87,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     /**
      * @param string|null $msg
      */
-    public function shutdownBrokenConnection($msg='')
+    public function shutdownBrokenConnection($msg = '')
     {
         fclose($this->socket);
         $this->dieWithBrokenConnection($msg);
@@ -187,6 +187,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
             }
             $this->shutdownBrokenConnection($str);
         }
+
         return $this->fread($this->java_recv_size);
     }
 
@@ -212,8 +213,14 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $res .= $context;
         $res .= $cookies;
         $res .= $this->getBodyFor($compat, $data);
-        $count = fwrite($socket, $res) or $this->shutdownBrokenConnection('Broken connection handle');
-        fflush($socket) or $this->shutdownBrokenConnection('Broken connection handle');
+        $count = fwrite($socket, $res);
+        if ($count === false) {
+            $this->shutdownBrokenConnection('Cannot write to socket, broken connection handle');
+        }
+        $flushed = fflush($socket);
+        if ($flushed === false) {
+            $this->shutdownBrokenConnection('Cannot flush to socket, broken connection handle');
+        }
 
         return $count;
     }

@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 0.14.0 (2017-01-14)
+
+### Breaking change
+
+- From version 0.14+, minimum supported version is php 5.6.
+  Support for PHP 5.5 has been dropped, due to usage of
+  variadic functions. The API is still the same, and if you
+  require PHP5.5 support, please install the v0.13.0 instead.
+  
+  A branch have been saved for [pre-5.6](https://github.com/belgattitude/soluble-japha/tree/pre5.6_0.13.0) support.
+   
+### Improved
+
+- Better logging support and error reporting [see #22](https://github.com/belgattitude/soluble-japha/issues/22).
+- Support for variadic notation [see #16](https://github.com/belgattitude/soluble-japha/issues/16).
+- A lot a minor fixes (doc)
+
+
 ## 0.13.0 (2016-12-01)
 
 ### BREAKING CHANGES
