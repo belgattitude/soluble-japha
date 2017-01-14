@@ -148,19 +148,6 @@ class PjbProxyClient implements ClientInterface
 
             $connection = $this->parseServletUrl($options['servlet_address']);
 
-            /*
-            define("JAVA_HOSTS", $connection["servlet_host"]);
-            define("JAVA_SERVLET", $connection["servlet_uri"]);
-            define("JAVA_DISABLE_AUTOLOAD", $options['java_disable_autoload']);
-            define('JAVA_PREFER_VALUES', $options['java_prefer_values']);
-            define('JAVA_SEND_SIZE', $options['java_send_size']);
-            define('JAVA_RECV_SIZE', $options['java_recv_size']);
-            */
-            /*
-            if (!defined('JAVA_PREFER_VALUES')) {
-                define('JAVA_PREFER_VALUES', $options['java_prefer_values']);
-            }*/
-
             $params = new ArrayObject();
             $params['JAVA_HOSTS'] = $connection['servlet_host'];
             $params['JAVA_SERVLET'] = $connection['servlet_uri'];
@@ -402,61 +389,8 @@ class PjbProxyClient implements ClientInterface
      */
     protected function bootstrap($options = [])
     {
-        /// BOOTSTRAP
-        /// A lot to rework, remove constants
-        //define("JAVA_PEAR_VERSION", "6.2.1");
-
-        /*
-        if (!defined("JAVA_DISABLE_AUTOLOAD") || !JAVA_DISABLE_AUTOLOAD) {
-            //spl_autoload_register(array(__CLASS__, "autoload"));
-            spl_autoload_register(array('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', "autoload"));
-        }
-
-        */
-
-        //register_shutdown_function(array(__CLASS__, 'shutdown'));
         register_shutdown_function(['Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', 'unregisterInstance']);
 
-        /*
-        if (!defined("JAVA_SEND_SIZE")) {
-            define("JAVA_SEND_SIZE", 8192);
-        }
-        if (!defined("JAVA_RECV_SIZE")) {
-            define("JAVA_RECV_SIZE", 8192);
-        }
-
-        if (!defined("JAVA_HOSTS")) {
-            if (!java_defineHostFromInitialQuery(java_get_base())) {
-                if ($java_ini = get_cfg_var("java.hosts")) {
-                    define("JAVA_HOSTS", $java_ini);
-                } else {
-                    define("JAVA_HOSTS", "127.0.0.1:8080");
-                }
-            }
-        }
-
-        if (!defined("JAVA_SERVLET")) {
-            if (!(($java_ini = get_cfg_var("java.servlet")) === false)) {
-                define("JAVA_SERVLET", $java_ini);
-            } else {
-                define("JAVA_SERVLET", 1);
-            }
-        }*/
-
-/*
-        if (!defined("JAVA_LOG_LEVEL")) {
-            if (!(($java_ini = get_cfg_var("java.log_level")) === false)) {
-                define("JAVA_LOG_LEVEL", (int) $java_ini);
-            }
-        } else {
-            define("JAVA_LOG_LEVEL", null);
-        }
-        if (!defined("JAVA_PREFER_VALUES")) {
-            if ($java_ini = get_cfg_var("java.prefer_values")) {
-                define("JAVA_PREFER_VALUES", $java_ini);
-            }
-        }
-*/
     }
 
     /**
