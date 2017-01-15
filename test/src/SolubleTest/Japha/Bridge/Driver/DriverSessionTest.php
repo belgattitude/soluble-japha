@@ -4,6 +4,7 @@ namespace SolubleTest\Japha\Bridge;
 
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\DriverInterface;
+use Soluble\Japha\Bridge\Exception\JavaException;
 use Soluble\Japha\Interfaces\JavaObject;
 
 class DriverSessionTest extends \PHPUnit_Framework_TestCase
@@ -45,18 +46,37 @@ class DriverSessionTest extends \PHPUnit_Framework_TestCase
 
     public function testJavaSessionType()
     {
-        $session = $this->driver->getJavaSession();
-        $this->assertInstanceOf(JavaObject::class, $session);
+        try {
+            $session = $this->driver->getJavaSession();
+            $this->assertInstanceOf(JavaObject::class, $session);
+        } catch (JavaException $e) {
+            $cls = $e->getJavaClassName();
+
+            if ($cls == 'java.lang.IllegalStateException') {
+                $this->markTestSkipped('Skipped session test: Probably under tomcat -> Cannot create a session after the response has been committed');
+            } else {
+                $this->assertTrue(false, "Cannot test session type: ($cls)");
+            }
+        }
     }
 
     public function testJavaSession()
     {
-        $session = $this->adapter->getDriver()->getJavaSession();
-        $counter = $session->get('counter');
-        if ($this->adapter->isNull($counter)) {
-            $session->put('counter', 1);
-        } else {
-            $session->put('counter', $counter + 1);
+        try {
+            $session = $this->adapter->getDriver()->getJavaSession();
+            $counter = $session->get('counter');
+            if ($this->adapter->isNull($counter)) {
+                $session->put('counter', 1);
+            } else {
+                $session->put('counter', $counter + 1);
+            }
+        } catch (JavaException $e) {
+            $cls = $e->getJavaClassName();
+            if ($cls == 'java.lang.IllegalStateException') {
+                $this->markTestSkipped('Skipped session test: Probably under tomcat -> Cannot create a session after the response has been committed');
+            } else {
+                $this->assertTrue(false, "Cannot test session type: ($cls)");
+            }
         }
     }
 }
