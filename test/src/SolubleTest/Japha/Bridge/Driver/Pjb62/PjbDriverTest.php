@@ -62,6 +62,11 @@ class PjbDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(InternalJava::class, $context);
 
         $fqdn = $this->adapter->getClassName($context);
-        $this->assertEquals('php.java.bridge.http.Context', $fqdn);
+        $supported = [
+          'servlet' => 'php.java.servlet.HttpContext',
+          'standalone' => 'php.java.bridge.http.Context'
+        ];
+        $this->assertTrue(in_array($fqdn, $supported));
+
     }
 }
