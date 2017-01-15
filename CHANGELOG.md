@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.14.1 (2017-01-15)
+   
+### Improved
+
+- Better detection of broken connections `BrokenConnectionException`
+- Improved tests suite for tomcat 
+
 ## 0.14.0 (2017-01-14)
 
 ### Breaking change

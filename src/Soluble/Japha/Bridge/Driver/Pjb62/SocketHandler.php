@@ -37,6 +37,8 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException;
+
 class SocketHandler
 {
     /**
@@ -100,10 +102,11 @@ class SocketHandler
 
         // Log error
         $client = $this->protocol->getClient();
-        $client->getLogger()->critical("[soluble-japha] Broken connection: $msg (" . __METHOD__ . ')');
+        $client->getLogger()->critical("[soluble-japha] Broken connection: $msg, check the backend log for details\"  (" . __METHOD__ . ')');
 
         unset($this->protocol->client->protocol);
-        trigger_error($msg, E_USER_ERROR);
+
+        throw new BrokenConnectionException("Broken connection: $msg, check the backend log for details");
     }
 
     /**

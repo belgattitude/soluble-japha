@@ -67,6 +67,5 @@ class PjbDriverTest extends \PHPUnit_Framework_TestCase
           'standalone' => 'php.java.bridge.http.Context'
         ];
         $this->assertTrue(in_array($fqdn, $supported));
-
     }
 }

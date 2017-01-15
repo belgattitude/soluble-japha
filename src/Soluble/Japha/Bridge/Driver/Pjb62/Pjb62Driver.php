@@ -5,6 +5,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Soluble\Japha\Bridge\Driver\AbstractDriver;
+use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException;
 use Soluble\Japha\Interfaces;
 use Soluble\Japha\Bridge\Exception;
 
@@ -98,12 +99,18 @@ class Pjb62Driver extends AbstractDriver
      */
     public function instanciate($class_name, ...$args)
     {
-        //return $this->pjbProxyClient->getJavaClass($class_name, $args);
-        if ($args === null) {
-            return new Java($class_name);
+        try {
+            if ($args === null) {
+                $java = new Java($class_name);
+            } else {
+                $java = new Java($class_name, ...$args);
+            }
+        } catch (BrokenConnectionException $e) {
+            PjbProxyClient::getInstance()->destroy();
+            throw $e;
         }
 
-        return new Java($class_name, ...$args);
+        return $java;
     }
 
     /**
@@ -111,7 +118,12 @@ class Pjb62Driver extends AbstractDriver
      */
     public function invoke(Interfaces\JavaType $javaObject, $method, array $args = [])
     {
-        return $this->pjbProxyClient->invokeMethod($javaObject, $method, $args);
+        try {
+            return $this->pjbProxyClient->invokeMethod($javaObject, $method, $args);
+        } catch (BrokenConnectionException $e) {
+            PjbProxyClient::getInstance()->destroy();
+            throw $e;
+        }
     }
 
     /**
@@ -119,7 +131,12 @@ class Pjb62Driver extends AbstractDriver
      */
     public function getContext()
     {
-        return $this->pjbProxyClient->getClient()->getContext();
+        try {
+            return $this->pjbProxyClient->getClient()->getContext();
+        } catch (BrokenConnectionException $e) {
+            PjbProxyClient::getInstance()->destroy();
+            throw $e;
+        }
     }
 
     /**
@@ -141,7 +158,12 @@ class Pjb62Driver extends AbstractDriver
      */
     public function getJavaSession(array $args = [])
     {
-        return $this->pjbProxyClient->getClient()->getSession();
+        try {
+            return $this->pjbProxyClient->getClient()->getSession();
+        } catch (BrokenConnectionException $e) {
+            PjbProxyClient::getInstance()->destroy();
+            throw $e;
+        }
     }
 
     /**
@@ -169,7 +191,12 @@ class Pjb62Driver extends AbstractDriver
      */
     public function values(Interfaces\JavaObject $javaObject)
     {
-        return $this->pjbProxyClient->getValues($javaObject);
+        try {
+            return $this->pjbProxyClient->getValues($javaObject);
+        } catch (BrokenConnectionException $e) {
+            PjbProxyClient::getInstance()->destroy();
+            throw $e;
+        }
     }
 
     /**

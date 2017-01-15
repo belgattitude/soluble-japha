@@ -141,7 +141,9 @@ class PjbProxyClient implements ClientInterface
      */
     public static function isInitialized()
     {
-        return self::$instance !== null;
+        $init = (isset(self::$instance) && self::$instance !== null);
+
+        return (bool) $init;
     }
 
     /**
@@ -467,11 +469,24 @@ class PjbProxyClient implements ClientInterface
 
             // Added but needs more tests
             //unset($client);// = null;
+            /*
+            unset(self::$client); // = null;
+            unset(self::$instance);// = null;
+            unset(self::$instanceOptionsKey); // = null;
+            */
 
             self::$client = null;
             self::$instance = null;
             self::$instanceOptionsKey = null;
+            //unset(self::$instance);
         }
+    }
+
+    public function destroy()
+    {
+        self::$client = null;
+        self::$instance = null;
+        self::$instanceOptionsKey = null;
     }
 
     /**
