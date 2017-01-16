@@ -13,7 +13,7 @@ You can install **soluble-japha** through [composer](http://getcomposer.org/),
 simply type : 
 
 ```bash
-$ composer require "soluble/japha:^0.11.6"
+$ composer require soluble/japha
 ```
 
 Most modern frameworks relies on composer out of the box, if not the case ensure the following file is included in your bootstrap file *(index.php, ...)*:

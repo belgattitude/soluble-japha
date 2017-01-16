@@ -11,7 +11,7 @@ you can install a [compatibility layer](https://github.com/belgattitude/soluble-
 Simply add the `soluble/japha` compatibility layer to your [composer](http://getcomposer.org/) dependencies :
 
 ```console
-$ composer require "soluble/japha-pjb62-compat:^0.11.0"
+$ composer require "soluble/japha-pjb62-compat"
 ```
 
 ## Documentation
