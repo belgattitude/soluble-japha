@@ -1,6 +1,6 @@
 ## Connection
 
-Once the [php-java-bridge server](./quick_intall.html) is installed and running, you must define
+Once the [php-java-bridge server](./quick_install.html) is installed and running, you must define
 a connection through the `Soluble\Japha\Bridge\Adapter` object. 
 
 ### Example
@@ -39,9 +39,9 @@ The `Soluble\Japha\Bridge\Adapter` constructor require `$options`, an associativ
 |`driver`          | Currently only 'Pjb62' is supported      |
 |`servlet_address` | Servlet address: &lt;host&gt;:&lt;port&gt;/&lt;uri&gt;     |
 
-*If you are using the standalone server, the `servlet_address` &lt;uri&gt; should always be 
-set to 'servlet.phpjavabridge', i.e: 'localhost:8089/servlet.phpjavabridge'. In case of a J2EE deployment 
-you must refer to the configured servlet address on you J2EE server.* 
+*Note that the `servlet_address` &lt;uri&gt; should always indicate the file 
+'servlet.phpjavabridge', i.e: 'localhost:8090/servlet.phpjavabridge'. In case of a J2EE deployment 
+you must refer to the configured servlet address on you J2EE server (i.e localhost:8080/JavaBridge/servlet.phpjavabridge).* 
 
 #### Optional PSR-3 logger
 
@@ -89,6 +89,11 @@ During intialization with the BridgeAdapter, the following exceptions could happ
 
 *For clarity replace the "..." by "Soluble\Japha\Bridge\Exception\ ".*
 
+The `Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException` can be thrown
+in case of failure during communication. See your logs for detail.
+
 ### Bootstrap
 
-The `Bridge\Adapter` should be initialized once. Using a service manager is the best.
+The `Bridge\Adapter` should be initialized once. 
+
+Using a `container-interop` compatible container like [zend-servicemanager](https://github.com/zendframework/zend-servicemanager) is encouraged.

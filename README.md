@@ -34,7 +34,7 @@ echo $bigint->intValue() + 10; // prints 11
 ```
 
 Practically it works by communicating with a [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server which exposes the JVM 
-through a specific network protocol. This way all libraries registered on the the JVM can be used from PHP, almost just like you could write
+through a specific network protocol. This way all libraries registered on the JVM can be used from PHP, almost just like you could write code
 in Java. The Java code is still executed on the JVM but send results back to PHP. 
       
 ## Use cases 
