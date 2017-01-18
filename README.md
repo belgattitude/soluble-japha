@@ -11,18 +11,27 @@
 In short **soluble-japha** allows to write Java code in PHP and interact with the JVM and its huge ecosystem. 
 As a meaningless example, see the code below:
 
-  
 ```php
 <?php
 
-$system = $ba->javaClass('java.lang.System');
-echo $system->getProperties()->get('java.vm_name');
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
-$string = $ba->java('java.lang.String', "Hello");
-$string->concat(" world");  
-echo $string;  
+$ba = new BridgeAdapter([
+    'driver' => 'Pjb62', 
+    'servlet_address' => 'localhost:8089/servlet.phpjavabridge'
+]);
 
-```  
+// An utf8 string
+$string = $ba->java('java.lang.String', "Hello world!");
+$hash   = $ba->java('java.util.HashMap', ['key1' => $string, 'key2' => 'hello']);
+echo $hash->get('key1'); // prints "Hello world"
+echo $hash->get('key2')->length(); // prints 4
+
+// Some maths
+$bigint = $ba->java("java.math.BigInteger", 1);
+echo $bigint->intValue() + 10; // prints 11
+
+```
 
 Practically it works by communicating with a [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server which exposes the JVM 
 through a specific network protocol. This way all libraries registered on the the JVM can be used from PHP, almost just like you could write
@@ -65,33 +74,31 @@ setup unit testing on a CI server (Travis...)*
 
 ## Installation
 
-1. PHP installation *(client)*
-
+1. Installation in your PHP project **(client)**
+ 
    ```console
    $ composer require soluble/japha
    ```
 
-2. PHP-Java-bridge *(server)*
-
-   PHP-Java communication requires a PHP-Java-bridge server running on your local machine or network.
-   
-   For a quick install, clone the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) repository in a custom directory an run [composer](http://getcomposer.org) update command.
+2. PHP-Java-bridge **(server)**
+     
+   To get **a quick glimpse** use the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools).
    
    ```console
-   $ mkdir -p /my/path/pjbserver-tools
-   $ cd /my/path/pjbserver-tools
-   $ git clone https://github.com/belgattitude/pjbserver-tools.git .
+   $ git clone https://github.com/belgattitude/pjbserver-tools.git
+   $ cd pjbserver-tools
    $ composer update   
    $ ./bin/pjbserver-tools pjbserver:start -vvv ./config/pjbserver.config.php.dist
    ```
 
-   The server will start on default port ***8089***. If you like to change it, create a local copy of `./config/pjbserver.config.php.dist`
-   and refer it in the above command.
-   
-   Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
-   Get more information about the standalone server on the [pjbserver-tools repo](https://github.com/belgattitude/pjbserver-tools). 
-   
-   For production systems a Tomcat installation is encouraged, see the [server installation guide](./doc/quick_install.md) to get an overview of possible strategies.
+   > The server will start on default port ***8089***. If you like to change it, create a local copy of `./config/pjbserver.config.php.dist`
+   > and refer it in the above command.
+   >
+   > Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
+   >
+   > Read the [doc](https://github.com/belgattitude/pjbserver-tools) about the standalone server on to learn to add 
+      
+   For production or distribution please have a look to the [server installation guide](./doc/quick_install.md) to get an overview of possible strategies.
 
           
 ## Examples
