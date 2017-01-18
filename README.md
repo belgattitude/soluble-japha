@@ -9,12 +9,26 @@
 
 ## Introduction
 
-**soluble-japha** provides a client to write Java code transparently in regular PHP. 
+In short **soluble-japha** allows to write Java code in PHP and interact with the JVM and its huge ecosystem. 
+As a meaningless example, see the code below:
 
-*Originally based on the robust and mature [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) project, 
-soluble-japha leverage the initial client implementation by offering a refactored and modern 
-approach while preserving compatibility with the server.* 
- 
+  
+```php
+<?php
+
+$system = $ba->javaClass('java.lang.System');
+echo $system->getProperties()->get('java.vm_name');
+
+$string = $ba->java('java.lang.String', "Hello");
+$string->concat(" world");  
+echo $string;  
+
+```  
+
+Practically it works by communicating with a [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server which exposes the JVM 
+through an efficient network protocol. This way all classes/libraries registered on the the JVM can be manipulated in PHP, almost just 
+like you use them in Java. **soluble-japha** is the client part and was forket from the original [bridge project](http://php-java-bridge.sourceforge.net/pjb/).   
+  
 ## Use cases 
 
 It differs from the idea of api, microservices... where communication requires a contract 
@@ -22,29 +36,28 @@ between the client and server in order to exchange information. With soluble-jap
 you can transparently use Java objects, methods... which will be proxied to the JVM.  
   
 With that in mind you can use it to broaden the PHP possibilities to the Java ecosystem and its bunch 
-of compelling libraries *(i.e. Jasper Reports, Apache POI, iText, PDFBox, DeepLearning...)* or simply 
+of compelling libraries *(i.e. Jasper Reports, Apache POI, iText, PDFBox, Machine Learning...)* or simply 
 establish the bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
 or just for the fun.
-
-*If you write a (wrapper) library with soluble-japha, you might be interested in the 
-[pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) that helps to
-setup unit testing on a CI server (Travis...)*
 
 ## Features
 
 - Write Java from PHP (with a little extra php-style ;)  
 - Compatible with [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server implementation.
 - Efficient, no startup effort, native communication with the JVM ([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
-- Java objects, methods calls... are proxied to the server through a fast XML-based network protocol.
-- API extensible to multiple server implementations (Adapter pattern). 
-- MIT opensource licensed.
+- Java objects, methods calls... are proxied to the server through a fast XML-based network protocol. 
 - *For support with older `Java.inc` client, see the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).*
 
 ## Requirements
 
 - PHP 5.6, 7.0+, 7.1+ or HHVM >= 3.9 (for PHP5.5 use the 0.13.* releases).
-- Installed [JRE or JDK 7+](./doc/server/install_java.md).
+- Installed [JRE or JDK 7/8+](./doc/server/install_java.md).
 - A PHP-Java bridge server [installed](./doc/quick_install.md).
+
+*If you write a (wrapper) library with soluble-japha, you might be interested in the 
+[pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) that helps to
+setup unit testing on a CI server (Travis...)*
+
 
 ## Documentation
 
@@ -55,18 +68,8 @@ setup unit testing on a CI server (Travis...)*
 
 1. PHP installation *(client)*
 
-   `soluble-japha` works best via [composer](http://getcomposer.org/).
-
    ```console
    $ composer require soluble/japha
-   ```
-
-   Most modern frameworks will include Composer out of the box, but ensure the following file is included:
-
-   ```php
-   <?php
-   // include the composer autoloader
-   require 'vendor/autoload.php';
    ```
 
 2. PHP-Java-bridge standalone server
@@ -278,9 +281,4 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
 * [PSR 3 Logger interface](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md)
 * [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 * [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
-
-
-
-
-
 
