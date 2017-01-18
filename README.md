@@ -62,11 +62,6 @@ or just for the fun.
 - Installed [JRE or JDK 7/8+](./doc/server/install_java.md).
 - A PHP-Java bridge server [installed](./doc/quick_install.md).
 
-*If you write a (wrapper) library with soluble-japha, you might be interested in the 
-[pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) that helps to
-setup unit testing on a CI server (Travis...)*
-
-
 ## Documentation
 
  - [Manual](http://docs.soluble.io/soluble-japha/manual/) in progress. 
@@ -98,7 +93,7 @@ setup unit testing on a CI server (Travis...)*
    >
    > Read the [doc](https://github.com/belgattitude/pjbserver-tools) about the standalone server on to learn to add 
       
-   For production or distribution please have a look to the [server installation guide](./doc/quick_install.md) to get an overview of possible strategies.
+   For **production or distribution** please have a look to the [server installation guide](./doc/quick_install.md) to get an overview of possible strategies.
 
           
 ## Examples
