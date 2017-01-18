@@ -91,7 +91,7 @@ or just for the fun.
    >
    > Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
    >
-   > Read the [doc](https://github.com/belgattitude/pjbserver-tools) about the standalone server on to learn to add 
+   > Read the [doc](https://github.com/belgattitude/pjbserver-tools) about the standalone server to learn how to add java libs. 
       
    For **production or distribution** please have a look to the [server installation guide](./doc/quick_install.md) to get an overview of possible strategies.
 

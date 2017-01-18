@@ -29,34 +29,38 @@ require 'vendor/autoload.php';
 The PHP-Java communication is handled by a intermediate server (the bridge) running 
 on your local machine (or network) on which the **soluble/japha** client can connect. 
 
-Depending on your use case, the recommended production setup is to deploy the bridge as a servlet on a J2EE server. 
+> **WARNING** The phpjavabridge server is not supposed to be run on a public facing server
+> and its use should be limited to interactions on the same host/network with the php client.
+> Do not run it as root neither as it exposes the JVM methods through the network. 
 
-But as this kind of setup can be tedious for development, unit tests... or simply not needed, 
-you can start in minutes by setting up the [**standalone server**](https://github.com/belgattitude/pjbserver-tools) instead.
-*Of course if your looking for best performance, scalability, security... you can make the J2EE install later on.*  
+Two options exists, the first one is using the [**standalone server**](https://github.com/belgattitude/pjbserver-tools) which
+helps to start a server with little Java knowlege. Its recommended use is for development, unit tests...
  
-#### Option 1: Standalone bridge server (quick)
+For production prefer the Option 2, you can also start with the standalone and switch to second option later on. 
+ 
+#### Option 1: Standalone bridge server (easy for PHP minded - development)
 
-Clone the [pjbserver-tools](https://github.com/belgattitude/pjbserver-tools) repository in a custom directory an run [composer](http://getcomposer.org) update command.
+   Clone the [pjbserver-tools](https://github.com/belgattitude/pjbserver-tools) repository in a custom directory an run [composer](http://getcomposer.org) update command.
    
-```bash
-$ mkdir -p /my/path/pjbserver-tools
-$ cd /my/path/pjbserver-tools
-$ git clone https://github.com/belgattitude/pjbserver-tools.git .
-$ composer update   
-$ ./bin/pjbserver-tools pjbserver:start -vvv ./config/pjbserver.config.php.dist
-```
-
-The server will start on default port ***8089***. If you would like to change it, create a local copy of `./config/pjbserver.config.php.dist`
-and use that in the above command.
+   To get **a quick glimpse** use the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools).
    
-Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
+   ```console
+   $ git clone https://github.com/belgattitude/pjbserver-tools.git
+   $ cd pjbserver-tools
+   $ composer update   
+   $ ./bin/pjbserver-tools pjbserver:start -vvv ./config/pjbserver.config.php.dist
+   ```
 
-For more information about the standalone server, have a look to the [pjbserver-tools repo](https://github.com/belgattitude/pjbserver-tools). 
+   > The server will start on default port ***8089***. If you like to change it, create a local copy of `./config/pjbserver.config.php.dist`
+   > and refer it in the above command.
+   >
+   > Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
+   >
+   > Read the [doc](https://github.com/belgattitude/pjbserver-tools) about the standalone server to learn how to add java libs. 
 
-#### Option 2: Bridge server on J2EE (longer) 
+#### Option 2: Bridge server on J2EE (easier for Java minded - production ready) 
 
-Depending on your usage, deploying the bridge server onto a J2EE server like Tomcat offers better performance, 
-scalability and security. 
-  
-The documentation is still in progress but you can have a look to the [J2EE server install](./install_server_j2ee.html)
+   Take a look to the [pjb-starter-gradle](https://github.com/belgattitude/pjb-starter-gradle/) to build you own production, self-container or deployable servlet or
+   build from the [php-java-bridge](https://github.com/belgattitude/php-java-bridge) project.
+   
+
