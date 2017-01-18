@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.14.XX (2017-xx-xx) - NOT RELEASED
+
+### Improved
+
+- General doc improvements and reference to [pjb-starter-gradle](https://github.com/belgattitude/pjb-starter-gradle/).
+
 ## 0.14.1 (2017-01-15)
    
 ### Improved
