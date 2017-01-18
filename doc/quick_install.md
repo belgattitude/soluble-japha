@@ -60,7 +60,7 @@ For production prefer the Option 2, you can also start with the standalone and s
 
 #### Option 2: Bridge server on J2EE (easier for Java minded - production ready) 
 
-   Take a look to the [pjb-starter-gradle](https://github.com/belgattitude/pjb-starter-gradle/) to build you own production, self-container or deployable servlet or
+   Take a look to the [pjb-starter-gradle](https://github.com/belgattitude/pjb-starter-gradle/) to build your own production, self-container or deployable servlet or
    build from the [php-java-bridge](https://github.com/belgattitude/php-java-bridge) project.
    
 
