@@ -37,7 +37,7 @@ do {
     $lines[] = (string) $line;
 } while(!$ba->isNull($line));
 
-$content = join("\n", $lines);
+$content = implode("\n", $lines);
 echo $content;
 
 $bufferedWriter->close();

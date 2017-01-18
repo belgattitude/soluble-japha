@@ -7,7 +7,6 @@
 [![License](https://poser.pugx.org/soluble/japha/license.png)](https://packagist.org/packages/soluble/japha)
 [![HHVM Status](https://php-eye.com/badge/soluble/japha/hhvm.svg)](https://php-eye.com/package/soluble/japha)
 
-## Introduction
 
 In short **soluble-japha** allows to write Java code in PHP and interact with the JVM and its huge ecosystem. 
 As a meaningless example, see the code below:
@@ -26,8 +25,8 @@ echo $string;
 ```  
 
 Practically it works by communicating with a [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server which exposes the JVM 
-through an efficient network protocol. This way all classes/libraries registered on the the JVM can be manipulated in PHP, almost just 
-like you use them in Java. **soluble-japha** is the client part and was forket from the original [bridge project](http://php-java-bridge.sourceforge.net/pjb/).   
+through a specific network protocol. This way all classes/libraries registered on the the JVM can be manipulated in PHP, almost just 
+like you use them in Java. **soluble-japha** is the client part and was forked from the original [bridge project](http://php-java-bridge.sourceforge.net/pjb/).   
   
 ## Use cases 
 
@@ -72,7 +71,7 @@ setup unit testing on a CI server (Travis...)*
    $ composer require soluble/japha
    ```
 
-2. PHP-Java-bridge standalone server
+2. PHP-Java-bridge *(server)*
 
    PHP-Java communication requires a PHP-Java-bridge server running on your local machine or network.
    
@@ -205,6 +204,53 @@ try {
 }
 
 ```
+
+### SSL client socket, readers and writers
+
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$serverPort = 443;
+$host = 'www.google.com';
+
+$socketFactory = $ba->javaClass('javax.net.ssl.SSLSocketFactory')->getDefault();
+$socket = $socketFactory->createSocket($host, $serverPort);
+
+$socket->startHandshake();
+$bufferedWriter = $ba->java('java.io.BufferedWriter',
+            $ba->java('java.io.OutputStreamWriter',
+                    $socket->getOutputStream()
+            )
+        );
+
+$bufferedReader = $ba->java('java.io.BufferedReader',
+            $ba->java('java.io.InputStreamReader',
+                $socket->getInputStream()
+            )
+        );
+
+$bufferedWriter->write("GET / HTTP/1.0");
+$bufferedWriter->newLine();
+$bufferedWriter->newLine(); // end of HTTP request
+$bufferedWriter->flush();
+
+$lines = [];
+do {
+    $line = $bufferedReader->readLine();
+    $lines[] = (string) $line;
+} while(!$ba->isNull($line));
+
+$content = implode("\n", $lines);
+echo $content;
+
+$bufferedWriter->close();
+$bufferedReader->close();
+$socket->close();
+
+```
+
 
 For more examples and recipes, have a look at the [official documentation site](http://docs.soluble.io/soluble-japha/manual/). 
 
