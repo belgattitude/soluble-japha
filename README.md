@@ -25,9 +25,9 @@ echo $string;
 ```  
 
 Practically it works by communicating with a [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server which exposes the JVM 
-through a specific network protocol. This way all classes/libraries registered on the the JVM can be manipulated in PHP, almost just 
-like you use them in Java. **soluble-japha** is the client part and was forked from the original [bridge project](http://php-java-bridge.sourceforge.net/pjb/).   
-  
+through a specific network protocol. This way all libraries registered on the the JVM can be used from PHP, almost just like you could write
+in Java. The Java code is still executed on the JVM but send results back to PHP. 
+      
 ## Use cases 
 
 It differs from the idea of api, microservices... where communication requires a contract 
@@ -257,7 +257,8 @@ For more examples and recipes, have a look at the [official documentation site](
 
 ### Original PHPJavaBridge (Java.inc) differences
 
-The original `Java.inc` client has been completely refactored to fit current trends in PHP practices (2016).
+> **soluble-japha** is the client part and was completly refactored from the original [Java.inc client](http://php-java-bridge.sourceforge.net/pjb/).   
+
 
 - New API (not backward compatible)
 
