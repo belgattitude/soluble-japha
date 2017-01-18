@@ -90,7 +90,9 @@ During intialization with the BridgeAdapter, the following exceptions could happ
 *For clarity replace the "..." by "Soluble\Japha\Bridge\Exception\ ".*
 
 The `Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException` can be thrown
-in case of failure during communication. See your logs for detail.
+in case of failure during communication. See your server (tomcat or standalone) logs for detail if
+it happens. Also note that this exception can be thrown if the bridge servlet address points
+to an invalid bridge servlet_address. Check it first.
 
 ### Bootstrap
 
