@@ -42,7 +42,7 @@ JDK versions and let them co-exists on your system.
 
 ### Redhat / Centos
 
-On redhat systems,
+On Redhat systems,
 
 1. Option 1: OpenJdk 
 

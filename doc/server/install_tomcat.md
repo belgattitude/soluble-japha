@@ -5,7 +5,7 @@
 First install the tomcat server
 
 ```shell
-$ sudo apt-get install tomcat7 tomcat7-admin
+$ sudo apt-get install tomcat8 tomcat8-admin
 ```
 
 ### For other systems
@@ -21,7 +21,7 @@ Google is your best friend ;)
 An optional but nice move to do is to configure the Tomcat admin interface : 
 
 ```console
-$ sudo vi /etc/tomcat7/tomcat-users.xml
+$ sudo vi /etc/tomcat8/tomcat-users.xml
 ```
 
 Replace username and password in the <tomcat-users> section
@@ -32,12 +32,12 @@ Replace username and password in the <tomcat-users> section
 </tomcat-users>
 ```
 
-Restart tomcat to apply changes with `sudo service tomcat7 restart` or `sudo /etc/init.d/tomcat7 restart`.
+Restart tomcat to apply changes with `sudo service tomcat8 restart` or `sudo /etc/init.d/tomcat7 restart`.
 
 #### Setting Oracle JDK (optional)
 
 ```console
-$ sudo vi /etc/default/tomcat7
+$ sudo vi /etc/default/tomcat8
 ```
 
 And modify `JAVA_HOME`, for example with latest [Oracle JDK](./install_java.md)
@@ -46,7 +46,7 @@ And modify `JAVA_HOME`, for example with latest [Oracle JDK](./install_java.md)
 JAVA_HOME=/usr/lib/jvm/java-8-oracle
 ```
 
-Restart tomcat to apply changes with `sudo service tomcat7 restart` or `sudo /etc/init.d/tomcat7 restart`.
+Restart tomcat to apply changes with `sudo service tomcat8 restart` or `sudo /etc/init.d/tomcat8 restart`.
 
 ## Testing installation
 
