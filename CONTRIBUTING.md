@@ -24,21 +24,6 @@ Prerequisites:
 
 - Install [composer](https://getcomposer.org/).
 
-To run tests:
-  
-- Install phpunit
-
-  ```console
-  $ composer global require "phpunit/phpunit=*"
-  ```
-
-  If not already done, ensure that your `~/.bashrc` or `~/.bash_profile` contains
-  the composer bins path.
-
-  ```console
-  $ vi ~/.bashrc
-      -> export PATH=~/.composer/vendor/bin:$PATH
-  ```
 
 - Clone the repository:
 
@@ -53,7 +38,7 @@ To run tests:
   $ composer install
   ```
 
-- Prepary the phpunit.xml configuration and run the tests
+- Prepare the phpunit.xml configuration and run the tests
 
   ```console
   $ cp phpunit.xml.dist phpunit.xml
@@ -63,43 +48,25 @@ To run tests:
 - If you want to enable dynamically xdebug for code coverage :
 
   ```console
-  $ php -d zend_extension=xdebug.so  ~/.composer/vendor/bin/phpunit
+  $ php -d zend_extension=xdebug.so ./vendor/bin/phpunit
   ```
 
 - Or test it with HHVM
 
   ```console
-  $ hhvm ~/.composer/vendor/bin/phpunit
+  $ hhvm ./vendor/bin/phpunit
   ```
 
 ## Running Coding Standards Checks
 
-This component uses [phpcs](https://github.com/squizlabs/PHP_CodeSniffer) for coding
-standards checks, and provides configuration for our selected checks.
-`phpcs` is installed by default via Composer.
 
-- Install phpcs
+- Run and fix style checks
 
   ```console
-  $ composer global require "squizlabs/php_codesniffer=*"
+  $ ./vendor/bin/php-cs-fixer fix
   ```
 
-  Run style checks
-
-  ```console
-  $ ./vendor/bin/phpcs
-  ```
-
-  `phpcs` also includes a tool for fixing most CS violations, `phpcbf`:
-
-  ```console
-  $ ./vendor/bin/phpcbf
-  ```
-
-If you allow `phpcbf` to fix CS issues, please re-run the tests to ensure
-they pass, and make sure you add and commit the changes after verification.
-
-## Recommended Workflow for Contributions
+## Recommended workflow for contributions
 
 Your first step is to establish a public repository from which we can
 pull your work into the master repository. We recommend using
