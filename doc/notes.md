@@ -23,54 +23,7 @@ the pjb driver code that is still to be removed once reaching v1).*
 
 Versions and changelog are documented on the <a href="https://github.com/belgattitude/soluble-japha/blob/master/CHANGELOG.md">changelog page</a>
 
-### Personal comment
-
-In this particular case, when two systems talk to each other (JVM, PHP) in a very dynamic way it's very 
-difficult to cover all use cases and simply say that's super stable. 
-
-I feel confident with the stability status of the API provided by soluble-japha client, but
-for the server communication it seems fair to share some comments on the library :
-
-> I've been using the original php-java-bridge with Tomcat for about 10 years. 
->
-> At that time the php ecosystem was not really what it is now, and the java bridge
-> allows solutions that I couldn't find in another way. So I started to use it,
-> mainly for jasper reports integration. But also for syncing calendars, contacts
-> with the Exchange MAPI *(EWS didn't exists yet)* in a CRM php-based application, even
-> for connecting J2EE legacy java ERP systems when time to build an API was not option.
->  
-> Not very sexy things but It allowed me to avoid extra steps like writing services 
-> in Java (SOAP was popular) and keep the flexibility by not having a *too static* 
-> contract between the php app and the java server.
->
-> After few years playing with relatively small apps, I got the opportunity to integrate
-> java bridge based solutions to some mission-critical and heavy load production. 
->
-> And the truth is that don't even remember having a failure in the java php communication
-> *(some servers still haven't been restarted for years)*. 
->
-> Thus the implementation made by the [folks of the php-java-bridge project](http://php-java-bridge.sourceforge.net/pjb/contact.php) looks very reliable. 
-> 
-> Unfortunately it looks the original project maintainers seems to have found 
-> different interests in life, which I totally understand and sincerely wish them the best.    
->
-> Also PHP have grown to a very different language it was before and system communications are much
-> more better handled, standardized and written nowadays.
->
-> So in order to maintain my existing projects, I decided to fork, refactor and improve parts of the original 
-> brige and release the ***soluble-japha*** client making it more friendly with the latest methodologies
-> and trends in the php world. Till now, I've replaced it in most of my legacy projects without hurdle. 
->   
-> This was about my experiences with stability of the bridge with a little context, I hope
-> it may help you get a little idea whether it fits a particular project.  
->
-> So I've published the code under MIT license, I have absolutely no idea if there will be any 
-> interest today, but I feel it's good for the php-community to keep an opportunity to 
-> develop in Java from PHP. And with all the creativity I've seen in the past, I believe there 
-> might be some use and perhaps some fun with it. 
->
-
-### Differences with the original Java.inc client.
+### Differences with the legacy Java.inc client.
 
 The original `Java.inc` client has been completely refactored to fit current trends modern in PHP practices (2016).
 
@@ -112,4 +65,4 @@ The original `Java.inc` client has been completely refactored to fit current tre
 
 * This code is principally developed and maintained by [Sébastien Vanvelthem](https://github.com/belgattitude).
 * Special thanks to [all of these awesome contributors](https://github.com/belgattitude/soluble-japha/network/members)
-* This project wouldn't be possible without the [PHPJavaBridge project leaders and contributors](http://php-java-bridge.sourceforge.net/pjb/contact.php#code_contrib). 
+* This project is based on the Java.inc work made by the [PHPJavaBridge developers](http://php-java-bridge.sourceforge.net/pjb/contact.php#code_contrib). 

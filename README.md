@@ -33,21 +33,17 @@ echo $bigint->intValue() + 10; // prints 11
 
 ```
 
-Practically it works by communicating with a [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server which exposes the JVM 
+Behind the scene, it works by communicating with a [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server which exposes the JVM 
 through a specific network protocol. This way all libraries registered on the JVM can be used from PHP, almost just like you could write code
-in Java. The Java code is still executed on the JVM but send results back to PHP. 
+in Java. The Java code is still executed on the JVM results being send back to PHP transparently. 
       
 ## Use cases 
 
-It differs from the idea of api, microservices... where communication requires a contract 
-between the client and server in order to exchange information. With soluble-japha, 
-you can transparently use Java objects, methods... which will be proxied to the JVM.  
+Whenever you need to communicate transparently with the JVM, more specifically with its rich set 
+of libraries *(i.e. Jasper Reports, Apache POI, iText, PDFBox, Machine Learning...)* or simply 
+establish a bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
+or just for the fun :) 
   
-With that in mind you can use it to broaden the PHP possibilities to the Java ecosystem and its bunch 
-of compelling libraries *(i.e. Jasper Reports, Apache POI, iText, PDFBox, Machine Learning...)* or simply 
-establish the bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
-or just for the fun.
-
 ## Features
 
 - Write Java from PHP (with a little extra php-style ;)  
@@ -55,6 +51,10 @@ or just for the fun.
 - Efficient, no startup effort, native communication with the JVM ([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
 - Java objects, methods calls... are proxied to the server through a fast XML-based network protocol. 
 - *For support with older `Java.inc` client, see the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).*
+
+> The `soluble-japha` project replace the `Java.inc` client and has been forked
+> from the original [PHPJavaBridge](http://php-java-bridge.sourceforge.net/pjb/) and provides   
+> support for PHP7 and composer. See the the [differences here](./docs/notes.md).
 
 ## Requirements
 
@@ -253,52 +253,15 @@ $socket->close();
 
 ```
 
-
 For more examples and recipes, have a look at the [official documentation site](http://docs.soluble.io/soluble-japha/manual/). 
-
-
-### Original PHPJavaBridge (Java.inc) differences
-
-> **soluble-japha** is the client part and was completly refactored from the original [Java.inc client](http://php-java-bridge.sourceforge.net/pjb/).   
-
-
-- New API (not backward compatible)
-
-    All global functions have been removed (`java_*`) in favour of a more object oriented approach. 
-    By doing so, the new API breaks compatibility with existing code (see the 
-    [legacy compatibility guide](./doc/pjb62_compatibility.md) if you have code written against 
-    the `Java.inc` original client), but offers the possibility to rely on different driver implementations 
-    without breaking your code.
-
-- PHP version and ecosystem
-
-    - PHP7, HHVM ready (PHP 5.5+ supported).
-    - Installable with composer
-    - Compliant with latests standards: PSR-2, PSR-3, PSR-4
-
-- Enhancements    
-    
-    - Namespaces introduced everywhere.
-    - Removed global namespace pollution (java_* functions)
-    - Removed global variables, functions and unscoped statics.
-    - No more get_last_exception... (All exceptions are thrown with reference to context)
-    - Autoloading performance (no more one big class, psr4 autoloader is used, less memory)
-    - Removed long time deprecated features in Java.inc
-    - By design, no more allow_url_fopen needed.
-    
-- Fixes
-    
-    - All notices, warnings have been removed
-    - Some minor bugs found thanks to the unit tests suite
-
-- Testing
-   
-    - All code is tested (phpunit, travis), analyzed (scrunitizer)
  
 
-## Compatibility layer
+## Compatibility layer with legacy versions
 
-Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for more information.
+If you rely on previous implementations of the PHPJavaBridge (the `Java.inc` client), 
+have a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) which can help
+to gives some tips for migrations.
+
 
 ## Future ideas
 
@@ -317,12 +280,11 @@ Take a look to [legacy compatibility guide](./doc/pjb62_compatibility.md) for mo
 - Explore new possibilities 
   - Create a JSR-223 php extension in Go, like this [experiment](https://github.com/do-aki/gophp_sample)
 
-
 ### Credits
 
 * This code is principally developed and maintained by [Sébastien Vanvelthem](https://github.com/belgattitude).
 * Special thanks to [all of these awesome contributors](https://github.com/belgattitude/soluble-japha/network/members)
-* This project wouldn't be possible without the [PHPJavaBridge project leaders and contributors](http://php-java-bridge.sourceforge.net/pjb/contact.php#code_contrib). 
+* This project is based on the Java.inc work made by the [PHPJavaBridge developers](http://php-java-bridge.sourceforge.net/pjb/contact.php#code_contrib). 
   
 ## Coding standards and interop
 
