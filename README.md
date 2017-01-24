@@ -52,9 +52,8 @@ or just for the fun :)
 - Java objects, methods calls... are proxied to the server through a fast XML-based network protocol. 
 - *For support with older `Java.inc` client, see the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).*
 
-> The `soluble-japha` project replace the `Java.inc` client and has been forked
-> from the original [PHPJavaBridge](http://php-java-bridge.sourceforge.net/pjb/) and provides   
-> support for PHP7 and composer. See the the [differences here](./docs/notes.md).
+> For user of previous versions, the *soluble-japha* client replaces the original [PHPJavaBridge](http://php-java-bridge.sourceforge.net/pjb/) `Java.inc` implementation   
+> and has been completly refactored to fit modern practices and PHP7. See the the [differences here](./docs/notes.md).
 
 ## Requirements
 
