@@ -51,9 +51,10 @@ or just for the fun :)
 - Efficient, no startup effort, native communication with the JVM ([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
 - Java objects, methods calls... are proxied to the server through a fast XML-based network protocol. 
 
-> For user of previous versions, **soluble-japha** client replaces the original/legacy [PHPJavaBridge](http://php-java-bridge.sourceforge.net/pjb/) `Java.inc` implementation   
-> and has been completely refactored to fit modern practices and PHP7. See the the [differences here](./docs/notes.md). See
-> also the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).
+> For user of previous versions, **soluble-japha** client replaces the original/legacy [PHPJavaBridge](http://php-java-bridge.sourceforge.net/pjb/) 
+> `Java.inc` implementation and has been completely refactored to fit modern practices 
+> and PHP7. See the the [differences here](./docs/notes.md) and if required to
+> the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).
 
 ## Requirements
 
