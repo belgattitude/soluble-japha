@@ -8,7 +8,7 @@
 [![HHVM Status](https://php-eye.com/badge/soluble/japha/hhvm.svg)](https://php-eye.com/package/soluble/japha)
 
 
-In short **soluble-japha** allows to write Java code in PHP and interact with the JVM and its huge ecosystem. 
+In short **soluble-japha** allows to write Java code in PHP interacting with the JVM and its huge ecosystem. 
 As a meaningless example, see the code below:
 
 ```php
@@ -33,7 +33,7 @@ echo $bigint->intValue() + 10; // prints 11
 
 ```
 
-Behind the scene, it works by communicating with a [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server which exposes the JVM 
+Behind the scenes, it communicates with a [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server which exposes the JVM 
 through a specific network protocol. This way all libraries registered on the JVM can be used from PHP, almost just like you could write code
 in Java. The Java code is still executed on the JVM, results being sent back to PHP transparently. 
       
