@@ -1,11 +1,16 @@
-# CHANGELOG
+# Change Log
+All notable changes to this project will be documented in this file.
 
-## 0.14.2 (2017-xx-xx) - NOT RELEASED
+The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+and this project adheres to [Semantic Versioning](http://semver.org/).
 
-### Improved
+## [UNRELEASED]
 
-- General doc improvements and reference to [pjb-starter-gradle](https://github.com/belgattitude/pjb-starter-gradle/).
+## 0.14.2 (2017-01-30) 
 
+### Added
+
+- Unit tests handles phpjavabridge 6.2.11-dev.
 
 ## 0.14.1 (2017-01-15)
    

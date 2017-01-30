@@ -63,8 +63,11 @@ class PjbDriverTest extends \PHPUnit_Framework_TestCase
 
         $fqdn = $this->adapter->getClassName($context);
         $supported = [
-          'servlet' => 'php.java.servlet.HttpContext',
-          'standalone' => 'php.java.bridge.http.Context'
+          // Before 6.2.11 phpjavabridge version
+          'servletPrevious' => 'php.java.servlet.HttpContext',
+          // FROM 6.2.11 phpjavabridge version
+          'servletCurrent' => 'io.soluble.pjb.servlet.HttpContext',
+          'standalone' => 'php.java.bridge.http.Context',
         ];
         $this->assertTrue(in_array($fqdn, $supported));
     }
