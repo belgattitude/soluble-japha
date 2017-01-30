@@ -48,7 +48,9 @@ class AdapterSystemTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->ba->javaClass('java.util.TimeZone')->setDefault($this->backupTz);
+        if ($this->ba !== null) {
+            $this->ba->javaClass('java.util.TimeZone')->setDefault($this->backupTz);
+        }
     }
 
     public function testGetSystemTimeZoneId()

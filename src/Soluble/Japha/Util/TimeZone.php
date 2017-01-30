@@ -112,8 +112,12 @@ class TimeZone
             $id = $id->getName();
         }
 
+        /**
+         * @var $tz Interfaces\JavaClass
+         */
         $tz = $this->timeZoneClass->getTimeZone($id);
-        if ((string) $tz->getID() == 'GMT' && $id != 'GMT') {
+        $id = (string) $tz->getID();
+        if ($id == 'GMT' && $id != 'GMT') {
             $msg = "The timezone id '$id' could not be understood by JVM (JVM returned defaulted to GMT)";
             throw new Exception\UnsupportedTzException($msg);
         }
