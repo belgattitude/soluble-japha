@@ -92,11 +92,18 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetTimezoneThrowsJavaException()
+    public function testGetTimezoneThrowsUnsupportedTzException()
     {
         //TimeZone.getTimeZone("GMT-8").getID() returns "GMT-08:00".
         $this->setExpectedException('Soluble\Japha\Util\Exception\UnsupportedTzException');
         $tz = $this->timeZone->getTimeZone('invalidTz');
+    }
+
+    public function testGetTimezoneThrowsInvalidArgumentException()
+    {
+        $this->setExpectedException('Soluble\Japha\Util\Exception\InvalidArgumentException');
+        $tz = $this->timeZone->getTimeZone([0,2,3]);
+
     }
 
     public function testSetDefault()

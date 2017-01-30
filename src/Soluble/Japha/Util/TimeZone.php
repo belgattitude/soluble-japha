@@ -100,6 +100,7 @@ class TimeZone
      * Create a Java(java.util.TimeZone) object from id.
      *
      * @throws Exception\UnsupportedTzException
+     * @throws Exception\InvalidArgumentException
      * @throws \Soluble\Japha\Bridge\Exception\JavaException
      *
      * @param string|DateTimeZone $id string identifier or php DateTimeZone
@@ -109,15 +110,23 @@ class TimeZone
     public function getTimeZone($id)
     {
         if ($id instanceof DateTimeZone) {
-            $id = $id->getName();
+            $phpTimezone = $id->getName();
+        } elseif (is_string($id) && (string) $id != '') {
+            $phpTimezone = $id;
+        } else {
+            throw new Exception\InvalidArgumentException("Method getTimeZone(\$id) require argument to be datetimeZone or a non empty string");
         }
 
         /**
-         * @var $tz Interfaces\JavaClass
+         * @var Interfaces\JavaClass $tz
          */
         $tz = $this->timeZoneClass->getTimeZone($id);
-        $id = (string) $tz->getID();
-        if ($id == 'GMT' && $id != 'GMT') {
+
+        /**
+         * @var string $javaTimezone
+         */
+        $javaTimezone = (string) $tz->getID();
+        if ($javaTimezone == 'GMT' && $phpTimezone != 'GMT') {
             $msg = "The timezone id '$id' could not be understood by JVM (JVM returned defaulted to GMT)";
             throw new Exception\UnsupportedTzException($msg);
         }
