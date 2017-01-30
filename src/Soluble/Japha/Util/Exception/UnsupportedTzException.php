@@ -8,5 +8,3 @@ use Soluble\Japha\Bridge\Exception\RuntimeException as RE;
 class UnsupportedTzException extends RE implements ExceptionInterface
 {
 }
-
-

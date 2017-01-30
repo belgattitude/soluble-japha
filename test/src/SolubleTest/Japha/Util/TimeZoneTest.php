@@ -102,8 +102,7 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
     public function testGetTimezoneThrowsInvalidArgumentException()
     {
         $this->setExpectedException('Soluble\Japha\Util\Exception\InvalidArgumentException');
-        $tz = $this->timeZone->getTimeZone([0,2,3]);
-
+        $tz = $this->timeZone->getTimeZone([0, 2, 3]);
     }
 
     public function testSetDefault()
