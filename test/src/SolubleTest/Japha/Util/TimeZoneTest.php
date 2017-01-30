@@ -54,8 +54,10 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->ba->javaClass('java.util.TimeZone')->setDefault($this->backupTz);
-        TimeZone::enableTzCache();
+        if ($this->ba !== null) {
+            $this->ba->javaClass('java.util.TimeZone')->setDefault($this->backupTz);
+            TimeZone::enableTzCache();
+        }
     }
 
     public function testGetAvailableIDs()
