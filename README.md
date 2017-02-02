@@ -58,7 +58,7 @@ or just for the fun :)
 
 ## Requirements
 
-- PHP 5.6, 7.0+, 7.1+ or HHVM >= 3.9 (for PHP5.5 use the 0.13.* releases).
+- PHP 5.6, 7.0+, 7.1+ or HHVM >= 3.9 *(for PHP5.5 use the "^0.13.0" releases)*.
 - Installed [JRE or JDK 7/8+](./doc/server/install_java.md).
 - A PHP-Java bridge server [installed](./doc/quick_install.md).
 
