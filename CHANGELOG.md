@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [UNRELEASED]
 
+## 0.14.3 (2017-02-02) 
+
+### Added
+
+- Minor improvement for timezone interop (code cleanup).
+
+
 ## 0.14.2 (2017-01-30) 
 
 ### Added
