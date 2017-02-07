@@ -34,11 +34,11 @@ on your local machine (or network) on which the **soluble/japha** client can con
 > Do not run it as root neither as it exposes the JVM methods through the network. 
 
 Two options exists, the first one is using the [**standalone server**](https://github.com/belgattitude/pjbserver-tools) which
-helps to start a server with little Java knowlege. Its recommended use is for development, unit tests...
+helps to start a server with little Java knowledge. Its recommended use is for development, unit tests...
  
-For production prefer the Option 2, you can also start with the standalone and switch to second option later on. 
+For **production prefer the Option 2**, you can also start with the standalone and switch to second option later on. 
  
-#### Option 1: Standalone bridge server (easy for PHP minded - development)
+#### Option 1: Standalone bridge server (easy to start in cli - development)
 
    Clone the [pjbserver-tools](https://github.com/belgattitude/pjbserver-tools) repository in a custom directory an run [composer](http://getcomposer.org) update command.
    
@@ -58,9 +58,17 @@ For production prefer the Option 2, you can also start with the standalone and s
    >
    > Read the [doc](https://github.com/belgattitude/pjbserver-tools) about the standalone server to learn how to add java libs. 
 
-#### Option 2: Bridge server on J2EE (easier for Java minded - production ready) 
+#### Option 2: Tomcat servlet (production) 
 
-   Take a look to the [pjb-starter-gradle](https://github.com/belgattitude/pjb-starter-gradle/) to build your own production, self-container or deployable servlet or
-   build from the [php-java-bridge](https://github.com/belgattitude/php-java-bridge) project.
+   Build you own .war file including the JavaBridge servlet with either:
+        
+   - An easy to setup starter: [pjb-starter-gradle](https://github.com/belgattitude/pjb-starter-gradle/)
    
+   or 
 
+   - The php-java-bridge repo: [php-java-bridge](https://github.com/belgattitude/php-java-bridge)
+   
+     - You can use the pre-compiled template (JavaBridgeTemplate.war) available on the [release page](https://github.com/belgattitude/php-java-bridge/releases).
+       or build your own (adding dependencies and customizing the web.xml)  
+   
+   Once build simply deploy to tomcat webapps folder. 
