@@ -8,7 +8,7 @@ composer.lock
 .*.sw*
 .*.un~
 .couscous/
-phpunit.xml
+phpunit*.xml
 /vendor
 /nbproject
 /build
