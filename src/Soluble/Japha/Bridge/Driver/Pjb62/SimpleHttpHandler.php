@@ -1,22 +1,22 @@
 <?php
 
 /**
- * Soluble Japha / PhpJavaBridge.
+ * soluble-japha / PHPJavaBridge driver client.
  *
  * Refactored version of phpjababridge's Java.inc file compatible
- * with php java bridge 6.2.1
+ * with php java bridge 6.2
  *
  *
  * @credits   http://php-java-bridge.sourceforge.net/pjb/
  *
  * @see      http://github.com/belgattitude/soluble-japha
  *
- * @copyright Copyright (c) 2014 Soluble components
- * @author Vanvelthem Sébastien
+ * @author Jost Boekemeier
+ * @author Vanvelthem Sébastien (refactoring and fixes from original implementation)
  * @license   MIT
  *
  * The MIT License (MIT)
- * Copyright (c) 2014 Vanvelthem Sébastien
+ * Copyright (c) 2014-2017 Jost Boekemeier
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
