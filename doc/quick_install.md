@@ -71,4 +71,4 @@ For **production prefer the Option 2**, you can also start with the standalone a
      - You can use the pre-compiled template (JavaBridgeTemplate.war) available on the [release page](https://github.com/belgattitude/php-java-bridge/releases).
        or build your own (adding dependencies and customizing the web.xml)  
    
-   Once build simply deploy to tomcat webapps folder. 
+   Once you've build the war simply deploy it to the tomcat webapps folder. 
