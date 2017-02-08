@@ -53,5 +53,19 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
     {
         $context = $this->driver->getContext();
         $this->assertInstanceOf(JavaObject::class, $context);
+
+        $className = $this->driver->getClassName($context);
+
+        $supported = [
+            // Denote standalone version
+            'php.java.bridge.http.Context',
+
+            // Before 6.2.11 phpjavabridge version
+            'php.java.servlet.HttpContext',
+            // From 6.2.11 phpjavabridge version
+            'io.soluble.pjb.servlet.HttpContext'
+        ];
+
+        $this->assertContains($className, $supported);
     }
 }

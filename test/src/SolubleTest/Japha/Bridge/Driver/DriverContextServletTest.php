@@ -67,5 +67,37 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
             }
         }
         $this->assertInstanceOf(JavaObject::class, $servletContext);
+
+        $className = $this->driver->getClassName($servletContext);
+
+        $supported = [
+            // Before 6.2.11 phpjavabridge version
+            'php.java.servlet.PhpJavaServlet',
+            // From 6.2.11 phpjavabridge version
+            'io.soluble.pjb.servlet.PhpJavaServlet'
+        ];
+
+        $this->assertContains($className, $supported);
+
+        //  From javax.servlet.GenericServlet
+
+        $servletName = $servletContext->getServletName();
+        $this->assertInstanceOf(JavaObject::class, $servletName);
+        $this->assertEquals('java.lang.String', $this->driver->getClassName($servletName));
+        $this->assertEquals('PhpJavaServlet', (string) $servletName);
+
+        $servletInfo = $servletContext->getServletInfo();
+        $this->assertInstanceOf(JavaObject::class, $servletInfo);
+        $this->assertEquals('java.lang.String', $this->driver->getClassName($servletInfo));
+
+        $servletConfig = $servletContext->getServletConfig();
+        $this->assertInstanceOf(JavaObject::class, $servletConfig);
+
+        // on Tomcat could be : org.apache.catalina.core.StandardWrapperFacade
+        //$this->assertEquals('org.apache.catalina.core.StandardWrapperFacade', $this->driver->getClassName($servletConfig));
+
+        $paramNames = $servletContext->getInitParameterNames();
+        //echo $this->driver->getClassName($paramNames);
+        $this->assertInstanceOf(JavaObject::class, $paramNames);
     }
 }
