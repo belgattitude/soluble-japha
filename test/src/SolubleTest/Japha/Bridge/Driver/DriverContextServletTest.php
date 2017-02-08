@@ -84,7 +84,7 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
         $servletName = $servletContext->getServletName();
         $this->assertInstanceOf(JavaObject::class, $servletName);
         $this->assertEquals('java.lang.String', $this->driver->getClassName($servletName));
-        $this->assertEquals('PhpJavaServlet', (string) $servletName);
+        $this->assertEquals('phpjavaservlet', strtolower((string) $servletName));
 
         $servletInfo = $servletContext->getServletInfo();
         $this->assertInstanceOf(JavaObject::class, $servletInfo);
