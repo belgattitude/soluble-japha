@@ -57,15 +57,54 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
         $className = $this->driver->getClassName($context);
 
         $supported = [
-            // Denote standalone version
-            'php.java.bridge.http.Context',
-
             // Before 6.2.11 phpjavabridge version
-            'php.java.servlet.HttpContext',
+            'php.java.servlet.HttpContext' => 'servlet',
             // From 6.2.11 phpjavabridge version
-            'io.soluble.pjb.servlet.HttpContext'
+            'io.soluble.pjb.servlet.HttpContext' => 'servlet',
+
+            // For standalone
+            'io.soluble.pjb.bridge.http.Context' => 'standalone',
+            'php.java.bridge.http.Context' => 'standalone',
         ];
 
-        $this->assertContains($className, $supported);
+        $this->assertContains($className, array_keys($supported));
+
+        if ($supported[$className] == 'servlet') {
+            // Those tests does not make sense with the standalone
+            $httpServletRequest = $context->getHttpServletRequest();
+            $this->assertInstanceOf(JavaObject::class, $httpServletRequest);
+            $this->assertContains($this->driver->getClassName($httpServletRequest), [
+                'io.soluble.pjb.servlet.RemoteHttpServletRequest',
+                'php.java.servlet.RemoteServletRequest'
+            ]);
+
+            echo $this->driver->inspect($httpServletRequest);
+
+            $this->assertEquals('java.util.Locale',
+                $this->driver->getClassName($httpServletRequest->getLocale()));
+
+            $this->assertEquals('java.lang.String',
+                $this->driver->getClassName($httpServletRequest->getMethod()));
+
+            $this->assertEquals('java.lang.String',
+                $this->driver->getClassName($httpServletRequest->getProtocol()));
+
+            $this->assertContains('HTTP', (string) $httpServletRequest->getProtocol());
+
+            $headerNames = $httpServletRequest->getHeaderNames();
+
+            $this->assertContains('Enum', $this->driver->getClassName($headerNames));
+
+            $headers = [];
+            while ($headerNames->hasMoreElements()) {
+                $name = $headerNames->nextElement();
+                $value = $httpServletRequest->getHeader($name);
+                $headers[(string) $name] = (string) $value;
+            }
+
+            $this->assertArrayHasKey('host', $headers); // 127.0.0.1:8080 (tomcat listening address)
+            $this->assertArrayHasKey('cache-control', $headers);
+            $this->assertArrayHasKey('transfert-encoding', $headers);
+        }
     }
 }

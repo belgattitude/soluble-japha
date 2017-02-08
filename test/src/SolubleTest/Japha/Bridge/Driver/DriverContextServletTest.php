@@ -93,6 +93,11 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
         $servletConfig = $servletContext->getServletConfig();
         $this->assertInstanceOf(JavaObject::class, $servletConfig);
 
+        /*
+        foreach($servletConfig as $cfg) {
+
+        }*/
+
         // on Tomcat could be : org.apache.catalina.core.StandardWrapperFacade
         //$this->assertEquals('org.apache.catalina.core.StandardWrapperFacade', $this->driver->getClassName($servletConfig));
 
