@@ -64,6 +64,7 @@ class DriverSessionTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $session = $this->adapter->getDriver()->getJavaSession();
+
             $counter = $session->get('counter');
             if ($this->adapter->isNull($counter)) {
                 $session->put('counter', 1);
