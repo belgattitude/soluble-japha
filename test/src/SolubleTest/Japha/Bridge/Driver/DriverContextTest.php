@@ -92,6 +92,11 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
 
             $this->assertContains('HTTP', (string) $httpServletRequest->getProtocol());
 
+            $requestUri = $httpServletRequest->getRequestUri();
+            $this->assertEquals('java.lang.String', $this->driver->getClassName($requestUri));
+
+            $this->assertContains('.phpjavabridge', (string) $requestUri);
+
             $headerNames = $httpServletRequest->getHeaderNames();
 
             $this->assertContains('Enum', $this->driver->getClassName($headerNames));
