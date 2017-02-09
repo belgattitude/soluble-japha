@@ -119,7 +119,12 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
                 'php.java.servlet.RemoteServletResponse'
             ]);
 
-            // @todo future work on session (already committed)
+            if ($this->driver->getClassName($context) == 'io.soluble.pjb.servlet.HttpContext') {
+                $httpServletRequestFromAttribute = $context->getAttribute('io.soluble.pjb.servlet.HttpServletRequest');
+                $this->assertEquals('io.soluble.pjb.servlet.RemoteHttpServletRequest', $this->driver->getClassName($httpServletRequestFromAttribute));
+            }
+
+            // @todo future work on session (issue with session already committed, need more tests)
             //var_dump($context->getAttribute('name'));
         }
     }
