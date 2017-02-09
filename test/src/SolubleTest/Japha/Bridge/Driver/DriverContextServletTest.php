@@ -66,6 +66,7 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
                 throw $e;
             }
         }
+
         $this->assertInstanceOf(JavaObject::class, $servletContext);
 
         $className = $this->driver->getClassName($servletContext);
@@ -93,16 +94,38 @@ class DriverContextServletTest extends \PHPUnit_Framework_TestCase
         $servletConfig = $servletContext->getServletConfig();
         $this->assertInstanceOf(JavaObject::class, $servletConfig);
 
-        /*
-        foreach($servletConfig as $cfg) {
-
-        }*/
-
         // on Tomcat could be : org.apache.catalina.core.StandardWrapperFacade
         //$this->assertEquals('org.apache.catalina.core.StandardWrapperFacade', $this->driver->getClassName($servletConfig));
+
+        $servletContext = $context->getServletContext();
 
         $paramNames = $servletContext->getInitParameterNames();
         //echo $this->driver->getClassName($paramNames);
         $this->assertInstanceOf(JavaObject::class, $paramNames);
+    }
+
+    public function testGetServletOnTomcat()
+    {
+        $context = $this->driver->getContext();
+        try {
+            $servletContext = $context->getServlet();
+        } catch (JavaException $e) {
+            $msg = $e->getMessage();
+            if ($e->getJavaClassName() == 'java.lang.IllegalStateException' &&
+                preg_match('/PHP not running in a servlet environment/', $msg)) {
+                // Basically mark this test as skipped as the test
+                // was made on the standalone server
+                $this->markTestIncomplete('Retrieval of servlet context is not supported with the standalone server');
+
+                return;
+            } else {
+                throw $e;
+            }
+        }
+
+        $servletConfig = $servletContext->getServletConfig();
+        $this->assertEquals('org.apache.catalina.core.StandardWrapperFacade', $this->driver->getClassName($servletConfig));
+
+        $this->assertEquals('org.apache.catalina.core.ApplicationContextFacade', $this->driver->getClassName($context->getServletContext()));
     }
 }

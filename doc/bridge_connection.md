@@ -168,4 +168,14 @@ $httpServletRequest = $context->getHttpServletRequest();
 // @see http://docs.soluble.io/php-java-bridge/api/index.html?io/soluble/pjb/servlet/PhpJavaServlet.html
 $servlet = $context->getServlet();
 
+
+// $servletContext on Tomcat would be
+//   JavaObject: org.apache.catalina.core.ApplicationContextFacade
+$servletContext = $context->getServletContext();
+
+// $servletConfig on Tomcat would be
+//   JavaObject: 'org.apache.catalina.core.StandardWrapperFacade
+$servletConfig = $context->getServlet()->getServletConfig();
+
+
 ```

@@ -118,6 +118,9 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
                 'io.soluble.pjb.servlet.RemoteHttpServletResponse',
                 'php.java.servlet.RemoteServletResponse'
             ]);
+
+            // @todo future work on session (already committed)
+            //var_dump($context->getAttribute('name'));
         }
     }
 }
