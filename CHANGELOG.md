@@ -8,12 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.14.4 (2017-02-09) 
 
-- Documentation for context/sessions/...
-- Compatibility with soluble php-java-bridge 6.2.11-rc-1
-
 ### Added
 
-- Minor improvement for timezone interop (code cleanup).
+- Documentation for context/sessions/...
+- Compatibility with soluble php-java-bridge 6.2.11-rc-1
+- Credits updated for the refactored Pjb62 client driver
 
 
 ## 0.14.3 (2017-02-02) 
