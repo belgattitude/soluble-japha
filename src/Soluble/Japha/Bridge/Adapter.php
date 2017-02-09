@@ -81,7 +81,7 @@ class Adapter
      * echo $hash->get('key'); // prints "保éà"
      * </code>
      *
-     * @param string $class Java class name (FQDN)
+     * @param string     $class   Java class name (FQDN)
      * @param mixed|null ...$args arguments passed to the constructor of the java object
      *
      * @throws \Soluble\Japha\Bridge\Exception\JavaException

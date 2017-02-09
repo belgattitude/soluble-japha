@@ -20,8 +20,8 @@ interface DriverInterface extends ConnectionInterface
      *
      * @throws \Soluble\Japha\Bridge\Exception\ClassFoundException
      *
-     * @param string $class_name Java FQDN i.e: 'java.lang.String'
-     * @param mixed|null ...$args arguments as variadic notation
+     * @param string     $class_name Java FQDN i.e: 'java.lang.String'
+     * @param mixed|null ...$args    arguments as variadic notation
      *
      * @return Interfaces\JavaObject
      */
