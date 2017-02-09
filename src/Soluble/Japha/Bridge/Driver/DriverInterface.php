@@ -92,4 +92,11 @@ interface DriverInterface extends ConnectionInterface
      * @return bool
      */
     public function isTrue(Interfaces\JavaObject $javaObject);
+
+    /**
+     * Returns the jsr223 script context handle.
+     *
+     * @return Interfaces\JavaObject
+     */
+    public function getContext();
 }

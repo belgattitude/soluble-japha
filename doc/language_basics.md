@@ -285,7 +285,6 @@ $index = $ba->getDriver()->invoke($javaString, 'indexOf', ['key', $fromIndex=8])
 *Be aware that the arguments have to be send as an array which differs from 
 a standard method call `$javaString->indexOf('key', $fromIndex=8)`.* 
   
-
    
 ### Java documentation
 

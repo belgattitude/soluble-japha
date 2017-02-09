@@ -70,6 +70,7 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
         $this->assertContains($className, array_keys($supported));
 
         if ($supported[$className] == 'servlet') {
+            // ## TESTING HttpServletRequest
             // Those tests does not make sense with the standalone
             $httpServletRequest = $context->getHttpServletRequest();
             $this->assertInstanceOf(JavaObject::class, $httpServletRequest);
@@ -104,8 +105,19 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
 
             $this->assertArrayHasKey('host', $headers); // 127.0.0.1:8080 (tomcat listening address)
 
-           // $this->assertArrayHasKey('cache-control', $headers);
-           //$this->assertArrayHasKey('transfert-encoding', $headers);
+            /*
+            $this->assertArrayHasKey('cache-control', $headers);
+            $this->assertArrayHasKey('transfert-encoding', $headers);
+            */
+
+            // ## TESTING HttpServletResponse
+
+            $httpServletResponse = $context->getHttpServletResponse();
+
+            $this->assertContains($this->driver->getClassName($httpServletResponse), [
+                'io.soluble.pjb.servlet.RemoteHttpServletResponse',
+                'php.java.servlet.RemoteServletResponse'
+            ]);
         }
     }
 }

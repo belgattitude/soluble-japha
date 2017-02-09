@@ -127,7 +127,11 @@ class Pjb62Driver extends AbstractDriver
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the jsr223 script context handle.
+     *
+     * @throws BrokenConnectionException
+     *
+     * @return Interfaces\JavaObject
      */
     public function getContext()
     {
