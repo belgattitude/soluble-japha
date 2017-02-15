@@ -38,7 +38,7 @@ for a quick an easy start you can cuild your own PHPJavaBridge instance with the
 
 As an example:
     
-```console
+```bash
 $ git clone https://github.com/belgattitude/pjb-starter-springboot
 $ cd pjb-starter-springboot
 $ # An example build with jasperreports and mysql jdbc connector included
@@ -54,7 +54,7 @@ own customizations.*
 
 Deploying on [Tomcat]((./server/install_tomcat.md)) is easy as 
 
-```
+```bash
 $ cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war      
 ```  
 Wait few seconds and check the [landing page](http://localhost:8080/MyJavaBridge) for status and use the connection `localhost:8080/MyJavaBridge/servlet.phpjavabridge` in your bridge connection parameters.    

@@ -27,7 +27,7 @@ Versions and changelog are documented on the <a href="https://github.com/belgatt
 
 The original `Java.inc` client has been completely refactored to fit current trends modern in PHP practices (2016).
 
-- New API (not backward compatible)
+- [x] New API (not backward compatible)
 
     All global functions have been removed (`java_*`) in favour of a more object oriented approach. 
     By doing so, the new API breaks compatibility with existing code (see the 
@@ -35,30 +35,30 @@ The original `Java.inc` client has been completely refactored to fit current tre
     the `Java.inc` original client), but offers the possibility to rely on different driver implementations 
     without breaking your code.
 
-- PHP version and ecosystem
+- [x] PHP version and ecosystem
 
-    - PHP7, HHVM ready (PHP 5.5+ supported).
-    - Installable with composer
-    - Compliant with latests standards: PSR-2, PSR-3, PSR-4
+    - [x] PHP7, HHVM ready (PHP 5.5+ supported).
+    - [x] Installable with composer
+    - [x] Compliant with latests standards: PSR-2, PSR-3, PSR-4
 
-- Enhancements    
+- [x] Enhancements    
     
-    - Namespaces introduced everywhere. 
-    - Removed global namespace pollution (java_* functions)
-    - Removed global variables, functions and unscoped statics.
-    - No more get_last_exception... (All exceptions are thrown with reference to context)
-    - Autoloading performance (no more one big class, psr4 autoloader is used, less memory)
-    - Removed long time deprecated features in Java.inc
-    - By design, no more allow_url_fopen needed.
+    - [x] Namespaces introduced everywhere. 
+    - [x] Removed global namespace pollution (java_* functions)
+    - [x] Removed global variables, functions and unscoped statics.
+    - [x] No more get_last_exception... (All exceptions are thrown with reference to context)
+    - [x] Autoloading performance (no more one big class, psr4 autoloader is used, less memory)
+    - [x] Removed long time deprecated features in Java.inc
+    - [x] By design, no more allow_url_fopen needed.
     
-- Fixes
+- [x] Fixes
     
-    - All notices, warnings have been removed
-    - Some minor bugs found thanks to the unit tests suite
+    - [x] All notices, warnings have been removed
+    - [x] Some minor bugs found thanks to the unit tests suite
 
-- Testing
+- [x] Quality
    
-    - All code is tested (phpunit, travis), analyzed (scrunitizer)
+    - [x] All code is tested (phpunit, travis), analyzed (scrunitizer) to prevent regressions.
 
 
 ### Credits

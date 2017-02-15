@@ -26,7 +26,7 @@ To improve developer experience you can use one of the following methods to inst
    The most easy way is to build your own PHPJavaBridge server with the [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot) 
    and customize it to include your required dependencies. As 2 minutes example:
     
-   ```console
+   ```bash
    $ git clone https://github.com/belgattitude/pjb-starter-springboot
    $ cd pjb-starter-springboot
    $ # An example build with jasperreports and mysql jdbc connector included
@@ -42,7 +42,7 @@ To improve developer experience you can use one of the following methods to inst
    
    Deploying on [Tomcat]((./server/install_tomcat.md)) is easy as 
    
-   ```
+   ```bash
    $ cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war      
    ```  
    Wait few seconds and check the [landing page](http://localhost:8080/MyJavaBridge) for status and use the connection `localhost:8080/MyJavaBridge/servlet.phpjavabridge` in your bridge connection parameters.    
@@ -59,7 +59,7 @@ To improve developer experience you can use one of the following methods to inst
    rely on a *more standard* servlet `web.xml` for its configuration but does not provide some features like
    a standalone embedded tomcat...    
    
-   ```console
+   ```bash
    $ git clone https://github.com/belgattitude/php-java-bridge.git
    $ cd php-java-bridge
    $ # An example build with jasperreports and mysql jdbc connector included
@@ -76,7 +76,7 @@ To improve developer experience you can use one of the following methods to inst
      
     It can be installed in minutes and provides scripts to start and stop a standalone PHP-Java-bridge server. 
        
-    ```console
+    ```bash
     $ mkdir -p /my/path/pjbserver-tools
     $ cd /my/path/pjbserver-tools
     $ composer create-project --no-dev --prefer-dist "belgattitude/pjbserver-tools"

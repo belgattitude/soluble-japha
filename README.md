@@ -43,6 +43,21 @@ Whenever you need to communicate transparently with the JVM, more specifically w
 of libraries *(i.e. Jasper Reports, Apache POI, iText, PDFBox, Machine Learning...)* or simply 
 establish a bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
 or just for the fun :) 
+
+## Considerations
+
+The bridge operates by forwarding every method calls between PHP and Java runtimes and keeping the objects 
+states between them. Although the speed of a one method call or object instanciation is insignificant, multiplying
+them has a certain cost on performance. Optimization techniques exists, but if you intend to make thousands of method calls
+on some basic Java objects you might prefer developing a specific API (microservices, REST, JsonRPC, XMLRpc, SOAP...) to
+interact with Java. On the other hand, and it's where the bridge make more sense, if the cost of executing code
+on the JVM (think JasperReports, POI, NLP, Jsoup) shows a better performance while not requiring thousands of
+method calls (open a file, process something, get back results) the penalty performance becomes minimal while
+preserving a total control on the Java library API. 
+
+
+   
+    
   
 ## Features
 
@@ -272,9 +287,7 @@ to gives some tips for migrations.
   - Refactor as much as possible and remove dead code.
 
 - Supporting more drivers or techs
-  - [Zend Java bridge](http://files.zend.com/help/Zend-Platform/about.htm) driver compatibility.
-  - [GRPC](http://www.grpc.io/) 
-  - Support the [MethodHandles](http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/MethodHandles.html) and [InvokeDynamic](http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/package-summary.html) APIs described in [JSR-292](https://jcp.org/en/jsr/detail?id=292).
+  - Drop XML protocol in favour of protocal buffers [GRPC](http://www.grpc.io/) 
 
 - Improve proxy
   - see [ProxyManager](https://github.com/Ocramius/ProxyManager)
