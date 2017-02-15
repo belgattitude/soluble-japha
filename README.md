@@ -95,7 +95,8 @@ or just for the fun :)
    project, especially tomcat support (as simple as doing `cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war`).
          
    *Other alternatives exists like the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) installable
-   from composer or the barebone installation from the soluble [PHPJavaBridge](https://github.com/belgattitude/php-java-bridge) fork.*      
+   from composer or the barebone installation from the soluble [PHPJavaBridge](https://github.com/belgattitude/php-java-bridge) fork, see 
+   the [install_server.md](./doc/install_server.md)*      
                
 ## Examples
 
