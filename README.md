@@ -89,8 +89,10 @@ or just for the fun :)
    $ java -jar ./build/libs/JavaBridgeStandalone.jar -Dserver_port=8089   
    ``` 
    
-   Check the [landing page](http://localhost:8089) for status and check the [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot) 
-   documentation for more recipes and installation on Tomcat (as simple as doing `cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war`).
+   Check the [landing page](http://localhost:8089) for status and use the connection `localhost:8089/servlet.phpjavabridge` in your bridge connection parameters.
+   
+   See more customizations examples on the [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot) 
+   project, especially tomcat support (as simple as doing `cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war`).
          
    *Other alternatives exists like the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) installable
    from composer or the barebone installation from the soluble [PHPJavaBridge](https://github.com/belgattitude/php-java-bridge) fork.*      
