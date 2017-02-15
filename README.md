@@ -75,7 +75,7 @@ or just for the fun :)
    $ composer require soluble/japha
    ```
 
-2. PHP-Java-bridge **(server)**
+2. PHPJavaBridge **(server)**
    
    The most easy way is to build your own PHPJavaBridge server with the [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot) 
    and customize it to include your required dependencies. As an example:
