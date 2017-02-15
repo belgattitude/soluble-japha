@@ -62,7 +62,7 @@ For **production prefer the Option 2**, you can also start with the standalone a
 
    Build you own .war file including the JavaBridge servlet with either:
         
-   - An easy to setup starter: [pjb-starter-gradle](https://github.com/belgattitude/pjb-starter-gradle/)
+   - An easy to setup starter: [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot/)
    
    or 
 

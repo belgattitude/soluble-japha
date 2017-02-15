@@ -76,26 +76,25 @@ or just for the fun :)
    ```
 
 2. PHP-Java-bridge **(server)**
-     
-   To get **a quick glimpse** use the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools).
    
+   The most easy way is to build your own PHPJavaBridge server with the [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot) 
+   and customize it to include your required dependencies. As an example:
+    
    ```console
-   $ git clone https://github.com/belgattitude/pjbserver-tools.git
-   $ cd pjbserver-tools
-   $ composer update   
-   $ ./bin/pjbserver-tools pjbserver:start -vvv ./config/pjbserver.config.php.dist
-   ```
-
-   > The server will start on default port ***8089***. If you like to change it, create a local copy of `./config/pjbserver.config.php.dist`
-   > and refer it in the above command.
-   >
-   > Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
-   >
-   > Read the [doc](https://github.com/belgattitude/pjbserver-tools) about the standalone server to learn how to add java libs. 
-      
-   For **production or distribution** please have a look to the [server installation guide](./doc/quick_install.md) to get an overview of possible strategies.
-
-          
+   $ git clone https://github.com/belgattitude/pjb-starter-springboot
+   $ cd pjb-starter-springboot
+   $ # An example build with jasperreports and mysql jdbc connector included
+   $ ./gradlew build -I init-scripts/init.jasperreports.gradle -I init-scripts/init.mysql.gradle
+   $ # Run the PHPJavaBridge server
+   $ java -jar ./build/libs/JavaBridgeStandalone.jar -Dserver_port=8089   
+   ``` 
+   
+   Check the [landing page](http://localhost:8089) for status and check the [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot) 
+   documentation for more recipes and installation on Tomcat (as simple as doing `cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war`).
+         
+   *Other alternatives exists like the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) installable
+   from composer or the barebone installation from the soluble [PHPJavaBridge](https://github.com/belgattitude/php-java-bridge) fork.*      
+               
 ## Examples
 
 Here's some quick examples to get a feeling, don't forget to check out the [official documentation site](http://docs.soluble.io/soluble-japha/manual/).
