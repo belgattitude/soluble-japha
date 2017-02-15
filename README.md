@@ -44,20 +44,8 @@ of libraries *(i.e. Jasper Reports, Apache POI, iText, PDFBox, Machine Learning.
 establish a bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
 or just for the fun :) 
 
-## Considerations
-
-The bridge operates by forwarding every method calls between PHP and Java runtimes and keeps the objects 
-states between them. Although the speed of a one method call or object instanciation is insignificant, multiplying
-them has a certain cost on performance. Optimization techniques exists, but if you intend to make thousands of method calls
-on some basic Java objects you might prefer developing a specific API (microservices, REST, JsonRPC, XMLRpc, SOAP...) to
-interact with Java. On the other hand, and it's where the bridge make more sense, if the cost of executing code
-on the JVM (think JasperReports, POI, NLP, Jsoup) shows a better performance while not requiring thousands of
-method calls (open a file, process something, get back results) the penalty performance becomes minimal while
-preserving a total control on the Java library API.  
-
-
-   
-    
+*See also the [considerations](https://github.com/belgattitude/soluble-japha#considerations) before
+implementing a solution based on the bridge.*
   
 ## Features
 
@@ -272,6 +260,16 @@ $socket->close();
 
 For more examples and recipes, have a look at the [official documentation site](http://docs.soluble.io/soluble-japha/manual/). 
  
+## Considerations
+
+The bridge operates by forwarding every method calls between PHP and Java runtimes and keeps the objects 
+states between them. Although the speed of a one method call or object instanciation is insignificant, multiplying
+them has a certain cost on performance. Optimization techniques exists, but if you intend to make thousands of method calls
+on some basic Java objects you might prefer developing a specific API (microservices, REST, JsonRPC, XMLRpc, SOAP...) to
+interact with Java. On the other hand, and it's where the bridge make more sense, if the cost of executing code
+on the JVM (think JasperReports, POI, NLP, Jsoup) shows a better performance while not requiring thousands of
+method calls (open a file, process something, get back results) the penalty performance becomes minimal while
+preserving a total control on the Java library API.   
 
 ## Compatibility layer with legacy versions
 
