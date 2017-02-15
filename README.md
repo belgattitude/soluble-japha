@@ -46,14 +46,14 @@ or just for the fun :)
 
 ## Considerations
 
-The bridge operates by forwarding every method calls between PHP and Java runtimes and keeping the objects 
+The bridge operates by forwarding every method calls between PHP and Java runtimes and keeps the objects 
 states between them. Although the speed of a one method call or object instanciation is insignificant, multiplying
 them has a certain cost on performance. Optimization techniques exists, but if you intend to make thousands of method calls
 on some basic Java objects you might prefer developing a specific API (microservices, REST, JsonRPC, XMLRpc, SOAP...) to
 interact with Java. On the other hand, and it's where the bridge make more sense, if the cost of executing code
 on the JVM (think JasperReports, POI, NLP, Jsoup) shows a better performance while not requiring thousands of
 method calls (open a file, process something, get back results) the penalty performance becomes minimal while
-preserving a total control on the Java library API. 
+preserving a total control on the Java library API.  
 
 
    
