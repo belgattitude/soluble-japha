@@ -305,8 +305,8 @@ and method overloading (that is not supported by PHP).
 > the possible overheads when using the bridge. They were designed to illustrate the
 > cost of creating objects and calling methods.   
 
-Machine: Laptop i7-6700HQ 2.60GHz, Tomcat8, Japha 0.14, OracleJDK8, Xenial, php7.0-fpm
-Test script: [simple_benchmark.php](./test/bench/simple_benchmarks.php)
+Machine: Laptop i7-6700HQ 2.60GHz, Tomcat8, Japha 0.14, OracleJDK8, Xenial, php7.0-fpm. 
+Test script: [simple_benchmark.php](./test/bench/simple_benchmarks.php). 
 Connection time: `$ba = new BridgeAdapter([])` varies between around 2ms (php7.0-fpm) and 5ms (php7.0-cli)
 
 | Benchmark name |  x1 | x100 | x1000 | x10000 | Average | Memory |
@@ -322,19 +322,22 @@ the bridge is sensitive to the number of object creations and method calls:
 
 > (connection time) + (number of created objects) + (number of methods) + (eventual result parsing).
 
-Imagine a typical case with 10 objects instantiations and 50 method calls (from the PHP side):
+Imagine a quite complex case with 100 objects instantiations and 100 method calls (from the PHP side):
  
-> 2ms (connection) + 10 * 0.0321ms (new objects) + 50 * 0.0285ms (method) = 3.5ms minimal overhead (looks fine).   
+> 2ms (connection) + 7.37ms (100 new objects) + 2.90ms (100 concat methods) = +/- 12ms minimal overhead (looks fine).   
 
-Imagine a heavy case with 1000 new objects and 5000 method calls: 
+Imagine a heavy case with 1000 new objects and 10000 method calls: 
 
-> 2ms (connection) + 1000 * 0.0321ms (new objects) + 5000 * 0.0285ms (method) = 176ms overhead (looks too big).   
+> 2ms (connection) + 38.5ms (1000 new objects) + 284.81ms (10000 concat methods) = +/- 325ms overhead (looks too big).   
 
-The second example should be avoided if performance matters., but the first one looks not
+The second example should be avoided if performance matters, but the first one looks not
 only viable but a (micro-)service would probably not do better (parsing the result
 might give differences - a json_decode() vs parsing bridge response... But eventually you 
 can also get the json from the bridge as well).
 
+As an example, generating a report with Jasper will not even require more than 10 objects and
+at max 50 method calls. The overhead here is clearly insignificant. 
+   
 
 ## Compatibility layer with legacy versions
 
