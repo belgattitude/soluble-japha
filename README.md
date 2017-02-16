@@ -44,7 +44,7 @@ of libraries *(i.e. Jasper Reports, POI, iText, PDFBox, Android, Machine Learnin
 establish a bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
 or just for the fun :) 
 
-*See also the [considerations](https://github.com/belgattitude/soluble-japha#considerations) before
+*See also the [considerations, performance and best pratices](https://github.com/belgattitude/soluble-japha#considerations) before
 implementing a solution based on the bridge.*
   
 ## Features
