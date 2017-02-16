@@ -40,7 +40,7 @@ in Java. The Java code is still executed on the JVM, results being sent back to 
 ## Use cases 
 
 Whenever you need to communicate transparently with the JVM, more specifically with its rich set 
-of libraries *(i.e. Jasper Reports, Apache POI, iText, PDFBox, Machine Learning...)* or simply 
+of libraries *(i.e. Jasper Reports, POI, iText, PDFBox, Android, Machine Learning...)* or simply 
 establish a bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
 or just for the fun :) 
 
@@ -262,14 +262,74 @@ For more examples and recipes, have a look at the [official documentation site](
  
 ## Considerations
 
-The bridge operates by forwarding every method calls between PHP and Java runtimes and keeps the objects 
-states between them. Although the speed of a one method call or object instanciation is insignificant, multiplying
-them has a certain cost on performance. Optimization techniques exists, but if you intend to make thousands of method calls
-on some basic Java objects you might prefer developing a specific API (microservices, REST, JsonRPC, XMLRpc, SOAP...) to
-interact with Java. On the other hand, and it's where the bridge make more sense, if the cost of executing code
-on the JVM (think JasperReports, POI, NLP, Jsoup) shows a better performance while not requiring thousands of
-method calls (open a file, process something, get back results) the penalty performance becomes minimal while
-preserving a total control on the Java library API.   
+Before considering using the bridge you should be aware that its performance is sensitive to 
+the number of Java method calls and object instantiations...In other words, if you intend to write 
+some code looping multiple thousands of results... better to go off with a different approach like developing 
+a (micro-)service on the Java side and consume it with PHP. (*not totally true as you can, for example, convert a
+ResultSet into an array on the Java side and retrieve it with one method call...*). See the performances 
+and overhead considerations below to get a glimpse.
+
+That said, the bridge shines whenever you need to access *programmatically* a Java library (think
+JasperReports, POI, NLP, Jsoup, Android...) with maximum flexibity (level of control: the code) and
+benefit from the performance of the JVM (make a 1000 pages PDF with PHP in less than 100ms, anyone ?).
+The choice becomes even more clear for libraries with no equivalent in PHP (entreprise or esoteric libs/drivers...). 
+   
+Note that the server side installation has vastly improved (customization, build and deployment can be scripted in few lines), 
+its minimal requirement is to have a recent JVM installed. You can even package a server with your composer lib.     
+ 
+### How it works
+
+The bridge operates by forwarding each Java object instantiations and method calls 
+through the connection tunnel (`BridgeAdapter`). 
+
+You can think about it like a database connection on which you execute tiny queries, but
+with some differences: 
+
+The protocol used between Java and PHP is based on HTTP and serialized in XML. 
+Here's what would be transmitted if you call `$ba->javaClass('myJClass')->aJMethod(2)`:
+    
+```xml
+<C value="myJClass" p="Class"></C>
+<I value="0" method="aJMethod" p="Invoke"><Object value="2"/></I>
+```    
+
+In addition to this, object state is *automatically* maintained between both Java and PHP runtimes.
+The PHP client keeping a proxied object representation over its counterpart on the JVM side.
+ 
+To complete the picture, there is also some magic happening for handling types differences (casting)
+and method overloading (that is not supported by PHP). 
+ 
+### Performance
+ 
+> The following benchmarks does not intend to prove anything but might help understand
+> the possible overheads when using the bridge. They were designed to illustrate the
+> cost of creating objects and calling methods.   
+
+Machine: i7-6700HQ 2.60GHz, Tomcat8, Japha 0.14.4, OracleJDK8, Xenial, php7.0-fpm
+Test script: [simple_benchmark.php](./test/bench/simple_benchmarks.php)
+Connection time: `$ba = new BridgeAdapter([])` varies between around 2ms (php7.0-fpm) and 5ms (php7.0-cli)
+
+| Benchmark name |  x1 | x100 | x1000 | x10000 | Average | Memory |
+|----| ----:|----:|----:|----:|-------:|----:| 
+| New java(`java.math.BigInteger`, 1) | 0.24ms| 7.37ms| 38.50ms| 309.74ms|0.0321ms|12.29Kb|
+| Method call `java.lang.String->length()` | 0.05ms| 2.37ms| 22.68ms| 219.08ms|0.0220ms|0.34Kb|
+| Method call `java.lang.String->concat("hello")` | 0.09ms| 2.90ms| 28.60ms| 284.81ms|0.0285ms|2.09Kb|
+| Pure PHP: call PHP strlen() method | 0.00ms| 0.00ms| 0.01ms| 0.08ms|0.0000ms|0.37Kb|
+| Pure PHP: concat '$string . "hello"'  | 0.00ms| 0.00ms| 0.02ms| 0.22ms|0.0000ms|120.37Kb|
+    
+The figures above will vary between systems, but intuitively you might get a glimpse about how
+the bridge is sensitive to the number of object creations and method calls: 
+
+(connection time) + (number of created objects) + (number of methods) + (eventual result parsing).
+
+Imagine a typical case with 10 new objects and 50 method calls:
+ 
+> 2ms (connection) + 10 * 0.0321ms (new objects) + 50 * 0.0285ms (method) = 3.5ms minimal overhead look ok.   
+
+Imagine a typical case with 1000 new objects and 5000 method calls: 
+
+> 2ms (connection) + 1000 * 0.0321ms (new objects) + 5000 * 0.0285ms (method) = 176ms overhead (too big).   
+
 
 ## Compatibility layer with legacy versions
 

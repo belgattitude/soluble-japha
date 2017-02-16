@@ -33,7 +33,8 @@
         "phpunit/phpunit": "^5.5",
         "friendsofphp/php-cs-fixer": "^2.0.1",
         "belgattitude/pjbserver-tools": "^2.1.1",
-        "monolog/monolog": "^1.21.0"
+        "monolog/monolog": "^1.21.0",
+        "devster/ubench": "^1.2"
     },
     "scripts": {
         "test": "./vendor/bin/phpunit"
