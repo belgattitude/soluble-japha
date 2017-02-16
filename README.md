@@ -299,13 +299,13 @@ The PHP client keeping a proxied object representation over its counterpart on t
 To complete the picture, there is also some magic happening for handling types differences (casting)
 and method overloading (that is not supported by PHP). 
  
-### Performance
+### Performance and best practices
  
 > The following benchmarks does not intend to prove anything but might help understand
 > the possible overheads when using the bridge. They were designed to illustrate the
 > cost of creating objects and calling methods.   
 
-Machine: i7-6700HQ 2.60GHz, Tomcat8, Japha 0.14.4, OracleJDK8, Xenial, php7.0-fpm
+Machine: Laptop i7-6700HQ 2.60GHz, Tomcat8, Japha 0.14, OracleJDK8, Xenial, php7.0-fpm
 Test script: [simple_benchmark.php](./test/bench/simple_benchmarks.php)
 Connection time: `$ba = new BridgeAdapter([])` varies between around 2ms (php7.0-fpm) and 5ms (php7.0-cli)
 
@@ -320,15 +320,20 @@ Connection time: `$ba = new BridgeAdapter([])` varies between around 2ms (php7.0
 The figures above will vary between systems, but intuitively you might get a glimpse about how
 the bridge is sensitive to the number of object creations and method calls: 
 
-(connection time) + (number of created objects) + (number of methods) + (eventual result parsing).
+> (connection time) + (number of created objects) + (number of methods) + (eventual result parsing).
 
-Imagine a typical case with 10 new objects and 50 method calls:
+Imagine a typical case with 10 objects instantiations and 50 method calls (from the PHP side):
  
-> 2ms (connection) + 10 * 0.0321ms (new objects) + 50 * 0.0285ms (method) = 3.5ms minimal overhead look ok.   
+> 2ms (connection) + 10 * 0.0321ms (new objects) + 50 * 0.0285ms (method) = 3.5ms minimal overhead (looks fine).   
 
-Imagine a typical case with 1000 new objects and 5000 method calls: 
+Imagine a heavy case with 1000 new objects and 5000 method calls: 
 
-> 2ms (connection) + 1000 * 0.0321ms (new objects) + 5000 * 0.0285ms (method) = 176ms overhead (too big).   
+> 2ms (connection) + 1000 * 0.0321ms (new objects) + 5000 * 0.0285ms (method) = 176ms overhead (looks too big).   
+
+The second example should be avoided if performance matters., but the first one looks not
+only viable but a (micro-)service would probably not do better (parsing the result
+might give differences - a json_decode() vs parsing bridge response... But eventually you 
+can also get the json from the bridge as well).
 
 
 ## Compatibility layer with legacy versions
