@@ -64,7 +64,6 @@ $bm->time("\$a = `...String->concat('hello')` . ' world'",
         }
     });
 
-
 $bm->time('Pure PHP: call PHP strlen() method',
     function ($iterations) {
         for ($i = 0; $i < $iterations; ++$i) {
