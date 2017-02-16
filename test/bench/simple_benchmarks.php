@@ -56,10 +56,19 @@ $bm->time('Method call `java.lang.String->concat("hello")`',
         }
     });
 
+$jString = $ba->java('java.lang.String', 'Hello world');
+$bm->time("\$a = `...String->concat('hello')` . ' world'",
+    function ($iterations) use ($ba, $jString) {
+        for ($i = 0; $i < $iterations; ++$i) {
+            $a = $jString->concat('hello') . ' world';
+        }
+    });
+
+
 $bm->time('Pure PHP: call PHP strlen() method',
     function ($iterations) {
         for ($i = 0; $i < $iterations; ++$i) {
-            $len = strlen('Hello World');
+            strlen('Hello World');
         }
     });
 
