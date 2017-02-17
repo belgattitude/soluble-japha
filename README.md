@@ -295,7 +295,8 @@ Of course this level of freedom comes with a certain cost in term of performance
 **the main weakness of the bridge** lies in the number of method calls between runtimes.
 And while calling a method is insignificant (a `roundtrip` is generally less than 1ms), if 
 you intend to loop over big structures and call thousands of methods, objects 
-the advantages of freedom can quickly become its weakness (see the 'performance' and 'how it works' below).
+the advantages of freedom can quickly become its weakness (see the 'performance' and 'how it works' below). 
+Some [solutions](./test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php) exists but are still far from intuitive.
 
 *Note: Regarding the requirement of installing a JavaBridge server which can be seen as difficult.
 Be aware that with recent versions of the [php-java-bridge](https://github.com/belgattitude/php-java-bridge) fork 
