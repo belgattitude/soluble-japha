@@ -54,7 +54,6 @@ class JDBCPerformanceTest extends \PHPUnit_Framework_TestCase
 
     public function testStatementWithGetValuesOptimization()
     {
-
         $ba = $this->adapter;
         $dsn = $this->getPHPUnitJdbcDSN(); // "jdbc:mysql://$host/$db?user=$user&password=$password"
         try {

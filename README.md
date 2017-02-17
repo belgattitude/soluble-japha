@@ -162,7 +162,7 @@ Demonstrate usage of JDBC as it still is a very popular example in Java.
 
 > Note that iterating over large resultset with the bridge in that way 
 > is very expensive in terms of performance. See the [considerations](https://github.com/belgattitude/soluble-japha#considerations)
-> and eventually refer to the [JDBCPerformanceTest.php](./test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php) test script for
+> and eventually refer to the [JDBCPerformanceTest.php](https://github.com/belgattitude/soluble-japha/blob/master/test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php) test script for
 > alternatives. 
 
 
