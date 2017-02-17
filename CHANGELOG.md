@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [UNRELEASED]
+## 1.0.0 (UNRELEASED)
+
+### Added 
+
+- `DriverInterface::values()` method added.
+- Doc: considerations and best practices
+- More JDBC tests some optimizations examples with `DriverInterface::values()`
+
 
 ## 0.14.4 (2017-02-09) 
 

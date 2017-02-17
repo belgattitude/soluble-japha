@@ -99,4 +99,13 @@ interface DriverInterface extends ConnectionInterface
      * @return Interfaces\JavaObject
      */
     public function getContext();
+
+    /**
+     * One round trip retrieval of Java object value representation.
+     *
+     * @param Interfaces\JavaObject $javaObject
+     *
+     * @return mixed
+     */
+    public function values(Interfaces\JavaObject $javaObject);
 }

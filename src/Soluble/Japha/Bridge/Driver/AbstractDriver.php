@@ -20,6 +20,8 @@ abstract class AbstractDriver implements DriverInterface
     abstract public function instanciate($class_name, ...$args);
 
     /**
+     * One round trip retrieval of Java object value representation.
+     *
      * @param Interfaces\JavaObject $javaObject
      *
      * @return mixed

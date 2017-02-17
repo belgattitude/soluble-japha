@@ -50,8 +50,9 @@ implementing a solution based on the bridge.*
 ## Features
 
 - Write Java from PHP (with a little extra php-style ;)  
+- [Function oriented]((https://github.com/belgattitude/soluble-japha#considerations) solution (vs REST)
 - Compatible with [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server implementation.
-- Efficient, no startup effort, native communication with the JVM ([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
+- Native communication with the JVM ([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
 - Java objects, methods calls... are proxied and executed on the JVM. 
 
 > For user of previous versions, **soluble-japha** client replaces the original/legacy [PHPJavaBridge](http://php-java-bridge.sourceforge.net/pjb/) 
@@ -143,6 +144,8 @@ echo $myJavaString;
 
 ### 3. Get your JVM info
 
+Access the static Java system information.
+
 ```php
 <?php
 
@@ -153,10 +156,17 @@ echo  $system->getProperties()->get('java.vm_name');
 
 ```
 
-
 ### 4. JDBC example
 
-Ensure your servlet installation can locate the JDBC driver and try :
+Demonstrate usage of JDBC as it still is a very popular example in Java. 
+
+> Note that iterating over large resultset with the bridge in that way 
+> is very expensive in terms of performance. See the [considerations](https://github.com/belgattitude/soluble-japha#considerations)
+> and eventually refer to the [JDBCPerformanceTest.php](./test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php) test script for
+> alternatives. 
+
+
+Ensure your servlet installation can [locate the JDBC driver](https://github.com/belgattitude/php-java-bridge/tree/master/init-scripts) and try :
 
 ```php
 <?php
@@ -212,7 +222,9 @@ try {
 
 ```
 
-### SSL client socket, readers and writers
+### Stream example with an SSL client
+
+Demonstrate some possible uses of streams *(code is irrelevant from a PHP point of view)*.
 
 ```php
 <?php
@@ -262,21 +274,35 @@ For more examples and recipes, have a look at the [official documentation site](
  
 ## Considerations
 
-Before considering using the bridge you should be aware that its performance is sensitive to 
-the number of Java method calls and object instantiations...In other words, if you intend to write 
-some code looping multiple thousands of results... better to go off with a different approach like developing 
-a (micro-)service on the Java side and consume it with PHP. (*not totally true as you can, for example, convert a
-ResultSet into an array on the Java side and retrieve it with one method call...*). See the performances 
-and overhead considerations below to get a glimpse.
-
-That said, the bridge shines whenever you need to access *programmatically* a Java library (think
-JasperReports, POI, NLP, Jsoup, Android...) with maximum flexibity (level of control: the code) and
-benefit from the performance of the JVM (make a 1000 pages PDF with PHP in less than 100ms, anyone ?).
-The choice becomes even more clear for libraries with no equivalent in PHP (entreprise or esoteric libs/drivers...). 
-   
-Note that the server side installation has vastly improved (customization, build and deployment can be scripted in few lines), 
-its minimal requirement is to have a recent JVM installed. You can even package a server with your composer lib.     
+The bridge can be considered as a `function oriented` solution (like RPC) in comparison to 
+`resource oriented` ones (like REST,...). 
  
+From RPC-based solutions *(like XMLRPC, JsonRPC or [gRPC](https://github.com/grpc/grpc))*, 
+the bridge does not require a *contract* to be written and hide the complexity of managing the state. 
+Practically you can use all Java classes available on the JVM side (libraries) while 
+keeping control of their execution at the code level.  
+
+While RPC or REST are more typical solutions and should be considered
+first (i.e an high-scale context), the bridge still offer a fast, efficient and reliable 
+opportunity to expand PHP to the java ecosystem, publish php-wrapper-libs, connect
+Java systems, libraries or drivers...  
+
+In short, **the bridge shines** whenever you need to use directly a Java library without the need
+of writing a service layer on the Java side. Java classes are the API (think about
+JasperReports, POI, CoreNLP, Jsoup, Android, Machine learning... ready to consume libs).
+
+Of course this level of freedom comes with a certain cost in term of performance and 
+**the main weakness of the bridge** lies in the number of method calls between runtimes.
+And while calling a method is insignificant (a `roundtrip` is generally less than 1ms), if 
+you intend to loop over big structures and call thousands of methods, objects 
+the advantages of freedom can quickly become its weakness (see the 'performance' and 'how it works' below).
+
+*Note: Regarding the requirement of installing a JavaBridge server which can be seen as difficult.
+Be aware that with recent versions of the [php-java-bridge](https://github.com/belgattitude/php-java-bridge) fork 
+and the skeleton [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot) creating a custom taylor-made build
+can be done in minutes and with few cli commands* 
+
+        
 ### How it works
 
 The bridge operates by forwarding each Java object instantiations and method calls 
@@ -303,7 +329,7 @@ and method overloading (that is not supported by PHP).
  
 > The following benchmarks does not intend to prove anything but might help understand
 > the possible overheads when using the bridge. They were designed to illustrate the
-> cost of creating objects and calling methods.   
+> cost of creating objects and calling methods (roundtrips).   
 
 Machine: Laptop i7-6700HQ 2.60GHz, Tomcat8, Japha 0.14, OracleJDK8, Xenial, php7.0-fpm. 
 Test script: [simple_benchmark.php](./test/bench/simple_benchmarks.php). 
@@ -319,7 +345,7 @@ Connection time: `$ba = new BridgeAdapter([])` varies between around 2ms (php7.0
 | Pure PHP: concat '$string . "hello"'  | 0.00ms| 0.00ms| 0.02ms| 0.22ms|0.0000ms|120.37Kb|
     
 The figures above will vary between systems, but intuitively you might get a glimpse about how
-the bridge is sensitive to the number of object creations and method calls: 
+the bridge is sensitive to the number of object creations and method calls (roundtrips): 
 
 > (connection time) + (number of created objects) + (number of methods) + (eventual result parsing).
 
@@ -337,8 +363,13 @@ might give differences - a json_decode() vs parsing bridge response... But event
 can also get the json from the bridge as well).
 
 As an example, generating a report with Jasper will not even require more than 10 objects and
-at max 50 method calls. The overhead here is clearly insignificant. 
+at max 100 method calls. The overhead here is clearly insignificant. 
    
+### Some optimizations techniques
+
+#### Optimizing loops
+
+WIP: see the [JDBCPerformanceTest](./test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php).
 
 ## Compatibility layer with legacy versions
 
