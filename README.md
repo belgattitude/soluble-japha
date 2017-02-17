@@ -50,7 +50,7 @@ implementing a solution based on the bridge.*
 ## Features
 
 - Write Java from PHP (with a little extra php-style ;)  
-- [Function oriented](https://github.com/belgattitude/soluble-japha#considerations) solution (vs REST)
+- [Function oriented](https://github.com/belgattitude/soluble-japha#considerations) solution (vs REST resource oriented)
 - Compatible with [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server implementation.
 - Native communication with the JVM ([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
 - Java objects, methods calls... are proxied and executed on the JVM. 
