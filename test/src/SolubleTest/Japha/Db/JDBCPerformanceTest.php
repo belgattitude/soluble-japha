@@ -28,8 +28,7 @@ class JDBCPerformanceTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $s = $_SERVER;
-        if (isset($s['JAPHA_ENABLE_JDBC_TESTS']) && $s['JAPHA_ENABLE_JDBC_TESTS'] == true) {
+        if ($this->isJdbcTestsEnabled()) {
             $this->markTestSkipped(
                 'Skipping JDBC mysql performance tests, enable option in phpunit.xml'
             );
@@ -131,5 +130,11 @@ class JDBCPerformanceTest extends \PHPUnit_Framework_TestCase
         $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
 
         return $dsn;
+    }
+
+    protected function isJdbcTestsEnabled()
+    {
+        return isset($_SERVER['JAPHA_ENABLE_JDBC_TESTS']) &&
+            $_SERVER['JAPHA_ENABLE_JDBC_TESTS'] == true;
     }
 }
