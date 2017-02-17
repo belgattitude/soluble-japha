@@ -28,7 +28,7 @@ class JDBCPerformanceTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        if ($this->isJdbcTestsEnabled()) {
+        if (!$this->isJdbcTestsEnabled()) {
             $this->markTestSkipped(
                 'Skipping JDBC mysql performance tests, enable option in phpunit.xml'
             );
@@ -54,6 +54,7 @@ class JDBCPerformanceTest extends \PHPUnit_Framework_TestCase
 
     public function testStatementWithGetValuesOptimization()
     {
+
         $ba = $this->adapter;
         $dsn = $this->getPHPUnitJdbcDSN(); // "jdbc:mysql://$host/$db?user=$user&password=$password"
         try {
