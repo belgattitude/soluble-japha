@@ -85,7 +85,7 @@ implementing a solution based on the bridge.*
    and customize it to include your required dependencies. As an example:
     
    ```console
-   $ git clone https://github.com/belgattitude/pjb-starter-springboot
+   $ git clone https://github.com/belgattitude/pjb-starter-springboot // or dowload release an unzip
    $ cd pjb-starter-springboot
    $ # An example build with jasperreports and mysql jdbc connector included
    $ ./gradlew build -I init-scripts/init.jasperreports.gradle -I init-scripts/init.mysql.gradle
@@ -301,7 +301,7 @@ Some [solutions](https://github.com/belgattitude/soluble-japha/blob/master/test/
 *Note: Regarding the requirement of installing a JavaBridge server which can be seen as difficult.
 Be aware that with recent versions of the [php-java-bridge](https://github.com/belgattitude/php-java-bridge) fork 
 and the skeleton [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot) creating a custom taylor-made build
-can be done in minutes and with few cli commands* 
+can be done in minutes and even automated in few (bash-)shell commands* 
 
         
 ### How it works
