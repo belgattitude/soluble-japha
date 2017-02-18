@@ -373,7 +373,7 @@ at max 100 method calls. The overhead here is clearly insignificant.
    
 ### Some optimizations techniques
 
-### Using `values` function
+#### Using `values` function
 
 You can use the `$ba->getDriver()->value($arrOfArray)` to quickly get a
 a PHP normalized values from a Java object. (one roundtrip).
