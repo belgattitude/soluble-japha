@@ -21,7 +21,7 @@ try {
         'servlet_address' => 'localhost:8080/JavaBridgeTemplate/servlet.phpjavabridge'
         //'servlet_address' => 'localhost:8080/JavaBridgeSpringboot/servlet.phpjavabridge'
     ]);
-    $bigInt = $ba->java('java.math.BigInteger', 1);
+    $init = $ba->java('java.lang.String');
 } catch (\Exception $e) {
     die('Error connecting: ' . $e->getMessage());
 }
@@ -32,6 +32,13 @@ $bm->printResult('Connection', $bench);
 // END OF BENCHING CONNECTION
 
 // BENCHMARK SUITE
+
+$bm->time('New java(`java.lang.String`, "One")',
+    function ($iterations) use ($ba) {
+        for ($i = 0; $i < $iterations; ++$i) {
+            $ba->java('java.lang.String', 'One');
+        }
+    });
 
 $bm->time('New java(`java.math.BigInteger`, 1)',
     function ($iterations) use ($ba) {
@@ -49,7 +56,7 @@ $bm->time('Method call `java.lang.String->length()`',
     });
 
 $jString = $ba->java('java.lang.String', 'Hello world');
-$bm->time('Method call `java.lang.String->concat("hello")`',
+$bm->time('Method call `String->concat("hello")`',
     function ($iterations) use ($ba, $jString) {
         for ($i = 0; $i < $iterations; ++$i) {
             $jString->concat('hello');
@@ -61,6 +68,50 @@ $bm->time("\$a = `...String->concat('hello')` . ' world'",
     function ($iterations) use ($ba, $jString) {
         for ($i = 0; $i < $iterations; ++$i) {
             $a = $jString->concat('hello') . ' world';
+        }
+    });
+
+$arr = ['strKey1' => 'val1',
+        'strKey2' => 'val2',
+        'strKey3' => 'val3',
+        'intKey1' => 1000,
+        'boolKey' => true,
+        'arrKey' => ['str_val_1', 'str_val_2'],
+];
+
+$bm->time('New java(`java.util.HashMap`, $arr)',
+    function ($iterations) use ($ba, $arr) {
+        for ($i = 0; $i < $iterations; ++$i) {
+            $ba->java('java.util.HashMap', $arr);
+        }
+    });
+
+$hashMap = $ba->java('java.util.HashMap', $arr);
+$bm->time('Method call `HashMap->get(\'arrKey\')`',
+    function ($iterations) use ($ba, $hashMap) {
+        for ($i = 0; $i < $iterations; ++$i) {
+            $phpArray = $hashMap->get('arrKey');
+            // $arr is a 'io.soluble.pjb.bridge.PhpArray'
+            // -> (string) $phpArray[0]);
+            // Retrieve the php array version
+            // -> var_dump($ba->getDriver()->values($phpArray));
+        }
+    });
+
+$hashMap = $ba->java('java.util.HashMap', $arr);
+$bm->time('Call `(string) HashMap->get(\'arrKey\')[0]`',
+    function ($iterations) use ($ba, $hashMap) {
+        for ($i = 0; $i < $iterations; ++$i) {
+            $phpArray = $hashMap->get('arrKey');
+            $str = (string) $phpArray[0];
+        }
+    });
+
+$bigArray = array_fill(0, 100, true);
+$bm->time('New `java(HashMap(array_fill(0, 100, true)))',
+    function ($iterations) use ($ba, $bigArray) {
+        for ($i = 0; $i < $iterations; ++$i) {
+            $ba->java('java.util.HashMap', $bigArray);
         }
     });
 

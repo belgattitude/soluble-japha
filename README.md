@@ -295,8 +295,8 @@ Of course this level of freedom comes with a certain cost in term of performance
 **the main weakness of the bridge** lies in the number of method calls between runtimes.
 And while calling a method is insignificant (a `roundtrip` is generally less than 1ms), if 
 you intend to loop over big structures and call thousands of methods, objects 
-the advantages of freedom can quickly become its weakness (see the 'performance' and 'how it works' below). 
-Some [solutions](https://github.com/belgattitude/soluble-japha/blob/master/test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php) exists but are still far from intuitive.
+the advantages of freedom can quickly become a limitation (see the 'performance' and 'how it works' below). 
+Some [quirks](https://github.com/belgattitude/soluble-japha/blob/master/test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php) exists but are still far from intuitive.
 
 *Note: Regarding the requirement of installing a JavaBridge server which can be seen as difficult.
 Be aware that with recent versions of the [php-java-bridge](https://github.com/belgattitude/php-java-bridge) fork 
@@ -332,16 +332,21 @@ and method overloading (that is not supported by PHP).
 > the possible overheads when using the bridge. They were designed to illustrate the
 > cost of creating objects and calling methods (roundtrips).   
 
-Machine: Laptop i7-6700HQ 2.60GHz, Tomcat8, Japha 0.14, OracleJDK8, Xenial, php7.0-fpm. 
+Machine: Laptop i7-6700HQ 2.60GHz, Tomcat8, japha 1.0.0, OracleJDK8, Xenial, php7.0-fpm. 
 Test script: [simple_benchmark.php](./test/bench/simple_benchmarks.php). 
 Connection time: `$ba = new BridgeAdapter([])` varies between around 2ms (php7.0-fpm) and 5ms (php7.0-cli)
 
 | Benchmark name |  x1 | x100 | x1000 | x10000 | Average | Memory |
 |----| ----:|----:|----:|----:|-------:|----:| 
+| New java(`java.lang.String`, "One") | 0.10ms| 4.28ms| 36.10ms| 286.22ms|0.0294ms|12.37Kb|
 | New java(`java.math.BigInteger`, 1) | 0.24ms| 7.37ms| 38.50ms| 309.74ms|0.0321ms|12.29Kb|
 | Method call `java.lang.String->length()` | 0.05ms| 2.37ms| 22.68ms| 219.08ms|0.0220ms|0.34Kb|
 | Method call `java.lang.String->concat("hello")` | 0.09ms| 2.90ms| 28.60ms| 284.81ms|0.0285ms|2.09Kb|
 | $a = `...String->concat('hello')` . ' world' | 0.11ms| 6.23ms| 58.94ms| 572.52ms|0.0575ms|0.42Kb|
+| New java(`java.util.HashMap`, $arr) | 0.14ms| 4.04ms| 42.04ms| 407.97ms|0.0409ms|67.12Kb|
+| Method call `HashMap->get('arrKey')` | 0.06ms| 2.49ms| 29.97ms| 299.10ms|0.0299ms|0.33Kb|
+| Call `(string) HashMap->get('arrKey')[0]` | 0.12ms| 8.94ms| 87.57ms| 831.70ms|0.0836ms|0.34Kb|
+| New `java(HashMap(array_fill(0, 100, true))) | 0.23ms| 15.50ms| 134.13ms| 1,238.97ms|0.1251ms|1.48Kb|
 | Pure PHP: call PHP strlen() method | 0.00ms| 0.00ms| 0.01ms| 0.08ms|0.0000ms|0.37Kb|
 | Pure PHP: concat '$string . "hello"'  | 0.00ms| 0.00ms| 0.02ms| 0.22ms|0.0000ms|120.37Kb|
     
