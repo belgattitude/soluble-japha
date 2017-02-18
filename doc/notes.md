@@ -125,7 +125,30 @@ at max 100 method calls. The overhead here is clearly insignificant.
    
 ### Some optimizations techniques
 
+### Using `values` function
+
+You can use the `$ba->getDriver()->value($arrOfArray)` to quickly get a
+a PHP normalized values from a Java object. (one roundtrip).
+
+
+```php
+<?php
+
+$arrOfArray = [
+    'real' => true,
+    'what' => 'nothing',
+    'arr10000' => array_fill(0, 10000, 'Hello world')
+];
+$hashMap = $ba->java('java.util.HashMap', $arrOfArray);
+$arrFromJava = $ba->getDriver()->values($hashMap);
+
+// $arrOfArray is identical from $arrFromJava () 
+```
+
 #### Optimizing loops
+
+One of many techniques to solve loop/iterations issues (increase rountrips) is to build
+an ArrayList, Linked list on the Java side instead of iterating from the PHP side.    
 
 WIP: see the [JDBCPerformanceTest](https://github.com/belgattitude/soluble-japha/blob/master/test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php).
 
