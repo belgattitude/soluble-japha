@@ -416,18 +416,17 @@ to gives some tips for migrations.
 
 ## Future ideas
 
-- Original code improvements
-  - Achieve at least 80% of unit testing for legacy code.
-  - Refactor as much as possible and remove dead code.
+Short term
 
-- Supporting more drivers or techs
-  - Drop XML protocol in favour of protocol buffers or [GRPC](http://www.grpc.io/) 
+- [ ] Achieve at least 80% of unit testing for legacy code.
+- [ ] Remove obsolete code from PJB62 driver (will also increase coverage)
+- [ ] Work on performance
 
-- Improve proxy
-  - see [ProxyManager](https://github.com/Ocramius/ProxyManager)
+Experiments
 
-- Explore new possibilities 
-  - Create a JSR-223 php extension in Go, like this [experiment](https://github.com/do-aki/gophp_sample)
+- [ ] Improve proxy and use of [ProxyManager](https://github.com/Ocramius/ProxyManager)
+- [ ] Drop XML protocol in favour of protocol buffers or [GRPC](http://www.grpc.io/) 
+- [ ] Create a JSR-223 php extension in Go, like this [experiment](https://github.com/do-aki/gophp_sample)
 
 ### Credits
 
