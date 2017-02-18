@@ -319,8 +319,8 @@ The protocol used between Java and PHP is based on HTTP and serialized in XML.
 Here's what would be transmitted if you call `$ba->javaClass('myJClass')->aJMethod(2)`:
     
 ```xml
-<C value="myJClass" p="Class"></C>
-<I value="0" method="aJMethod" p="Invoke"><Object value="2"/></I>
+<c value="myJClass" p="Class"></c>
+<i value="0" method="aJMethod" p="Invoke"><object value="2"/></i>
 ```    
 
 In addition to this, object state is *automatically* maintained between both Java and PHP runtimes.
