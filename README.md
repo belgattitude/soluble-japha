@@ -421,7 +421,7 @@ to gives some tips for migrations.
   - Refactor as much as possible and remove dead code.
 
 - Supporting more drivers or techs
-  - Drop XML protocol in favour of protocal buffers [GRPC](http://www.grpc.io/) 
+  - Drop XML protocol in favour of protocol buffers or [GRPC](http://www.grpc.io/) 
 
 - Improve proxy
   - see [ProxyManager](https://github.com/Ocramius/ProxyManager)
