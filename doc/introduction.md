@@ -18,7 +18,7 @@ $reader = $ba->java('java.io.BufferedReader',
             $ba->java('java.io.FileReader', './var/stats.txt')                        
         );
 
-$javaLib = $ba->java('an.arbitrary.JavaLibrary', $myParam=10);
+$javaLib = $ba->java('an.arbitrary.JavaLibraryClass', $myParam=10);
 
 $jResults = $javaLib->processHugeProcessOnJVM($reader, $hashMap->get('params'));
 
