@@ -390,7 +390,7 @@ $arrOfArray = [
 $hashMap = $ba->java('java.util.HashMap', $arrOfArray);
 $arrFromJava = $ba->getDriver()->values($hashMap);
 
-// $arrOfArray is identical from $arrFromJava () 
+// $arrOfArray is identical from $arrFromJava (one roundtrip) 
 ```
 
 #### Optimizing loops
