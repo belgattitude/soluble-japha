@@ -350,7 +350,8 @@ Connection time: `$ba = new BridgeAdapter([])` varies between around 2ms (php7.0
 | Pure PHP: call PHP strlen() method | 0.00ms| 0.00ms| 0.01ms| 0.08ms|0.0000ms|0.37Kb|
 | Pure PHP: concat '$string . "hello"'  | 0.00ms| 0.00ms| 0.02ms| 0.22ms|0.0000ms|120.37Kb|
     
-*Memory and average time are computed on the 11101 iterations (x1, x100...). Memory does not includeon the Java side.*  
+*Memory and average time are computed on the 11101 iterations (x1, x100...). Memory does not include the JVM side,
+that explains differences from pure php tests and Java one.*      
     
 The figures above will vary between systems, but intuitively you might get a glimpse about how
 the bridge is sensitive to the number of object creations and method calls (roundtrips): 
