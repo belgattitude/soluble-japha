@@ -47,13 +47,13 @@ of libraries *(i.e. Jasper Reports, POI, iText, PDFBox, Android, Machine Learnin
 establish a bridge whenever a pure-PHP alternative does not exists, reveals itself nonviable 
 or just for the fun :) 
 
-*See also the [considerations, performance and best pratices](https://github.com/belgattitude/soluble-japha#considerations) before
+*See also the [considerations, performance and best pratices](https://github.com/belgattitude/soluble-japha#user-content-considerations) before
 implementing a solution based on the bridge.*
   
 ## Features
 
 - Write Java from PHP (with a little extra php-style ;)  
-- [Function oriented](https://github.com/belgattitude/soluble-japha#considerations) solution (vs REST resource oriented)
+- [Function oriented](https://github.com/belgattitude/soluble-japha#user-content-considerations) solution (vs REST resource oriented)
 - Compatible with [PHP/Java bridge](https://github.com/belgattitude/php-java-bridge) server implementation.
 - Native communication with the JVM ([JSR-223](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform) spec).
 - Java objects, methods calls... are proxied and executed on the JVM. 
@@ -164,7 +164,7 @@ echo  $system->getProperties()->get('java.vm_name');
 Demonstrate usage of JDBC as it still is a very popular example in Java. 
 
 > Note that iterating over large resultset with the bridge in that way 
-> is very expensive in terms of performance. See the [considerations](https://github.com/belgattitude/soluble-japha#considerations)
+> is very expensive in terms of performance. See the [considerations](https://github.com/belgattitude/soluble-japha#user-content-considerations)
 > and eventually refer to the [JDBCPerformanceTest.php](https://github.com/belgattitude/soluble-japha/blob/master/test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php) test script for
 > alternatives. 
 
