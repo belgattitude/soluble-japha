@@ -137,9 +137,12 @@ You can use the `$ba->getDriver()->value($arrOfArray)` to quickly get PHP normal
 
 $arrOfArray = [
     'real' => true,
-    'what' => 'nothing',
+    'what' => 'Too early to know',
+    'count' => 2017,
     'arr10000' => array_fill(0, 10000, 'Hello world')
+
 ];
+
 $hashMap = $ba->java('java.util.HashMap', $arrOfArray);
 $arrFromJava = $ba->getDriver()->values($hashMap);
 

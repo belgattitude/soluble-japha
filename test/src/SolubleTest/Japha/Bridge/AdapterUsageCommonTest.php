@@ -106,6 +106,16 @@ class AdapterUsageCommonTest extends \PHPUnit_Framework_TestCase
         $hash->put('key', $ba->java('java.lang.String', '保障球迷權益'));
         $this->assertEquals('保障球迷權益', $hash->get('key'));
         $this->assertEquals(6, $hash->get('key')->length());
+
+        $hashMap = $ba->java('java.util.HashMap', [
+            'year' => 2017,
+            'message' => 'Hello world',
+            'data' => [0.2, 3.2, 4, 18.12]
+        ]);
+
+        $hashMap->put('message', '你好，世界');
+        $this->assertEquals('你好，世界', $hashMap->get('message'));
+        //echo $hashMap->get('year') + 1;
     }
 
     public function testJavaConstructorOverloading()
@@ -121,6 +131,39 @@ class AdapterUsageCommonTest extends \PHPUnit_Framework_TestCase
         $bigdec = $ba->java('java.math.BigDecimal', $bigint, $scale = 2, $mathContext);
 
         $this->assertEquals(1200, $bigdec->floatValue());
+    }
+
+    public function testFileReader()
+    {
+        $ba = $this->adapter;
+        $reader = $ba->java('java.io.BufferedReader',
+            $ba->java('java.io.FileReader', __FILE__)
+        );
+
+        $content = '';
+        while (($line = $reader->readLine()) != null) {
+            $content .= (string) $line . PHP_EOL;
+        }
+        $this->assertContains('testFileReader', $content);
+    }
+
+    public function testForeach()
+    {
+        $ba = $this->adapter;
+
+        $arr = [
+            'key1' => 'first_value',
+            'key2' => 'second_value',
+            'key3' => ['cool', 'cool', 'cool']
+        ];
+
+        $hashMap = $ba->java('java.util.HashMap', $arr);
+
+        $newArr = [];
+        foreach ($hashMap as $key => $value) {
+            $newArr[$key] = $ba->getDriver()->values($value);
+        }
+        $this->assertEquals($arr, $newArr);
     }
 
     public function testIterator()

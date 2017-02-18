@@ -43,7 +43,8 @@ class DriverValuesTest extends \PHPUnit_Framework_TestCase
 
         $arrOfArray = [
             'real' => true,
-            'what' => 'nothing',
+            'what' => 'Too early to know',
+            'count' => 2017,
             'arr10000' => array_fill(0, 10000, 'Hello world')
         ];
 

@@ -14,22 +14,25 @@ As a meaningless example, see the code below:
 ```php
 <?php
 
-use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
-
-$ba = new BridgeAdapter([
-    'driver' => 'Pjb62', 
-    'servlet_address' => 'localhost:8089/servlet.phpjavabridge'
+$hashMap = $ba->java('java.util.HashMap', [         
+        'message' => 'Hello world',                 
+        'params' => [ 0.2, 3.2, 4, 18.12 ]
 ]);
 
-// An utf8 string
-$string = $ba->java('java.lang.String', "Hello world!");
-$hash   = $ba->java('java.util.HashMap', ['key1' => $string, 'key2' => 'hello']);
-echo $hash->get('key1'); // prints "Hello world"
-echo $hash->get('key2')->length(); // prints 4
+$hashMap->put('message', '你好，世界');
 
-// Some maths
-$bigint = $ba->java("java.math.BigInteger", 1);
-echo $bigint->intValue() + 10; // prints 11
+$reader = $ba->java('java.io.BufferedReader',
+            $ba->java('java.io.FileReader', './var/stats.txt'),            
+            $hashMap->get('message') . ' (suffixed from PHP)'
+        );
+
+$javaLib = $ba->java('an.arbitrary.JavaLibrary');
+
+$jResults = $javaLib->processHugeProcessOnJVM($reader);
+
+foreach ($jResults as $key => $values) {    
+    echo "$key: " . DateTime::createFromFormat('Y-m-d', (string) $values[0]);    
+}
 
 ```
 
@@ -386,9 +389,11 @@ You can use the `$ba->getDriver()->value($arrOfArray)` to quickly get PHP normal
 
 $arrOfArray = [
     'real' => true,
-    'what' => 'nothing',
+    'what' => 'Too early to know',
+    'count' => 2017,
     'arr10000' => array_fill(0, 10000, 'Hello world')
 ];
+
 $hashMap = $ba->java('java.util.HashMap', $arrOfArray);
 $arrFromJava = $ba->getDriver()->values($hashMap);
 
