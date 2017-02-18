@@ -285,9 +285,31 @@ $index = $ba->getDriver()->invoke($javaString, 'indexOf', ['key', $fromIndex=8])
 *Be aware that the arguments have to be send as an array which differs from 
 a standard method call `$javaString->indexOf('key', $fromIndex=8)`.* 
   
-   
+#### Using driver `values` function
+
+You can use the `$ba->getDriver()->value($arrOfArray)` to quickly get PHP normalized values from a Java object.
+
+```php
+<?php
+
+$arrOfArray = [
+    'real' => true,
+    'what' => 'Too early to know',
+    'count' => 2017,
+    'arr10000' => array_fill(0, 10000, 'Hello world')
+];
+
+$hashMap = $ba->java('java.util.HashMap', $arrOfArray);
+$arrFromJava = $ba->getDriver()->values($hashMap);
+
+// $arrOfArray is identical from $arrFromJava (one roundtrip) 
+```
+
+      
 ### Java documentation
 
 (todo) tips for reading basic java resources (jvm api...)
 
 - See the [java api reference](https://docs.oracle.com/javase/7/docs/api/) 
+
+
