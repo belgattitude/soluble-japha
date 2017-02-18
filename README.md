@@ -20,15 +20,15 @@ $hashMap = $ba->java('java.util.HashMap', [
 ]);
 
 $hashMap->put('message', '你好，世界');
+echo $hashMap->get('message');
 
 $reader = $ba->java('java.io.BufferedReader',
-            $ba->java('java.io.FileReader', './var/stats.txt'),            
-            $hashMap->get('message') . ' (suffixed from PHP)'
+            $ba->java('java.io.FileReader', './var/stats.txt')                        
         );
 
-$javaLib = $ba->java('an.arbitrary.JavaLibrary');
+$javaLib = $ba->java('an.arbitrary.JavaLibrary', $myParam=10);
 
-$jResults = $javaLib->processHugeProcessOnJVM($reader);
+$jResults = $javaLib->processHugeProcessOnJVM($reader, $hashMap->get('params'));
 
 foreach ($jResults as $key => $values) {    
     echo "$key: " . DateTime::createFromFormat('Y-m-d', (string) $values[0]);    
