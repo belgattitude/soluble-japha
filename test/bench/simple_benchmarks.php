@@ -108,7 +108,7 @@ $bm->time('Call `(string) HashMap->get(\'arrKey\')[0]`',
     });
 
 $bigArray = array_fill(0, 100, true);
-$bm->time('New `java(HashMap(array_fill(0, 100, true)))',
+$bm->time('New `java(HashMap(array_fill(0, 100, true)))`',
     function ($iterations) use ($ba, $bigArray) {
         for ($i = 0; $i < $iterations; ++$i) {
             $ba->java('java.util.HashMap', $bigArray);
