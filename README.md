@@ -12,8 +12,10 @@
 In short **soluble-japha** allows to write Java code in PHP and interact with the JVM ecosystem.  
 
 ----
+
 Read the [http://docs.soluble.io/soluble-japha](http://docs.soluble.io/soluble-japha) 
-for complete information
+website for complete information
+
 ----
 
 As meaningless examples:
