@@ -5,7 +5,7 @@
     Coding Java from PHP is relatively similar to an equivalent pure Java code. To 
     avoid confusion while developing you must keep aware that    
     
-    1. Java support [method overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).       
+    1. Java support [overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).       
     2. PHP has a special notation for static method calls (::), Java does not (.).
     3. PHP refers to constants with '::', Java does not (.).    
     
