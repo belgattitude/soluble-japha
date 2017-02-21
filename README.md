@@ -109,11 +109,11 @@ Installation in your PHP project **(client)**
 $ composer require soluble/japha
 ```
 
-!!! summary 
+## Considerations
 
-    In short, **the bridge shines** whenever you need to use directly a Java library
-    within a reasonable number of method calls. Otherwise implement 
-    **REST or RPC approaches** for first-class system integrations.
+> In short, **the bridge shines** whenever you need to use directly a Java library
+> within a reasonable number of method calls. Otherwise implement 
+> **REST or RPC approaches** for first-class system integrations.
 
 The soluble-japha bridge can be seen as a `function oriented` solution in 
 comparison to `resource oriented` ones *(i.e. REST,...)*. From REST or even 
@@ -131,7 +131,10 @@ traditional approaches like REST should be considered and applied instead.
   
 That said, the bridge is a good, reliable and sometimes preferable alternative 
 over REST for scenarios where a reasonable number of methods calls is intended. 
-  
+
+Be sure to read the 
+- [http://docs.soluble.io/soluble-japha/bridge_how_it_works/](http://docs.soluble.io/soluble-japha/bridge_how_it_works/)
+- [http://docs.soluble.io/soluble-japha/bridge_benchmarks/](http://docs.soluble.io/soluble-japha/bridge_benchmarks/)  
 
 ## Support
 
