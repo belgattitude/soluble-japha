@@ -38,8 +38,8 @@ Replace the version below by the latest [Javabridge release](https://github.com/
 
 ```shell
 # 1. Download and unzip the latest php-java-bridge sources
-$ wget https://github.com/belgattitude/php-java-bridge/archive/6.2.11.zip -O pjb.zip
-$ unzip pjb.zip && cd php-java-bridge-6.2.11
+$ wget https://github.com/belgattitude/php-java-bridge/archive/6.2.12.zip -O pjb.zip
+$ unzip pjb.zip && cd php-java-bridge-6.2.12
 # 2. Customize and build your own bridge:
 #    Example below contains some pre-made gradle init scripts
 #    to include jasperreports and mysql-connector libraries to the
