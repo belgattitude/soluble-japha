@@ -113,10 +113,9 @@ If you like to contribute, see the [contribution guidelines](https://github.com/
 All P/R are warmly welcomed. 
 
 
-## Credits
-
-
 ## License 
 
-The MIT License (MIT). See the 
+The MIT License (MIT). Copyright (c) 2013-2017 Vanvelthem Sébastien
+ 
+See the details [here](https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.txt) 
 
