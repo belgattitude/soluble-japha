@@ -8,7 +8,7 @@ To get the fully qualified java class name on an object, simply call:
 <?php
 $javaString = $this->adapter->java('java.lang.String', 'Hello World');
 $javaFQDN = $this->adapter->getClassName($javaString);
-// should print 'java.lang.String'
+// will print 'java.lang.String'
 ```
 
 ## Driver operations
@@ -16,7 +16,6 @@ $javaFQDN = $this->adapter->getClassName($javaString);
 !!! note
     Advanced operations are handled though the `DriverInterface` object, you can
     retrieve the Driver from the Adapter:
-    the driver :
     
     ```php
     <?php

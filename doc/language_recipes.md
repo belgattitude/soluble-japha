@@ -5,9 +5,10 @@
 Demonstrate the usage of JDBC as it still is a very popular example in Java. 
 
 !!! warning
-    Note that iterating over large resultsets with the bridge as illustrated
-    on this example is very expensive in terms of performance. See the 
-    performance and best practices to learn more
+    Note that iterating over probable large resultsets with the bridge 
+    as illustrated on this example is very expensive in terms of performance. 
+    This code should not be used with the bridge unless no other option exists.
+    See the performance and best practices to learn why.
     
 Ensure your servlet installation can [locate the JDBC driver](https://github.com/belgattitude/php-java-bridge/tree/master/init-scripts) and try :
 

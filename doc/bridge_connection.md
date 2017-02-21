@@ -10,7 +10,7 @@ use Soluble\Japha\Bridge\Exception as BridgeException;
 
 $options = [
     'driver' => 'Pjb62',  
-    'servlet_address' => 'localhost:8080/MyJavaBridg/servlet.phpjavabridge'
+    'servlet_address' => 'localhost:8080/MyJavaBridge/servlet.phpjavabridge'
 ];
 
 try {
@@ -33,7 +33,8 @@ The `Soluble\Japha\Bridge\Adapter` constructor require `$options`, an associativ
 |`servlet_address` | Servlet address: &lt;host&gt;:&lt;port&gt;/&lt;uri&gt;     |
 
 !!! tip
-    The `servlet_address` &lt;uri&gt; should ends with the 'servlet.phpjavabridge' file , i.e: 'localhost:8090/servlet.phpjavabridge'.  
+    The `servlet_address` &lt;uri&gt; should ends with the 'servlet.phpjavabridge' file,
+    i.e: 'localhost:8080/path/servlet.phpjavabridge'.  
 
 ### Optional PSR-3 logger
 

@@ -84,8 +84,8 @@ Once checked, jump to the [Getting started and how to connect section](./bridge_
 !!! danger
     For obvious security reasons, the Javabridge server cannot be exposed on a public
     network. It must be limited to interactions on the same host/network
-    and should be runned under the same user (not root) as the php client. (Bind Tomcat to localhost 
-    or setup a firewall where applicable).   
+    and should be executed with the same user as the php client (not root). 
+    Bind Tomcat to localhost or setup a firewall where applicable.   
 
 
 ------
@@ -167,7 +167,7 @@ bridge connection parameters.
     
     And if standalone gives a lot of freedom, it comes with the need to 
     control the service by yourself (supervisord or cli scripts...). Up to you 
-    to decide which method is applicable for you, the pjb-starter-springboot
+    to decide which method is applicable, the pjb-starter-springboot
     offers both posibilities. 
 
 ### Run on Tomcat
@@ -192,9 +192,11 @@ and check the landing page:
 !!! warning
     For obvious security reasons, the Javabridge server cannot be exposed on a public
     network. It must be limited to interactions on the same host/network
-    and should be runned under the same user (not root) as the php client. (Bind Tomcat to localhost 
-    or setup a firewall where applicable).   
+    and should be executed with the same user as the php client (not root). 
+    Bind Tomcat to localhost or setup a firewall where applicable.   
 
+
+-------
 
 ## Composer install
 

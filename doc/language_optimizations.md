@@ -1,7 +1,7 @@
 # Optimization techniques
 
 !!! note
-    Be sure to have read the [how it works](./bridge_how_it_works.md) and [performance](./bridge_benchmarks.md) pages
+    Be sure to have read the [how it works](./bridge_how_it_works.md) and [benchmark](./bridge_benchmarks.md) pages
     to understand the reasons behind the proposed optimization techniques. 
 
 
