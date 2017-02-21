@@ -4,7 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.0.0 (UNRELEASED)
+
+## 1.0.1 (2017-02-21)
+
+### Fixed
+
+- Minor bug in JDBC unit tests when mysql-connector is >= 6.0 
+
+### Added 
+
+- Huge documentation update
+
+## 1.0.0 (2017-02-17)
+
+### Added 
+
+- `DriverInterface::values()` method added.
+- Doc: considerations and best practices
+- More JDBC tests some optimizations examples with `DriverInterface::values()`
+
+
+## 1.0.0 (2017-02-12)
 
 ### Added 
 
