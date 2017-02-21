@@ -2,7 +2,7 @@ title: soluble-japha API
 source:
     - src
     
-destination: build/api
+destination: build/doc/api
 
 internal: false
 

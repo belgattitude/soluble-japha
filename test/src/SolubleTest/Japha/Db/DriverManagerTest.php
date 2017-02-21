@@ -108,7 +108,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse(true, 'Cannot connect: ' . $e->getMessage());
         }
         $className = $this->adapter->getDriver()->getClassName($conn);
-        $this->assertEquals('com.mysql.jdbc.JDBC4Connection', $className);
+        $this->assertTrue(in_array($className, ['com.mysql.jdbc.JDBC4Connection', 'com.mysql.cj.jdbc.ConnectionImpl']));
         $conn->close();
     }
 
@@ -154,7 +154,10 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         } catch (\Soluble\Japha\Bridge\Exception\JavaException $e) {
             $this->assertTrue(true, 'Exception have been thrown');
             $java_cls = $e->getJavaClassName();
-            $this->assertEquals('com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException', $java_cls);
+            $this->assertTrue(in_array($java_cls, [
+                'com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException',
+                'java.sql.SQLSyntaxErrorException'
+            ]));
             $conn->close();
             throw $e;
         }

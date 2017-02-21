@@ -1,23 +1,29 @@
-## Exceptions
+# Handling Java exceptions
 
-### Handling Java exceptions
+!!! summary 
+    Handling java exceptions works very similarly from PHP the regular ones.
+    All java exceptions extends the `Soluble\Japha\Bridge\Exception\JavaException`
+    that you can selectively catch in your PHP code.
 
-Java exceptions works as regular PHP exceptions. 
+## JavaException    
 
-Internal Java exceptions extends the `Soluble\Japha\Bridge\Exception\JavaException` class and expose
-internal java stack trace as well as corresponding jvm messages through 
-the `JavaException::getStackTrace()`, `JavaException::getCause()` methods.
+All Java exceptions extends the `Soluble\Japha\Bridge\Exception\JavaException` class
+and can be catched selectively in your PHP code. 
+The JavaException offers two useful methods on top of the standard PHP exception class:
+the `JavaException::getStackTrace()` and `JavaException::getCause()` to provide 
+Java specific information. Note the existence of the `JavaException::getJavaClassName()` 
+method to quickly retrieve the initial object where the exception happened. 
 
-To get the original java exception, simply call the `JavaException::getJavaClassName()` method.
-
-Some common implementations are available in the `Soluble\Japha\Bridge\Exception` namespace.
-
+Additionally, some common exceptions have been implemented:
+     
 | Exception                         | Description                              |
 |-----------------------------------|------------------------------------------|
-|`Exception\JavaException`          | Generic java exception                   |
-|`Exception\ClassNotFoundException` | A Java class is not found on the jvm side|
-|`Exception\NoSuchMethodException`  | Call to an undefined method on the java object |
+|`Soluble\Japha\Bridge\Exception\JavaException`          | Generic java exception                   |
+|`Soluble\Japha\Bridge\Exception\ClassNotFoundException` | A Java class is not found on the jvm side|
+|`Soluble\Japha\Bridge\Exception\NoSuchMethodException`  | Call to an undefined method on the java object |
 
+
+## Example
 
 ```php
 <?php

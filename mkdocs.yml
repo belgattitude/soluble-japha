@@ -1,30 +1,95 @@
+site_name: 'soluble-japha'
+site_description: 'PHP Java interop'
+site_author: 'Sébastien Vanvelthem'
+site_url: 'https://github.com/belgattitude/soluble-japha'
+
+# Repository
+repo_name: 'soluble-japha'
+repo_url: 'https://github.com/belgattitude/soluble-japha'
+
+# Copyright
+copyright: 'Copyright &copy; 2017 Sébastien Vanvelthem'
+
+
 docs_dir: doc
 site_dir: build/doc
-site_name: soluble-japha
-site_description: "soluble-japha documentation"
 pages:
-    - index.md
-    - { 'Compatibility': pjb62_compatibility.md }
-
-    - { 'Server install': [
-            { 'Introduction': install_server.md }, 
-            { 'Java': server/install_java.md }, 
-            { 'Tomcat': server/install_tomcat.md }, 
-            { 'Tomcat': server/install_standalone.md }
-        ] 
+    - { 'Introduction': index.md }
+    - { 'Installation': [
+            { 'PHP client': install_client.md },
+            { 'JavaBridge server': install_server.md }
+        ]
       }
-    - { 'Use cases': use_cases.md }
+    - { 'Getting started' : [
+          { 'Connection': bridge_connection.md },
+          { 'Language basics': language_basics.md },
+          { 'Useful functions': language_useful_functions.md },
+          { 'Handling exceptions': language_exceptions.md },
+          { 'Recipes': language_recipes.md }
 
-#theme: readthedocs
-#theme: bootstrap
-theme: united
-repo_url: 'https://github.com/belgattitude/soluble-japha'
+      ]}
+    - { 'Performance' : [
+          { 'How it works': bridge_how_it_works.md },
+          { 'Optimizations': language_optimizations.md },
+          { 'Benchmarks': bridge_benchmarks.md },
+        ]
+      }
+    - { 'Advanced' : [
+          { 'Servlet session': bridge_servlet_session.md },
+          { 'Servlet context': bridge_servlet_context.md }
+      ]}
+    - { 'Notes' : [
+          { 'Legacy version': notes_legacy.md },
+          { 'Java install': server/install_java.md },
+          { 'Tomcat install': server/install_tomcat.md },
+
+      ]}
+    - { 'Standards & quality': notes_implementation.md }
+
+
+# Documentation and theme
+theme: 'material'
+
+# Options
+extra:
+  logo: 'images/logo.svg'
+  palette:
+    #primary: 'indigo'
+    #accent: 'indigo'
+    primary: 'deep-orange'
+    accent: 'light blue'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+  social:
+    - type: 'github'
+      link: 'https://github.com/belgattitude/soluble-japha'
+extra_css:
+  - 'stylesheets/extra.css'
+  - 'stylesheets/monokai.css'
+
+# Google Analytics
+google_analytics:
+  - 'UA-XXXXXXXX-X'
+  - 'auto'
+
+# Extensions
 markdown_extensions:
-    - toc:
-        permalink: True
-    - codehilite:
-        linenums: True
-        guess_lang: True
-        #pygments_style: monokai
-        #use_pygments: True
-    
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite(guess_lang=false)
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc(permalink=true)
+  - pymdownx.arithmatex
+  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist(custom_checkbox=true)
+  - pymdownx.tilde

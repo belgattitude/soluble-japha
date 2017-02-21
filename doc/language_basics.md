@@ -1,34 +1,33 @@
-## Language basics
+# Language basics
 
-Basically `soluble-japha` relies on two php generic objects: `JavaClass` and `JavaObject`. They will be used
-to proxy operations (instanciations, method calls..) to the JVM and maintain state.
+!!! note
 
-This approach ensures that all objects available to the JVM (libraries...) can be managed from the PHP runtime... 
-but, by nature, requires a slightly different syntax.
-
-So when writing Java code from PHP, you need to be aware of some inherent differences between
-the languages :
-
-1. Java support [method overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).
-2. PHP has a special notation for static method calls (::), Java does not (.).
-3. PHP refers to constants with '::', Java does not (.).
-
-But also some limitations due to object proxying : 
-
-1. If most scalar types *(int, string, array...)* are automatically casted, testing an object
-on `null` or `booleans` will actually be made on the proxied php object and not the Java 
-internal value.  
-2. Java `Exception` catched on the PHP side are converted in a generic PHP exception `JavaException`. 
- 
-*soluble-japha* brings solutions to those problems, but primary reflexes might not work (i.e. you try
-to call a static java method through the bridge with '::' instead of the regular '->'...)
-   
+    Coding Java from PHP is relatively similar to an equivalent pure Java code. To 
+    avoid confusion while developing you must keep aware that    
+    
+    1. Java support [method overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).       
+    2. PHP has a special notation for static method calls (::), Java does not (.).
+    3. PHP refers to constants with '::', Java does not (.).    
+    
+    And remember  
+    
+    1. If most scalar types *(int, string, array...)* are automatically casted, testing an object
+    on `null` or `booleans` will actually be made on the proxied php object and not the Java 
+    internal value. Booleans and null must be tested with specific methods (`$ba->isNull()` and `$ba->isTrue()`)  
+    2. Java `Exception` catched on the PHP side are converted in a generic PHP exception `JavaException`.
+     
+    soluble-japha brings solutions to those problems, but primary reflexes might not work (i.e. you try
+    to call a static java method through the bridge with '::' instead of the regular '->'...)
+     
+  
                               
-### Object instanciation
+## Object instantiation
 
 Whenever you want to work with a Java Object you must instanciate it through 
-the `$bridge->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)`. If you look to the following 
-example:
+the `$bridge->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)`. 
+
+### Simple example
+
  
 ```php
 <?php
@@ -41,47 +40,29 @@ $string = $ba->java('java.lang.String', 'Hello world');
 $hash   = $ba->java('java.util.HashMap', ['key1' => $string, 'key2' => 'hello']);
 ```
 
-*The **[JAVA FQDN]** is the fully qualified java class name (case-sensitive) optionally 
-followed by a list of arguments (variadic notation: `BridgeAdapter::java(string $javaClass, ...$args)`).*  
+!!! note
+    The **[JAVA FQDN]** is the fully qualified java class name (case-sensitive) optionally 
+    followed by a list of arguments (variadic notation: `BridgeAdapter::java(string $javaClass, ...$args)`).*  
 
-In case of multiple constructor signatures *(PHP does not have constructor overloading)*, you can have a look to the following example :
 
-```
-//...
+### Constructor overloading
+
+In case of multiple constructor signatures *(PHP does not have constructor overloading)*, look at :
+
+```php
+<?php
 $mathContext = $ba->java('java.math.MathContext', $precision=2);
 $bigint = $ba->java('java.math.BigInteger', 123456);
 $bigdec = $ba->java('java.math.BigDecimal', $bigint, $scale=2, $mathContext);
 
 ```
 
-and look how the [BigDecimal](https://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html#constructor_summary) 
-constructor has been selected from the provided arguments.  
+!!! tip
+    Refer to the [BigDecimal](https://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html#constructor_summary) 
+    constructor to learn how it has been selected from the provided arguments.  
 
-### Dealing with Java classes
-
-When dealing with Java classes that cannot be instanciated (private constructor), like system classes,
-factories, singletons... 
-
-You must first refer the class with the method `$ba->javaClass('[JAVA FQDN]', $arg1=null, ...)` instead of
-`$ba->java()`...
-
-Take a look to the following example with (java.lang.System)[https://docs.oracle.com/javase/7/docs/api/java/lang/System.html] class.   
-
-```php
-<?php
-$system = $ba->javaClass('java.lang.System');
-echo  $system->getProperties()->get('java.vm_name');
-```
-
-A singleton:
-
-```php
-<?php
-$calendar = $ba->javaClass('java.util.Calendar')->getInstance();
-$date = $calendar->getTime();
-```
-
-### Calling methods
+  
+## Methods  
 
 After creating a java object with `$bridge->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)` you can call
 any public methods on it. Keep it mind that Java supports [method overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html),
@@ -101,24 +82,30 @@ $index = $javaString->indexOf('key', $fromIndex=8);
 
 ```
 
+## Classes
 
+Use the `$ba->javaClass('[JAVA FQDN]', $arg1=null, ...)` method instead of
+`$ba->java()`...
 
-#### Calling static methods
-
-Whenever you want to call a static method, please refer it to the class through 
-`$ba->javaClass('[JAVA FQDN]', $arg1=null, ...)` and not the java object. 
-Here's an example on the java calendar class (singleton) :
+Take a look to the following example with [java.lang.System](https://docs.oracle.com/javase/7/docs/api/java/lang/System.html) class.   
 
 ```php
 <?php
-// $ba = new BridgeAdapter(...); 
-
-$calendarClass = $ba->javaClass('java.util.Calendar');
-$calendarInstance = $calendarClass->getInstance();
-
+$system = $ba->javaClass('java.lang.System');
+echo  $system->getProperties()->get('java.vm_name');
 ```
 
-### Class constants
+## Static methods
+
+Static methods are called like regular php methods (no `::`).
+
+```php
+<?php
+$calendar = $ba->javaClass('java.util.Calendar')->getInstance();
+$date = $calendar->getTime();
+```
+
+## Constants
 
 Constants on java classes are called like regular properties (no `::`).
 
@@ -132,55 +119,72 @@ echo $tz->getDisplayName(false, $tzClass->SHORT);
 
 ```
 
-### Testing Null and Boolean
+## Iterables
 
-Due to internal proxy-ing between java and php objects, 'null', 'false' and 'true' values 
-must be tested through the bridge object. Otherwise the test is made the php proxied object
-and not its value.
+!!! warning
+    Iterations have a cost on performance, and looping over large
+    sets is highly discouraged. See the performance and best practices
+    to learn more. 
+
+Java iterable objects can be looped with `foreach`, `while`, `for`...
 
 ```php
 <?php
 
 // $ba = new BridgeAdapter(...); 
 
-$javaBoolean = $ba->java('java.lang.Boolean', true);
-if ($ba->isTrue($javaBoolean)) {
-    echo "Yes, it is.";
-}
-
-$javaBoolean = $ba->java('java.lang.Boolean', false);
-if (!$ba->isTrue($javaBoolean)) {
-    echo "Yes, it is not.";
-}
-
-
-if (!$ba->isNull($rs)) {
-    $rs->close();
+$properties = $ba->javaClass('java.lang.System')->getProperties();
+foreach ($properties as $key => $value) {
+    echo "$key: $value\n";
 }
 ```
 
-### Getting Java classname
 
-To get the fully qulaified java class name on an object, simply call:
+## Datatypes
 
-```php
-<?php
-$javaString = $this->adapter->java('java.lang.String', 'Hello World');
-$javaFQDN = $this->adapter->getClassName($javaString);
-// should print 'java.lang.String'
-```
+### Scalar types
 
-### Scalar Types
+The scalar **string, int, float, boolean and array types** types are automatically casted and
+does not require additional declaration. 
 
-Most of the scalar types are automatically casted to their own language support: string, int, array, boolean, ...
+!!! warning
+  
+    Testing null and boolean:
+    
+    Due to internal proxying between java and php objects, 'null', 'false' and 'true' values 
+    must be tested through the bridge object. Otherwise the test is made the php proxied object
+    and not its value.
+    
+    ```php
+    <?php
+    
+    // $ba = new BridgeAdapter(...); 
+    
+    $javaBoolean = $ba->java('java.lang.Boolean', true);
+    if ($ba->isTrue($javaBoolean)) {
+        echo "Yes, it is.";
+    }
+    
+    $javaBoolean = $ba->java('java.lang.Boolean', false);
+    if (!$ba->isTrue($javaBoolean)) {
+        echo "Yes, it is not.";
+    }
+    
+    
+    if (!$ba->isNull($rs)) {
+        $rs->close();
+    }
+    ```
 
 ### Working with dates
 
-Dates are not (yet) automatically casted between Java and PHP. Keep in mind that internally the JVM 
-keeps tracks of milliseconds where PHP is limited to microseconds and that timezones might differs between
-runtimes.
+!!! warning
+    Dates are not (yet) automatically casted between Java and PHP. Keep in mind that 
+    
+    - Internally the JVM works with milliseconds, PHP with to microseconds (7.1 introduced milli). 
+    - Timezones might differs between runtimes. Check your configuration.
 
-Ignoring deprecated constructors, the [java.util.Date](https://docs.oracle.com/javase/7/docs/api/java/util/Date.html) allows
+As an example, the [java.util.Date](https://docs.oracle.com/javase/7/docs/api/java/util/Date.html) allows
 creation of dates based on a timestamp expressed in milliseconds : 
  
 ```php
@@ -222,7 +226,9 @@ echo $simpleDateFormat->format($javaDate);
 // Will print: "2016-12-21"
 ```
 
-Please be aware that timezones might differ from PHP and the JVM. In that case, dates between PHP and Java
+### Timezones
+
+Timezones might differ from PHP and the JVM runtimes. In that case, dates between PHP and Java
 are not guaranteed to be the same (think of 2016-12-31 23:00:00 in London and Paris)
  
 In most cases those differences can be easily fixed by ensuring both the JVM and PHP configurations 
@@ -237,79 +243,26 @@ $formatter = $ba->java("java.text.SimpleDateFormat", $pattern);
 $tz = $ba->javaClass('java.util.TimeZone')->getTimezone("Europe/Paris");
 $formatter->setTimeZone($tz);
 ```
-  
-### Driver operations
 
-Advanced operations are handled though the `DriverInterface` object, you can
-retrieve the Driver from the Adapter:
-the driver :
+## Resources
 
-```php
-<?php
-$driver = $this->adapter->getDriver();
-```
+PHP resources like pointer to a file or a network socket cannot be
+exchanged between runtimes.  
+       
+### IO streams
 
-#### Inspect a JavaObject
-  
-To inspect the content of a Java object, you can call the inspect method on the Driver:
-  
-```php
-<?php
-$javaString = $ba->java('java.lang.String', 'Hello World');
-echo $ba->getDriver()->inspect($javaString);
-// will print
-// [class java.lang.String:
-// Constructors:
-//  public java.lang.String(byte[],int,int)
-//  public java.lang.String(byte[],java.nio.charset.Charset)
-//  public java.lang.String(byte[],java.lang.String) throws java.io.UnsupportedEncodingException
-//  public java.lang.String(byte[],int,int,java.nio.charset.Charset)
-// ...
-  
-```
-  
-#### Dynamically invoke a method
+!!! Warning
+    For performance, operations on resources (like iterating over a file)
+    is highly discouraged. They should be made on their own environment.
 
-For dynamic calls, the `DriverInterface::invoke()` method can be used on JavaObject or
-JavaClass objects:
+As an example
 
 ```php
 <?php
-$javaString = $ba->java('java.lang.String', 'A key is a key!');
-$length = $ba->getDriver()->invoke($javaString, 'length');
+$bufferedReader = $ba->java('java.io.BufferedReader',
+                        $ba->java('java.io.FileReader', __FILE__)
+                  );
 
-$index = $ba->getDriver()->invoke($javaString, 'indexOf', ['key']);
-$index = $ba->getDriver()->invoke($javaString, 'indexOf', ['key', $fromIndex=8]);
 ```
-
-*Be aware that the arguments have to be send as an array which differs from 
-a standard method call `$javaString->indexOf('key', $fromIndex=8)`.* 
   
-#### Using driver `values` function
-
-You can use the `$ba->getDriver()->value($arrOfArray)` to quickly get PHP normalized values from a Java object.
-
-```php
-<?php
-
-$arrOfArray = [
-    'real' => true,
-    'what' => 'Too early to know',
-    'count' => 2017,
-    'arr10000' => array_fill(0, 10000, 'Hello world')
-];
-
-$hashMap = $ba->java('java.util.HashMap', $arrOfArray);
-$arrFromJava = $ba->getDriver()->values($hashMap);
-
-// $arrOfArray is identical from $arrFromJava (one roundtrip) 
-```
-
-      
-### Java documentation
-
-(todo) tips for reading basic java resources (jvm api...)
-
-- See the [java api reference](https://docs.oracle.com/javase/7/docs/api/) 
-
 

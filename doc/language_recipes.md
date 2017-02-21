@@ -1,15 +1,14 @@
-## Recipes
+# Recipes
 
-### JDBC example
+## JDBC example
 
-Demonstrate usage of JDBC as it still is a very popular example in Java. 
+Demonstrate the usage of JDBC as it still is a very popular example in Java. 
 
-> Note that iterating over large resultset with the bridge in that way 
-> is very expensive in terms of performance. See the [considerations](https://github.com/belgattitude/soluble-japha#considerations)
-> and eventually refer to the [JDBCPerformanceTest.php](https://github.com/belgattitude/soluble-japha/blob/master/test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php) test script for
-> alternatives. 
-
-
+!!! warning
+    Note that iterating over large resultsets with the bridge as illustrated
+    on this example is very expensive in terms of performance. See the 
+    performance and best practices to learn more
+    
 Ensure your servlet installation can [locate the JDBC driver](https://github.com/belgattitude/php-java-bridge/tree/master/init-scripts) and try :
 
 ```php
@@ -66,7 +65,7 @@ try {
 
 ```
 
-### SSL client socket, readers and writers
+## SSL sockets
 
 Demonstrate some possible uses of streams *(code is irrelevant from a PHP point of view)*.
 

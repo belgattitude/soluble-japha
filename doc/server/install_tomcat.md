@@ -1,4 +1,4 @@
-## Tomcat J2EE installation
+## Tomcat server installation
 
 ### For Debian, Ubuntu 14.04 / 16.04
 

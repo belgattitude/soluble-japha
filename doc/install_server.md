@@ -1,166 +1,208 @@
-## Install PHP-Java-bridge server (Java)
+# Javabridge server installation
 
-### Requirements
+In order to talk with the JVM, `soluble-japha` requires installation of
+a specific java service called the Javabridge server. It acts as an intermediate
+between the Java and PHP runtimes and can be build, customized and runned in minutes
+straight from the command line. 
+
+## Requirements
+
+- An installed [OpenJDK or OracleJDK, 7 or 8+](./server/install_java.md) *(JRE is sufficient for running)*.
+- An optional but recommended [Apache Tomcat](./server/install_tomcat.md) server for deployments 
+  *(or any servlet 2.5+ spec container)*.
+
+## Java installation
+
+On ubuntu based systems, you can install java by typing:
  
-- Installed [JRE or JDK 7,8+](./server/install_java.md).
+```shell
+$ sudo apt-get install openjdk-8-jdk  
+```
 
-## Introduction
+*For other recipes and systems, refer to the [extended java installation notes](./server/install_java.md).*
 
-To communicate with the JVM, `soluble/japha` requires a bridge server running on your local machine (or network). 
+------
 
-First you need to ensure you have a valid JDK installed, see the [*nix java install guide](./server/install_java.md). 
-You can test if you have a JDK/JRE installed by typing :
+## Quick install <small>(on Tomcat)</small>
 
-```sh
-$ java -version 
+!!! note    
+    The instructions below are based on the barebone [PHP/Javabridge](https://github.com/belgattitude/php-java-bridge) version
+    and rely on an installed Apache Tomcat server which is the recommended way to run the bridge. 
+    To learn more see the [Tomcat installation notes](./server/install_tomcat.md) or jump 
+    to the [Alternative installation section](#alternative-install) for 
+    standalone mode *(embedded tomcat)*. 
+
+### Build and customize
+
+Replace the version below by the latest [Javabridge release](https://github.com/belgattitude/php-java-bridge/releases): [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.soluble.pjb/php-java-bridge/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.soluble.pjb/php-java-bridge)
+
+```shell
+# 1. Download and unzip the latest php-java-bridge sources
+$ wget https://github.com/belgattitude/php-java-bridge/archive/6.2.11.zip -O pjb.zip
+$ unzip pjb.zip && cd php-java-bridge-6.2.11
+# 2. Customize and build your own bridge:
+#    Example below contains some pre-made gradle init scripts
+#    to include jasperreports and mysql-connector libraries to the
+#    build. They are optional, remove the (-I) parts or provide
+#    your own.       
+$ ./gradlew war \
+         -I init-scripts/init.jasperreports.gradle \
+         -I init-scripts/init.mysql.gradle
+# The build files are generated in the '/build/libs' folder.          
+```
+
+!!! tip
+    As shown above, adding library dependencies can be done easily through gradle
+    init-scripts arguments (-I). To learn mode, have a look to 
+    [some pre-made init scripts](https://github.com/belgattitude/php-java-bridge/blob/master/init-scripts/README.md) 
+    included in the latest distribution or provide your own.
+
+### Deploy and run
+
+Ensure Tomcat is [installed](./server/install_tomcat.md) or 
+quickly run `sudo apt-get install tomcat8` on Ubuntu based systems,
+then copy the builded war file in the tomcat webapps folder.
+
+```shell
+# 3. Deploy or update the servlet on Tomcat:
+#    Example below is based on Ubuntu with Tomcat8
+#    and can be applied in the same way for other systems,
+#    just replace the webapp directory location.
+$ cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war       
+```
+
+Tomcat will automatically deploy and register the servlet. Wait few seconds and point 
+your browser to [http://localhost:8080/MyJavaBridge](http://localhost:8080/MyJavaBridge) 
+*(note the `/MyJavaBridge` uri corresponds to the deployed war filename, easily changeable)* 
+and check the landing page:
+
+
+![](./images/bridge_landing.png "Landing screenshot")
+
+Once checked, jump to the [Getting started and how to connect section](./bridge_connection.md). 
+
+!!! danger
+    For obvious security reasons, the Javabridge server cannot be exposed on a public
+    network. It must be limited to interactions on the same host/network
+    and should be runned under the same user (not root) as the php client. (Bind Tomcat to localhost 
+    or setup a firewall where applicable).   
+
+
+------
+
+## Alternative install
+
+!!! summary    
+    
+    This install method should be considered whenever you need a standalone binary or
+    intend to develop your own java classes in a sprint-boot architecture. 
+
+This alternative install method is based on the [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot) 
+starter kit. In comparison to the quick installation above:
+ 
+- Provide also a binary runnable from the cli (standalone / embedded Tomcat 8.5+).
+- Foundation to add write extra Java code in the [spring-boot](https://projects.spring.io/spring-boot/) way (skeleton).
+- Heavier size (approx 10Mb more than the barebone version: 1Mb, 15Mb more for standalone)
+- No performance regressions measured from the barebone PHP/Javabridge
+- Might not include the latest release of the bridge (not as frequently updated).
+
+Please check the [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot)
+to get the latest instructions or follow the procedure below:    
+
+       
+### Build and customize
+
+The instructions are very similar from the barebone PHP/Javabridge installation described above:
+    
+```shell
+# 1. Clone the pjb-starter-springboot skeleton (-b to checkout a specific release)
+$ git clone https://github.com/belgattitude/pjb-starter-springboot
+$ cd pjb-starter-springboot
+# 2. Customize and build your own bridge:
+#    Example below contains some pre-made gradle init scripts
+#    to include jasperreports and mysql-connector libraries to the
+#    build. They are optional, remove the (-I) parts or provide
+#    your own.       
+$ ./gradlew build \
+         -I init-scripts/init.jasperreports.gradle \
+         -I init-scripts/init.mysql.gradle
+# The build files are generated in the '/build/libs' folder.          
 ``` 
 
-## Installation 
- 
-To improve developer experience you can use one of the following methods to install the bridge.
+!!! tip
+    As shown above, adding library dependencies can be done easily through gradle
+    init-scripts arguments (-I). To learn mode, have a look to 
+    [some pre-made init scripts](https://github.com/belgattitude/pjb-starter-sprinboot/blob/master/init-scripts/README.md) 
+    included in the latest distribution or provide your own.
 
-> Be aware that ***the port used for java bridge should not be public*** for security reasons.
 
-1. Option 1: Build your own PHPJavaBridge instance with the [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot)
+And check the `build\libs` directory for the following files:
 
-   The most easy way is to build your own PHPJavaBridge server with the [pjb-starter-springboot](https://github.com/belgattitude/pjb-starter-springboot) 
-   and customize it to include your required dependencies. As 2 minutes example:
-    
-   ```bash
-   $ git clone https://github.com/belgattitude/pjb-starter-springboot
-   $ cd pjb-starter-springboot
-   $ # An example build with jasperreports and mysql jdbc connector included
-   $ ./gradlew build -I init-scripts/init.jasperreports.gradle -I init-scripts/init.mysql.gradle
-   $ # Run the PHPJavaBridge server
-   $ java -jar ./build/libs/JavaBridgeStandalone.jar -Dserver_port=8089   
-   ``` 
-   Check the [landing page](http://localhost:8089) for status and use the connection `localhost:8089/servlet.phpjavabridge` in your bridge connection parameters.
-   
-   *This example includes jasperreports and the mysql jdbc connector deps, but you can easily
-   customize with provided [examples scripts](https://github.com/belgattitude/pjb-starter-springboot/blob/master/init-scripts/README.md) for OpenNLP, PDFBox, POI, CoreNLP... or provide your
-   own customizations.* 
-   
-   Deploying on [Tomcat]((./server/install_tomcat.md)) is easy as 
-   
-   ```bash
-   $ cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war      
-   ```  
-   Wait few seconds and check the [landing page](http://localhost:8080/MyJavaBridge) for status and use the connection `localhost:8080/MyJavaBridge/servlet.phpjavabridge` in your bridge connection parameters.    
-   
-   *Tested on Tomcat 7 and Tomcat 8 (Win/Linux), change the webapps directory to match your installation.*
-    
-   
-2. Option 2: Build your own *barebone* PHPJavabridge from sources
-       
-   If the starter looks to heavy or you don't like the spring-boot way, you can 
-   build the project from the original [PHPJavaBridge](https://github.com/belgattitude/php-java-bridge) sources.
-   
-   They basically do the same thing, the barebone version will save you around 11Mb of springboot deps and
-   rely on a *more standard* servlet `web.xml` for its configuration but does not provide some features like
-   a standalone embedded tomcat...    
-   
-   ```bash
-   $ git clone https://github.com/belgattitude/php-java-bridge.git
-   $ cd php-java-bridge
-   $ # An example build with jasperreports and mysql jdbc connector included
-   $ ./gradlew build -I init-scripts/init.jasperreports.gradle -I init-scripts/init.mysql.gradle
-   $ # Deploy on Tomcat 
-   $ cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.jar
-   ```
-   
-   Wait few seconds and check the [landing page](http://localhost:8080) for status and use the connection `localhost:8080/MyJavaBridge/servlet.phpjavabridge` in your bridge connection parameters.    
-      
-3. Option 3: Composer installable PHP-Java-bridge standalone server 
+| File          | Description   | Approx. size |
+| ------------- | ------------- | ------------ |
+| `JavaBridgeStandalone.jar`  | Standalone server with an embedded Tomcat 8.5+. | +/- 32Mb |
+| `JavaBridgeTemplate.war`    | War file, ready to drop into Tomcat webapps folder. | +/- 12Mb |
 
-   This third option should only be considered for internal development or unit testing (Travis) 
-     
-    It can be installed in minutes and provides scripts to start and stop a standalone PHP-Java-bridge server. 
-       
-    ```bash
-    $ mkdir -p /my/path/pjbserver-tools
-    $ cd /my/path/pjbserver-tools
-    $ composer create-project --no-dev --prefer-dist "belgattitude/pjbserver-tools"
-    $ ./bin/pjbserver-tools pjbserver:start -vvv ./config/pjbserver.config.php.dist
-    ```
-    
-    The server will start on default port ***8089***. If you like to change it, create a local copy of `./config/pjbserver.config.php.dist`
-    and refer it in the above command.
-       
-    Use the commands `pjbserver:stop`, `pjbserver:restart`, `pjbserver:status` to control or query the server status.
-    
-    See the [pjbserver-tools documentation](https://github.com/belgattitude/pjbserver-tools) for more options
-    and dependencies management.  
-             
 
-## Notes about web.xml configuration 
+### Run in standalone
 
-If you use the second installation option: *barebone* [PHPJavaBridge](https://github.com/belgattitude/php-java-bridge) from sources,
-you can customize the `web.xml` for your own needs, like setting the `php-cgi` executable or removing
-the PHPCGIServlet registration. The default one provided with the PHPJavaBridge correspond to:
- 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+You can easily run the a `JavaBridgeStandalone.jar` file from the cli:
 
-<web-app>
-    <!-- support for JEE cluster, remove this line if you want to put non-serializable objects into the java_session() -->
-    <distributable/>
-
-    <context-param>
-        <!-- Option 1: Only if you want to rely on the default php-cgi binary
-        <param-name>prefer_system_php_exec</param-name>
-        <param-value>On</param-value>
-        -->        
-
-        <!-- Option 2: set location of the php-cgi binary -->
-        <param-name>php_exec</param-name>
-        <param-value>/usr/bin/php-cgi</param-value>
-    </context-param>
-
-    <!-- Handle PHP urls which cannot be expressed using a standard servlet spec 2.2 url-pattern, 
-    e.g.: *.php/delete/from?what=that You may remove this and the filter-mapping below -->
-    <filter>
-        <filter-name>PhpCGIFilter</filter-name>
-        <filter-class>php.java.servlet.PhpCGIFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>PhpCGIFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <!-- Attach the JSR223 script factory to the servlet context -->
-    <listener>
-        <listener-class>php.java.servlet.ContextLoaderListener</listener-class>
-    </listener>
-
-    <!-- PHP Servlet: back-end for Apache or IIS -->
-    <servlet>
-        <servlet-name>PhpJavaServlet</servlet-name>
-        <servlet-class>php.java.servlet.PhpJavaServlet</servlet-class>
-    </servlet>
-
-    <!-- PHP CGI servlet: when IIS or Apache are not available -->
-    <servlet>
-        <servlet-name>PhpCGIServlet</servlet-name>
-        <servlet-class>php.java.servlet.fastcgi.FastCGIServlet</servlet-class>
-    </servlet>
-
-    <!-- PHP Servlet Mapping -->
-    <servlet-mapping>
-        <servlet-name>PhpJavaServlet</servlet-name>
-        <url-pattern>*.phpjavabridge</url-pattern>
-    </servlet-mapping>
-
-    <!-- PHP CGI Servlet Mapping -->
-    <servlet-mapping>
-        <servlet-name>PhpCGIServlet</servlet-name>
-        <url-pattern>*.php</url-pattern>
-    </servlet-mapping>
-
-    <!-- Welcome files -->
-    <welcome-file-list>
-        <welcome-file>index.php</welcome-file>
-    </welcome-file-list>
-</web-app>
+```shell
+# Run the PHPJavaBridge server in standalone
+$ java -jar ./build/libs/JavaBridgeStandalone.jar -Dserver_port=8089   
 ```
+
+Check the [landing page](http://localhost:8089) for status and
+use the connection `localhost:8089/servlet.phpjavabridge` in your 
+bridge connection parameters.
+
+!!! tip
+    As the standalone version embeds and runs on Tomcat 8.5+ you might wonder
+    how it compares from a regular tomcat deployment? One important difference
+    concerns the system integration and with the provided OS version:
+     
+    - Error and log files are maintained and rotated in standard directories.  
+    - Automatic startup is provided out-of-the-box. 
+    
+    And if standalone gives a lot of freedom, it comes with the need to 
+    control the service by yourself (supervisord or cli scripts...). Up to you 
+    to decide which method is applicable for you, the pjb-starter-springboot
+    offers both posibilities. 
+
+### Run on Tomcat
+
+Ensure Tomcat is [installed](./server/install_tomcat.md) or 
+quickly run `sudo apt-get install tomcat8` on Ubuntu based systems,
+then copy the builded war file in the tomcat webapps folder.
+
+```shell
+# 3. Deploy or update the servlet on Tomcat:
+#    Example below is based on Ubuntu with Tomcat8
+#    and can be applied in the same way for other systems,
+#    just replace the webapp directory location.
+$ cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war       
+```
+
+Tomcat will automatically deploy and register the servlet. Wait few seconds and point 
+your browser to [http://localhost:8080/MyJavaBridge](http://localhost:8080/MyJavaBridge) 
+*(note the `/MyJavaBridge` uri corresponds to the deployed war filename, easily changeable)* 
+and check the landing page:
+
+!!! warning
+    For obvious security reasons, the Javabridge server cannot be exposed on a public
+    network. It must be limited to interactions on the same host/network
+    and should be runned under the same user (not root) as the php client. (Bind Tomcat to localhost 
+    or setup a firewall where applicable).   
+
+
+## Composer install
+
+As a third alternative, the [pjbserver-tools standalone server](https://github.com/belgattitude/pjbserver-tools) 
+offer a pre-made server binary and can be installed straight from composer.
+
+!!! warning
+    The pjbserver-tools package is not fit for production usage (yet), its best use is for
+    unit-tests (travis...) or local development only.  
+
 

@@ -1,9 +1,6 @@
-## Connection
+# Connecting to the bridge
 
-Once the [php-java-bridge server](./quick_install.html) is installed and running, you must define
-a connection through the `Soluble\Japha\Bridge\Adapter` object. 
-
-### Example
+## Example
 
 ```php
 <?php
@@ -13,37 +10,32 @@ use Soluble\Japha\Bridge\Exception as BridgeException;
 
 $options = [
     'driver' => 'Pjb62',  
-    'servlet_address' => 'localhost:8089/servlet.phpjavabridge'
+    'servlet_address' => 'localhost:8080/MyJavaBridg/servlet.phpjavabridge'
 ];
 
 try {
-
-    $ba = new BridgeAdapter($options);
-    
-} catch (BridgeException\ConnectionException $e) {
-  
+    $ba = new BridgeAdapter($options);    
+} catch (BridgeException\ConnectionException $e) {  
     // Server is not reachable
     echo $e->getMessage();
-
 } 
 ```
 
-### Parameters 
+## Parameters 
 
-#### Connection parameters
+### Connection params
 
 The `Soluble\Japha\Bridge\Adapter` constructor require `$options`, an associative array with : 
- 
+
 | Parameter        | Description                              |
 |------------------|------------------------------------------|
 |`driver`          | Currently only 'Pjb62' is supported      |
 |`servlet_address` | Servlet address: &lt;host&gt;:&lt;port&gt;/&lt;uri&gt;     |
 
-*Note that the `servlet_address` &lt;uri&gt; should always indicate the file 
-'servlet.phpjavabridge', i.e: 'localhost:8090/servlet.phpjavabridge'. In case of a J2EE deployment 
-you must refer to the configured servlet address on you J2EE server (i.e localhost:8080/JavaBridge/servlet.phpjavabridge).* 
+!!! tip
+    The `servlet_address` &lt;uri&gt; should ends with the 'servlet.phpjavabridge' file , i.e: 'localhost:8090/servlet.phpjavabridge'.  
 
-#### Optional PSR-3 logger
+### Optional PSR-3 logger
 
 Optionally you can send any PSR-3 logger as the second parameter, for example with monolog :
   
@@ -64,9 +56,7 @@ $log = new Logger('name');
 $log->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
 
 try {
-
-    $ba = new BridgeAdapter($options, $logger);
-    
+    $ba = new BridgeAdapter($options, $logger);    
 } catch (Exception\ConnectionException $e) {
   
     // The error has been logged in your log file, check for
@@ -75,107 +65,28 @@ try {
 } 
 ```
   
- 
-### Exception 
+## Errors and exceptions 
 
-During intialization with the BridgeAdapter, the following exceptions could happen :
+During initialization with the BridgeAdapter, the following exceptions could happen :
 
 | ExceptionClass                           | Description                 |
 |------------------------------------------|-----------------------------|
-|`...Exception\ConfigurationException`     | Invalid parameter           |
-|`...Exception\UnsupportedDriverException` | No valid driver             |
-|`...Exception\InvalidArgumentException`   | Invalid argument in array   |
-|`...Exception\ConnectionException`        | Server not available        |
-
-*For clarity replace the "..." by "Soluble\Japha\Bridge\Exception\ ".*
-
-The `Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException` can be thrown
-in case of failure during communication. See your server (tomcat or standalone) logs for detail if
-it happens. Also note that this exception can be thrown if the bridge servlet address points
-to an invalid bridge servlet_address. Check it first.
-
-### Bootstrap
-
-The `Bridge\Adapter` should be initialized once. 
-
-Using a `container-interop` compatible container like [zend-servicemanager](https://github.com/zendframework/zend-servicemanager) is encouraged.
-
-## Advanced
-
-### Servlet session
-
-If the bridge is deployed on Tomcat (not the standalone version), you can access the servlet session through 
-the internal driver:
-
- 
-```php
-
-<?php
-
-use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
-
-$ba = new BridgeAdapter([
-                           'driver' => 'Pjb62',  
-                           'servlet_address' => 'localhost:8089/servlet.phpjavabridge'
-                        ]);
-
-$javaSession = $adapter->getDriver()->getJavaSession();
-
-$counter = $javaSession->get('counter');
-if ($ba->isNull($counter)) {
-    $session->put('counter', 1);
-} else {
-    $session->put('counter', $counter + 1);
-}
-
-```
-
-### Servlet context
-
-If the bridge is deployed on Tomcat (not the standalone version), you can access the servlet context through 
-the internal driver:
- 
-```php
-
-<?php
-
-use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
-
-$ba = new BridgeAdapter([
-                           'driver' => 'Pjb62',  
-                           'servlet_address' => 'localhost:8089/servlet.phpjavabridge'
-                        ]);
-
-// $context is either 
-//   JavaObject: Java('io.soluble.pjb.servlet.HttpContext') - for soluble/php-java-bridge 6.2.11+   
-//   JavaObject: Java('php.java.servlet.HttpContext') - for original php-java-bridge 6.2.1
-// @see http://docs.soluble.io/php-java-bridge/api/index.html?io/soluble/pjb/servlet/HttpContext.html
-
-$context = $adapter->getDriver()->getContext();
+|`Soluble\Japha\Bridge\Exception\ConnectionException`        | Server not available        |
+|`Soluble\Japha\Bridge\Exception\ConfigurationException`     | Invalid parameter           |
+|`Soluble\Japha\Bridge\Exception\UnsupportedDriverException` | No valid driver             |
+|`Soluble\Japha\Bridge\Exception\InvalidArgumentException`   | Connection params not an array   |
 
 
-// $httpServletRequest is either
-//   JavaObject: Java('io.soluble.pjb.servlet.RemoteHttpServletRequest') - for soluble/php-java-bridge 6.2.11+
-//   JavaObject: Java('php.java.servlet.RemoteServletRequest') - for original php-java-bridge 6.2.1
-// @see http://docs.soluble.io/php-java-bridge/api/index.html?io/soluble/pjb/servlet/RemoteHttpServletContextFactory.html
+!!! note
+    The `Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException` can be thrown
+    in case of failure during communication. See your server (tomcat or standalone) logs for detail if
+    it happens. Also note that this exception could be thrown when the provided servlet address 
+    points to a service different than the bridge. Check it first.
 
-$httpServletRequest = $context->getHttpServletRequest();
+## Bootstrapping
 
+Just like connecting to a database, the `Bridge\Adapter` should be initialized once. 
 
-// $servlet is either
-//   JavaObject: Java('io.soluble.pjb.servlet.PhpJavaServlet') object for soluble/php-java-bridge 6.2.11+
-//   JavaObject: Java('php.java.servlet.PhpJavaServlet') - for original php-java-bridge 6.2.1
-// @see http://docs.soluble.io/php-java-bridge/api/index.html?io/soluble/pjb/servlet/PhpJavaServlet.html
-$servlet = $context->getServlet();
+!!! tip
+    Using a `container-interop` compatible container like [zend-servicemanager](https://github.com/zendframework/zend-servicemanager) is encouraged.
 
-
-// $servletContext on Tomcat would be
-//   JavaObject: org.apache.catalina.core.ApplicationContextFacade
-$servletContext = $context->getServletContext();
-
-// $servletConfig on Tomcat would be
-//   JavaObject: 'org.apache.catalina.core.StandardWrapperFacade
-$servletConfig = $context->getServlet()->getServletConfig();
-
-
-```

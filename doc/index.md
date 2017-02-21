@@ -1,21 +1,15 @@
-[![PHP Version](http://img.shields.io/badge/php-5.5+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
-[![Build Status](https://travis-ci.org/belgattitude/soluble-japha.svg?branch=master)](https://travis-ci.org/belgattitude/soluble-japha)
-[![Code Coverage](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/soluble/japha/v/stable.svg)](https://packagist.org/packages/soluble/japha)
-[![Total Downloads](https://poser.pugx.org/soluble/japha/downloads.png)](https://packagist.org/packages/soluble/japha)
-[![License](https://poser.pugx.org/soluble/japha/license.png)](https://packagist.org/packages/soluble/japha)
-[![HHVM Status](https://php-eye.com/badge/soluble/japha/hhvm.svg)](https://php-eye.com/package/soluble/japha)
+# PHP/Java integration <small>where PHP meets Java again</small>
 
-# soluble-japha  
+[![Latest Stable Version](https://poser.pugx.org/soluble/japha/v/stable.svg)](https://packagist.org/packages/soluble/japha)
+[![PHP Version](http://img.shields.io/badge/php-5.5+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
+[![PHP Version](http://img.shields.io/badge/php-7.0+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
+[![HHVM Status](https://php-eye.com/badge/soluble/japha/hhvm.svg)](https://php-eye.com/package/soluble/japha)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/?branch=master)
+[![License](https://poser.pugx.org/soluble/japha/license.png)](https://packagist.org/packages/soluble/japha)
+
+## Introduction
 
 In short **soluble-japha** allows to write Java code in PHP and interact with the JVM ecosystem.  
-
-----
-Read the [http://docs.soluble.io/soluble-japha](http://docs.soluble.io/soluble-japha) 
-for complete information
-----
-
 As meaningless examples:
 
 ```php
@@ -58,7 +52,7 @@ try {
 }
 
 ```
-
+                                             
 ## Use cases 
 
 **Expand the PHP horizons to the Java ecosystem**, especially whenever you want 
@@ -69,9 +63,11 @@ to take advantage of
 - when a pure-PHP alternative does not exists *(Android, driver, closed api, enterprise...)* 
 - or simply for the fun of it.  
 
-> The freedom allowed by `soluble-japha` is not fit for every scenarios. 
-> Be sure to read the [considerations](#considerations) and [performance](#performance) 
-> sections to learn more. 
+!!! warning
+
+    The freedom allowed by `soluble-japha` is not fit for every scenarios. 
+    Be sure to read the [considerations](#considerations) and [performance](#performance) 
+    sections to learn more. 
 
 ## Features
 
@@ -83,29 +79,8 @@ to take advantage of
 - [x] No need to write a service layer prior to usage *(the Java object is the contract)*.
 - [x] Fast network based communication between runtimes, no JVM startup effort.
 - [x] Solid foundation to create, develop *or publish* PHP wrappers over java libs.
-      
-
-> For user of previous versions, **soluble-japha** client replaces the original/legacy [PHPJavaBridge](http://php-java-bridge.sourceforge.net/pjb/) 
-> `Java.inc` implementation and has been completely refactored to fit modern practices 
-> and PHP7. 
-> See the [differences here](./doc/notes.md) and the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat) if needed.
-
-## Requirements
-
-- PHP 5.6, 7.0+, 7.1+ or HHVM >= 3.9 *(for PHP5.5 use the "^0.13.0" releases)*.
-
-## Documentation
-
- - Read the [Manual](http://docs.soluble.io/soluble-japha/)  
- - and alternatively the [API documentation](http://docs.soluble.io/soluble-japha/api/) available.
-
-## Installation
-
-Installation in your PHP project **(client)**
- 
-```console
-$ composer require soluble/japha
-```
+                              
+## Considerations
 
 !!! summary 
 
@@ -136,32 +111,12 @@ over REST for scenarios where a reasonable number of methods calls is intended.
 Please fill any issues on the [offical tracker](https://github.com/belgattitude/soluble-japha/issues). 
 If you like to contribute, see the [contribution guidelines](https://github.com/belgattitude/soluble-japha/blob/master/CONTRIBUTING.md). 
 All P/R are warmly welcomed. 
-                         
-   
-## Future ideas
 
-Short term
 
-- [ ] Achieve at least 80% of unit testing for legacy code.
-- [ ] Remove obsolete code from PJB62 driver (will also increase coverage)
-- [ ] Work on performance
+## Credits
 
-Experiments
 
-- [ ] Improve proxy and use of [ProxyManager](https://github.com/Ocramius/ProxyManager)
-- [ ] Drop XML protocol in favour of protocol buffers or [GRPC](http://www.grpc.io/) 
-- [ ] Create a JSR-223 php extension in Go, like this [experiment](https://github.com/do-aki/gophp_sample)
+## License 
 
-### Credits
-
-* This code is principally developed and maintained by [Sébastien Vanvelthem](https://github.com/belgattitude).
-* Special thanks to [all of these awesome contributors](https://github.com/belgattitude/soluble-japha/network/members)
-* This project is based on the Java.inc work made by the [PHPJavaBridge developers](http://php-java-bridge.sourceforge.net/pjb/contact.php#code_contrib). 
-  
-## Coding standards and interop
-
-* [PSR 4 Autoloader](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
-* [PSR 3 Logger interface](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md)
-* [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
-* [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
+The MIT License (MIT). See the 
 

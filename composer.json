@@ -37,7 +37,8 @@
         "devster/ubench": "^1.2"
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit"
+        "test": "./vendor/bin/phpunit",
+        "build-doc": "mkdocs build && apigen.phar generate --config=./.apigen.yml"
     },
     "suggest": {
         "belgattitude/pjbserver-tools": "PHPJavabridge standalone server support (unit tests)",
