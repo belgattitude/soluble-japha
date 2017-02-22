@@ -16,6 +16,7 @@ matrix:
     - php: hhvm-nightly
                     
 before_script:
+  - java --version
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
   - mysql -e "create database phpunit_soluble_test_db;" -uroot
   - zcat test/data/mysql/schema.sql.gz | mysql -uroot phpunit_soluble_test_db
@@ -26,7 +27,10 @@ before_script:
   - travis_retry composer self-update
   - travis_retry composer install
   - ./.travis/launch_javabridge_server.sh
-  - sleep 4 # on Travis launch javabridge need some time to be fully running
+  # On travis Javabridge needs some time to
+  # be fully running, assume 6 seconds
+  # and show the log file
+  - sleep 6 && cat ./.travis/webapp-runner.8083.log
     
 script: 
   - ./vendor/bin/phpunit -c test/phpunit.travis.xml -v
