@@ -1,7 +1,7 @@
 site_name: 'soluble-japha'
 site_description: 'PHP Java interop'
 site_author: 'Sébastien Vanvelthem'
-site_url: 'https://github.com/belgattitude/soluble-japha'
+site_url: http://docs.soluble.io/soluble-japha/
 
 # Repository
 repo_name: 'soluble-japha'
@@ -9,7 +9,6 @@ repo_url: 'https://github.com/belgattitude/soluble-japha'
 
 # Copyright
 copyright: 'Copyright &copy; 2017 Sébastien Vanvelthem'
-
 
 docs_dir: doc
 site_dir: build/doc
@@ -54,16 +53,22 @@ theme: 'material'
 extra:
   logo: 'images/logo.svg'
   palette:
-    #primary: 'indigo'
-    #accent: 'indigo'
     primary: 'deep-orange'
     accent: 'light blue'
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
+  # If extra_css defined here ->
+  # -> WARNING -  Config value: 'extra_css'.
+  #    This behavior is deprecated. In version 1.0 and later they will need to be explicitly listed in the 'extra_css' config setting.
+  extra_css:
+    - 'stylesheets/extra.css'
+    - 'stylesheets/monokai.css'
   social:
     - type: 'github'
       link: 'https://github.com/belgattitude/soluble-japha'
+
+
 extra_css:
   - 'stylesheets/extra.css'
   - 'stylesheets/monokai.css'
