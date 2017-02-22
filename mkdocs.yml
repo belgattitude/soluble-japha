@@ -38,6 +38,7 @@ pages:
           { 'Servlet context': bridge_servlet_context.md }
       ]}
     - { 'Notes' : [
+          { 'Limitations': notes_limitations.md },
           { 'Legacy version': notes_legacy.md },
           { 'Java install': server/install_java.md },
           { 'Tomcat install': server/install_tomcat.md },
