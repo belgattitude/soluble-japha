@@ -1,6 +1,8 @@
 # Useful functions
+   
+## Type related
                           
-## Get the Java classname
+### Java classname
 
 To get the fully qualified java class name on an object, simply call:
 
@@ -9,6 +11,24 @@ To get the fully qualified java class name on an object, simply call:
 $javaString = $this->adapter->java('java.lang.String', 'Hello World');
 $javaFQDN = $this->adapter->getClassName($javaString);
 // will print 'java.lang.String'
+```
+
+### InstanceOf
+
+To check whether a Java object is an instance of another:
+
+```php
+<?php
+$string = $ba->java('java.lang.String', 'Hello');
+
+$true  = $ba->isInstanceOf($string, 'java.lang.String');
+$true  = $ba->isInstanceOf($string, 'java.lang.Object');
+$false = $ba->isInstanceOf($string, 'java.util.HashMap');
+
+// With JavaClass
+$system = $ba->javaClass('java.lang.System');
+$false = $ba->isInstanceOf($string, $system);
+
 ```
 
 ## Driver operations

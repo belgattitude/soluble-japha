@@ -1,17 +1,62 @@
 # Recipes
 
+!!! warning
+    For learning purposes, the bridge optimizations techniques have not 
+    been applied to the recipe examples. And if they better correspond 
+    to their equivalent Java syntax, they should be optimized for
+    best performance. Learn more in the [language optimization](./language_optimizations.md) section. 
+    
+## CoreNLP
+
+Example based on the [http://stanfordnlp.github.io/CoreNLP/simple.html](http://stanfordnlp.github.io/CoreNLP/simple.html).
+
+```php
+<?php declare(strict_types=1);
+
+public function getSentences(Adapter $ba, string $text): array
+{
+    $driver = $ba->getDriver();
+
+    $doc = $ba->java('edu.stanford.nlp.simple.Document', $text);
+
+    $sentences = $doc->sentences();
+    $results = [];
+
+    foreach($sentences as $idx => $sentence) {
+        $results[$idx] = [
+            'sentence' => (string) $sentence,
+            'words'    => $driver->values($sentence->words())
+        ];
+        // If you have a model installed, use lemmas(), posTags(), parse()... methods
+        // $results[$idx]['posTags'] = $driver->values($sentence->posTags()->toArray())
+        // $results[$idx]['parse'] = $driver->values($sentence->parse()->toArray())
+        // $results[$idx]['lemmas'] = $driver->values($sentence->lemmas()->toArray()),
+    }
+
+    return $results;
+}
+
+$results = getSentences($ba, "add your text here! It can contain multiple sentences. Hello world.");
+assertEquals('add your text here!', $results[0]['sentence']);
+assertEquals('Hello world.', $results[2]['sentence']);
+assertEquals('Hello', $results[2]['words'][0]);
+```
+
+!!! tip
+    You can easily add Standford CoreNLP to your bridge server, pre-made
+    build scripts are available [here](https://github.com/belgattitude/php-java-bridge/blob/master/init-scripts/README.md). 
+
 ## JDBC example
 
 Demonstrate the usage of JDBC as it still is a very popular example in Java. 
 
 !!! warning
-    Note that iterating over probable large resultsets with the bridge 
-    as illustrated on this example is very expensive in terms of performance. 
+    Iterating over probable large resultsets with the bridge 
+    as illustrated on the JDBC example is very expensive in terms of performance. 
     This code should not be used with the bridge unless no other option exists.
     See the performance and best practices to learn why.
     
-Ensure your servlet installation can [locate the JDBC driver](https://github.com/belgattitude/php-java-bridge/tree/master/init-scripts) and try :
-
+    
 ```php
 <?php
 
@@ -65,6 +110,11 @@ try {
 }
 
 ```
+
+!!! tip
+    You can easily add MySQL connector to your bridge server, pre-made
+    build scripts are available [here](https://github.com/belgattitude/php-java-bridge/blob/master/init-scripts/README.md). 
+
 
 ## SSL sockets
 

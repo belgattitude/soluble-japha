@@ -27,6 +27,9 @@ allprojects {
     dependencies {
 
         runtime 'mysql:mysql-connector-java:6+'
+        runtime 'edu.stanford.nlp:stanford-corenlp:3.+'
+
+        //runtime 'com.google.guava:guava:21+'
 
 
         /* Enable for jasper reports tests
