@@ -32,7 +32,6 @@
     "require-dev" : {
         "phpunit/phpunit": "^5.5",
         "friendsofphp/php-cs-fixer": "^2.0.1",
-        "belgattitude/pjbserver-tools": "^2.1.1",
         "monolog/monolog": "^1.21.0",
         "devster/ubench": "^1.2"
     },
@@ -45,11 +44,11 @@
         "monolog/monolog": "PSR-3 comptatible logger"
     },
     "archive": {
-        "exclude": ["test", "doc", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
+        "exclude": ["test", "doc", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "2.0-dev"
         }
     }    
 }

@@ -27,15 +27,15 @@
               
               (if false, you have to get a tomcat server running)
         -->
-        
+
+        <!--
         <server name="AUTORUN_PJB_STANDALONE" value="true" />
         <server name="PJB_SERVLET_ADDRESS" value="http://127.0.0.1:8083/servlet.phpjavabridge" />
-
-        <!-- 
-        Generally if you have tomcat
-        <server name="AUTORUN_PJB_STANDALONE" value="false" />
-        <server name="PJB_SERVLET_ADDRESS" value="http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge" />       
         -->
+
+        <server name="AUTORUN_PJB_STANDALONE" value="false" />
+        <server name="PJB_SERVLET_ADDRESS" value="http://127.0.0.1:8083/servlet.phpjavabridge" />
+
         
 		
         <!--

@@ -25,6 +25,8 @@ before_script:
   - mkdir -p test/logs
   - travis_retry composer self-update
   - travis_retry composer install
+  - ./.travis/launch_javabridge_server.sh
+  - sleep 4 # on Travis launch javabridge need some time to be fully running
     
 script: 
   - ./vendor/bin/phpunit -c test/phpunit.travis.xml -v

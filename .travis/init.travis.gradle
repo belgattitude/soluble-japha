@@ -1,0 +1,43 @@
+/*
+Gradle init script to add jasperreports dependencies to the build
+*/
+
+
+initscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    repositories {
+        mavenCentral()
+        /* enable for jasper reports
+        maven {
+            url 'http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/'
+        }
+
+        maven {
+            url 'http://jasperreports.sourceforge.net/maven2'
+        }*/
+    }
+    dependencies {
+
+        runtime 'mysql:mysql-connector-java:6+'
+
+
+        /* Enable for jasper reports tests
+        runtime 'org.codehaus.groovy:groovy-all:2.4.+'
+        runtime 'net.sf.jasperreports:jasperreports-fonts:6.+'
+
+        compile ('net.sf.jasperreports:jasperreports:6.+') {
+            exclude group: 'org.olap4j' // Generally don't need this
+        }
+        */
+
+
+    }
+}
