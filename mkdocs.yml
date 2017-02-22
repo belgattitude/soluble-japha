@@ -61,13 +61,13 @@ extra:
   # If extra_css defined here ->
   # -> WARNING -  Config value: 'extra_css'.
   #    This behavior is deprecated. In version 1.0 and later they will need to be explicitly listed in the 'extra_css' config setting.
-  extra_css:
-    - 'stylesheets/extra.css'
-    - 'stylesheets/monokai.css'
+  #extra_css:
+  #  - 'stylesheets/extra.css'
+  #  - 'stylesheets/monokai.css'
+  # Has been modev out of 'extra' section, see extra_css below
   social:
     - type: 'github'
       link: 'https://github.com/belgattitude/soluble-japha'
-
 
 extra_css:
   - 'stylesheets/extra.css'
