@@ -39,7 +39,7 @@ buildJavaBridgeServer() {
 downloadWebappRunner() {
 
     echo "[*] Download WebappRunner";
-    if [ ! -f $WEBAPP_JAR ]; then
+    if [ ! -f $WEBAPP_RUNNER_JAR ]; then
         wget $WEBAPP_RUNNER_URL -O $WEBAPP_RUNNER_JAR
     fi;
 }
