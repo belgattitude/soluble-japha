@@ -31,7 +31,6 @@ allprojects {
 
         //runtime 'com.google.guava:guava:21+'
 
-
         /* Enable for jasper reports tests
         runtime 'org.codehaus.groovy:groovy-all:2.4.+'
         runtime 'net.sf.jasperreports:jasperreports-fonts:6.+'
