@@ -1,5 +1,15 @@
 # Connecting to the bridge
 
+## Introduction
+
+Connection to the bridge is made through the `Soluble\Japha\Bridge\Adapter`object 
+and should be initialized once *(similarly to a database connection)*. 
+
+!!! tip
+    Using a `container-interop` compatible container like 
+    [zend-servicemanager](https://github.com/zendframework/zend-servicemanager) 
+    is encouraged.
+
 ## Example
 
 ```php
@@ -84,10 +94,5 @@ During initialization with the BridgeAdapter, the following exceptions could hap
     it happens. Also note that this exception could be thrown when the provided servlet address 
     points to a service different than the bridge. Check it first.
 
-## Bootstrapping
 
-Just like connecting to a database, the `Bridge\Adapter` should be initialized once. 
-
-!!! tip
-    Using a `container-interop` compatible container like [zend-servicemanager](https://github.com/zendframework/zend-servicemanager) is encouraged.
 

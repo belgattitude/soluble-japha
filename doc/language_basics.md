@@ -3,18 +3,18 @@
 !!! note
 
     Coding Java from PHP is relatively similar to an equivalent pure Java code. To 
-    avoid confusion while developing you must keep aware that    
+    avoid confusion while developing you must keep aware that:    
     
-    1. Java support [overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).       
-    2. PHP has a special notation for static method calls (::), Java does not (.).
-    3. PHP refers to constants with '::', Java does not (.).    
-    
+    1. Java supports [overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).       
+    2. Java supports decorators at the engine level, see [limitations](./notes_limitations#decorators) to learn more.
+     
     And remember  
     
-    1. If most scalar types *(int, string, array...)* are automatically casted, testing an object
-    on `null` or `booleans` will actually be made on the proxied php object and not the Java 
-    internal value. Booleans and null must be tested with specific methods (`$ba->isNull()` and `$ba->isTrue()`)  
-    2. Java `Exception` catched on the PHP side are converted in a generic PHP exception `JavaException`.
+    1. Array and scalar types (int, string, bool, float) are automatically casted, 
+    but testing on `null` and `booleans` requires the use of `$ba->isNull()` and `$ba->isTrue()` 
+    methods.
+    2. PHP use the `::` for static method calls and constants where Java does not `.`.    
+    3. Java is very strict on case-sentivity.  
      
     soluble-japha brings solutions to those problems, but primary reflexes might not work (i.e. you try
     to call a static java method through the bridge with '::' instead of the regular '->'...)
@@ -23,10 +23,10 @@
                               
 ## Object instantiation
 
-Whenever you want to work with a Java Object you must instanciate it through 
-the `$bridge->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)`. 
+Whenever you want to work with a Java Object you must instantiate it through 
+the `$ba->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)`. 
 
-### Simple example
+### Simple constructor
 
  
 ```php
@@ -40,12 +40,12 @@ $string = $ba->java('java.lang.String', 'Hello world');
 $hash   = $ba->java('java.util.HashMap', ['key1' => $string, 'key2' => 'hello']);
 ```
 
-!!! note
+!!! tip
     The **[JAVA FQDN]** is the fully qualified java class name (case-sensitive) optionally 
     followed by a list of arguments (variadic notation: `BridgeAdapter::java(string $javaClass, ...$args)`).*  
 
 
-### Constructor overloading
+### Overloaded constructor
 
 In case of multiple constructor signatures *(PHP does not have constructor overloading)*, look at :
 
@@ -64,7 +64,7 @@ $bigdec = $ba->java('java.math.BigDecimal', $bigint, $scale=2, $mathContext);
   
 ## Methods  
 
-After creating a java object with `$bridge->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)` you can call
+After creating a java object with `$ba->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)` you can call
 any public methods on it. Keep it mind that Java supports [method overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html),
 so before calling a method, ensures parameters will match the desired method signature.
 
@@ -102,7 +102,6 @@ Static methods are called like regular php methods (no `::`).
 ```php
 <?php
 $calendar = $ba->javaClass('java.util.Calendar')->getInstance();
-$date = $calendar->getTime();
 ```
 
 ## Constants
@@ -142,10 +141,17 @@ foreach ($properties as $key => $value) {
 
 ## Datatypes
 
-### Scalar types
+### Scalar and arrays
 
-The scalar **string, int, float, boolean and array types** types are automatically casted and
-does not require additional declaration. 
+The array and scalar types: string, int, float, boolean are automatically casted:
+
+```php
+<?php
+$number = $ba->java('java.math.BigInteger', 12);
+$total  = $number * 100;
+```
+
+### Testing null and booleans
 
 !!! warning
   

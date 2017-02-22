@@ -4,10 +4,11 @@
 
 ### Overrides method
 
-The following code cannot be written with the bridge:
+Unfortunately overriding a class method with a decorator cannot 
+be written with the bridge, see:
 
 ```java
-DecoratingComponent adapted = new DecoratingComponent() {
+CustomClass customObject = new CustomClass() {
     @Override
 	public SomeReturn someMethod(SomeArgument argument) {
 	    return component.someMethod(argument);
@@ -27,7 +28,7 @@ needed
 namespace My\Helpers;
 
 use Soluble\Japha\Bridge\Adapter;
-use Soluble\Japha\Interfaces;
+use Soluble\Japha\Interfaces\JavaObject;
 
 class TimeZone
 {
@@ -41,9 +42,9 @@ class TimeZone
     
     /**
      * Return default JVM/Java TimeZone.
-     * @return Interfaces\JavaObject Java(java.util.TimeZone)
+     * @return JavaObject Java(java.util.TimeZone)
      */    
-    function getDefault() {
+    function getDefault(): JavaObject {
         return $this->timeZoneClass->getDefault();        
     }
 }    
