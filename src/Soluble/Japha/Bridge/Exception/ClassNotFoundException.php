@@ -2,6 +2,6 @@
 
 namespace Soluble\Japha\Bridge\Exception;
 
-class ClassNotFoundException extends JavaException implements ExceptionInterface
+class ClassNotFoundException extends JavaException
 {
 }

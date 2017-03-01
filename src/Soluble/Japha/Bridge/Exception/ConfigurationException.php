@@ -2,6 +2,6 @@
 
 namespace Soluble\Japha\Bridge\Exception;
 
-class ConfigurationException extends InvalidArgumentException implements ExceptionInterface
+class ConfigurationException extends InvalidArgumentException
 {
 }

@@ -1,36 +1,63 @@
-# Handling Java exceptions
+# Java exceptions
 
 !!! summary 
-    Handling java exceptions works very similarly from PHP the regular ones.
-    All java exceptions extends the `Soluble\Japha\Bridge\Exception\JavaException`
-    that you can selectively catch in your PHP code.
+    Java exception handling is similar to PHP. All java exceptions will
+    be converted to a generic `JavaException` one on which you can
+    call the additional `getJavaClassName()` and `getStackTrace()` methods, 
+    they'll prove useful over time.   
+        
 
 ## JavaException    
 
-All Java exceptions extends the `Soluble\Japha\Bridge\Exception\JavaException` class
-and can be catched selectively in your PHP code. 
-The JavaException offers two useful methods on top of the standard PHP exception class:
-the `JavaException::getStackTrace()` and `JavaException::getCause()` to provide 
-Java specific information. Note the existence of the `JavaException::getJavaClassName()` 
-method to quickly retrieve the initial object where the exception happened. 
+Exception thrown from the JVM will be converted to a `Soluble\Japha\Bridge\Exception\JavaException` 
+PHP one. You can catch them like you do in PHP, and use the additionnal methods:
+  
+| Method                      |  Description          |
+|-----------------------------|-----------------------|   
+| `$e->getMessage()`          | The exception message |
+| `$e->getJavaClassName()`    | The Java exception, i.e. `java.lang.ClassNotFoundException` |
+| `$e->getStackTrace()`       | The JVM stack trace  |
 
-Additionally, some common exceptions have been implemented:
-     
+
+## Convenience exception
+
+For convenience, the following exceptions extends the base `JavaException` class.
+
 | Exception                         | Description                              |
 |-----------------------------------|------------------------------------------|
-|`Soluble\Japha\Bridge\Exception\JavaException`          | Generic java exception                   |
-|`Soluble\Japha\Bridge\Exception\ClassNotFoundException` | A Java class is not found on the jvm side|
-|`Soluble\Japha\Bridge\Exception\NoSuchMethodException`  | Call to an undefined method on the java object |
+|`ClassNotFoundException` | A Java class is not found on the jvm side|
+|`NoSuchMethodException`  | Call to an undefined method on the java object |
+|`SqlException`  | Invalid SQL exception |
 
 
-## Example
+### ClassNotFoundException
+
+The `Soluble\Japha\Bridge\Exception\ClassNotFoundException` is a convenient
+exception class thrown whenever a Java class is not found:
 
 ```php
 <?php
-
 use Soluble\Japha\Bridge\Exception;
 
-// $ba = new BridgeAdapter(...); 
+try {
+    $string = $ba->java('java.INVALID.FQDN', "Hello world");
+} catch (Exception\ClassNotFoundException $e) {    
+    echo $e->getMessage();
+    // -> "java.lang.ClassNotFoundException"
+    echo $e->getJavaClassName();
+    echo $e->getStackTrace();
+} 
+```
+
+### NoSuchMethodException
+
+The `Soluble\Japha\Bridge\Exception\NoSuchMethodException` is a convenient 
+exception class thrown whenever a method does not exists on an object
+
+
+```php
+<?php
+use Soluble\Japha\Bridge\Exception;
 
 // Invalid method
 try {
@@ -38,36 +65,14 @@ try {
     $string->anInvalidMethod();
 } catch (Exception\NoSuchMethodException $e) {
     echo $e->getJavaClassName(); 
-    echo $e->getMessage();
+    // -> "java.lang.NoSuchMethodException" 
+    echo $e->getMessage(); 
+    // -> Invoke failed: [[o:String]]->anInvalidMethod. Cause: java.lang.NoSuchMethodException: anInvalidMethod()...
+    echo $e->getCause(); 
+    // -> java.lang.NoSuchMethodException: anInvalidMethod()...   
     echo $e->getStackTrace();
-}
-
-
-// Class not found
-try {
-    $string = $ba->java('java.INVALID.String', "Hello world");
-} catch (Exception\ClassNotFoundException $e) {
-    echo $e->getJavaClassName(); 
-    echo $e->getMessage();
-    echo $e->getStackTrace();
-} 
-
-// `JavaExceptionInterface` vs php `\Exception` family
-
-$dynamic_var = 'PACKAGE';
-try {
-    $string = $ba->java("java.$dynamic_var.String", "Hello world");
-    throw new \Exception('No error in java String creation');
-} catch (Exception\ClassNotFoundException $e) {
-    echo "The package $dynamic_var should be 'lang'";
-    echo $e->getStackTrace();
-} catch (Exception\JavaException $e) {
-    echo "An unexpected java exception";
-    echo $e->getJavaClassName(); 
-    echo $e->getStackTrace();
-} catch (\Exception $e) {
-    echo "No Problem at all";
 }
 
 ```
+
 

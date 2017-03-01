@@ -2,6 +2,6 @@
 
 namespace Soluble\Japha\Bridge\Exception;
 
-class NoSuchMethodException extends JavaException implements ExceptionInterface
+class NoSuchMethodException extends JavaException
 {
 }

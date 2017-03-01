@@ -67,7 +67,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     /**
      * Return underlying driver exception.
      *
-     * @return Exception
+     * @return Exception|null
      */
     public function getDriverException()
     {
@@ -85,9 +85,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * Return Java cause.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getCause()
     {
@@ -103,9 +101,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * Return Java stack trace.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getStackTrace()
     {
@@ -113,9 +109,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * Return java FQDN exception class name.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getJavaClassName()
     {

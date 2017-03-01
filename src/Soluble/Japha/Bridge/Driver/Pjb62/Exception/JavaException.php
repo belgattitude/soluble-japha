@@ -38,14 +38,13 @@
 namespace Soluble\Japha\Bridge\Driver\Pjb62\Exception;
 
 use Exception;
-use Soluble\Japha\Bridge\Exception\JavaExceptionInterface;
 use Soluble\Japha\Bridge\Driver\Pjb62\JavaType;
 use Soluble\Japha\Bridge\Driver\Pjb62\Client;
 
 /**
  * @method string getCause()
  */
-class JavaException extends Exception implements JavaType, JavaExceptionInterface
+class JavaException extends Exception implements JavaType
 {
     public $__serialID;
     public $__java;

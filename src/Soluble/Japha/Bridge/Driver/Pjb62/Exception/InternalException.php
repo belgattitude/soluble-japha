@@ -37,9 +37,7 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62\Exception;
 
-use Soluble\Japha\Bridge\Exception\JavaExceptionInterface;
-
-class InternalException extends JavaException implements JavaExceptionInterface
+class InternalException extends JavaException
 {
     public function __construct($proxy, $exception)
     {
