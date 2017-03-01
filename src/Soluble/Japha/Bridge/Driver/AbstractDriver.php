@@ -20,7 +20,9 @@ abstract class AbstractDriver implements DriverInterface
     abstract public function instanciate($class_name, ...$args);
 
     /**
-     * One round trip retrieval of Java object value representation.
+     * Fast retrieval of JavaObject values (one roundtrip),
+     * use it on Java array structures (ArrayList...)
+     * to avoid the need of iterations on the PHP side.
      *
      * @param Interfaces\JavaObject $javaObject
      *

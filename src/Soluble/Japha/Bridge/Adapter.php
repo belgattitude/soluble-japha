@@ -187,6 +187,20 @@ class Adapter
     }
 
     /**
+     * Fast retrieval of JavaObject values (one roundtrip),
+     * use it on Java array structures (ArrayList, HashMap...)
+     * to avoid the need of iterations on the PHP side.
+     *
+     * @param Interfaces\JavaObject $javaObject
+     *
+     * @return mixed
+     */
+    public function values(Interfaces\JavaObject $javaObject)
+    {
+        return $this->driver->values($javaObject);
+    }
+
+    /**
      * Return underlying driver.
      *
      * @return Driver\DriverInterface

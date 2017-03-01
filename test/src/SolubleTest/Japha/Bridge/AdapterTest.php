@@ -56,6 +56,29 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $cls);
     }
 
+    public function testValues()
+    {
+        $ba = $this->adapter;
+
+        $array = array_fill(0, 1000, 'Hello');
+        $vector = $ba->java('java.util.Vector', $array);
+
+        $values = $ba->values($vector);
+        $this->assertEquals($array, $ba->values($vector));
+
+        $arrOfArray = [
+            'real' => true,
+            'what' => 'Too early to know',
+            'count' => 2017,
+            'arr10000' => array_fill(0, 10000, 'Hello world')
+        ];
+
+        $hashMap = $ba->java('java.util.HashMap', $arrOfArray);
+        $arrFromJava = $ba->values($hashMap);
+
+        $this->assertEquals($arrOfArray, $arrFromJava);
+    }
+
     public function testIsInstanceOf()
     {
         $ba = $this->adapter;
