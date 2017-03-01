@@ -24,7 +24,7 @@ class TimeZone
     /**
      * @return Adapter $adapter bridge adapter
      */
-    function __construct(Adapter $adapter) {
+    public function __construct(Adapter $adapter) {
         $this->timezone = $adapter->java('java.util.TimeZone');
     }
     
@@ -32,17 +32,17 @@ class TimeZone
      * Return default JVM/Java TimeZone.
      * @return JavaObject Java(java.util.TimeZone)
      */    
-    function getDefault(): JavaObject {
+    public function getDefault(): JavaObject {
         return $this->timezone->getDefault();        
     }
 }    
 ``` 
 
-## Decorators
+## Annotaions
 
 ### Overrides method
 
-Unfortunately overriding a class method with a decorator cannot 
+Unfortunately overriding a class method with annotations cannot 
 be written with the bridge, see:
 
 ```java
