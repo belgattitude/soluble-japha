@@ -1,9 +1,7 @@
 # Javabridge server installation
-
-In order to talk with the JVM, `soluble-japha` requires installation of
-a specific java service called the Javabridge server. It acts as an intermediate
-between the Java and PHP runtimes and can be build, customized and runned in minutes
-straight from the command line. 
+ 
+The Javabridge server acts as an intermediate between the JVM and PHP runtime.
+Here's the steps to customize, build and run your own instance.
 
 ## Requirements
 
@@ -26,7 +24,10 @@ $ sudo apt-get install openjdk-8-jdk
 ## Quick install <small>(on Tomcat)</small>
 
 !!! note    
-    The instructions below are based on the barebone [PHP/Javabridge](https://github.com/belgattitude/php-java-bridge) version
+    The instructions below are based on the forked [PHP/Javabridge](https://github.com/belgattitude/php-java-bridge) version
+    and can be used to customize, build and deploy your own bridge instance from the command
+    line. 
+     
     and rely on an installed Apache Tomcat server which is the recommended way to run the bridge. 
     To learn more see the [Tomcat installation notes](./server/install_tomcat.md) or jump 
     to the [Alternative installation section](#alternative-install) for 

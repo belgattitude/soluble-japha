@@ -19,6 +19,11 @@ requirements.*
 - PHP 5.5+, 7.0+ or HHVM 3.2
 - PHP xml extensions enabled (domxml)
 
+### Versions
+
+- For PHP5.5, use the 0.13 releases.
+- For PHP5.6, use the 1.+ releases.
+
 ## Composer notes
 
 If you're not familiar with composer you can jump

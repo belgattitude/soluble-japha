@@ -30,7 +30,7 @@ echo $hashMap->get('message');
 // An imaginary java library class (i.e. NLP, Android, Jasper, Tensorflow,
 // enterprise stuff, esoteric java lib/driver or your own Java class...)
 try {    
-    $javaLib = $ba->java('an.arbitrary.JavaLibraryClass', 'param1', 'param2');
+    $javaLib = $ba->java('an.imaginary.JavaLibraryClass', 'param1', 'param2');
 
     $results = $javaLib->aMethodOnJavaLibExecutedOnTheJVM(
                             // Method parameters                             
