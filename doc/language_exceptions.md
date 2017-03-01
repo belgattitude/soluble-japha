@@ -1,34 +1,42 @@
-# Java exceptions
+# Handling Java exceptions
 
-!!! summary 
-    Java exception handling is similar to PHP. All java exceptions will
-    be converted to a generic `JavaException` one on which you can
-    call the additional `getJavaClassName()` and `getStackTrace()` methods, 
-    they'll prove useful over time.   
-        
+!!! note
+    This page document how to deal with real Java exception and not the bridge
+    exceptions (like connection failures...). Bridge exception are documented 
+    [here](./bridge_connection.md#errors-and-exceptions)  
 
-## JavaException    
+## JavaException
 
-Exception thrown from the JVM will be converted to a `Soluble\Japha\Bridge\Exception\JavaException` 
-PHP one. You can catch them like you do in PHP, and use the additionnal methods:
-  
-| Method                      |  Description          |
-|-----------------------------|-----------------------|   
-| `$e->getMessage()`          | The exception message |
-| `$e->getJavaClassName()`    | The Java exception, i.e. `java.lang.ClassNotFoundException` |
-| `$e->getStackTrace()`       | The JVM stack trace  |
+Exception thrown from the JVM will be converted to a generic `JavaException` class *(Soluble\Japha\Bridge\Exception\JavaException)*
+that can be catched like a regular PHP one. To retrieve specific information from
+the Java/JVM exception, you can use the following methods: 
+
+- `JavaException::getClassName()` will give you the originating Java exception class name. 
+  For example: java.lang.java.lang.NoSuchMethodException, ...
+- `JavaException::getStackTrace()` will give you the JVM stacktrace.
 
 
-## Convenience exception
+```php
+<?php
+use Soluble\Japha\Bridge\Exception;
+//...
+try {
+    
+    $javaObject = $ba->java('my.imaginary.JavaObject');
+    $javaObject->methodThatThrowsAndException();
+    
+} catch (Exception\JavaException $e) {    
+    echo $e->getMessage();    
+    echo $e->getJavaClassName();
+    echo $e->getStackTrace();
+} 
 
-For convenience, the following exceptions extends the base `JavaException` class.
+```
 
-| Exception                         | Description                              |
-|-----------------------------------|------------------------------------------|
-|`ClassNotFoundException` | A Java class is not found on the jvm side|
-|`NoSuchMethodException`  | Call to an undefined method on the java object |
-|`SqlException`  | Invalid SQL exception |
+## Extended exceptions
 
+For convenience the following exceptions extends the base `JavaException` class
+and can be useful while developping.
 
 ### ClassNotFoundException
 
