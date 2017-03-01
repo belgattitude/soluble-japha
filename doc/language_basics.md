@@ -5,14 +5,14 @@
     Coding Java from PHP is relatively similar to an equivalent pure Java code. To 
     avoid confusion while developing you must keep aware that:    
     
-    1. Java supports [overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).       
-    2. Java supports decorators at the engine level, see [limitations](./notes_limitations#decorators) to learn more.
+    1. Java supports [overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).
+    2. DateTime and timezones are handled differenlty, see [here](#working-with-dates) to learn more.          
      
     And remember  
     
-    1. Array and scalar types (int, string, bool, float) are automatically casted, 
-    but testing on `null` and `booleans` requires the use of `$ba->isNull()` and `$ba->isTrue()` 
-    methods.
+    1. While array and scalar types (int, string, bool, float) are automatically casted, 
+    testing on `null` and `booleans` requires the use of `$ba->isNull()` and `$ba->isTrue()` 
+    methods. See [here](#testing-null-and-booleans) to learn more.
     2. PHP use the `::` for static method calls and constants where Java does not `.`.    
     3. Java is very strict on case-sentivity.  
      

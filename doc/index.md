@@ -86,7 +86,9 @@ to take advantage of
 
     In short, **the bridge shines** whenever you need to use directly a Java library
     within a reasonable number of method calls. Otherwise implement 
-    **REST or RPC approaches** for first-class system integrations.
+    **REST or RPC approaches** for first-class system integrations. See the
+    [how it works](./bridge_how_it_works.md) and [performance](./bridge_benchmarks.md) 
+    sections to learn more.
 
 The soluble-japha bridge can be seen as a `function oriented` solution in 
 comparison to `resource oriented` ones *(i.e. REST,...)*. From REST or even 

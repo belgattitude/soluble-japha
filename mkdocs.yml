@@ -74,9 +74,8 @@ extra_css:
   - 'stylesheets/extra.css'
   - 'stylesheets/monokai.css'
 
-# Google Analytics
 google_analytics:
-  - 'UA-XXXXXXXX-X'
+  - 'UA-92890300-1'
   - 'auto'
 
 # Extensions

@@ -90,7 +90,7 @@ to take advantage of
 > For user of previous versions, **soluble-japha** client replaces the original/legacy [PHPJavaBridge](http://php-java-bridge.sourceforge.net/pjb/) 
 > `Java.inc` implementation and has been completely refactored to fit modern practices 
 > and PHP7. 
-> See the [differences here](./doc/notes.md) and the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat) if needed.
+> See the [differences here](./doc/notes_legacy.md) and the [legacy compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat) if needed.
 
 ## Requirements
 
