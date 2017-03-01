@@ -2,18 +2,18 @@
    
 ## Type related
                           
-### Java classname
+## Java classname
 
 To get the fully qualified java class name on an object, simply call:
 
 ```php
 <?php
-$javaString = $this->adapter->java('java.lang.String', 'Hello World');
-$javaFQDN = $this->adapter->getClassName($javaString);
+$javaString = $ba->java('java.lang.String', 'Hello World');
+$javaFQDN = $ba->getClassName($javaString);
 // will print 'java.lang.String'
 ```
 
-### InstanceOf
+## InstanceOf
 
 To check whether a Java object is an instance of another:
 
@@ -31,6 +31,52 @@ $false = $ba->isInstanceOf($string, $system);
 
 ```
 
+## Performance related
+
+### Values method
+
+Iterating over Java *arrays* (HashMap, ArrayList, Vector...) to retrieves 
+their values in a PHP loop (while, foreach...) produce a lot of roundtrips 
+with the bridge that can lead to poor performance.
+
+Instead, you can use the `values()` method to retrieve the values in one run: 
+
+
+#### Vector example
+
+```php
+<?php
+
+$array = array_fill(0, 1000, 'Hello');
+$vector = $ba->java('java.util.Vector', $array);
+
+$values = $ba->values($vector);
+// $values === $array 
+
+```
+
+#### HashMap example
+
+
+```php
+<?php
+$arrOfArray = [
+    'real' => true,
+    'what' => 'Too early to know',
+    'count' => 2017,
+    'arr10000' => array_fill(0, 10000, 'Hello world')
+
+];
+
+$hashMap = $ba->java('java.util.HashMap', $arrOfArray);
+$arrFromJava = $ba->values($hashMap);
+
+// $arrOfArray is identical from $arrFromJava (one roundtrip) 
+```
+
+
+
+
 ## Driver operations
 
 !!! note
@@ -42,32 +88,7 @@ $false = $ba->isInstanceOf($string, $system);
     $driver = $this->adapter->getDriver();
     ```
 
-### Getting values
-
-!!! tip
-    Using the DriverInterface::value() method gives best performance than
-    equivalent operations as it gets the result in one step (one roundtrip)
-
-You can use the `$ba->getDriver()->value($arrOfArray)` to quickly 
-get PHP normalized values from a Java object.
-
-```php
-<?php
-
-$arrOfArray = [
-    'real' => true,
-    'what' => 'Too early to know',
-    'count' => 2017,
-    'arr10000' => array_fill(0, 10000, 'Hello world')
-];
-
-$hashMap = $ba->java('java.util.HashMap', $arrOfArray);
-$arrFromJava = $ba->getDriver()->values($hashMap);
-
-// $arrOfArray is identical from $arrFromJava (one roundtrip) 
-```
-      
-
+     
 ### Inspect a JavaObject
   
 To inspect the content of a Java object, you can call the inspect method on the Driver:
