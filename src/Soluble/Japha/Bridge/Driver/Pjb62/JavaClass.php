@@ -71,10 +71,10 @@ class JavaClass extends Java implements Interfaces\JavaClass
     /**
      * Return class name.
      *
-     * @return Interfaces\JavaObject Java(java.lang.String)
+     * @return string java class name as string
      */
     public function getName()
     {
-        return $this->__delegate->getName();
+        return (string) $this->__delegate->getName();
     }
 }
