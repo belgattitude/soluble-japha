@@ -52,16 +52,16 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     /**
      * @var JavaProxy
      */
-    protected $__delegate;
+    public $__delegate;
     protected $__serialID;
-    protected $__factory;
+    public $__factory;
 
     /**
      * @var int
      */
-    protected $__java;
-    protected $__signature;
-    protected $__cancelProxyCreationTag;
+    public $__java;
+    public $__signature;
+    public $__cancelProxyCreationTag;
 
     protected function __createDelegate()
     {

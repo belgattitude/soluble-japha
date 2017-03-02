@@ -47,6 +47,12 @@ use Soluble\Japha\Bridge\Driver\Pjb62\Utils\HelperFunctions;
  * @method JavaClass getClass() return object class name
  * @method bool equals(JavaObject $object)
  * @method string toString()
+ * @method void offsetUnset()
+ * @method void offsetSet($key, $value)
+ * @method mixed offsetGet($key)
+ * @method bool offsetExists($key)
+ * @method mixed getIterator()
+ * @method string getName()
  */
 class JavaProxy implements JavaType
 {
