@@ -640,14 +640,14 @@ class Client
     /**
      * Cast an object to a certain type.
      *
-     * @param mixed  $object
-     * @param string $type
+     * @param JavaProxy $object
+     * @param string    $type
      *
      * @return mixed
      *
      * @throws Exception\RuntimeException
      */
-    public function cast($object, $type)
+    public function cast(JavaProxy $object, $type)
     {
         $code = strtoupper($type[0]);
         switch ($code) {
