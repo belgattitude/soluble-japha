@@ -6,15 +6,15 @@
     avoid confusion while developing you must keep aware that:    
     
     1. Java supports [overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).
-    2. DateTime and timezones are handled differenlty, see [here](#working-with-dates) to learn more.          
+    2. PHP have the *multipurpose* array for everything, Java does not. See [here](#array-types) to learn more.
+    3. DateTime and timezones are handled differenlty, see [here](#working-with-dates) to learn more.          
      
     And remember  
     
     1. While array and scalar types (int, string, bool, float) are automatically casted, 
     testing on `null` and `booleans` requires the use of `$ba->isNull()` and `$ba->isTrue()` 
     methods. See [here](#testing-null-and-booleans) to learn more.
-    2. PHP use the `::` for static method calls and constants where Java does not `.`.    
-    3. Java is very strict on case-sentivity.  
+    2. PHP use the `::` for static method calls and constants where Java does not `.`.          
      
     soluble-japha brings solutions to those problems, but primary reflexes might not work (i.e. you try
     to call a static java method through the bridge with '::' instead of the regular '->'...)
@@ -122,10 +122,10 @@ echo $tz->getDisplayName(false, $tzClass->SHORT);
 
 !!! warning
     Iterations have a cost on performance, and looping over large
-    sets is highly discouraged. See the performance and best practices
-    to learn more. 
+    sets is highly discouraged. See how you can improve speed with
+    the [values() method](./language_optimizations.md#values-method).
 
-Java iterable objects can be looped with `foreach`, `while`, `for`...
+You can use standard `foreach`, `while`, `for`,... to loop over Java iterable objects (Map, Collection, List...).
 
 ```php
 <?php
@@ -141,15 +141,56 @@ foreach ($properties as $key => $value) {
 
 ## Datatypes
 
-### Scalar and arrays
+### Scalar types
 
-The array and scalar types: string, int, float, boolean are automatically casted:
+The PHP scalar types: `string`, `int`, `float` and `boolean` can be sent
+as parameters to Java methods or constructors transparently: 
 
 ```php
 <?php
-$number = $ba->java('java.math.BigInteger', 12);
-$total  = $number * 100;
+
+$price = 12.99;
+$quantity = $ba->java('java.lang.Integer', 10);
+$jstring  = $ba->java('java.lang.String', 'Hello world');
 ```
+
+!!! tip
+    Be aware that Java often use object versions of scalars, like
+    `java.lang.String`, `java.lang.Integer`, `java.lang.Boolean`...
+    In those cases, remember they generally provides methods to
+    retrieve the scalar value. For example:      
+    
+    ```php
+    <?php
+    $quantity = $ba->java('java.lang.Integer', 10);
+    $total = $quantity->intValue() * 12.99;
+    echo sprintf('Total id %.2f', $total); // -> 1299.00
+    ```
+
+### Array types
+
+The PHP multi-purpose array has not equivalent in Java and you'll often
+use Java objects like Map, HashMap, Collection, List, Vector... instead. 
+
+```php
+<?php
+$array = ['name' => 'John Doe', 'age' => 26];
+$hashMap = $ba->java('java.util.HashMap', $array);
+```
+
+While you can generally send the parameters as a standard php array, to
+get an array back you can use the fast `values()` method:
+
+```php
+<?php
+$input_array = ['name' => 'John Doe', 'age' => 26];
+$hashMap = $ba->java('java.util.HashMap', $input_array);
+$output_array = $ba->values($hashMap);
+// $input_array === $output_array
+```
+
+or iterate the object (ok for small sets).
+
 
 ### Testing null and booleans
 

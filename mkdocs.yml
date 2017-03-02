@@ -14,12 +14,12 @@ docs_dir: doc
 site_dir: build/doc
 pages:
     - { 'Introduction': index.md }
-    - { 'Installation': [
-            { 'PHP client': install_client.md },
+    - { 'Getting started': [
+            { 'PHP install': install_client.md },
             { 'JavaBridge server': install_server.md }
         ]
       }
-    - { 'Getting started' : [
+    - { 'Usage' : [
           { 'Connection': bridge_connection.md },
           { 'Language basics': language_basics.md },
           { 'Useful functions': language_useful_functions.md },

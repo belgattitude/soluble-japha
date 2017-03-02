@@ -69,6 +69,18 @@ class AdapterUsageCommonTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1234567900, $bigint1->intValue());
     }
 
+    public function testOperators()
+    {
+        $ba = $this->adapter;
+        $bigint = $ba->java('java.math.BigInteger', 10);
+        $a = $bigint->intValue() * 4;
+        $this->assertEquals(40, $a);
+
+        $int = $ba->java('java.lang.Integer', 10);
+        $a = $int->intValue() * 4.15;
+        $this->assertEquals(41.5, $a);
+    }
+
     public function testJavaStrings()
     {
         $ba = $this->adapter;
@@ -116,6 +128,41 @@ class AdapterUsageCommonTest extends \PHPUnit_Framework_TestCase
         $hashMap->put('message', '你好，世界');
         $this->assertEquals('你好，世界', $hashMap->get('message'));
         //echo $hashMap->get('year') + 1;
+    }
+
+    public function testJavaHashMapArrayValues()
+    {
+        $ba = $this->adapter;
+        $array = [
+            'name' => 'John doe',
+            'age' => 26
+        ];
+        $map = $ba->java('java.util.HashMap', $array);
+
+        $values = $map->values()->toArray();
+
+        $v = $ba->values($values);
+        $this->assertEquals(array_values($array), $v);
+    }
+
+    public function testJavaReflectArray()
+    {
+        $ba = $this->adapter;
+        $arrayClass = $ba->javaClass('java.lang.reflect.Array');
+
+        $array = [
+            'name' => 'John doe',
+            'age' => 26
+        ];
+        $map = $ba->java('java.util.HashMap', $array);
+
+        $values = $map->values()->toArray();
+
+        $v = [];
+        for ($i = 0; $i < $arrayClass->getLength($values); ++$i) {
+            $v[$i] = (string) $values[$i];
+        }
+        $this->assertEquals(array_values($array), $v);
     }
 
     public function testJavaConstructorOverloading()
