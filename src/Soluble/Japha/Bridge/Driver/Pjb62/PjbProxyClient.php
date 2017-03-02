@@ -273,19 +273,7 @@ class PjbProxyClient implements ClientInterface
             }
         }
 
-        if (!$class instanceof Interfaces\JavaObject) {
-            throw new Exception\InvalidArgumentException(__METHOD__ . ' Invalid argument, class parameter must be a valid JavaType or class name as string');
-        }
-
         return self::$client->invokeMethod(0, 'instanceOf', [$object, $class]);
-    }
-
-    /**
-     * @return
-     */
-    public function getContext()
-    {
-        return self::$client->getContext();
     }
 
     /**
