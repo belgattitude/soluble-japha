@@ -51,6 +51,9 @@
         <server name="MYSQL_PASSWORD" value="" />
         <server name="MYSQL_DATABASE" value="phpunit_soluble_test_db" />
 
+        <server name="JAPHA_ENABLE_CORENLP_TESTS" value="true" />
+
+
         <server name="PHPUNIT_CACHE_DIR" value="../test/tmp/cache" />
         <ini name="date.timezone" value="Europe/Brussels"/>
 

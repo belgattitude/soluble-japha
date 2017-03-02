@@ -25,6 +25,12 @@ class CoreNLPTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        if (!$this->isCoreNLPTestsEnabled()) {
+            $this->markTestSkipped(
+                'Skipping CORENLP tests, enable option in phpunit.xml'
+            );
+        }
+
         \SolubleTestFactories::startJavaBridgeServer();
 
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
@@ -41,6 +47,12 @@ class CoreNLPTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+    }
+
+    protected function isCoreNLPTestsEnabled()
+    {
+        return isset($_SERVER['JAPHA_ENABLE_CORENLP_TESTS']) &&
+            $_SERVER['JAPHA_ENABLE_CORENLP_TESTS'] == true;
     }
 
     /**
