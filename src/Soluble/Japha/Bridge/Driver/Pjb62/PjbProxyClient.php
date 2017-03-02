@@ -186,7 +186,7 @@ class PjbProxyClient implements ClientInterface
      *
      * @return Client
      */
-    public function getClient()
+    public static function getClient()
     {
         return self::$client;
     }
@@ -467,14 +467,6 @@ class PjbProxyClient implements ClientInterface
                 }
             }
 
-            // Added but needs more tests
-            //unset($client);// = null;
-            /*
-            unset(self::$client); // = null;
-            unset(self::$instance);// = null;
-            unset(self::$instanceOptionsKey); // = null;
-            */
-
             self::$client = null;
             self::$instance = null;
             self::$instanceOptionsKey = null;
@@ -482,7 +474,7 @@ class PjbProxyClient implements ClientInterface
         }
     }
 
-    public function destroy()
+    public static function destroy()
     {
         self::$client = null;
         self::$instance = null;

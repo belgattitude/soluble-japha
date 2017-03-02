@@ -303,6 +303,9 @@ class Protocol
         $this->handler->redirect();
     }
 
+    /**
+     * @return string
+     */
     public function read($size)
     {
         return $this->handler->read($size);
@@ -334,6 +337,9 @@ class Protocol
         $this->client->handleRequests();
     }
 
+    /**
+     * @param string $data
+     */
     public function write($data)
     {
         $this->client->sendBuffer .= $data;

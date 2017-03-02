@@ -66,6 +66,11 @@ class NativeParser implements ParserInterface
         $this->level = 0;
     }
 
+    /**
+     * @param resource $parser
+     * @param string   $name
+     * @param mixed    $param
+     */
     public function begin($parser, $name, $param)
     {
         $this->event = true;
@@ -77,6 +82,10 @@ class NativeParser implements ParserInterface
         $this->client->begin($name, $param);
     }
 
+    /**
+     * @param resource $parser
+     * @param string   $name
+     */
     public function end($parser, $name)
     {
         $this->client->end($name);
@@ -87,6 +96,11 @@ class NativeParser implements ParserInterface
         }
     }
 
+    /**
+     * @param string $str
+     *
+     * @return string
+     */
     public function getData($str)
     {
         return base64_decode($str);

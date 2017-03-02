@@ -337,7 +337,7 @@ class Client
 
     /**
      * @param array $name
-     * @param array $st
+     * @param array $st   param
      */
     public function begin($name, $st)
     {
@@ -389,6 +389,7 @@ class Client
                     $arg->setVoidSignature();
                 }
                 // @todo Missing break ?
+
             case 'N':
                 $arg->setResult(null);
                 break;
