@@ -130,6 +130,18 @@ class AdapterUsageCommonTest extends \PHPUnit_Framework_TestCase
         //echo $hashMap->get('year') + 1;
     }
 
+    public function testArrayList()
+    {
+        $ba = $this->adapter;
+        $arrayList = $ba->java('java.util.ArrayList');
+
+        $arrayList->add('Hello');
+        $arrayList->add('World');
+
+        $array = $ba->values($arrayList->toArray());
+        $this->assertEquals(['Hello', 'World'], $array);
+    }
+
     public function testJavaHashMapArrayValues()
     {
         $ba = $this->adapter;

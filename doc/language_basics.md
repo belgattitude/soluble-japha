@@ -183,10 +183,20 @@ get an array back you can use the fast `values()` method:
 
 ```php
 <?php
+// with HashMap
 $input_array = ['name' => 'John Doe', 'age' => 26];
 $hashMap = $ba->java('java.util.HashMap', $input_array);
 $output_array = $ba->values($hashMap);
 // $input_array === $output_array
+
+// With ArrayList
+$arrayList = $ba->java('java.util.ArrayList');
+$arrayList->add('Hello');
+$arrayList->add('World');
+
+$array = $ba->values($arrayList->toArray());
+// $array == ['Hello', 'World'];
+
 ```
 
 or iterate the object (ok for small sets).
