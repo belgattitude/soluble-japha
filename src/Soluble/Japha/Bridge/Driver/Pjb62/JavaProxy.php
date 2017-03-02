@@ -110,11 +110,20 @@ class JavaProxy implements JavaType
         }
     }
 
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
     public function __get($key)
     {
         return $this->__client->getProperty($this->__java, $key);
     }
 
+    /**
+     * @param string $key
+     * @param mixed  $val
+     */
     public function __set($key, $val)
     {
         $this->__client->setProperty($this->__java, $key, $val);

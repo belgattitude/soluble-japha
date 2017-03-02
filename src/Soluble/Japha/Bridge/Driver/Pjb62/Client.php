@@ -640,8 +640,8 @@ class Client
     /**
      * Cast an object to a certain type.
      *
-     * @param mixed $object
-     * @param array $type
+     * @param mixed  $object
+     * @param string $type
      *
      * @return mixed
      *

@@ -125,11 +125,16 @@ class SimpleHttpHandler extends SocketHandler
         $this->protocol->write("\177${len0}${len1}${len2}${context}");
         $this->context = sprintf("X_JAVABRIDGE_CONTEXT: %s\r\n", $context);
         $this->protocol->handler = $this->protocol->getSocketHandler();
-        $this->protocol->handler->write($this->protocol->client->sendBuffer)
-                or $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
+
+        $ret = $this->protocol->handler->write($this->protocol->client->sendBuffer);
+        if ($ret === false) {
+            $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
+        }
         $this->protocol->client->sendBuffer = null;
-        $this->protocol->handler->read(1)
-                or $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
+        $ret2 = $this->protocol->handler->read(1);
+        if ($ret2 === false) {
+            $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
+        }
     }
 
     /**

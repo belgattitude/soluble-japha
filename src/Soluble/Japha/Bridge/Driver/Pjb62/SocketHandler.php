@@ -124,7 +124,7 @@ class SocketHandler
         $client = $this->protocol->getClient();
         $client->getLogger()->critical("[soluble-japha] Broken connection: $msg, check the backend log for details\"  (" . __METHOD__ . ')');
 
-        //unset($this->protocol->client->protocol);
+        PjbProxyClient::unregisterInstance();
 
         throw new BrokenConnectionException("Broken connection: $msg, check the backend log for details");
     }
