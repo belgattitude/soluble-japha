@@ -111,7 +111,7 @@ class TimeZone
     {
         if ($id instanceof DateTimeZone) {
             $phpTimezone = $id->getName();
-        } elseif (is_string($id) && (string) $id != '') {
+        } elseif (is_string($id) && ((string) $id) != '') {
             $phpTimezone = $id;
         } else {
             throw new Exception\InvalidArgumentException('Method getTimeZone($id) require argument to be datetimeZone or a non empty string');
@@ -120,7 +120,7 @@ class TimeZone
         /**
          * @var Interfaces\JavaClass
          */
-        $tz = $this->timeZoneClass->getTimeZone($id);
+        $tz = $this->timeZoneClass->getTimeZone($phpTimezone);
 
         /**
          * @var string
