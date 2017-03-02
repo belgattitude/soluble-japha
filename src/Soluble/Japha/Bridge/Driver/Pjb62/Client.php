@@ -40,6 +40,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 use ArrayObject;
 use Psr\Log\LoggerInterface;
 use Soluble\Japha\Interfaces\JavaObject;
+use Soluble\Japha\Bridge\Driver\Pjb62\Utils\HelperFunctions;
 
 class Client
 {
@@ -811,22 +812,10 @@ class Client
         } // ISession.SESSION_GET
 
         if (!isset($args[2])) {
-            $args[2] = $this->getJavaLifetime();
+            $args[2] = HelperFunctions::java_get_session_lifetime();
         }
 
         return $this->invokeMethod(0, 'getSession', $args);
-    }
-
-    /**
-     * Return lifetime.
-     *
-     * @return int
-     */
-    protected function getJavaLifetime()
-    {
-        $session_max_lifetime = ini_get('session.gc_maxlifetime');
-
-        return $session_max_lifetime ? (int) $session_max_lifetime : 1440;
     }
 
     /**

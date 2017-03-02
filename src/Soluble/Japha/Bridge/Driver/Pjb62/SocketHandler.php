@@ -57,21 +57,41 @@ class SocketHandler
         $this->channel = $channel;
     }
 
+    /**
+     * @param string $data
+     *
+     * @return int
+     */
     public function write($data)
     {
         return $this->channel->fwrite($data);
     }
 
+    /**
+     * @param string $data
+     *
+     * @return int
+     */
     public function fwrite($data)
     {
         return $this->write($data);
     }
 
+    /**
+     * @param int $size
+     *
+     * @return string
+     */
     public function read($size)
     {
         return $this->channel->fread($size);
     }
 
+    /**
+     * @param int $size
+     *
+     * @return string
+     */
     public function fread($size)
     {
         return $this->read($size);
@@ -104,7 +124,7 @@ class SocketHandler
         $client = $this->protocol->getClient();
         $client->getLogger()->critical("[soluble-japha] Broken connection: $msg, check the backend log for details\"  (" . __METHOD__ . ')');
 
-        unset($this->protocol->client->protocol);
+        //unset($this->protocol->client->protocol);
 
         throw new BrokenConnectionException("Broken connection: $msg, check the backend log for details");
     }

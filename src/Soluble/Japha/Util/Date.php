@@ -49,10 +49,11 @@ class Date
     public function createDate(DateTime $date = null)
     {
         //System.currentTimeMillis()
+
         if ($date === null) {
             return $this->ba->java('java.util.Date');
         }
-
+/*
         $pattern = 'yyyy-MM-dd HH:mm';
         $formatter = $ba->java('java.text.SimpleDateFormat', $pattern);
         $tz = $ba->javaClass('java.util.TimeZone')->getTimezone('GMT+0');
@@ -103,5 +104,6 @@ class Date
         $this->assertEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
 
         $ba->java('java.util.Date');
+*/
     }
 }

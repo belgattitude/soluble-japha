@@ -41,7 +41,15 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 class SimpleHttpHandler extends SocketHandler
 {
     public $headers;
+
+    /**
+     * @var array
+     */
     public $cookies;
+
+    /**
+     * @var string
+     */
     public $context;
     public $ssl;
 
@@ -102,7 +110,7 @@ class SimpleHttpHandler extends SocketHandler
         $this->createChannel();
     }
 
-    public function createChannel()
+    protected function createChannel()
     {
         $channelName = Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_REDIRECT', $_SERVER);
         $context = Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_CONTEXT', $_SERVER);
@@ -183,6 +191,11 @@ class SimpleHttpHandler extends SocketHandler
         return $context;
     }
 
+    /**
+     * @param string $data
+     *
+     * @return int
+     */
     public function write($data)
     {
         return $this->protocol->getSocketHandler()->write($data);

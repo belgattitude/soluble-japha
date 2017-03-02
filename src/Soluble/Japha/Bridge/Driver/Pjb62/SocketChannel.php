@@ -66,11 +66,21 @@ abstract class SocketChannel extends EmptyChannel
         $this->send_size = $send_size;
     }
 
+    /**
+     * @param string $data
+     *
+     * @return int
+     */
     public function fwrite($data)
     {
         return fwrite($this->peer, $data);
     }
 
+    /**
+     * @param int $size
+     *
+     * @return string
+     */
     public function fread($size)
     {
         return fread($this->peer, $size);

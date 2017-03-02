@@ -4,6 +4,7 @@ namespace Soluble\Japha\Db;
 
 use Soluble\Japha\Bridge;
 use Soluble\Japha\Bridge\Exception;
+use Soluble\Japha\Interfaces;
 
 class DriverManager
 {
@@ -36,7 +37,7 @@ class DriverManager
      * @param string $dsn
      * @param string $driverClass
      *
-     * @return Java(java.sql.Connection)
+     * @return Interfaces\JavaObject Java(java.sql.Connection)
      */
     public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
     {
@@ -67,7 +68,7 @@ class DriverManager
     /**
      * Return underlying java driver manager.
      *
-     * @return Java(java.sql.DriverManager)
+     * @return Interfaces\JavaObject Java(java.sql.DriverManager)
      */
     public function getDriverManager()
     {

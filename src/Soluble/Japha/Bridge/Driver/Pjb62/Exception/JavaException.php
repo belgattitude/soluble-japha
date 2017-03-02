@@ -40,6 +40,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62\Exception;
 use Exception;
 use Soluble\Japha\Bridge\Driver\Pjb62\JavaType;
 use Soluble\Japha\Bridge\Driver\Pjb62\Client;
+use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
 
 /**
  * @method string getCause()

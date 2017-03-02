@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.1 (2017-03-02)
+
+### Fixes
+
+- Minor bugfixes with java_lifetime and java_truncate thanks to phpstan.
+
 ## 1.1.0 (2017-03-01)
 
 ### Improved

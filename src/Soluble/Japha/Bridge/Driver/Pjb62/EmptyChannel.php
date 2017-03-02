@@ -66,6 +66,7 @@ class EmptyChannel
     public function __construct(SocketHandler $handler, $recv_size, $send_size)
     {
         $this->send_size = $send_size;
+        $this->recv_size = $recv_size;
         $this->handler = $handler;
     }
 
@@ -73,11 +74,21 @@ class EmptyChannel
     {
     }
 
+    /**
+     * @param string $data
+     *
+     * @return int
+     */
     public function fwrite($data)
     {
         return $this->handler->fwrite($data);
     }
 
+    /**
+     * @param int $size
+     *
+     * @return string
+     */
     public function fread($size)
     {
         return $this->handler->fread($size);

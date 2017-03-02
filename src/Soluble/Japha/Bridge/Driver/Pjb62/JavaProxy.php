@@ -37,6 +37,8 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Driver\Pjb62\Utils\HelperFunctions;
+
 /**
  * Some annotations for java.lang.Object.
  *
@@ -55,7 +57,7 @@ class JavaProxy implements JavaType
     public $__java;
     public $__signature;
     /**
-     * @var Client
+     * @var \Soluble\Japha\Bridge\Driver\Pjb62\Client
      */
     public $__client;
     public $__tempGlobalRef;
@@ -71,6 +73,11 @@ class JavaProxy implements JavaType
         $this->__client = PjbProxyClient::getInstance()->getClient();
     }
 
+    /**
+     * @param string $type
+     *
+     * @return mixed
+     */
     public function __cast($type)
     {
         return $this->__client->cast($this, $type);
@@ -78,7 +85,7 @@ class JavaProxy implements JavaType
 
     public function __sleep()
     {
-        $args = [$this, java_get_lifetime()];
+        $args = [$this, HelperFunctions::java_get_session_lifetime()];
         $this->__serialID = $this->__client->invokeMethod(0, 'serialize', $args);
         $this->__tempGlobalRef = $this->__client->globalRef;
 
@@ -87,7 +94,7 @@ class JavaProxy implements JavaType
 
     public function __wakeup()
     {
-        $args = [$this->__serialID, java_get_lifetime()];
+        $args = [$this->__serialID, HelperFunctions::java_get_session_lifetime()];
         $this->__client = PjbProxyClient::getInstance()->getClient();
         if ($this->__tempGlobalRef) {
             $this->__client->globalRef = $this->__tempGlobalRef;
@@ -126,7 +133,7 @@ class JavaProxy implements JavaType
         try {
             return (string) $this->__client->invokeMethod(0, 'ObjectToString', [$this]);
         } catch (Exception\JavaException $ex) {
-            $msg = 'Exception in Java::__toString(): ' . java_truncate((string) $ex);
+            $msg = 'Exception in Java::__toString(): ' . HelperFunctions::java_truncate((string) $ex);
             $this->__client->getLogger()->warning("[soluble-japha] $msg (" . __METHOD__ . ')');
             trigger_error($msg, E_USER_WARNING);
 
