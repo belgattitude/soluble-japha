@@ -9,7 +9,7 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         bootstrap="./bootstrap.php"
+         bootstrap="../test/bootstrap.php"
 >
 
     <php>
@@ -51,7 +51,7 @@
         <server name="MYSQL_PASSWORD" value="" />
         <server name="MYSQL_DATABASE" value="phpunit_soluble_test_db" />
 
-        <server name="PHPUNIT_CACHE_DIR" value="./tmp/cache" />
+        <server name="PHPUNIT_CACHE_DIR" value="../test/tmp/cache" />
         <ini name="date.timezone" value="Europe/Brussels"/>
 
         <!-- Default charset: Still errors if different from UTF-8 -->
@@ -64,20 +64,20 @@
 
     <testsuites>
         <testsuite name="soluble/japha">
-            <directory>./src/SolubleTest/Japha</directory>
+            <directory>../test/src/SolubleTest/Japha</directory>
         </testsuite>
     </testsuites>
     
     <filter>
         <whitelist>
-            <directory>./src</directory>
+            <directory>../src/Soluble</directory>
             <exclude>
-                <file>./src/Soluble/Japha/Bridge/Driver/Pjb62/SimpleParser.php</file>
+                <file>../src/Soluble/Japha/Bridge/Driver/Pjb62/SimpleParser.php</file>
             </exclude>		
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-clover" target="./test/build/logs/clover.xml"/>
-        <log type="coverage-html" target="./test/build/html-coverage" charset="UTF-8" yui="true" highlight="false" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="../test/build/logs/clover.xml"/>
+        <log type="coverage-html" target="../test/build/html-coverage" charset="UTF-8" yui="true" highlight="false" lowUpperBound="35" highLowerBound="70"/>
     </logging>		
 </phpunit>

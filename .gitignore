@@ -7,7 +7,7 @@ composer.lock
 .settings/
 .idea
 .php_cs.cache
-phpunit*.xml
+/phpunit*.xml
 /vendor
 /nbproject
 /build

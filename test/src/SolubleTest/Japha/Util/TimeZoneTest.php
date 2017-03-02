@@ -85,7 +85,7 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($id, (string) $tz->getID());
 
             $phpTz = new DateTimeZone($id);
-            $tz = $this->timeZone->getTimeZone($id);
+            $tz = $this->timeZone->getTimeZone($phpTz);
             $iof = $this->ba->isInstanceOf($tz, 'java.util.TimeZone');
             $this->assertTrue($iof);
             $this->assertEquals($id, (string) $tz->getID());

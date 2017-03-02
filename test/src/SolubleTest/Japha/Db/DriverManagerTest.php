@@ -163,6 +163,12 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testGetJdbcDSN()
+    {
+        $dsn = DriverManager::getJdbcDsn('db', 'host', 'user', 'password', 'mysql');
+        $this->assertEquals('jdbc:mysql://host/db?user=user&password=password', $dsn);
+    }
+
     protected function getWorkingDSN()
     {
         $config = \SolubleTestFactories::getDatabaseConfig();
