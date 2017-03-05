@@ -103,7 +103,6 @@ class Client
      */
     public $cancelProxyCreationTag;
 
-
     /**
      * @var GlobalRef
      */
