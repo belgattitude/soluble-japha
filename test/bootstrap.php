@@ -7,7 +7,7 @@ if (!$loader = @include __DIR__ . '/../vendor/autoload.php') {
 }
 
 ini_set('display_errors', 1);
-ini_set('error_reporting', E_ALL | E_STRICT);
+ini_set('error_reporting', E_ALL);
 
 if (defined('HHVM_VERSION')) {
     ini_set('memory_limit', '640M');

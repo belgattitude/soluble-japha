@@ -455,7 +455,7 @@ class Protocol
     public function writeString($name)
     {
         $this->client->currentArgumentsFormat .= $format = '<S v="%s"/>';
-        $this->write(sprintf($format, htmlspecialchars($name, ENT_COMPAT)));
+        $this->write(sprintf($format, htmlspecialchars($name, ENT_COMPAT, 'UTF-8')));
     }
 
     /**
@@ -513,7 +513,7 @@ class Protocol
      */
     public function writeException($object, $str)
     {
-        $this->write(sprintf('<E v="%x" m="%s"/>', $object, htmlspecialchars($str, ENT_COMPAT)));
+        $this->write(sprintf('<E v="%x" m="%s"/>', $object, htmlspecialchars($str, ENT_COMPAT, 'UTF-8')));
     }
 
     public function writeCompositeBegin_a()
@@ -536,7 +536,7 @@ class Protocol
      */
     public function writePairBegin_s($key)
     {
-        $this->write(sprintf('<P t="S" v="%s">', htmlspecialchars($key, ENT_COMPAT)));
+        $this->write(sprintf('<P t="S" v="%s">', htmlspecialchars($key, ENT_COMPAT, 'UTF-8')));
     }
 
     /**

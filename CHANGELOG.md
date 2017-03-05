@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.1.2 (TBD)
 
+### Improved
+
+- Set utf-8 by default for html_special_chars (no need to set in php.ini) 
+- Replaces array_push($arr, $val) by $arr[] = $val for little perf improvement in Driver 
+
 ### Fixed
 
 - Minor: JavaClass::getName() now return string instead og JavaObject(java.lang.String).

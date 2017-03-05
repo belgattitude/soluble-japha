@@ -102,16 +102,25 @@ class Client
      * @var int
      */
     public $cancelProxyCreationTag;
-    public $cancelProxyCreationCounter;
+
 
     /**
      * @var GlobalRef
      */
     public $globalRef;
     public $stack;
+    /**
+     * @var array
+     */
     public $defaultCache = [];
+    /**
+     * @var array
+     */
     public $asyncCache = [];
-    public $methodCache;
+    /**
+     * @var array
+     */
+    public $methodCache = [];
     public $isAsync = 0;
     public $currentCacheKey;
     public $currentArgumentsFormat;
@@ -206,7 +215,7 @@ class Client
         $this->cachedJavaPrototype = new JavaProxyProxy($this);
         $this->simpleArg = new Arg($this);
         $this->globalRef = new GlobalRef();
-        $this->asyncCtx = $this->cancelProxyCreationCounter = 0;
+        $this->asyncCtx = $this->cancelProxyCreationTag = 0;
         $this->methodCache = $this->defaultCache;
         $this->inArgs = false;
 

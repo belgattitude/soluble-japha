@@ -61,19 +61,19 @@ class Java extends AbstractJava
             $val = $args[$i];
             switch (gettype($val)) {
                 case 'boolean':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@b';
                     break;
                 case 'integer':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@i';
                     break;
                 case 'double':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@d';
                     break;
                 case 'string':
-                    array_push($args2, htmlspecialchars($val, ENT_COMPAT));
+                    $args2[] = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
                     $sig .= '@s';
                     break;
                 case 'array':
@@ -81,22 +81,22 @@ class Java extends AbstractJava
                     break;
                 case 'object':
                     if ($val instanceof JavaType) {
-                        array_push($args2, $val->get__java());
+                        $args2[] = $val->get__java();
                         $sig .= "@o{$val->get__signature()}";
                     } else {
                         $sig = '~INVALID';
                     }
                     break;
                 case 'resource':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@r';
                     break;
                 case 'NULL':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@N';
                     break;
                 case 'unknown type':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@u';
                     break;
                 default:
@@ -159,19 +159,19 @@ class Java extends AbstractJava
         for ($i = 0; $i < $len; ++$i) {
             switch (gettype($val = $args[$i])) {
                 case 'boolean':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@b';
                     break;
                 case 'integer':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@i';
                     break;
                 case 'double':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@d';
                     break;
                 case 'string':
-                    array_push($args2, htmlspecialchars($val, ENT_COMPAT));
+                    $args2[] = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
                     $sig .= '@s';
                     break;
                 case 'array':
@@ -179,22 +179,22 @@ class Java extends AbstractJava
                     break;
                 case 'object':
                     if ($val instanceof JavaType) {
-                        array_push($args2, $val->get__java());
+                        $args2[] = $val->get__java();
                         $sig .= "@o{$val->get__signature()}";
                     } else {
                         $sig = '~INVALID';
                     }
                     break;
                 case 'resource':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@r';
                     break;
                 case 'NULL':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@N';
                     break;
                 case 'unknown type':
-                    array_push($args2, $val);
+                    $args2[] = $val;
                     $sig .= '@u';
                     break;
                 default:
