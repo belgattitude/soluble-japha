@@ -6,10 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.1.2 (TBD)
 
+### Added
+
+- New driver methods: `setFileEncoding()` and `getConnectionOptions()` currently internal use only. 
+
 ### Improved
 
 - Set utf-8 by default for html_special_chars (no need to set in php.ini) 
 - Replaces array_push($arr, $val) by $arr[] = $val for little perf improvement in Driver 
+- Removed devDependency on devster/ubench for simple benchmarks.
 
 ### Fixed
 

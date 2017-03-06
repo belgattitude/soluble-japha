@@ -8,13 +8,12 @@ use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
 $bm = new Benchmark();
 
+$start_total_time = microtime(true);
+
 echo '<pre>' . PHP_EOL;
 
 // BENCHING CONNECTION
-$bench = $bm->bench;
-$bm->printHeader();
-// Connection test
-$bm->bench->start();
+$start_connection_time = microtime(true);
 try {
     $ba = new BridgeAdapter([
         'driver' => 'Pjb62',
@@ -25,10 +24,8 @@ try {
 } catch (\Exception $e) {
     die('Error connecting: ' . $e->getMessage());
 }
-// Retrieve an object
-
-$bm->bench->end();
-$bm->printResult('Connection', $bench);
+$end_connection_time = microtime(true);
+$connection_time = $bm->getFormattedTime($start_connection_time, $end_connection_time);
 // END OF BENCHING CONNECTION
 
 // BENCHMARK SUITE
@@ -130,13 +127,16 @@ $bm->time('Pure PHP: concat \'$string . "hello"\' ',
         }
     });
 
+$end_total_time = microtime(true);
+$total_time = $bm->getFormattedTime($start_total_time, $end_total_time);
+
+echo PHP_EOL;
+echo '- Connection time: ' . $connection_time . 'ms' . PHP_EOL;
+echo '- Total time     : ' . $total_time . 'ms' . PHP_EOL;
+echo PHP_EOL;
+
 class Benchmark
 {
-    /**
-     * @var Ubench
-     */
-    public $bench;
-
     /**
      * @var bool
      */
@@ -149,9 +149,12 @@ class Benchmark
 
     public function __construct()
     {
-        $this->bench = new Ubench();
     }
 
+    /**
+     * @param string   $name
+     * @param callable $fn
+     */
     public function time($name, callable $fn)
     {
         if (!$this->tableHeaderPrinted) {
@@ -184,18 +187,16 @@ class Benchmark
             round($memory / 1024, 2) . 'Kb' . '|' . PHP_EOL;
     }
 
-    public function printResult($name, Ubench $bench)
+    /**
+     * Return formatted time in ms.
+     *
+     * @param float $start_time
+     * @param float $end_time
+     */
+    public function getFormattedTime($start_time, $end_time)
     {
-        echo "| $name |", implode('|', [
-                $bench->getTime(false, '%d%s'),
-                $bench->getMemoryUsage(),
-                $bench->getMemoryPeak(),
-            ]) . '|' . PHP_EOL;
-    }
+        $time = $end_time - $start_time;
 
-    public function printHeader()
-    {
-        echo '| Test | Time | Memory usage | Memory peak |' . PHP_EOL;
-        echo '| ---- | ---- | ------------ | ----------- |' . PHP_EOL;
+        return number_format($time * 1000, 2);
     }
 }

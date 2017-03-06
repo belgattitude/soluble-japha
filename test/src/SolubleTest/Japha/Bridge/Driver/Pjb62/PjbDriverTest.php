@@ -70,6 +70,21 @@ class PjbDriverTest extends \PHPUnit_Framework_TestCase
         $bool = $this->adapter->getDriver()->isInstanceOf($string, 'java.invalid.Str');
     }
 
+    public function testSetFileEncoding()
+    {
+        $driver = $this->adapter->getDriver();
+
+        $encoding = 'ASCII';
+        $driver->setFileEncoding($encoding);
+        $encoding = (string) $driver->getConnectionOptions()->getEncoding();
+        $this->assertEquals('ASCII', $encoding);
+
+        $encoding = 'UTF-8';
+        $driver->setFileEncoding($encoding);
+        $encoding = (string) $driver->getConnectionOptions()->getEncoding();
+        $this->assertEquals('UTF-8', $encoding);
+    }
+
     public function testJavaContext()
     {
         $context = $this->adapter->getDriver()->getContext();

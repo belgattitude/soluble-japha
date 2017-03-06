@@ -114,6 +114,43 @@ class Pjb62Driver extends AbstractDriver
     }
 
     /**
+     * Set the java file encoding, for example UTF-8, ISO-8859-1 or ASCII.
+     *
+     * Needed because php does not support unicode. All string to byte array
+     * conversions use this encoding. Example:
+     *
+     * @param string $encoding Please see Java file.encoding documentation for a list of valid encodings.
+     *
+     * @throws BrokenConnectionException
+     */
+    public function setFileEncoding($encoding)
+    {
+        try {
+            $this->pjbProxyClient->invokeMethod(null, 'setFileEncoding', [$encoding]);
+        } catch (BrokenConnectionException $e) {
+            PjbProxyClient::getInstance()->destroy();
+            throw $e;
+        }
+    }
+
+    /**
+     * Return bridge connection options.
+     *
+     * @throws BrokenConnectionException
+     *
+     * @return Interfaces\JavaObject Java("io.soluble.pjb.bridge.Options")
+     */
+    public function getConnectionOptions()
+    {
+        try {
+            return $this->pjbProxyClient->invokeMethod(null, 'getOptions');
+        } catch (BrokenConnectionException $e) {
+            PjbProxyClient::getInstance()->destroy();
+            throw $e;
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function invoke(Interfaces\JavaType $javaObject, $method, array $args = [])
