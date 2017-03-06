@@ -6,7 +6,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_DIR="$SCRIPT_DIR/.."
 
 # PHPJavabridge version
-PJB_VERSION="6.2.12"
+PJB_VERSION="7.0.0"
 PJB_DIR="$SCRIPT_DIR/downloads/php-java-bridge-$PJB_VERSION"
 
 # Webapp runner properties
