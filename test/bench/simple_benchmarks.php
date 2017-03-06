@@ -29,7 +29,6 @@ $end_connection_time = microtime(true);
 $connection_time = $bm->getFormattedTime($start_connection_time, $end_connection_time);
 // END OF BENCHING CONNECTION
 
-
 // Test with fileEncoding ASCII
 //$ba->getDriver()->setFileEncoding('ASCII');
 
