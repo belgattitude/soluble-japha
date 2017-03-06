@@ -34,6 +34,7 @@ pages:
         ]
       }
     - { 'Advanced' : [
+          { 'Servlet functions': bridge_servlet_functions.md },
           { 'Servlet session': bridge_servlet_session.md },
           { 'Servlet context': bridge_servlet_context.md }
       ]}

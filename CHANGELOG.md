@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - New driver methods: `setFileEncoding()` and `getConnectionOptions()` currently internal use only. 
 - Support for php-java-bridge 7.
+- Possibility to call servlet methods from the driver `$ba->getDriver()->invoke(null, 'myMethod', [$params])`.
 
 ### Improved
 

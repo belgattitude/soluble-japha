@@ -57,7 +57,7 @@ abstract class AbstractDriver implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    abstract public function invoke(Interfaces\JavaType $javaObject, $method, array $args = []);
+    abstract public function invoke(Interfaces\JavaType $javaObject = null, $method, array $args = []);
 
     /**
      * Return Java servlet context.

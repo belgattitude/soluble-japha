@@ -128,12 +128,7 @@ class Pjb62Driver extends AbstractDriver
      */
     public function setFileEncoding($encoding)
     {
-        try {
-            $this->pjbProxyClient->invokeMethod(null, 'setFileEncoding', [$encoding]);
-        } catch (BrokenConnectionException $e) {
-            PjbProxyClient::getInstance()->destroy();
-            throw $e;
-        }
+        $this->invoke(null, 'setFileEncoding', [$encoding]);
     }
 
     /**
@@ -145,18 +140,13 @@ class Pjb62Driver extends AbstractDriver
      */
     public function getConnectionOptions()
     {
-        try {
-            return $this->pjbProxyClient->invokeMethod(null, 'getOptions');
-        } catch (BrokenConnectionException $e) {
-            PjbProxyClient::getInstance()->destroy();
-            throw $e;
-        }
+        return $this->invoke(null, 'getOptions');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function invoke(Interfaces\JavaType $javaObject, $method, array $args = [])
+    public function invoke(Interfaces\JavaType $javaObject = null, $method, array $args = [])
     {
         try {
             return $this->pjbProxyClient->invokeMethod($javaObject, $method, $args);

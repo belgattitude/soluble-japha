@@ -4,6 +4,8 @@
     The following benchmarks does not intend to prove anything but might help understand
     the possible overheads when using the bridge. They were designed to illustrate the
     cost of creating objects and calling methods (roundtrips).   
+    
+    Be sure to have read the [how it works](./bridge_how_it_works.md) before.
 
 ## Simple benchmark
 

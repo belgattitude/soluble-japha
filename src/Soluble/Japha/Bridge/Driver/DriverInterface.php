@@ -67,13 +67,13 @@ interface DriverInterface extends ConnectionInterface
     /**
      * Invoke a method on a JavaObject (or a static method on a JavaClass).
      *
-     * @param Interfaces\JavaType $javaObject javaObject can be Interfaces\JavaClass or Interfaces\JavaObject
+     * @param Interfaces\JavaType $javaObject javaObject can be Interfaces\JavaClass or Interfaces\JavaObject, if null use servlet methods registered on th JavaBridge side
      * @param string              $method     Method name on the JavaObject or JavaClass
      * @param array               $args       arguments
      *
      * @return mixed
      */
-    public function invoke(Interfaces\JavaType $javaObject, $method, array $args = []);
+    public function invoke(Interfaces\JavaType $javaObject = null, $method, array $args = []);
 
     /**
      * Check whether a java value is null.

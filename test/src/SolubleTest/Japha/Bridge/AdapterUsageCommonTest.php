@@ -107,6 +107,9 @@ class AdapterUsageCommonTest extends \PHPUnit_Framework_TestCase
     {
         $ba = $this->adapter;
         $hash = $ba->java('java.util.HashMap', ['my_key' => 'my_value']);
+
+        $this->assertEquals(1, $hash->size());
+
         $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $hash);
         $this->assertEquals('my_value', $hash->get('my_key'));
         $hash->put('new_key', 'oooo');
