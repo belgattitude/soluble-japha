@@ -128,9 +128,10 @@ class PjbProxyClient implements ClientInterface
      * of the soluble-japha client...
      *
      * Disadvantage: Not good for performance !!!
-     *  > Please note that the option JAVA_PREFER_VALUES kills performance as it
-     *  > checks for an exception after each call (I.e. each java call
-     *  > generates a full network round-trip).
+     *  > From mailinglist: Please note that the option JAVA_PREFER_VALUES kills performance as it
+     *  > checks for an exception after each call (I.e. each java call generates a full network round-trip).
+     *  Note that in simple_benchmarks.php no difference have been measured (localhost), need more
+     *  taylor made tests to see.
      *
      * Advantage: More readable / writable
      *  > it casts java String, Boolean, Integer... objects
@@ -369,8 +370,8 @@ class PjbProxyClient implements ClientInterface
 
             $java_prefer_values = $this->getOption('java_prefer_values');
             $java_log_level = $this->getOption('java_log_level');
-            @$compatibility = $client->RUNTIME['PARSER'] === 'NATIVE' ? (0103 - $java_prefer_values) : (0100 + $java_prefer_values);
-            if (@is_int($java_log_level)) {
+            $compatibility = ($client->RUNTIME['PARSER'] === 'NATIVE') ? (0103 - $java_prefer_values) : (0100 + $java_prefer_values);
+            if (is_int($java_log_level)) {
                 $compatibility |= 128 | (7 & $java_log_level) << 2;
             }
             $this->compatibilityOption = chr($compatibility);
