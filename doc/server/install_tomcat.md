@@ -1,10 +1,11 @@
 # Tomcat setup
 
-This document provides some recipes and examples for installing Tomcat on your system. Refer to 
-the official [Tomcat](http://tomcat.apache.org/) homepage for updated documentation and 
-[installation instructions](https://tomcat.apache.org/tomcat-8.5-doc/setup.html). 
+!!! info
+    This document provides some recipes and examples for installing Tomcat on your system. Refer to 
+    the official [Tomcat](http://tomcat.apache.org/) homepage for updated documentation and 
+    [installation instructions](https://tomcat.apache.org/tomcat-8.5-doc/setup.html). 
 
-Note that Tomcat requires [Java](./install_java.md) prior to installation.  
+    Note that Tomcat requires [Java](./install_java.md) prior to installation.  
  
 ## Installation
  
