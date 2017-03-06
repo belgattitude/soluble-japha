@@ -31,6 +31,7 @@
     },
     "require-dev" : {
         "phpunit/phpunit": "^5.5",
+        "belgattitude/pjbserver-tools": "^2.1.2",
         "friendsofphp/php-cs-fixer": "^2.1.1",
         "monolog/monolog": "^1.21.0"
     },
@@ -39,7 +40,6 @@
         "build-doc": "mkdocs build && apigen.phar generate --config=./.apigen.yml"
     },
     "suggest": {
-        "belgattitude/pjbserver-tools": "PHPJavabridge standalone server support (unit tests)",
         "monolog/monolog": "PSR-3 comptatible logger"
     },
     "archive": {
