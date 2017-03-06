@@ -49,6 +49,7 @@ class AdapterUsageCommonTest extends \PHPUnit_Framework_TestCase
 
         $javaString = $ba->java('java.lang.String', 'A key is a key!');
         $index = $javaString->indexOf('key');
+
         $this->assertEquals(2, $index);
 
         // Method overloading, use the `indexOf(String, $fromIndex)` method

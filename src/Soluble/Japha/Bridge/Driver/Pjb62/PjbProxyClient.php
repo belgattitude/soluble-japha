@@ -28,11 +28,19 @@ class PjbProxyClient implements ClientInterface
      * @var array
      */
     protected $defaultOptions = [
-        'java_disable_autoload' => false,
-        'java_prefer_values' => true,
+        'java_disable_autoload' => true,
         'java_log_level' => null,
         'java_send_size' => 8192,
-        'java_recv_size' => 8192
+        'java_recv_size' => 8192,
+        // java_prefer_values=true is the default working mode
+        // of the soluble-japha client... It may be less efficient,
+        // because it casts java String, Boolean, Integer... objects
+        // automatically into (string, bool, integer...), and thus
+        // not require additional writing like ($ba->values($myInt)) in
+        // order to use a remote object. But prevent to work on the proxy instead,
+        // so the value is always transferred for those types. If you put
+        // at false you'll have to rework on the code.
+        'java_prefer_values' => true,
     ];
 
     /**
@@ -102,19 +110,28 @@ class PjbProxyClient implements ClientInterface
      *  'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
      *
      *  $options can be :
-     *  "java_log_level' => null
      *  "java_send_size" => 8192,
-     *  "java_recv_size" => 8192
+     *  "java_recv_size" => 8192,
+     *  "java_log_level' => null,
+     *  "java_prefer_values" => true (see note)
      *
      * <code>
      *    $options = [
      *      'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge'
      *      "java_send_size" => 8192,
      *      "java_recv_size" => 8192
-     *
      *    ];
      *    $pjb = PjbProxyClient::getInstance($options, $logger);
      * </code>
+     *
+     * Note: java_prefer_values=true is the default working mode
+     * of the soluble-japha client... It may be less efficient,
+     * because it casts java String, Boolean, Integer... objects
+     * automatically into (string, bool, integer...), and thus
+     * not require additional writing like ($ba->values($myInt)) in
+     * order to use a remote object. But prevent to work on the proxy instead,
+     * so the value is always transferred for those types. If you put
+     * at false you'll have to rework on the code.
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ConnectionException
