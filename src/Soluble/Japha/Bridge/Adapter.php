@@ -39,6 +39,7 @@ class Adapter
      *     'driver' => 'Pjb62',
      *     'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/java/servlet.phpjavabridge'
      *      //'java_default_timezone' => null,
+     *      //'java_prefer_values' => true
      *    ]);
      *
      * </code>
