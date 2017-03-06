@@ -1,13 +1,14 @@
 # Javabridge server installation
  
-The Javabridge server acts as an intermediate between the JVM and PHP runtime.
-Here's the steps to customize, build and run your own instance.
+A Javabridge server is required and acts as an intermediate between 
+the JVM and PHP runtime. Here's the steps to customize, build and run your own instance.
 
 ## Requirements
 
 - An installed [OpenJDK or OracleJDK, 7 or 8+](./server/install_java.md) *(JRE is sufficient for running)*.
-- An optional but recommended [Apache Tomcat](./server/install_tomcat.md) server for deployments 
-  *(or any servlet 2.5+ spec container)*.
+- The recommended [Apache Tomcat](./server/install_tomcat.md) server for deployments 
+  *(any servlet 2.5+ spec container should work)* or the [webapp-runner](https://github.com/jsimone/webapp-runner) 
+  for standalone.
 
 ## Java installation
 
@@ -21,17 +22,21 @@ $ sudo apt-get install openjdk-8-jdk
 
 ------
 
-## Quick install <small>(on Tomcat)</small>
+## Quick install 
 
 !!! note    
-    The instructions below are based on the forked [PHP/Javabridge](https://github.com/belgattitude/php-java-bridge) version
-    and can be used to customize, build and deploy your own bridge instance from the command
-    line. 
-     
-    and rely on an installed Apache Tomcat server which is the recommended way to run the bridge. 
-    To learn more see the [Tomcat installation notes](./server/install_tomcat.md) or jump 
-    to the [Alternative installation section](#alternative-install) for 
-    standalone mode *(embedded tomcat)*. 
+    The quick install instructions are based on the **forked [php-java-bridge](https://github.com/belgattitude/php-java-bridge) 
+    server**. 
+    
+    They promote the recommended installation workflow based on [Tomcat](./server/install_tomcat.md),
+    a popular servlet container server widely available nowadays *(i.e: Digitalocean droplets...)*.
+    
+    A optional section describe how to use the [webapp-runner](https://github.com/jsimone/webapp-runner)
+    instead of *regular* Tomcat install. This allows to start, control the bridge server
+    straight from the command line (standalone) or deploy on some cloud services (i.e. Heroku).   
+       
+    *For spring-boot support, you can also look at [Alternative installation section](#alternative-install).*
+    
 
 ### Build and customize
 
@@ -39,8 +44,8 @@ Replace the version below by the latest [Javabridge release](https://github.com/
 
 ```shell
 # 1. Download and unzip the latest php-java-bridge sources
-$ wget https://github.com/belgattitude/php-java-bridge/archive/6.2.12.zip -O pjb.zip
-$ unzip pjb.zip && cd php-java-bridge-6.2.12
+$ wget https://github.com/belgattitude/php-java-bridge/archive/7.0.0.zip -O pjb.zip
+$ unzip pjb.zip && cd php-java-bridge-7.0.0
 # 2. Customize and build your own bridge:
 #    Example below contains some pre-made gradle init scripts
 #    to include jasperreports and mysql-connector libraries to the
@@ -83,7 +88,7 @@ and check the landing page:
 Once checked, jump to the [Getting started and how to connect section](./bridge_connection.md). 
 
 !!! danger
-    For obvious security reasons, the Javabridge server cannot be exposed on a public
+    For security reasons, the Javabridge server cannot be exposed on a public
     network. It must be limited to interactions on the same host/network
     and should be executed with the same user as the php client (not root). 
     Bind Tomcat to localhost or setup a firewall where applicable.   
