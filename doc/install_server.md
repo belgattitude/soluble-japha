@@ -1,7 +1,9 @@
 # Javabridge server installation
- 
-A Javabridge server is required and acts as an intermediate between 
-the JVM and PHP runtime. Here's the steps to customize, build and run your own instance.
+
+!!! info 
+    A Javabridge server is required and acts as an intermediate between 
+    the JVM and PHP runtime. Here's the steps to customize, build and run your own instance.
+    Don't be afraid, it takes few minutes.
 
 ## Requirements
 
@@ -65,6 +67,14 @@ $ ./gradlew war \
 
 ### Deploy and run
 
+!!! danger
+    For security reasons, the Javabridge server cannot be exposed on a public
+    network. It must be limited to interactions on the same host/network
+    and should be executed with the same user as the php client (not root). 
+    Bind Tomcat to localhost or setup a firewall where applicable.   
+
+#### Option 1: Tomcat
+
 Ensure Tomcat is [installed](./server/install_tomcat.md) or 
 quickly run `sudo apt-get install tomcat8` on Ubuntu based systems,
 then copy the builded war file in the tomcat webapps folder.
@@ -82,17 +92,35 @@ your browser to [http://localhost:8080/MyJavaBridge](http://localhost:8080/MyJav
 *(note the `/MyJavaBridge` uri corresponds to the deployed war filename, easily changeable)* 
 and check the landing page:
 
-
 ![](./images/bridge_landing.png "Landing screenshot")
 
-Once checked, jump to the [Getting started and how to connect section](./bridge_connection.md). 
 
-!!! danger
-    For security reasons, the Javabridge server cannot be exposed on a public
-    network. It must be limited to interactions on the same host/network
-    and should be executed with the same user as the php client (not root). 
-    Bind Tomcat to localhost or setup a firewall where applicable.   
+#### Option 2: Standalone
 
+The [webapp-runner](https://github.com/jsimone/webapp-runner) actually embeds a
+*standalone runnable* Tomcat and is a viable option for those who don't want to
+install an additional system wide server. Here's some steps to quickly download
+and run your war from the command-line:
+
+```shell
+# Get the latest webapp-runner from maven.
+$ export WR_VERSION="8.5.11.2" 
+$ export WR_URL="http://search.maven.org/remotecontent?filepath=com/github/jsimone/webapp-runner"
+$ wget "${WR_URL}${WR_VERSION}/webapp-runner-${WR_VERSION}.jar" -O webapp-runner.jar    
+```   
+
+Run your server `JavaBridgeTemplate.war` file with the webapp-runner:
+
+```shell
+$ java -jar webapp-runner.jar /path/to/JavaBridgeTemplate.war --port 8093 
+```
+
+See travis example script [here](https://github.com/belgattitude/soluble-japha/blob/master/.travis/launch_javabridge_server.sh).
+
+
+### Using the bridge
+
+Once the connection is working, jump to the [Getting started and how to connect section](./bridge_connection.md). 
 
 ------
 
