@@ -6,7 +6,7 @@ Connection to the bridge is made through the `Soluble\Japha\Bridge\Adapter`objec
 and should be initialized once *(similarly to a database connection)*. 
 
 !!! tip
-    Using a `container-interop` compatible container like 
+    Using a `container-interop` compatible container like
     [zend-servicemanager](https://github.com/zendframework/zend-servicemanager) 
     is encouraged.
 
@@ -19,7 +19,7 @@ use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 use Soluble\Japha\Bridge\Exception as BridgeException;
 
 $options = [
-    'driver' => 'Pjb62',  
+    'driver' => 'Pjb62',  // actually the protocol version 
     'servlet_address' => 'localhost:8080/MyJavaBridge/servlet.phpjavabridge'
 ];
 
@@ -39,7 +39,7 @@ The `Soluble\Japha\Bridge\Adapter` constructor require `$options`, an associativ
 
 | Parameter        | Description                              |
 |------------------|------------------------------------------|
-|`driver`          | Currently only 'Pjb62' is supported      |
+|`driver`          | Currently only 'Pjb62' is supported *(protocol)*. Compatible with php-java-bridge 6.2+ and 7.0+ |
 |`servlet_address` | Servlet address: &lt;host&gt;:&lt;port&gt;/&lt;uri&gt;     |
 
 !!! tip
