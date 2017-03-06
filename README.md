@@ -67,7 +67,7 @@ try {
 to take advantage of
 
 - some compelling libraries *([Jasperreports](http://community.jaspersoft.com/project/jasperreports-library), [CoreNLP](http://stanfordnlp.github.io/CoreNLP/), [FlyingSaucer](https://github.com/flyingsaucerproject/flyingsaucer/releases), [Jsoup](https://jsoup.org/)...)*
-- benefit from JVM performances *([Deeplearning4J](https://deeplearning4j.org/)...)* or wrappers *([TensorFlow Java Api](https://www.tensorflow.org/api_docs/java/reference/org/tensorflow/package-summary...)*.
+- benefit from JVM performances *([Deeplearning4J](https://deeplearning4j.org/)...)* or wrappers *([TensorFlow Java Api](https://www.tensorflow.org/api_docs/java/reference/org/tensorflow/package-summary)...)*.
 - when a pure-PHP alternative does not exists *(Android, driver, closed api, enterprise...)* 
 - or simply for the fun of it.  
 
