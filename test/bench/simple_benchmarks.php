@@ -17,8 +17,9 @@ $start_connection_time = microtime(true);
 try {
     $ba = new BridgeAdapter([
         'driver' => 'Pjb62',
-        'servlet_address' => 'localhost:8080/JavaBridgeTemplate/servlet.phpjavabridge'
+        'servlet_address' => 'localhost:8080/JavaBridgeTemplate/servlet.phpjavabridge',
         //'servlet_address' => 'localhost:8080/JavaBridgeSpringboot/servlet.phpjavabridge'
+        'java_prefer_values' => true
     ]);
     $init = $ba->java('java.lang.String');
 } catch (\Exception $e) {
