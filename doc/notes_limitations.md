@@ -1,5 +1,53 @@
 # Limitations
 
+## Code auto-completion
+
+Code auto-completion in IDE *(Netbeans, Eclipse, Idea, Atom...)* is not
+supported. In other words, you cannot auto-complete methods on a remote 
+Java object.
+
+The general recommendation for now, is to at use the special notation
+`Java('<java fqdn>')` as part of the parametere message in javadoc. See
+the example below:  
+
+```php
+<?php declare(strict_types=1);
+
+use Soluble\Japha\Interfaces\JavaObject;
+
+class ExampleJavaDoc {
+
+    /**
+     * @var JavaObject Java('java.util.HashMap') the hashmap
+     */
+    protected $map;        
+            
+    /**
+     * @param JavaObject $map Java('java.util.HashMap') the hashmap
+     */
+    public function __construct(JavaObject $map) {
+        $this->map = $map;
+    } 
+    
+    /**
+     * @return JavaObject Java('java.util.HashMap') 
+     */
+    public function getMap(): JavaObject {
+        return $this->map;   
+    }
+    
+    /**
+     * @throws \Exception 
+     * @return int
+     */
+    public function getMapSize(): int {
+        // This method cannot be autocompleted
+        return $this->map->size();       
+    }
+}
+```
+ 
+
 ## Extending Java class
 
 It is not possible to extend a Java class from a PHP one. Alternatively
@@ -37,22 +85,6 @@ class TimeZone
     }
 }    
 ``` 
-
-## Annotaions
-
-### Overrides method
-
-Unfortunately overriding a class method with annotations cannot 
-be written with the bridge, see:
-
-```java
-CustomClass customObject = new CustomClass() {
-    @Override
-	public SomeReturn someMethod(SomeArgument argument) {
-	    return component.someMethod(argument);
-    }
-};
-```
 
 
 ## Lambdas
