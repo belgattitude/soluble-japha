@@ -46,6 +46,21 @@ The `Soluble\Japha\Bridge\Adapter` constructor require `$options`, an associativ
     The `servlet_address` &lt;uri&gt; should ends with the 'servlet.phpjavabridge' file,
     i.e: 'localhost:8080/path/servlet.phpjavabridge'.  
 
+
+| Advanced params     | Description                              |
+|---------------------|------------------------------------------|
+|`java_send_size`     | Socket write buffer, by default `8192`. |
+|`java_recv_size`     | Socket read buffer, by default `8192`. |
+|`java_log_level`     | To enable java side logging level, by default `null`. |
+|`java_prefer_values` | By default `true`, see warning below. |
+
+!!! warning
+    In short, setting `java_prefer_value` to `false` should theoretically give
+    more performance at the cost of a more boilerplate in the code. As the perf 
+    improvements have not been measured in practice (yet), the default is `true` in the
+    `soluble-japha` implementation. Better to not change it as it will bc-break
+    you code.  
+
 ### Optional PSR-3 logger
 
 Optionally you can send any PSR-3 logger as the second parameter, for example with monolog :
