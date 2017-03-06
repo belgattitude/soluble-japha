@@ -4,12 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.2.0 (TBD)
+## 1.2.0 (2017-03-06)
 
 ### Added
 
 - New driver methods: `setFileEncoding()` and `getConnectionOptions()` currently internal use only. 
-- Support for php-java-bridge 7.
+- Support for php-java-bridge 7.0.0.
 - Possibility to call servlet methods from the driver `$ba->getDriver()->invoke(null, 'myMethod', [$params])`.
 
 ### Improved
