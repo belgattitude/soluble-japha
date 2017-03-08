@@ -77,8 +77,8 @@ to take advantage of
 - [x] Write Java code from PHP *(in a similar way from equivalent java code)*.  
 - [x] Keep *programmatic* code control from the PHP side *([function oriented vs REST](#considerations))*.
 - [x] Java execution on the JVM ensuring compatibility and efficiency *(proxied objects)*.
-- [x] No need to write a service layer prior to usage *(the Java object is the contract)*.
-- [x] Fast network based communication between runtimes, no JVM startup effort.
+- [x] No need to write a service layer prior to usage (**the Java object is the contract**).
+- [x] Network based communication between runtimes (**no JVM startup effort**).
 - [x] Solid foundation to create, develop *or publish* PHP wrappers over java libs.
                               
 ## Considerations
