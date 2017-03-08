@@ -2,26 +2,18 @@
 
 ## Introduction
 
-Historically the [PHP/Java bridge](http://php-java-bridge.sourceforge.net/pjb/) client implementation didn't
-support namespaces. If you have existing code relying on previous implementations and don't want to refactor, 
-you can install a [compatibility layer](https://github.com/belgattitude/soluble-japha-pjb62-compat).
- 
-## Installation
+The current soluble-japha `Pjb62Driver` driver is based on the original 
+[PHP/Java bridge `Java.inc`](http://php-java-bridge.sourceforge.net/pjb/) implementation
+and have been heavily refactored. See the differences below:
 
-Simply add the `soluble/japha` compatibility layer to your [composer](http://getcomposer.org/) dependencies :
-
-```console
-$ composer require "soluble/japha-pjb62-compat"
-```
-
-## Documentation
-
-See the [official repo](https://github.com/belgattitude/soluble-japha-pjb62-compat).
+!!! tip 
+    If you have existing code relying on previous implementations and don't want to refactor, 
+    see the [compatibility layer](#compatibility-layer) section.
 
 
-## Differences with the legacy Java.inc client.
+### Refactorings
 
-The original `Java.inc` client has been completely refactored to fit current trends modern in PHP practices (2016).
+The original `Java.inc` client has been completely refactored to fit more modern trends in PHP practices (2016).
 
 - [x] New API (not backward compatible)
 
@@ -54,5 +46,22 @@ The original `Java.inc` client has been completely refactored to fit current tre
 - [x] Quality
    
     - [x] All code is tested (phpunit, travis), analyzed (scrunitizer) to prevent regressions.
+
+ 
+ 
+## Compatibility layer 
+
+Backward compatibility with the `Java.inc` client can be done through the
+[soluble-japha-pjb62-compat](https://github.com/belgattitude/soluble-japha-pjb62-compat) lib:
+ 
+### Installation
+
+Simply add the `soluble/japha` compatibility layer to your [composer](http://getcomposer.org/) dependencies :
+
+```console
+$ composer require "soluble/japha-pjb62-compat"
+```
+
+and check the [official repo] for doc and current status.
 
 

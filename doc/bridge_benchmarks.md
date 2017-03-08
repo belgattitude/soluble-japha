@@ -46,11 +46,11 @@ the bridge is sensitive to the number of object creations and method calls (roun
 
 Imagine a very simple case with 100 objects instantiations and 100 method calls (from the PHP side):
  
-> 4ms (connection) + 4.09ms (100 new strings) + 5.81ms (100 concat methods) = +/- 13s minimal overhead **(looks fine)**.   
+> 4ms (connection) + 4.09ms (100 new strings) + 5.81ms (100 concat methods) = +/- **13ms** minimal overhead **(looks fine)**.   
 
 Imagine a bad scenario with 1.000 new objects and 10.000 method calls: 
 
-> 4ms (connection) + 34.1ms (1000 new objects) + 532.68ms (10000 concat methods) = +/- 570ms overhead **(looks too much)**.   
+> 4ms (connection) + 34.1ms (1000 new objects) + 532.68ms (10000 concat methods) = +/- **570ms** overhead **(looks too much)**.   
 
 The second example should be avoided if performance matters, but the first one looks not
 only viable but a (micro-)service would probably not do better (parsing the result
