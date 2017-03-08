@@ -8,31 +8,41 @@ use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
 $bm = new Benchmark();
 
-$start_total_time = microtime(true);
+$start_total_time = $bm->getTimeMs();
 
 echo '<pre>' . PHP_EOL;
 
 // BENCHING CONNECTION
-$start_connection_time = microtime(true);
+$start_connection_time = $bm->getTimeMs();
 try {
     $ba = new BridgeAdapter([
         'driver' => 'Pjb62',
         'servlet_address' => 'localhost:8080/JavaBridgeTemplate/servlet.phpjavabridge',
-        //'servlet_address' => 'localhost:8080/JavaBridgeSpringboot/servlet.phpjavabridge'
-        'java_prefer_values' => true
+       // 'servlet_address' => 'localhost:8080/JavaBridgeSpringboot/servlet.phpjavabridge',
+        'java_prefer_values' => true // te default and recommended way (possible to put at false for tests)
     ]);
     $init = $ba->java('java.lang.String');
 } catch (\Exception $e) {
     die('Error connecting: ' . $e->getMessage());
 }
-$end_connection_time = microtime(true);
-$connection_time = $bm->getFormattedTime($start_connection_time, $end_connection_time);
+$end_connection_time = $bm->getTimeMs();
+$connection_time = $bm->getFormattedTimeMs($start_connection_time, $end_connection_time);
 // END OF BENCHING CONNECTION
 
 // Test with fileEncoding ASCII
 //$ba->getDriver()->setFileEncoding('ASCII');
 
 // BENCHMARK SUITE
+/*
+$s = microtime(true);
+$it = 1;
+for ($i=0; $i < $it; $i++) {
+    $g = $ba->java('java.lang.String', 'One' . $it);
+    $str = $g->__toString();
+    if ($str !==  'One' . $it) throw new \Exception('c');
+}
+echo number_format((microtime(true)-$s) * 1000 / $it, 2);die();
+*/
 
 $bm->time('New java(`java.lang.String`, "One")',
     function ($iterations) use ($ba) {
@@ -72,12 +82,8 @@ $bm->time("\$a = `...String->concat('hello')` . ' world'",
         }
     });
 
-$arr = ['strKey1' => 'val1',
-        'strKey2' => 'val2',
-        'strKey3' => 'val3',
-        'intKey1' => 1000,
-        'boolKey' => true,
-        'arrKey' => ['str_val_1', 'str_val_2'],
+$arr = [
+        'arrKey' => ['str_val_1' => 'test', 'str_val_2' => 'test'],
 ];
 
 $bm->time('New java(`java.util.HashMap`, $arr)',
@@ -108,6 +114,25 @@ $bm->time('Call `(string) HashMap->get(\'arrKey\')[0]`',
         }
     });
 
+$hashMap = $ba->java('java.util.HashMap', $arr);
+$bm->time('Iterate HashMap->get(\'arrKey\')[0]`',
+    function ($iterations) use ($ba, $hashMap) {
+        for ($i = 0; $i < $iterations; ++$i) {
+            $phpArray = $hashMap->get('arrKey');
+            foreach ($phpArray as $value) {
+                $str = (string) $value;
+            }
+        }
+    });
+
+$hashMap = $ba->java('java.util.HashMap', $arr);
+$bm->time('GetValues on `HashMap`',
+    function ($iterations) use ($ba, $hashMap) {
+        for ($i = 0; $i < $iterations; ++$i) {
+            $vals = $ba->values($hashMap);
+        }
+    });
+
 $bigArray = array_fill(0, 100, true);
 $bm->time('New `java(HashMap(array_fill(0, 100, true)))`',
     function ($iterations) use ($ba, $bigArray) {
@@ -131,12 +156,12 @@ $bm->time('Pure PHP: concat \'$string . "hello"\' ',
         }
     });
 
-$end_total_time = microtime(true);
-$total_time = $bm->getFormattedTime($start_total_time, $end_total_time);
+$end_total_time = $bm->getTimeMs();
+$total_time = $bm->getFormattedTimeMs($start_total_time, $end_total_time);
 
 echo PHP_EOL;
-echo '- Connection time: ' . $connection_time . 'ms' . PHP_EOL;
-echo '- Total time     : ' . $total_time . 'ms' . PHP_EOL;
+echo '- Connection time: ' . $connection_time . PHP_EOL;
+echo '- Total time     : ' . $total_time . PHP_EOL;
 echo PHP_EOL;
 
 class Benchmark
@@ -184,23 +209,41 @@ class Benchmark
 
         $memory = memory_get_usage(false) - $start_memory;
 
-        $avg = number_format((array_sum($times) / array_sum(array_keys($times)) * 1000), 4) . 'ms';
+        $avg = array_sum($times) / array_sum(array_keys($times));
+
+        /*
+        $ttime = array_sum($times);
+        echo number_format($ttime * 1000, 2);
+        */
         echo  "| $name | " . implode('| ', array_map(function ($time) {
             return number_format($time * 1000, 2) . 'ms';
-        }, $times)) . '|' . $avg . '|' .
+        }, $times)) . '| ' .
+            number_format($avg * 1000, 2) . 'ms| ' .
             round($memory / 1024, 2) . 'Kb' . '|' . PHP_EOL;
     }
 
     /**
-     * Return formatted time in ms.
+     * Return formatted time .
      *
-     * @param float $start_time
-     * @param float $end_time
+     * @param int $start_time
+     * @param int $end_time
      */
-    public function getFormattedTime($start_time, $end_time)
+    public function getFormattedTimeMs($start_time, $end_time)
     {
         $time = $end_time - $start_time;
 
-        return number_format($time * 1000, 2);
+        return number_format($time, 0, '.', '') . ' ms';
+    }
+
+    /**
+     * Get ms time (only 64bits platform).
+     *
+     * @return int
+     */
+    public function getTimeMs()
+    {
+        $mt = explode(' ', microtime());
+
+        return ((int) $mt[1]) * 1000 + ((int) round($mt[0] * 1000));
     }
 }
