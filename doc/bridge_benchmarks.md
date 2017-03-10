@@ -28,6 +28,7 @@ Connection time: `$ba = new BridgeAdapter([])` varies between around 2ms and 7ms
 | New `java(HashMap(array_fill(0, 100, true)))` | 0.20ms| 12.04ms| 122.62ms| 1,202.73ms| 0.12ms| 0.63Kb|
 | Pure PHP: call PHP strlen() method | 0.00ms| 0.00ms| 0.01ms| 0.07ms| 0.00ms| 0.37Kb|
 | Pure PHP: concat '$string . "hello"'  | 0.00ms| 0.00ms| 0.04ms| 0.31ms| 0.00ms| 120.37Kb|
+
 !!! note    
     Memory and average time are computed on the 11101 iterations (x1, x100...). 
     
