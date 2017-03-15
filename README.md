@@ -67,7 +67,7 @@ try {
 to take advantage of
 
 - some compelling libraries *([Jasperreports](http://community.jaspersoft.com/project/jasperreports-library), [CoreNLP](http://stanfordnlp.github.io/CoreNLP/), [FlyingSaucer](https://github.com/flyingsaucerproject/flyingsaucer/releases), [Jsoup](https://jsoup.org/)...)*
-- benefit from JVM performances *([Deeplearning4J](https://deeplearning4j.org/)...)* or wrappers *([TensorFlow Java Api](https://www.tensorflow.org/api_docs/java/reference/org/tensorflow/package-summary)...)*.
+- benefit from JVM performances *([Deeplearning4J](https://deeplearning4j.org/)...)* or wrappers *([TensorFlow Java Api](https://www.tensorflow.org/api_docs/)...)*.
 - when a pure-PHP alternative does not exists *(Android, driver, closed api, enterprise...)* 
 - or simply for the fun of it.  
 
@@ -130,8 +130,8 @@ its target scenarios can be disappointing. In those case,
 traditional approaches like REST should be considered and applied instead.     
   
 That said, the bridge is a good, reliable and sometimes preferable alternative 
-over REST for scenarios where a reasonable number of methods calls is intended. 
-
+over REST for scenarios where a reasonable number of methods calls is intended.
+ 
 Be sure to read the 
 - [http://docs.soluble.io/soluble-japha/bridge_how_it_works/](http://docs.soluble.io/soluble-japha/bridge_how_it_works/)
 - [http://docs.soluble.io/soluble-japha/bridge_benchmarks/](http://docs.soluble.io/soluble-japha/bridge_benchmarks/)  

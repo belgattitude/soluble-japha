@@ -1,8 +1,8 @@
 # Recipes
 
 !!! warning
-    For learning purposes, the bridge optimizations techniques have not 
-    been applied to the recipe examples. And if they better correspond 
+    For learning purposes, the bridge optimizations techniques might not have 
+    been applied to the recipe examples. That way, most examples will better correspond 
     to their equivalent Java syntax, they should be optimized for
     best performance. Learn more in the [language optimization](./language_optimizations.md) section. 
 
@@ -54,6 +54,10 @@ assertEquals('add your text here!', $results[0]['sentence']);
 assertEquals('Hello world.', $results[2]['sentence']);
 assertEquals('Hello', $results[2]['words'][0]);
 ```
+
+!!! tip
+    While the bridge might offer more flexibity, CoreNLP provides a [rest server](http://stanfordnlp.github.io/CoreNLP/corenlp-server.html)
+    and is recommended for integration with PHP.         
 
 
 ### JDBC example
