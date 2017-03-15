@@ -111,7 +111,7 @@ over REST for scenarios where a reasonable number of methods calls is intended
 and where you want to keep control of the code on the PHP side.
 
 !!! tip
-    Be sure to read the [optimizations](./language_optimizations.md) techniques* while developing with the bridge.
+    Be sure to read the [optimizations](./language_optimizations.md) techniques while developing with the bridge.
 
 ## Support
 
