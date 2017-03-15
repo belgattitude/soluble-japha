@@ -78,7 +78,7 @@ class TimeZone
     
     /**
      * Return default JVM/Java TimeZone.
-     * @return JavaObject Java(java.util.TimeZone)
+     * @return JavaObject Java('java.util.TimeZone')
      */    
     public function getDefault(): JavaObject {
         return $this->timezone->getDefault();        
