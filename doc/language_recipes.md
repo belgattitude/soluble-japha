@@ -12,9 +12,9 @@ The following examples are based on third-party Java libraries.
 
 !!! tip
     When using third party libraries, always check their license.
-    Their installation can be done easily added when you
-    [build](./install_server.md) your own Javabridge server. 
-    (pre-made init-scripts are available [here](https://github.com/belgattitude/php-java-bridge/blob/master/init-scripts/README.md)).
+    Their installation can be done easily added when 
+    [building](./install_server.md) your own Javabridge server. 
+    *(pre-made init-scripts are available [here](https://github.com/belgattitude/php-java-bridge/blob/master/init-scripts/README.md)).*
     
     
 ### CoreNLP
