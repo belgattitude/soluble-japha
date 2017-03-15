@@ -56,8 +56,8 @@ assertEquals('Hello', $results[2]['words'][0]);
 ```
 
 !!! tip
-    While the bridge might offer more flexibity, CoreNLP provides a [rest server](http://stanfordnlp.github.io/CoreNLP/corenlp-server.html)
-    and is recommended for integration with PHP.         
+    While the bridge might offer more flexibility, CoreNLP provides a [rest server](http://stanfordnlp.github.io/CoreNLP/corenlp-server.html)
+    that should be considered first for integration with PHP.         
 
 
 ### JDBC example
