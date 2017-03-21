@@ -202,7 +202,7 @@ class Client
         $this->java_servlet = $params['JAVA_SERVLET'];
 
         $this->RUNTIME = [];
-        $this->RUNTIME['NOTICE'] = '***USE echo java_inspect(jVal) OR print_r(java_values(jVal)) TO SEE THE CONTENTS OF THIS JAVA OBJECT!***';
+        $this->RUNTIME['NOTICE'] = '***USE echo $adapter->getDriver()->inspect(jVal) OR print_r($adapter->values(jVal)) TO SEE THE CONTENTS OF THIS JAVA OBJECT!***';
         $this->parser = new Parser($this);
         $this->protocol = new Protocol($this, $this->java_hosts, $this->java_servlet, $this->java_recv_size, $this->java_send_size);
         $this->simpleFactory = new SimpleFactory($this);
