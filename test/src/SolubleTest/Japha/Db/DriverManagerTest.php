@@ -125,7 +125,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
         $rs = $stmt->executeQuery('select * from product_category_translation limit 100');
         while ($rs->next()) {
             $category_id = $rs->getString('category_id');
-            $this->assertTrue(is_numeric($category_id->__toString()));
+            $this->assertInternalType('numeric', $category_id->__toString());
         }
         $ba = $this->adapter;
         if (!$ba->isNull($rs)) {
