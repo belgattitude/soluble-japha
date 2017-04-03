@@ -43,7 +43,7 @@ The `Soluble\Japha\Bridge\Adapter` constructor require `$options`, an associativ
 |`servlet_address` | Servlet address: &lt;host&gt;:&lt;port&gt;/&lt;uri&gt;     |
 
 !!! tip
-    The `servlet_address` &lt;uri&gt; should ends with the 'servlet.phpjavabridge' file,
+    The `servlet_address` &lt;uri&gt; should ends with the **'servlet.phpjavabridge'** file,
     i.e: 'localhost:8080/path/servlet.phpjavabridge'.  
 
 
@@ -97,17 +97,25 @@ During initialization with the BridgeAdapter, the following exceptions could hap
 
 | ExceptionClass                           | Description                 |
 |------------------------------------------|-----------------------------|
-|`Soluble\Japha\Bridge\Exception\ConnectionException`        | Server not available        |
-|`Soluble\Japha\Bridge\Exception\ConfigurationException`     | Invalid parameter           |
-|`Soluble\Japha\Bridge\Exception\UnsupportedDriverException` | No valid driver             |
-|`Soluble\Japha\Bridge\Exception\InvalidArgumentException`   | Connection params not an array   |
+|`Soluble\Japha\Bridge\Exception\ConnectionException`        | Server not available *(network port is unreachable)*     |
+|`Soluble\Japha\Bridge\Exception\ConfigurationException`     | Invalid connection parameter *(check config)*          |
+|`Soluble\Japha\Bridge\Exception\UnsupportedDriverException` | Specified driver is not supported *(check config)*             |
+|`Soluble\Japha\Bridge\Exception\InvalidArgumentException`   | Invalid argument in constructor *(check usage)*   |
 
-
-!!! note
-    The `Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException` can be thrown
-    in case of failure during communication. See your server (tomcat or standalone) logs for detail if
-    it happens. Also note that this exception could be thrown when the provided servlet address 
-    points to a service different than the bridge. Check it first.
+!!! warning
+    To provide faster initialization, soluble-japha does not deeply check the connection and
+    consider a running http(s) port as valid. This can lead to confusion if your connection
+    params points to a different running servlet. In this case the `ConnectionException` won't be
+    thrown but you'll experience a `Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException`
+    when calling java objects. 
+     
+    A classic example: you forgot to include the servlet uri in your connection params. Instead
+    of setting `http://localhost:8080/MyJavaBridge/servlet.phpjavabridge`, you've passed
+    `http://localhost:8080/servlet.phpjavabridge`. The connection will succeed *(no `ConnectionException` will be thrown)*
+    because there's a listening server. But once you'll call a method on the bridge you'll
+    end up with the `BrokenConnectionException`. Fix your config to the correct bridge address.
+       
+    
 
 
 
