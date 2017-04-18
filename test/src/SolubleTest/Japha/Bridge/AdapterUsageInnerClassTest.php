@@ -51,7 +51,6 @@ class AdapterUsageInnerClassTest extends \PHPUnit_Framework_TestCase
         // @see https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html
         $builder = $ba->java('java.util.Calendar$Builder');
 
-        // The inner class is successfully retrieved
         $this->assertEquals('java.util.Calendar$Builder', $ba->getClassName($builder));
 
         $calendar = $builder->setCalendarType('gregory')->build();
