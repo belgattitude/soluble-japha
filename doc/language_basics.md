@@ -7,7 +7,8 @@
     
     1. Java supports [overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html) for methods (and constructors).
     2. PHP have the *multipurpose* array for everything, Java does not. See [here](#array-types) to learn more.
-    3. DateTime and timezones are handled differenlty, see [here](#working-with-dates) to learn more.          
+    3. DateTime and timezones are handled differenlty, see [here](#working-with-dates) to learn more.
+    4. Java supports inner classes. See [here](#inner-classes)          
      
     And remember  
     
@@ -104,6 +105,12 @@ Static methods are called like regular php methods (no `::`).
 $calendar = $ba->javaClass('java.util.Calendar')->getInstance();
 ```
 
+!!! tip
+    Note the use of `$ba->javaClass(...)` instead of `$ba->java(...)` to refer to
+    the java class and call the static method on it. Remember to use it whenever 
+    you face a factory, singleton or a generic static method.     
+
+
 ## Constants
 
 Constants on java classes are called like regular properties (no `::`).
@@ -138,6 +145,31 @@ foreach ($properties as $key => $value) {
 }
 ```
 
+## Inner classes
+
+Java supports inner classes *(classes as a class property)*. 
+To explicitly refer to an inner class, the `FQDN` separator should be a `$` sign instead
+of the regular `.`. 
+
+The following example makes use of the [Calendar.Builder](https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html) class:
+     
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+
+$builder = $ba->java('java.util.Calendar$Builder');
+echo $ba->getClassName($builder); // will print 'java.util.Calendar$Builder'
+
+$calendar = $builder->setCalendarType('gregory')->build();
+echo $ba->getClassName($calendar); // will print 'java.util.GregorianCalendar' 
+```
+
+!!! warning
+    As PHP will interpret the `$` as a variable, be sure to use
+    single-quotes to hold the class name.
+    
 
 ## Datatypes
 
