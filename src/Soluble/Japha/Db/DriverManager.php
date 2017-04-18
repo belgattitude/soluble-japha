@@ -37,7 +37,7 @@ class DriverManager
      * @param string $dsn
      * @param string $driverClass
      *
-     * @return Interfaces\JavaObject Java(java.sql.Connection)
+     * @return Interfaces\JavaObject Java('java.sql.Connection')
      */
     public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
     {
@@ -68,7 +68,7 @@ class DriverManager
     /**
      * Return underlying java driver manager.
      *
-     * @return Interfaces\JavaObject Java(java.sql.DriverManager)
+     * @return Interfaces\JavaObject Java('java.sql.DriverManager')
      */
     public function getDriverManager()
     {
@@ -80,7 +80,7 @@ class DriverManager
     }
 
     /**
-     * Return a JDBC DSN string.
+     * Return a JDBC DSN formatted string.
      *
      * @param string $db         database name
      * @param string $host       server ip or name
