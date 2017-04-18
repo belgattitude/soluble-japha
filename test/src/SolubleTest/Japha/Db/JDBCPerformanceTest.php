@@ -127,7 +127,8 @@ class JDBCPerformanceTest extends \PHPUnit_Framework_TestCase
         $db = $config['database'];
         $user = $config['username'];
         $password = $config['password'];
-        $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password";
+        $serverTimezone = urlencode('GMT+1');
+        $dsn = "jdbc:mysql://$host/$db?user=$user&password=$password&serverTimezone=$serverTimezone";
 
         return $dsn;
     }
