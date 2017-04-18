@@ -43,33 +43,19 @@ class AdapterUsageInnerClassTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    public function testInnerClass()
+    public function testInnerClassCalendarBuilder()
     {
         $ba = $this->adapter;
-        $calClass = $ba->javaClass('java.util.Calendar');
 
         // Use inner class, notice the '$' separator
-        $builder = $ba->javaClass('java.util.Calendar$Builder');
+        // @see https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html
+        $builder = $ba->java('java.util.Calendar$Builder');
 
         // The inner class is successfully retrieved
         $this->assertEquals('java.util.Calendar$Builder', $ba->getClassName($builder));
 
-        // @TODO research on this error
-        //
-        // PHP-JAVA-BRIDGE SERVER ERROR.
-        // -----------------------------
-        // But this test fails...
-        // The inner class is not usable... calling a method on it
-        // will throw an exception:
-        // > Invoke failed: [[c:Calendar$Builder]]->setCalendarType([o:PhpParserString]).
-        // > Cause: io.soluble.pjb.bridge.NoSuchProcedureException:
-        // >   static setCalendarType([o:PhpParserString]). Candidates: [] VM: 1.8.0_121@http://java.oracle.com/
+        $calendar = $builder->setCalendarType('gregory')->build();
 
-        /*
-        $calendar = $builder->setCalendarType('japanese')
-                            ->setFields($calClass->YEAR, 1, $calClass->DAY_OF_YEAR, 1)
-                            ->build();
-        $this->assertEquals('java.util.Calendar', $ba->getClassName($calendar);
-        */
+        $this->assertEquals('java.util.GregorianCalendar', $ba->getClassName($calendar));
     }
 }
