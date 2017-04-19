@@ -148,7 +148,7 @@ foreach ($properties as $key => $value) {
 ## Inner classes
 
 Java supports inner classes *(classes as a class property)*. 
-To explicitly refer to an inner class, the `FQDN` separator should be a `$` sign instead
+To explicitly refer to an inner class, the `FQDN` separator must be a **`$`** sign instead
 of the regular `.`. 
 
 The following example makes use of the [Calendar.Builder](https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html) class:
@@ -158,7 +158,7 @@ The following example makes use of the [Calendar.Builder](https://docs.oracle.co
 
 // $ba = new BridgeAdapter(...); 
 
-
+// NOTICE THE DOLLAR SIGN in 'Calendar$Builder'
 $builder = $ba->java('java.util.Calendar$Builder');
 echo $ba->getClassName($builder); // will print 'java.util.Calendar$Builder'
 

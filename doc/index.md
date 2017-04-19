@@ -101,7 +101,7 @@ Depending on usage, the benefits of freedom offered by the bridge
 can become a limitation in term of performance. Keep in mind that 
 the bridge is sensitive to the number of objects and method calls
 (named `roundtrips`) and if few hundreds of methods calls are 
-often insignificant (a `roundtrip` is generally less than 0.5ms, 
+often insignificant (a `roundtrip` is generally less than 0.1ms, 
 see [benchmarks](./bridge_benchmarks.md)) going further
 its target scenarios can be disappointing. In those case, 
 traditional approaches like REST should be considered and applied instead.     
