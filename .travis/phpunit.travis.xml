@@ -44,6 +44,9 @@
 
         -->
         <server name="JAPHA_ENABLE_JDBC_TESTS" value="true" />
+        <server name="JAPHA_ENABLE_JSONIO_TESTS" value="true" />
+        <server name="JAPHA_ENABLE_GSON_TESTS" value="true" />
+
         
         <server name="MYSQL_DRIVER" value="Mysqli" />
         <server name="MYSQL_HOSTNAME" value="127.0.0.1" />
