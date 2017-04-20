@@ -59,22 +59,25 @@ class GsonTest extends \PHPUnit_Framework_TestCase
         $ba = $this->adapter;
         $gson = $ba->java('com.google.gson.Gson');
 
-        $date = '2017-05-20';
         $simpleDateFormat = $ba->java('java.text.SimpleDateFormat', 'yyyy-MM-dd');
-        $javaDate = $simpleDateFormat->parse($date); // This is a Java date
 
         $hashMap = $ba->java('java.util.HashMap', [
             'integer' => 1,
             'phpstring' => 'PHP Héllo',
             'javastring' => $ba->java('java.lang.String', 'Java Héllo'),
-            'javadate' => $javaDate
+            'javadate' => $simpleDateFormat->parse('2017-05-20')
         ]);
 
         $jsonString = (string) $gson->toJson($hashMap);
+        // Will produce:
+        //   {
+        //     "javastring":"Java Héllo",
+        //     "javadate":"May 20, 2017 12:00:00 AM",
+        //     "phpstring":"PHP Héllo",
+        //     "integer":1
+        //   }
 
         $this->assertJson($jsonString);
-        $this->assertEquals('{"javastring":"Java Héllo","javadate":"May 20, 2017 12:00:00 AM","phpstring":"PHP Héllo","integer":1}', $jsonString);
-
         $decoded = json_decode($jsonString);
         $this->assertEquals('Java Héllo', $decoded->javastring);
     }

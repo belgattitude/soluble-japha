@@ -56,24 +56,35 @@ class JsonIoTest extends \PHPUnit_Framework_TestCase
         $ba = $this->adapter;
         $jsonWriter = $ba->javaClass('com.cedarsoftware.util.io.JsonWriter');
 
-        $date = '2017-05-20';
         $simpleDateFormat = $ba->java('java.text.SimpleDateFormat', 'yyyy-MM-dd');
-        $javaDate = $simpleDateFormat->parse($date); // This is a Java date
 
         $hashMap = $ba->java('java.util.HashMap', [
             'integer' => 1,
             'phpstring' => 'PHP Héllo',
             'javastring' => $ba->java('java.lang.String', 'Java Héllo'),
-            'javadate' => $javaDate
+            'javadate' => $simpleDateFormat->parse('2017-05-20')
         ]);
 
         $jsonString = (string) $jsonWriter->objectToJson($hashMap);
+        // Will produce
+        // {
+        //   "@type":"java.util.HashMap",
+        //   "javastring":"Java Héllo",
+        //   "javadate": {
+        //         "@type":"date",
+        //         "value":1495231200000
+        //   },
+        //   "phpstring":"PHP Héllo",
+        //   "integer": {
+        //          "@type":"int",
+        //          "value":1
+        //   }
+        // }
 
         $this->assertJson($jsonString);
-        $this->assertEquals('{"@type":"java.util.HashMap","javastring":"Java Héllo","javadate":{"@type":"date","value":1495231200000},"phpstring":"PHP Héllo","integer":{"@type":"int","value":1}}', $jsonString);
-
         $decoded = json_decode($jsonString);
         $this->assertEquals('date', $decoded->javadate->{'@type'});
+        $this->assertEquals('Java Héllo', $decoded->javastring);
     }
 
     protected function isJsonIoTestsEnabled()

@@ -16,6 +16,87 @@ The following examples are based on third-party Java libraries.
     [building](./install_server.md) your own Javabridge server. 
     *(pre-made init-scripts are available [here](https://github.com/belgattitude/php-java-bridge/blob/master/init-scripts/README.md)).*
     
+
+### Json 
+
+Json serialization can be particularly whenever you want to retrieve
+a java object representation. 
+
+    
+#### GSON  
+  
+Gson is a fast and simple json serializer from google. 
+    
+    
+```php
+<?php
+//...
+
+$gson = $ba->java('com.google.gson.Gson');
+
+$simpleDateFormat = $ba->java('java.text.SimpleDateFormat', 'yyyy-MM-dd');
+
+$hashMap = $ba->java('java.util.HashMap', [
+    'integer' => 1,
+    'phpstring' => 'PHP Héllo',
+    'javastring' => $ba->java('java.lang.String', 'Java Héllo'),
+    'javadate' => $simpleDateFormat->parse('2017-05-20')
+]);
+
+$jsonString = (string) $gson->toJson($hashMap);
+// Will produce:
+//   {
+//     "javastring":"Java Héllo",
+//     "javadate":"May 20, 2017 12:00:00 AM",
+//     "phpstring":"PHP Héllo",
+//     "integer":1
+//   }
+
+$decoded = json_decode($jsonString);
+// assertEquals('Java Héllo', $decoded->javastring);
+    
+```    
+
+#### Json-io  
+  
+[Json-io](https://github.com/jdereg/json-io) is another serializer. 
+
+```php
+<?php
+//...
+
+$jsonWriter = $ba->javaClass('com.cedarsoftware.util.io.JsonWriter');
+
+$simpleDateFormat = $ba->java('java.text.SimpleDateFormat', 'yyyy-MM-dd');
+
+$hashMap = $ba->java('java.util.HashMap', [
+    'integer' => 1,
+    'phpstring' => 'PHP Héllo',
+    'javastring' => $ba->java('java.lang.String', 'Java Héllo'),
+    'javadate' => $simpleDateFormat->parse('2017-05-20')
+]);
+
+$jsonString = (string) $jsonWriter->objectToJson($hashMap);
+// Will produce
+// {
+//   "@type":"java.util.HashMap",
+//   "javastring":"Java Héllo",
+//   "javadate": {
+//         "@type":"date",
+//         "value":1495231200000
+//   },
+//   "phpstring":"PHP Héllo",
+//   "integer": {
+//          "@type":"int",
+//          "value":1
+//   }
+// }
+
+$decoded = json_decode($jsonString);
+// assertEquals('date', $decoded->javadate->{'@type'});
+// assertEquals('Java Héllo', $decoded->javastring);
+
+```    
     
 ### CoreNLP
 
