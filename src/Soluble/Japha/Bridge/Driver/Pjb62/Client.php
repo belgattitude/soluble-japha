@@ -443,7 +443,7 @@ class Client
     /**
      * @return ParserString
      */
-    protected function createParserString()
+    public function createParserString()
     {
         return new ParserString();
     }
