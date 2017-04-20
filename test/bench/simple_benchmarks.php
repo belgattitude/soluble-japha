@@ -67,6 +67,15 @@ $bm->time('javaClass(`java.sql.DriverManager`)',
         }
     });
 
+$formatStyle = $ba->java('java.time.format.FormatStyle');
+
+$bm->time('javaClass and enums',
+    function ($iterations) use ($ba, $formatStyle) {
+        for ($i = 0; $i < $iterations; ++$i) {
+            $style = $formatStyle->LONG;
+        }
+    });
+
 $jString = $ba->java('java.lang.String', 'Hello world');
 $bm->time('Method call `java.lang.String->length()`',
     function ($iterations) use ($ba, $jString) {
