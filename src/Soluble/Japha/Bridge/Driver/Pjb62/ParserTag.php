@@ -42,12 +42,12 @@ class ParserTag
     /**
      * @var int
      */
-    protected $n;
+    public $n;
 
     /**
      * @var array
      */
-    protected $strings;
+    public $strings;
 
     public function __construct()
     {

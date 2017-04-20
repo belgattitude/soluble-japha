@@ -4,19 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.3.0 TBD
+## 1.2.2 (2017-05-20)
 
-### Documentation
+## Improved
 
-- Added documentation for inner class support.
+- Improved messages on socket errors (errno and errstr)
+- Added 'protected' members on relevant methods and attributes. 
+
+### Fixed
+
+- Unit tests: Fixed minor issue with mariadb connector in JDBC tests (serverTimezone)
 
 ### Added
 
 - Unit tests for inner classes and enumset.
 
-### Fixed
+### Documentation
 
-- Unit tests: Fixed minor issue with mariadb connector in JDBC tests (serverTimezone)
+- Added documentation for inner class support.
+- Added recipes for gson, json-io serialization. 
+
 
 ## 1.2.1 (2017-03-21)
 
