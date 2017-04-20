@@ -443,14 +443,6 @@ class Client
     }
 
     /**
-     * @return ParserString
-     */
-    public function createParserString()
-    {
-        return new ParserString();
-    }
-
-    /**
      * @param mixed $arg
      */
     protected function writeArg($arg)

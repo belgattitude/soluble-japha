@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Unit tests for inner classes and enumset.
 
+### Removed
+
+- Removed Client::createParserString and moved the code into SimpleParser *(only used by HHVM)*.
+  If you rely by mistake on this method, it can be replaced by `new ParserString()`, not considered
+  as a bc-break because this method is only used by hhmv xml parser and was not documented.
+
 ### Documentation
 
 - Added documentation for inner class support.

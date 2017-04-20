@@ -126,7 +126,7 @@ class SimpleParser implements ParserInterface
         $this->s[$this->i] = '|';
         if (!isset($str[$n])) {
             $h = $this->handler;
-            $str[$n] = $h->createParserString();
+            $str[$n] = new ParserString();
         }
         $str[$n]->string = &$this->s;
         $str[$n]->off = $this->i0;
