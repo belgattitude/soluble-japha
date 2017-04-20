@@ -15,13 +15,54 @@ The following examples are based on third-party Java libraries.
     Their installation can be done easily added when 
     [building](./install_server.md) your own Javabridge server. 
     *(pre-made init-scripts are available [here](https://github.com/belgattitude/php-java-bridge/blob/master/init-scripts/README.md)).*
+        
+### CoreNLP
+
+Example based on the [http://stanfordnlp.github.io/CoreNLP/simple.html](http://stanfordnlp.github.io/CoreNLP/simple.html).
+
+```php
+<?php declare(strict_types=1);
+
+function getSentences(Adapter $ba, string $text): array
+{
+    $doc = $ba->java('edu.stanford.nlp.simple.Document', $text);
+    $sentences = $doc->sentences();
     
+    $d = $ba->getDriver();
+    $results = [];
+
+    foreach($sentences as $idx => $sentence) {
+        $results[$idx] = [
+            'sentence' => (string) $sentence,
+            'words'    => $d->values($sentence->words()),
+            
+            // If you have a model installed you can
+            // use lemmas(), posTags(), parse()... methods
+            'lemmas'  => $d->values($sentence->lemmas()),
+            'posTags' => $d->values($sentence->posTags()), 
+            'parse'   => $d->values($sentence->parse())
+        ];
+    }
+    
+    return $results;
+}
+
+$text = "add your text here! It can contain multiple sentences. Hello world.";
+$results = getSentences($ba, $text);
+assertEquals('add your text here!', $results[0]['sentence']);
+assertEquals('Hello world.', $results[2]['sentence']);
+assertEquals('Hello', $results[2]['words'][0]);
+```
+
+!!! tip
+    While the bridge might offer more flexibility, CoreNLP provides a [rest server](http://stanfordnlp.github.io/CoreNLP/corenlp-server.html)
+    that should be considered first for integration with PHP.         
+
 
 ### Json 
 
-Json serialization can be particularly whenever you want to retrieve
-a java object representation. 
-
+Json serialization can be particularly useful whenever you want to retrieve
+a java object representation. It could be used as an optimization technique as well.
     
 #### GSON  
   
@@ -97,48 +138,6 @@ $decoded = json_decode($jsonString);
 // assertEquals('Java Héllo', $decoded->javastring);
 
 ```    
-    
-### CoreNLP
-
-Example based on the [http://stanfordnlp.github.io/CoreNLP/simple.html](http://stanfordnlp.github.io/CoreNLP/simple.html).
-
-```php
-<?php declare(strict_types=1);
-
-function getSentences(Adapter $ba, string $text): array
-{
-    $doc = $ba->java('edu.stanford.nlp.simple.Document', $text);
-    $sentences = $doc->sentences();
-    
-    $d = $ba->getDriver();
-    $results = [];
-
-    foreach($sentences as $idx => $sentence) {
-        $results[$idx] = [
-            'sentence' => (string) $sentence,
-            'words'    => $d->values($sentence->words()),
-            
-            // If you have a model installed you can
-            // use lemmas(), posTags(), parse()... methods
-            'lemmas'  => $d->values($sentence->lemmas()),
-            'posTags' => $d->values($sentence->posTags()), 
-            'parse'   => $d->values($sentence->parse())
-        ];
-    }
-    
-    return $results;
-}
-
-$text = "add your text here! It can contain multiple sentences. Hello world.";
-$results = getSentences($ba, $text);
-assertEquals('add your text here!', $results[0]['sentence']);
-assertEquals('Hello world.', $results[2]['sentence']);
-assertEquals('Hello', $results[2]['words'][0]);
-```
-
-!!! tip
-    While the bridge might offer more flexibility, CoreNLP provides a [rest server](http://stanfordnlp.github.io/CoreNLP/corenlp-server.html)
-    that should be considered first for integration with PHP.         
 
 
 ### JDBC example

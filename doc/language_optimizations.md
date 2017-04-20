@@ -13,20 +13,6 @@ with the bridge that can lead to poor performance.
 
 Instead, you can use the `values()` method to retrieve the values in one run: 
 
-
-### Vector example
-
-```php
-<?php
-
-$array = array_fill(0, 1000, 'Hello');
-$vector = $ba->java('java.util.Vector', $array);
-
-$values = $ba->values($vector);
-// $values === $array 
-
-```
-
 ### HashMap example
 
 
@@ -46,6 +32,19 @@ $arrFromJava = $ba->values($hashMap);
 // $arrOfArray is identical from $arrFromJava (one roundtrip) 
 ```
 
+### Vector example
+
+```php
+<?php
+
+$array = array_fill(0, 1000, 'Hello');
+$vector = $ba->java('java.util.Vector', $array);
+
+$values = $ba->values($vector);
+// $values === $array 
+
+```
+
 ## Optimizing loops
 
 One of many techniques to solve loop/iterations issues (increase rountrips) is to build
@@ -54,3 +53,7 @@ an ArrayList, Linked list on the Java side instead of iterating from the PHP sid
 WIP: see the [JDBCPerformanceTest](https://github.com/belgattitude/soluble-japha/blob/master/test/src/SolubleTest/Japha/Db/JDBCPerformanceTest.php).
 
 
+## Java serialization
+
+Whenever you need to retrieve a complex object structure (deep nesting...), you can use
+object serialization on the backend. See the recipes for [json serialization](./language_recipes.md#json) as an example.
