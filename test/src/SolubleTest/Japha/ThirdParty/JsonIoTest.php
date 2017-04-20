@@ -30,29 +30,12 @@ class JsonIoTest extends \PHPUnit_Framework_TestCase
                 'Skipping JSONIO tests, enable option in phpunit.xml'
             );
         }
-
         \SolubleTestFactories::startJavaBridgeServer();
-
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
-
         $this->adapter = new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
         ]);
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
-
-    protected function isJsonIoTestsEnabled()
-    {
-        return isset($_SERVER['JAPHA_ENABLE_JSONIO_TESTS']) &&
-            $_SERVER['JAPHA_ENABLE_JSONIO_TESTS'] == true;
     }
 
     /**
@@ -61,19 +44,41 @@ class JsonIoTest extends \PHPUnit_Framework_TestCase
     public function testJavaSimpleJsonSerialization()
     {
         $ba = $this->adapter;
-
         $jsonWriter = $ba->javaClass('com.cedarsoftware.util.io.JsonWriter');
 
         $string = $ba->java('java.lang.String', 'Hello world');
-
         $encoded = $jsonWriter->objectToJson($string);
-
         $this->assertEquals('"Hello world"', (string) $encoded);
+    }
 
-        $hashMap = $ba->java('java.util.HashMap', ['test' => 1, 'name' => 'cool']);
+    public function testObjectJsonSerialization()
+    {
+        $ba = $this->adapter;
+        $jsonWriter = $ba->javaClass('com.cedarsoftware.util.io.JsonWriter');
 
-        $encoded = $jsonWriter->objectToJson($hashMap);
+        $date = '2017-05-20';
+        $simpleDateFormat = $ba->java('java.text.SimpleDateFormat', 'yyyy-MM-dd');
+        $javaDate = $simpleDateFormat->parse($date); // This is a Java date
 
-        $this->assertEquals('{"@type":"java.util.HashMap","test":{"@type":"int","value":1},"name":"cool"}', (string) $encoded);
+        $hashMap = $ba->java('java.util.HashMap', [
+            'integer' => 1,
+            'phpstring' => "I'm a php string",
+            'javastring' => $ba->java('java.lang.String', "I'm a Java string"),
+            'javadate' => $javaDate
+        ]);
+
+        $jsonString = (string) $jsonWriter->objectToJson($hashMap);
+
+        $this->assertJson($jsonString);
+        $this->assertEquals('{"@type":"java.util.HashMap","javastring":"I\'m a Java string","javadate":{"@type":"date","value":1495231200000},"phpstring":"I\'m a php string","integer":{"@type":"int","value":1}}', $jsonString);
+
+        $decoded = json_decode($jsonString);
+        $this->assertEquals('date', $decoded->javadate->{'@type'});
+    }
+
+    protected function isJsonIoTestsEnabled()
+    {
+        return isset($_SERVER['JAPHA_ENABLE_JSONIO_TESTS']) &&
+            $_SERVER['JAPHA_ENABLE_JSONIO_TESTS'] == true;
     }
 }
