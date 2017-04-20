@@ -405,6 +405,8 @@ class Client
                 if ($st['n'] != 'T') {
                     $arg->setVoidSignature();
                 }
+                // Fall back to setting result to null
+                // no break here
             case 'N':
                 $arg->setResult(null);
                 break;
