@@ -42,40 +42,46 @@ class GsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
-
-    protected function isGSONTestsEnabled()
-    {
-        return isset($_SERVER['JAPHA_ENABLE_GSON_TESTS']) &&
-            $_SERVER['JAPHA_ENABLE_GSON_TESTS'] == true;
-    }
-
-    /**
      * @see https://github.com/google/gson
      */
     public function testJavaSimpleJsonSerialization()
     {
         $ba = $this->adapter;
 
-        /*
-        $jsonWriter = $ba->javaClass('com.cedarsoftware.util.io.JsonWriter');
+        $gson = $ba->java('com.google.gson.Gson');
+        $jsonString = $gson->toJson($ba->java('java.lang.String', 'Héllo'));
 
-        $string = $ba->java('java.lang.String', 'Hello world');
+        $this->assertEquals('"Héllo"', (string) $jsonString);
+    }
 
-        $encoded = $jsonWriter->objectToJson($string);
+    public function testObjectJsonSerialization()
+    {
+        $ba = $this->adapter;
+        $gson = $ba->java('com.google.gson.Gson');
 
-        $this->assertEquals('"Hello world"', (string) $encoded);
+        $date = '2017-05-20';
+        $simpleDateFormat = $ba->java('java.text.SimpleDateFormat', 'yyyy-MM-dd');
+        $javaDate = $simpleDateFormat->parse($date); // This is a Java date
 
-        $hashMap = $ba->java('java.util.HashMap', ['test' => 1, 'name' => 'cool']);
+        $hashMap = $ba->java('java.util.HashMap', [
+            'integer' => 1,
+            'phpstring' => 'PHP Héllo',
+            'javastring' => $ba->java('java.lang.String', 'Java Héllo'),
+            'javadate' => $javaDate
+        ]);
 
-        $encoded = $jsonWriter->objectToJson($hashMap);
+        $jsonString = (string) $gson->toJson($hashMap);
 
-        $this->assertEquals('{"@type":"java.util.HashMap","test":{"@type":"int","value":1},"name":"cool"}', (string) $encoded);
-        */
+        $this->assertJson($jsonString);
+        $this->assertEquals('{"javastring":"Java Héllo","javadate":"May 20, 2017 12:00:00 AM","phpstring":"PHP Héllo","integer":1}', $jsonString);
+
+        $decoded = json_decode($jsonString);
+        $this->assertEquals('Java Héllo', $decoded->javastring);
+    }
+
+    protected function isGSONTestsEnabled()
+    {
+        return isset($_SERVER['JAPHA_ENABLE_GSON_TESTS']) &&
+            $_SERVER['JAPHA_ENABLE_GSON_TESTS'] == true;
     }
 }

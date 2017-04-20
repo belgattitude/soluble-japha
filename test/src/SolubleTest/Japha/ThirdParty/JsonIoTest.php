@@ -62,15 +62,15 @@ class JsonIoTest extends \PHPUnit_Framework_TestCase
 
         $hashMap = $ba->java('java.util.HashMap', [
             'integer' => 1,
-            'phpstring' => "I'm a php string",
-            'javastring' => $ba->java('java.lang.String', "I'm a Java string"),
+            'phpstring' => 'PHP Héllo',
+            'javastring' => $ba->java('java.lang.String', 'Java Héllo'),
             'javadate' => $javaDate
         ]);
 
         $jsonString = (string) $jsonWriter->objectToJson($hashMap);
 
         $this->assertJson($jsonString);
-        $this->assertEquals('{"@type":"java.util.HashMap","javastring":"I\'m a Java string","javadate":{"@type":"date","value":1495231200000},"phpstring":"I\'m a php string","integer":{"@type":"int","value":1}}', $jsonString);
+        $this->assertEquals('{"@type":"java.util.HashMap","javastring":"Java Héllo","javadate":{"@type":"date","value":1495231200000},"phpstring":"PHP Héllo","integer":{"@type":"int","value":1}}', $jsonString);
 
         $decoded = json_decode($jsonString);
         $this->assertEquals('date', $decoded->javadate->{'@type'});
