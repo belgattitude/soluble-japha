@@ -60,6 +60,13 @@ $bm->time('New java(`java.math.BigInteger`, 1)',
         }
     });
 
+$bm->time('javaClass(`java.sql.DriverManager`)',
+    function ($iterations) use ($ba) {
+        for ($i = 0; $i < $iterations; ++$i) {
+            $ba->javaClass('java.sql.DriverManager');
+        }
+    });
+
 $jString = $ba->java('java.lang.String', 'Hello world');
 $bm->time('Method call `java.lang.String->length()`',
     function ($iterations) use ($ba, $jString) {

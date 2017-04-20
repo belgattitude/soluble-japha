@@ -17,6 +17,7 @@ Connection time: `$ba = new BridgeAdapter([])` varies between around 2ms and 7ms
 |----| ----:|----:|----:|----:|-------:|----:| 
 | New java(`java.lang.String`, "One") | 0.14ms| 4.09ms| 34.17ms| 282.30ms| 0.03ms| 12.37Kb|
 | New java(`java.math.BigInteger`, 1) | 0.05ms| 3.28ms| 32.51ms| 308.27ms| 0.03ms| 0.37Kb|
+| javaClass(`java.sql.DriverManager`) | 0.09ms| 0.02ms| 0.14ms| 1.69ms| 0.00ms| 3.12Kb|
 | Method call `java.lang.String->length()` | 0.05ms| 2.14ms| 21.60ms| 226.35ms| 0.02ms| 0.34Kb|
 | Method call `String->concat("hello")` | 0.08ms| 2.59ms| 27.30ms| 287.79ms| 0.03ms| 2.09Kb|
 | $a = `...String->concat('hello')` . ' world' | 0.09ms| 5.81ms| 54.64ms| 532.68ms| 0.05ms| 0.42Kb|
