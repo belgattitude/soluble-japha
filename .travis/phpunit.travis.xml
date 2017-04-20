@@ -80,8 +80,4 @@
             </exclude>		
         </whitelist>
     </filter>
-    <logging>
-        <log type="coverage-clover" target="../test/build/logs/clover.xml"/>
-        <log type="coverage-html" target="../test/build/html-coverage" charset="UTF-8" yui="true" highlight="false" lowUpperBound="35" highLowerBound="70"/>
-    </logging>		
 </phpunit>
