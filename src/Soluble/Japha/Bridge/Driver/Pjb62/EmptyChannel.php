@@ -46,6 +46,9 @@ class EmptyChannel
      */
     protected $handler;
 
+    /**
+     * @var resource
+     */
     private $res;
 
     /**
@@ -109,7 +112,10 @@ class EmptyChannel
         return $this->getKeepAliveE();
     }
 
-    public function error()
+    /**
+     * @throws Exception\RuntimeException
+     */
+    protected function error()
     {
         $msg = 'An unchecked exception occured during script execution. Please check the server log files for details.';
         throw new Exception\RuntimeException($msg);

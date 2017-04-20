@@ -42,15 +42,27 @@ class NativeParser implements ParserInterface
     /**
      * @var resource
      */
-    public $parser;
+    protected $parser;
 
     /**
      * @var Client
      */
-    public $client;
-    public $level;
-    public $event;
-    public $buf;
+    protected $client;
+
+    /**
+     * @var int
+     */
+    protected $level;
+
+    /**
+     * @var bool
+     */
+    protected $event;
+
+    /**
+     * @var string
+     */
+    protected $buf;
 
     /**
      * @param Client $client
@@ -71,7 +83,7 @@ class NativeParser implements ParserInterface
      * @param string   $name
      * @param mixed    $param
      */
-    public function begin($parser, $name, $param)
+    protected function begin($parser, $name, $param)
     {
         $this->event = true;
         switch ($name) {
@@ -113,11 +125,11 @@ class NativeParser implements ParserInterface
         do {
             $this->event = false;
 
-            $buf = $this->buf = $this->client->read($java_recv_size);
-            $len = strlen($buf);
-            if (!xml_parse($this->parser, $buf, $len == 0)) {
+            $this->buf = $this->client->read($java_recv_size);
+            $len = strlen($this->buf);
+            if (!xml_parse($this->parser, $this->buf, $len == 0)) {
                 $this->client->protocol->handler->shutdownBrokenConnection(
-                    sprintf('protocol error: %s,%s at col %d. Check the back end log for OutOfMemoryErrors.', $buf, xml_error_string(xml_get_error_code($this->parser)), xml_get_current_column_number($this->parser))
+                    sprintf('protocol error: %s,%s at col %d. Check the back end log for OutOfMemoryErrors.', $this->buf, xml_error_string(xml_get_error_code($this->parser)), xml_get_current_column_number($this->parser))
                 );
             }
         } while (!$this->event || $this->level > 0);

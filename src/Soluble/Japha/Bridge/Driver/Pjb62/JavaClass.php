@@ -40,7 +40,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 use Soluble\Japha\Interfaces;
 
 /**
- * @method JavaObject forName(string $name)
+ * @method \Soluble\Japha\Interfaces\JavaObject forName(string $name)
  */
 class JavaClass extends Java implements Interfaces\JavaClass
 {

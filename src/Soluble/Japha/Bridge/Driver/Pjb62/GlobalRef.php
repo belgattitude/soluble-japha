@@ -42,7 +42,7 @@ class GlobalRef
     /**
      * @var array
      */
-    public $map;
+    protected $map;
 
     public function __construct()
     {

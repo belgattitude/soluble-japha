@@ -40,6 +40,10 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 class CompositeArg extends Arg
 {
     public $parentArg;
+
+    /**
+     * @var int
+     */
     public $idx;
 
     /**

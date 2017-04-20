@@ -42,9 +42,9 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
  *
  * @method bool offsetExists(string $name)
  * @method mixed offsetGet(string $name)
- * @method offsetSet(string $name, mixed $value)
- * @method offsetUnset(string $name)
- * @method string|\Soluble\Japha\Interfaces\JavaObject getName()
+ * @method void offsetSet(string $name, mixed $value)
+ * @method void offsetUnset(string $name)
+ * @method string getName()
  */
 class IteratorProxy extends JavaProxy implements \IteratorAggregate
 {

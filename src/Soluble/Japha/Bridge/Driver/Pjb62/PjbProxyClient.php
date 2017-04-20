@@ -61,7 +61,7 @@ class PjbProxyClient implements ClientInterface
     protected $compatibilityOption;
 
     /**
-     * @var array
+     * @var ArrayObject
      */
     protected $options;
 
@@ -98,7 +98,7 @@ class PjbProxyClient implements ClientInterface
     protected function __construct(array $options, LoggerInterface $logger)
     {
         self::$instanceOptionsKey = serialize($options);
-        $this->options = array_merge($options, $this->defaultOptions);
+        $this->options = new ArrayObject(array_merge($options, $this->defaultOptions));
         $this->logger = $logger;
         $this->loadClient();
     }

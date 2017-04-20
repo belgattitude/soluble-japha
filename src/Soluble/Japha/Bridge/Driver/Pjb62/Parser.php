@@ -42,7 +42,7 @@ class Parser
     /**
      * @var ParserInterface
      */
-    public $parser;
+    protected $parser;
 
     /**
      * @param Client $handler
@@ -65,6 +65,11 @@ class Parser
         $this->parser->parse();
     }
 
+    /**
+     * @param string $str
+     *
+     * @return mixed|string
+     */
     public function getData($str)
     {
         return $this->parser->getData($str);

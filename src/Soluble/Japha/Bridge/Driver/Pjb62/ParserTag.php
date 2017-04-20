@@ -39,8 +39,15 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class ParserTag
 {
-    public $n;
-    public $strings;
+    /**
+     * @var int
+     */
+    protected $n;
+
+    /**
+     * @var array
+     */
+    protected $strings;
 
     public function __construct()
     {

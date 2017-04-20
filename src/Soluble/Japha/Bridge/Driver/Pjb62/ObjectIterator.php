@@ -57,21 +57,33 @@ class ObjectIterator implements Iterator
         reset($this->var);
     }
 
+    /**
+     * @return bool
+     */
     public function valid()
     {
         return $this->current() !== false;
     }
 
+    /**
+     * @return mixed
+     */
     public function next()
     {
         return next($this->var);
     }
 
+    /**
+     * @return string
+     */
     public function key()
     {
         return key($this->var);
     }
 
+    /**
+     * @return mixed
+     */
     public function current()
     {
         return current($this->var);

@@ -41,16 +41,24 @@ use Soluble\Japha\Bridge\Exception;
 
 class ChunkedSocketChannel extends SocketChannel
 {
+    /**
+     * @param string $data
+     */
     public function fwrite($data)
     {
         $len = dechex(strlen($data));
-        $res = @fwrite($this->peer, "${len}\r\n${data}\r\n");
+        $res = fwrite($this->peer, "${len}\r\n${data}\r\n");
         if (!$res) {
             $msg = 'Cannot write to socket';
             throw new Exception\RuntimeException($msg);
         }
     }
 
+    /**
+     * @param int $size
+     *
+     * @return string|void
+     */
     public function fread($size)
     {
         $length = hexdec(fgets($this->peer, $this->recv_size));

@@ -55,7 +55,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     /**
      * @var bool
      */
-    public $isRedirect;
+    protected $isRedirect;
 
     /**
      * @param Protocol $protocol
@@ -100,10 +100,13 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      *
      * @throws ConnectionException
      */
-    public function checkSocket($socket, $errno, $errstr)
+    protected function checkSocket($socket, $errno = null, $errstr = null)
     {
         if (!$socket) {
             $msg = "Could not connect to the JEE server {$this->ssl}{$this->host}:{$this->port}. Please start it.";
+            if ($errstr !== null || $errno !== null) {
+                $msg .= '(errno:' . $errno . ',' . $errstr . ')';
+            }
             $logger = $this->protocol->getClient()->getLogger();
             $logger->critical("[soluble-japha] $msg." . __METHOD__);
             throw new ConnectionException(__METHOD__ . ' ' . $msg);
@@ -113,7 +116,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     /**
      * @throws ConnectionException
      */
-    public function open()
+    protected function open()
     {
         $errno = null;
         $errstr = null;
@@ -154,7 +157,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         return fwrite($this->socket, "${len}\r\n${data}\r\n");
     }
 
-    public function close()
+    protected function close()
     {
         fwrite($this->socket, "0\r\n\r\n");
         fgets($this->socket, $this->java_recv_size);
@@ -191,7 +194,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         return $this->fread($this->java_recv_size);
     }
 
-    public function getBodyFor($compat, $data)
+    protected function getBodyFor($compat, $data)
     {
         $len = dechex(2 + strlen($data));
 
@@ -225,7 +228,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         return $count;
     }
 
-    public function parseHeaders()
+    protected function parseHeaders()
     {
         $this->headers = [];
 
@@ -275,7 +278,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     /**
      * @return ChunkedSocketChannel
      */
-    public function getSimpleChannel()
+    protected function getSimpleChannel()
     {
         //public function __construct($peer, $host, $recv_size, $send_size)
 

@@ -51,6 +51,10 @@ class SimpleHttpHandler extends SocketHandler
      * @var string
      */
     public $context;
+
+    /**
+     * @var string
+     */
     public $ssl;
 
     /**

@@ -40,7 +40,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 class ArrayProxy extends IteratorProxy implements \ArrayAccess
 {
     /**
-     * @param string|int $idx
+     * @param string $idx
      *
      * @return bool
      */

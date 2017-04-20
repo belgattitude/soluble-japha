@@ -39,6 +39,11 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class ExceptionProxy extends JavaProxy
 {
+    /**
+     * @param string $trace
+     *
+     * @return string
+     */
     public function __toExceptionString($trace)
     {
         $args = [$this, $trace];

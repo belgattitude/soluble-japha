@@ -264,8 +264,6 @@ class Client
             }
             $this->stack = null;
         } while ($tail_call);
-
-        return;
     }
 
     /**
@@ -293,7 +291,7 @@ class Client
      *
      * @return SimpleFactory
      */
-    public function getProxyFactory($type)
+    protected function getProxyFactory($type)
     {
         switch ($type[0]) {
             case 'E':
@@ -317,7 +315,7 @@ class Client
      * @param Arg          $arg
      * @param CompositeArg $newArg
      */
-    public function link(&$arg, &$newArg)
+    protected function link(&$arg, &$newArg)
     {
         $arg->linkResult($newArg->val);
         $newArg->parentArg = $arg;
@@ -328,15 +326,17 @@ class Client
      *
      * @return int
      */
-    public function getExact($str)
+    protected function getExact($str)
     {
         return hexdec($str);
     }
 
     /**
      * @param string $str
+     *
+     * @return mixed
      */
-    public function getInexact($str)
+    protected function getInexact($str)
     {
         $val = null;
         sscanf($str, '%e', $val);
@@ -437,7 +437,7 @@ class Client
     /**
      * @return ParserString
      */
-    public function createParserString()
+    protected function createParserString()
     {
         return new ParserString();
     }
@@ -445,7 +445,7 @@ class Client
     /**
      * @param mixed $arg
      */
-    public function writeArg($arg)
+    protected function writeArg($arg)
     {
         if (is_string($arg)) {
             $this->protocol->writeString($arg);
@@ -497,7 +497,7 @@ class Client
     /**
      * @param array $args
      */
-    public function writeArgs(array $args)
+    protected function writeArgs(array $args)
     {
         $this->inArgs = true;
         $n = count($args);

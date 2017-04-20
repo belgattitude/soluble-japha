@@ -56,16 +56,26 @@ use Soluble\Japha\Bridge\Driver\Pjb62\Utils\HelperFunctions;
  */
 class JavaProxy implements JavaType
 {
-    public $__serialID;
+    protected $__serialID;
+
     /**
      * @var int
      */
     public $__java;
+
+    /**
+     * @var string
+     */
     public $__signature;
+
     /**
      * @var \Soluble\Japha\Bridge\Driver\Pjb62\Client
      */
     public $__client;
+
+    /**
+     * @var GlobalRef
+     */
     public $__tempGlobalRef;
 
     /**
@@ -89,6 +99,9 @@ class JavaProxy implements JavaType
         return $this->__client->cast($this, $type);
     }
 
+    /**
+     * @return array
+     */
     public function __sleep()
     {
         $args = [$this, HelperFunctions::java_get_session_lifetime()];
