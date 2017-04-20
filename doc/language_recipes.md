@@ -64,7 +64,7 @@ assertEquals('Hello', $results[2]['words'][0]);
 Json serialization can be particularly useful whenever you want to retrieve
 a java object representation. It could be used as an optimization technique as well.
     
-#### GSON  
+#### Gson  
   
 Gson is a fast and simple json serializer from google. 
     
