@@ -118,7 +118,7 @@ class Arg
         $this->exception = $string;
     }
 
-    protected function setVoidSignature()
+    public function setVoidSignature()
     {
         $this->signature = '@V';
         $key = $this->client->currentCacheKey;
@@ -132,7 +132,7 @@ class Arg
     /**
      * @param string $signature
      */
-    protected function setSignature($signature)
+    public function setSignature($signature)
     {
         $this->signature = $signature;
         $key = $this->client->currentCacheKey;

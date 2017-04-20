@@ -249,6 +249,8 @@ class Client
 
     /**
      * Handle request.
+     *
+     * @throws Exception\RuntimeException
      */
     public function handleRequests()
     {
@@ -259,7 +261,13 @@ class Client
             $this->parser->parse();
             if ((count($this->stack)) > 1) {
                 $arg = array_pop($this->stack);
-                $this->apply($arg);
+                if ($arg instanceof ApplyArg) {
+                    $this->apply($arg);
+                } else {
+                    $msg = 'Error: $arg should be of type ApplyArg, error in client';
+                    $this->logger->critical($msg);
+                    throw new Exception\RuntimeException($msg);
+                }
                 $tail_call = true;
             }
             $this->stack = null;
@@ -397,8 +405,6 @@ class Client
                 if ($st['n'] != 'T') {
                     $arg->setVoidSignature();
                 }
-                // @todo Missing break ?
-
             case 'N':
                 $arg->setResult(null);
                 break;

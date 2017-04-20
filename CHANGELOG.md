@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Improved
 
 - Improved messages on socket errors (errno and errstr)
-- Added 'protected' members on relevant methods and attributes. 
+- Added 'protected' members on relevant methods and attributes. (WIP)
+- Improved PHPDoc comments with types (WIP)
+- Added additional checks for errors in Client.php.
 
 ### Fixed
 

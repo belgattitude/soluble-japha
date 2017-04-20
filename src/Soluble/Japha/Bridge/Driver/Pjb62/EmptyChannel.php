@@ -47,7 +47,7 @@ class EmptyChannel
     protected $handler;
 
     /**
-     * @var resource
+     * @var string
      */
     private $res;
 
