@@ -61,7 +61,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
     }
 
     /**
-     * @return Interfaces\JavaClass Java(java.lang.Class)
+     * @return Interfaces\JavaClass Java('java.lang.Class')
      */
     public function getClass()
     {
