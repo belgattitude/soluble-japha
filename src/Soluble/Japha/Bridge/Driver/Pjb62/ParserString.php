@@ -45,12 +45,12 @@ class ParserString
     public $string;
 
     /**
-     * @var string
+     * @var int
      */
     public $off;
 
     /**
-     * @var string
+     * @var int
      */
     public $length;
 
