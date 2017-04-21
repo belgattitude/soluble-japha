@@ -39,24 +39,35 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class CacheEntry
 {
+    /**
+     * @var string
+     */
     public $fmt;
 
     /**
      * @var string
      */
     public $signature;
+
+    /**
+     * @var SimpleFactory
+     */
     public $factory;
+
+    /**
+     * @var bool
+     */
     public $resultVoid;
 
     /**
      * CacheEntry constructor.
      *
-     * @param mixed  $fmt
-     * @param string $signature
-     * @param mixed  $factory
-     * @param mixed  $resultVoid
+     * @param string        $fmt
+     * @param string        $signature
+     * @param SimpleFactory $factory
+     * @param bool          $resultVoid
      */
-    public function __construct($fmt, $signature, $factory, $resultVoid)
+    public function __construct($fmt, $signature, SimpleFactory $factory, $resultVoid)
     {
         $this->fmt = $fmt;
         $this->signature = $signature;
