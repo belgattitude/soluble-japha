@@ -51,7 +51,7 @@ class AdapterPHPClosureTest extends \PHPUnit_Framework_TestCase
         $ba->getDriver()->invoke(null, 'makeClosure', [
             $testClosure,
             null,
-            $ba->java('java.lang.Object')
+            //$ba->java('java.lang.Object')
         ]);
     }
 }

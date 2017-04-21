@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.3.0 (TBD)
+
+## Changed
+
+- Possible bc-break in undocumented `Adapter` option: `java_default_timezone`. 
+  It won't fall back to php default timezone if null. This feature is subject to caution.
+   
+## Documentation
+
+- Setting the default java timezone with `TimeZone.setDefault()` should be avoided
+  as its value is global on the JVM.
+
 ## 1.2.2 (2017-05-20)
 
 ## Improved

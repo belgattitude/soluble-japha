@@ -84,7 +84,7 @@ class TimeZone
      *
      * @param bool $enableTzCache enable local caching of default timezone
      *
-     * @return Interfaces\JavaObject Java(java.util.TimeZone)
+     * @return Interfaces\JavaObject Java('java.util.TimeZone')
      */
     public function getDefault($enableTzCache = true)
     {
@@ -147,6 +147,7 @@ class TimeZone
         if (is_string($timeZone) || $timeZone instanceof DateTimeZone) {
             $timeZone = $this->getTimeZone($timeZone);
         }
+        $this->timeZoneClass->setDefault($timeZone);
         self::$defaultTz = $timeZone;
     }
 

@@ -35,7 +35,7 @@ try {
 
 ### Connection params
 
-The `Soluble\Japha\Bridge\Adapter` constructor require `$options`, an associative array with : 
+The `Soluble\Japha\Bridge\Adapter` constructor requires `$options`, an associative array with: 
 
 | Parameter        | Description                              |
 |------------------|------------------------------------------|
@@ -60,6 +60,7 @@ The `Soluble\Japha\Bridge\Adapter` constructor require `$options`, an associativ
     improvements have not been measured in practice (yet), the default is `true` in the
     `soluble-japha` implementation. Better to not change it as it will bc-break
     you code.  
+
 
 ### Optional PSR-3 logger
 

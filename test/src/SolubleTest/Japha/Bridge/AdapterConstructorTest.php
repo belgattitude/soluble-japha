@@ -64,20 +64,6 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
-/*
-    public function testConstructorSetsDefaultTimeZone()
-    {
-        $ba = new Adapter(array(
-            'driver' => 'Pjb62',
-            'servlet_address' => $this->servlet_address,
-            //'java_default_timezone' =>
-        ));
-
-        $phpTz = date_default_timezone_get();
-        $javaTz = $ba->getSystem()->getTimeZoneId();
-        $this->assertEquals($phpTz, $javaTz);
-    }
-*/
     public function testConstructorSetsCustomDefaultTimeZone()
     {
         $ba = new Adapter([
@@ -88,5 +74,80 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
 
         $javaTz = $ba->getSystem()->getTimeZoneId();
         $this->assertEquals('Europe/London', $javaTz);
+    }
+
+    public function testConstructorSetsInvalidDefaultTimeZoneThrowsException()
+    {
+        $this->setExpectedException('Soluble\Japha\Util\Exception\UnsupportedTzException');
+        $ba = new Adapter([
+            'driver' => 'Pjb62',
+            'servlet_address' => $this->servlet_address,
+            'java_default_timezone' => 'InvalidTimezone'
+        ]);
+    }
+
+    /**
+     * This test demonstrate how dangerous it is to set
+     * the global default timezone as it's shared by all clients instances
+     * and shared by all threads/process/...
+     */
+    public function testThreadShareDefaultTimezone()
+    {
+        $ba = new Adapter([
+            'driver' => 'Pjb62',
+            'servlet_address' => $this->servlet_address,
+            'java_default_timezone' => 'Europe/Brussels'
+        ]);
+
+        $scripts_path = \SolubleTestFactories::getScriptPath();
+        $servlet_address = escapeshellarg(\SolubleTestFactories::getJavaBridgeServerAddress());
+
+        $set_cmd = PHP_BINARY . " ${scripts_path}/set_thread_timezone.php $servlet_address";
+        $get_cmd = PHP_BINARY . " ${scripts_path}/get_thread_timezone.php $servlet_address";
+
+        $system = $ba->getSystem();
+
+        // If you put it at true, will break because other threads have changed
+        // the value.
+
+        $enableCache = false;
+
+        $originalTz = (string) $system->getTimeZone()->getDefault($enableCache)->getID();
+
+        // The current Timezone default should be the same
+        // as the one returned by an external thread
+        $getThread1 = trim(exec("$get_cmd"));
+        $this->assertEquals($originalTz, $getThread1);
+
+        // Setting the default timezone in this process
+        $system->getTimeZone()->setDefault('Europe/London');
+        $this->assertEquals('Europe/London', (string) $system->getTimeZone()->getDefault($enableCache)->getID());
+
+        // External processes will retrieve the same timezone
+        $getThread2 = trim(exec("$get_cmd"));
+        $this->assertEquals('Europe/London', $getThread2);
+
+        // Set timezone from an external process
+        $setThread1 = trim(exec("$set_cmd Europe/Paris"));
+        $this->assertEquals('Europe/Paris', $setThread1);
+        $this->assertEquals('Europe/Paris', (string) $system->getTimeZone()->getDefault($enableCache)->getID());
+
+        $getThread3 = trim(exec("$get_cmd"));
+        $this->assertEquals('Europe/Paris', $getThread3);
+    }
+
+    public function testConstructorSetsInvalidIniTimeZoneThrowsException()
+    {
+        $this->setExpectedException('\Soluble\Japha\Util\Exception\UnsupportedTzException');
+
+        // The 'Factory' timezone is supported in PHP, not in Java
+        // and should produce an error
+        $unsupportedJavaTz = 'Factory';
+
+        $ba = new Adapter([
+            'driver' => 'Pjb62',
+            'servlet_address' => $this->servlet_address,
+            'java_default_timezone' => $unsupportedJavaTz
+        ]);
     }
 }

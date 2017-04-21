@@ -68,9 +68,9 @@ class Adapter
         $driver_class = self::$registeredDrivers[$driver];
         $this->driver = new $driver_class($options, $logger);
 
-        $tz = array_key_exists('java_default_timezone', $options) ? $options['java_default_timezone'] : null;
-        if ($tz !== null) {
-            $this->setJavaDefaultTimezone($tz);
+        if (array_key_exists('java_default_timezone', $options)
+            && $options['java_default_timezone'] !== null) {
+            $this->setJavaDefaultTimezone($options['java_default_timezone']);
         }
     }
 
@@ -214,31 +214,18 @@ class Adapter
     /**
      * Set the JVM/Java default timezone.
      *
+     * Caution: this method should be used with care because it will change the global timezone
+     * on the JVM or Bridge servlet. Better to configure it by other ways as every
+     * scripts may change it.
+     *
+     *
      * @throws Exception\ConfigurationException
      * @throws UnsupportedTzException
      *
      * @param string $timezone
      */
-    protected function setJavaDefaultTimezone($timezone = null)
+    protected function setJavaDefaultTimezone($timezone)
     {
-        if ($timezone == '') {
-            $phpTz = date_default_timezone_get();
-
-            // In case there's a mismatch between PHP and Java see also :
-            // - date('T');
-            // - http://php.net/manual/en/datetimezone.listabbreviations.php
-
-            if ($phpTz == '') {
-                $message = 'Japha\Bridge requires a valid php default timezone set prior to run';
-                $message .= ', check you php configuration ini settings "date.timezone" or';
-                $message .= ' set it with "date_default_timezone_set" ';
-                $message .= ' or provide a "java_default_timezone" in the adapter options.';
-                throw new Exception\ConfigurationException($message);
-            }
-
-            $timezone = $phpTz;
-        }
-
         $this->getSystem()->setTimeZoneId($timezone);
     }
 }

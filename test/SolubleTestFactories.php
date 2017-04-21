@@ -71,10 +71,18 @@ class SolubleTestFactories
     {
         $cache_dir = $_SERVER['PHPUNIT_CACHE_DIR'];
         if (!preg_match('/^\//', $cache_dir)) {
-            $cache_dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $cache_dir;
+            $cache_dir = __DIR__ . DIRECTORY_SEPARATOR . $cache_dir;
         }
 
         return $cache_dir;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getScriptPath()
+    {
+        return __DIR__ . DIRECTORY_SEPARATOR . 'scripts';
     }
 
     public static function getDatabaseConfig()
