@@ -63,6 +63,11 @@ class GlobalRef
         return array_push($this->map, $object);
     }
 
+    /**
+     * @param $id
+     *
+     * @return int|JavaType
+     */
     public function get($id)
     {
         if (!$id) {
