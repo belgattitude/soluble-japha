@@ -122,6 +122,10 @@ class Client
     public $methodCache = [];
     public $isAsync = 0;
     public $currentCacheKey;
+
+    /**
+     * @var string
+     */
     public $currentArgumentsFormat;
     public $cachedJavaPrototype;
     public $sendBuffer;
