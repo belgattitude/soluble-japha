@@ -6,7 +6,7 @@ namespace Soluble\Japha\Interfaces;
  * @method string __toString()
  * @method mixed __cast(string $type)
  */
-interface JavaObject extends JavaType
+interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
 {
     /**
      * Returns the runtime class of this Object.

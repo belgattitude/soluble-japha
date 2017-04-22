@@ -132,6 +132,8 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
 
     /**
+     * @param mixed|null $args arguments
+     *
      * @return ObjectIterator
      */
     public function getIterator(...$args)
@@ -149,36 +151,41 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
 
     /**
      * @param string|int $idx
+     * @param mixed|null ...$args
      *
      * @return bool
      */
-    public function offsetExists($idx)
+    public function offsetExists($idx, ...$args)
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
-        if (func_num_args() == 1) {
+        if (count($args) == 0) {
             return $this->__delegate->offsetExists($idx);
         }
-        $args = func_get_args();
 
+        // In case we supplied more arguments than what ArrayAccess
+        // suggest, let's try for a java method called offsetExists
+        // with all the provided parameters
+        array_unshift($args, $idx); // Will add idx at the beginning of args params
         return $this->__call('offsetExists', $args);
     }
 
     /**
      * @param string|int $idx
+     * @param mixed|null ...$args additional arguments
      *
      * @return mixed
      */
-    public function offsetGet($idx)
+    public function offsetGet($idx, ...$args)
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
-        if (func_num_args() == 1) {
+        if (count($args) == 0) {
             return $this->__delegate->offsetGet($idx);
         }
-        $args = func_get_args();
+        array_unshift($args, $idx);
 
         return $this->__call('offsetGet', $args);
     }
@@ -186,31 +193,39 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     /**
      * @param string|int $idx
      * @param mixed      $val
+     * @param mixed|null ...$args additional arguments
      *
      * @return mixed
      */
-    public function offsetSet($idx, $val)
+    public function offsetSet($idx, $val, ...$args)
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
-        if (func_num_args() == 2) {
+        if (count($args) == 0) {
             return $this->__delegate->offsetSet($idx, $val);
         }
-        $args = func_get_args();
+
+        array_unshift($args, $idx, $val);
 
         return $this->__call('offsetSet', $args);
     }
 
-    public function offsetUnset($idx)
+    /**
+     * @param mixed      $idx
+     * @param mixed|null ...$args additional arguments
+     *
+     * @return mixed|void
+     */
+    public function offsetUnset($idx, ...$args)
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
-        if (func_num_args() == 1) {
+        if (count($args) == 0) {
             return $this->__delegate->offsetUnset($idx);
         }
-        $args = func_get_args();
+        array_unshift($args, $idx);
 
         return $this->__call('offsetUnset', $args);
     }
@@ -257,7 +272,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      * Returns the runtime class of this Object.
      * The returned Class object is the object that is locked by static synchronized methods of the represented class.
      *
-     * @return Interfaces\JavaObject Java(java.lang.Object)
+     * @return Interfaces\JavaObject Java('java.lang.Object')
      */
     public function getClass()
     {

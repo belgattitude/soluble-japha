@@ -58,10 +58,15 @@ class JavaException extends Exception implements JavaType
     public $__signature;
     public $__hasDeclaredExceptions;
 
+    /**
+     * JavaException constructor.
+     *
+     * @param mixed|null ...$args arguments
+     */
     public function __construct()
     {
         $this->__client = PjbProxyClient::getInstance()->getClient();
-        $args = func_get_args();
+        //$args = func_get_args();
         $name = array_shift($args);
         if (is_array($name)) {
             $args = $name;

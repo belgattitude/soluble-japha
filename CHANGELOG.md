@@ -6,11 +6,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.3.0 (TBD)
 
+## Added
+
+- `Interfaces\JavaObject` now implements `ArrayAccess` 
+  the following code is possible without calling java methods:
+  
+  ```php
+  $hashMap = $ba->java('java.util.HashMap`);
+  $hashMap['key'] = 'cool';
+  if (isset($hashMap['key']) {
+     echo $hashMap['key']; 
+     unset $hashMap['key'];
+  }
+  ```  
+
 ## Changed
 
 - Possible bc-break in undocumented `Adapter` option: `java_default_timezone`. 
   It won't fall back to php default timezone if null. This feature is subject to caution.
-   
+- Removed last `func_get_args` uses, replaced by PHP5.6 variadic notation in `AbstractJava` and `JavaException`.
+- `Interfaces\JavaObject` now implements `IteratorAggregate`, this behaviour was 
+  already working but not *statically* stated.
+      
 ## Documentation
 
 - Setting the default java timezone with `TimeZone.setDefault()` should be avoided
