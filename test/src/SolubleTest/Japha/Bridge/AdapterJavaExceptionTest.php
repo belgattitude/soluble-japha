@@ -125,16 +125,6 @@ class AdapterJavaExceptionTest extends \PHPUnit_Framework_TestCase
         $ba = $this->adapter;
 
         try {
-            $string = $ba->java('java.lang.String', 'Hello world');
-            $string->anInvalidMethod();
-        } catch (Exception\NoSuchMethodException $e) {
-            $this->assertInstanceOf(Exception\JavaExceptionInterface::class, $e);
-            $this->assertTrue(true);
-            $this->assertInternalType('string', $e->__toString());
-            $this->assertContains('Soluble\Japha\Bridge\Exception\NoSuchMethodException: Invoke failed:', (string) $e);
-        }
-
-        try {
             $ba = new Adapter([
                 'driver' => 'Pjb62',
                 'servlet_address' => $this->servlet_address,
