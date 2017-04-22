@@ -66,7 +66,6 @@ class JavaException extends Exception implements JavaType
     public function __construct(...$args)
     {
         $this->__client = PjbProxyClient::getInstance()->getClient();
-        //$args = func_get_args();
         $name = array_shift($args);
         if (is_array($name)) {
             $args = $name;
