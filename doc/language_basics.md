@@ -145,6 +145,24 @@ foreach ($properties as $key => $value) {
 }
 ```
 
+## ArrayAccess
+
+`Interfaces\JavaObject` implements `ArrayAccess` which allows to write
+maps, arrays... in a more convenient way. An example with `HashMap`:
+
+```php
+<?php
+
+// $ba = new BridgeAdapter(...); 
+
+$hashMap = $ba->javaClass('java.util.HashMap');
+$hashMap['test'] = 'Cool';  // equivalent to `$hashMap->put('test', 'Cool');`
+if (isset($hashMap['test'])) {
+    unset($hashMap['test']);
+}
+
+```
+
 ## Inner classes
 
 Java supports inner classes *(classes as a class property)*. 
