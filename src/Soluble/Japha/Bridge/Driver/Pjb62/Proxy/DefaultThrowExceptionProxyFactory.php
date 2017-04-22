@@ -27,6 +27,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
         'ClassNotFoundException' => '/Cause: java.lang.ClassNotFoundException/',
         //'InvalidArgumentException' => '/^Invoke failed(.*)php.java.bridge.NoSuchProcedureException/',
         'SqlException' => '/^Invoke failed(.*)java.sql.SQLException/',
+        'NoSuchFieldException' => '/Cause: java.lang.NoSuchFieldException/'
     ];
 
     /**

@@ -3,6 +3,7 @@
 namespace SolubleTest\Japha\Bridge\Driver;
 
 use Soluble\Japha\Bridge\Adapter;
+use Soluble\Japha\Bridge\Exception\NoSuchFieldException;
 
 class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -54,6 +55,12 @@ class Pjb62AdapterTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Soluble\Japha\Bridge\Exception\NoSuchMethodException');
         $string = $this->adapter->java('java.lang.String', 'Am I the only one ?');
         $string->myinvalidMethod();
+    }
+
+    public function testJavaThrowsNoSuchFieldException()
+    {
+        $this->setExpectedException(NoSuchFieldException::class);
+        $this->adapter->java('java.lang.String')->nosuchfield = 10;
     }
 
     public function testJavaStrings()

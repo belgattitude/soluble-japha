@@ -18,7 +18,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
      echo $hashMap['key']; 
      unset $hashMap['key'];
   }
-  ```  
+  ``` 
+   
+- Added convenience exception: `NoSuchFieldException`   
 
 ## Changed
 

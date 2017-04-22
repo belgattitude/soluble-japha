@@ -83,4 +83,23 @@ try {
 
 ```
 
+### NoSuchFieldException
+
+The `Soluble\Japha\Bridge\Exception\NoSuchFieldException` is a convenient 
+exception class thrown whenever a property does not exists on an object
+
+
+```php
+<?php
+use Soluble\Japha\Bridge\Exception;
+
+// Invalid method
+try {
+    $string = $ba->java('java.lang.String', "Hello world");
+    $string->fieldNotExists = 10;
+} catch (Exception\NoSuchFieldException $e) {
+    //...
+}
+
+```
 

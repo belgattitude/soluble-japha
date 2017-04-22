@@ -5,6 +5,7 @@ namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\AbstractJava;
 use Soluble\Japha\Bridge\Driver\Pjb62\InternalJava;
+use Soluble\Japha\Bridge\Exception\NoSuchFieldException;
 use Soluble\Japha\Bridge\Exception\NoSuchMethodException;
 use Soluble\Japha\Interfaces\JavaObject;
 
@@ -155,10 +156,21 @@ class AbstractJavaTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testMagicSet()
+    {
+        $ba = $this->adapter;
+        $hashMap = $ba->java('java.util.HashMap');
+        try {
+            $hashMap->aProperty = 'cool';
+            $this->assertTrue(false, 'Property should not exists on HashMap');
+        } catch (NoSuchFieldException $e) {
+            $this->assertTrue(true, 'Property does not exists as expected');
+        }
+    }
+
     public function testGetClass()
     {
         $ba = $this->adapter;
-
         $hashMap = $ba->java('java.util.HashMap');
         $c = $hashMap->getClass();
         $this->assertInstanceOf(InternalJava::class, $c);
