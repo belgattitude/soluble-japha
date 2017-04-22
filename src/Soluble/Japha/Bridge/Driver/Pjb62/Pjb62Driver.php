@@ -103,11 +103,7 @@ class Pjb62Driver extends AbstractDriver
     public function instanciate($class_name, ...$args)
     {
         try {
-            if ($args === null) {
-                $java = new Java($class_name);
-            } else {
-                $java = new Java($class_name, ...$args);
-            }
+            $java = new Java($class_name, ...$args);
         } catch (BrokenConnectionException $e) {
             PjbProxyClient::getInstance()->destroy();
             throw $e;
@@ -239,7 +235,7 @@ class Pjb62Driver extends AbstractDriver
      * @param string $name
      * @param array  $array
      *
-     * @return string
+     * @return string header value or empty string if not exists
      */
     public static function getJavaBridgeHeader($name, array $array)
     {

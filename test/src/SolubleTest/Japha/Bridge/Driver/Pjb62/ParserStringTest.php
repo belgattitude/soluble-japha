@@ -1,4 +1,9 @@
 <?php
+/**
+ * Caution: This is only required for SimpleParser
+ * to maintain compatibility with HHVM. Regular
+ * usage on PHP will use the NativeParser.
+ */
 
 namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 

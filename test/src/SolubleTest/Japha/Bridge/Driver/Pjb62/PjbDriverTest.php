@@ -4,6 +4,7 @@ namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\InternalJava;
+use Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
 use Soluble\Japha\Interfaces\JavaObject;
 use Soluble\Japha\Bridge\Exception\InvalidArgumentException;
@@ -48,6 +49,27 @@ class PjbDriverTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+    }
+
+    public function testConstructorNoLogger()
+    {
+        $driver = new Pjb62Driver([
+            'servlet_address' => $this->servlet_address,
+        ], $logger = null);
+    }
+
+    public function testConnect()
+    {
+        $driver = new Pjb62Driver([
+            'servlet_address' => $this->servlet_address,
+        ]);
+        $driver->connect();
+    }
+
+    public function testInstanciate()
+    {
+        $driver = $this->adapter->getDriver();
+        $driver->instanciate('java.lang.String');
     }
 
     public function testGetClient()
@@ -101,5 +123,18 @@ class PjbDriverTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->assertTrue(in_array($fqdn, $supported));
+    }
+
+    public function testGetJavaBridgeHeader()
+    {
+        $headersToTest = [
+          'HTTP_OVERRIDE_HOST' => 'cool',
+          'HTTP_HEADER_HOST' => 'cool'
+        ];
+
+        $this->assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('OVERRIDE_HOST', $headersToTest));
+        $this->assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('HTTP_OVERRIDE_HOST', $headersToTest));
+        $this->assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('HTTP_HEADER_HOST', $headersToTest));
+        $this->assertEquals('', Pjb62Driver::getJavaBridgeHeader('NOTHING', $headersToTest));
     }
 }
