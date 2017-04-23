@@ -21,5 +21,8 @@ class JavaExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($e->get__signature());
         $this->assertInternalType('int', $e->get__java());
         $this->assertInternalType('int', $e->__getJavaInternalObjectId());
+
+        $e2 = new JavaException('java.lang.Exception', 'cool3', $e);
+        $this->assertEquals('cool3', $e2->getMessage());
     }
 }
