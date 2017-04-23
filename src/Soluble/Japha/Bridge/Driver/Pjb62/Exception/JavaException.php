@@ -145,7 +145,7 @@ class JavaException extends Exception implements JavaType
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function get__signature()
     {
