@@ -6,12 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.4.0 (TBD)
 
+This release has been tested with the latest official phpjavabridge 7.1.3.
+
 ## Added
 
 - Pjb62\Driver added method `setExitCode(int $code)` from 7.1.3 upstream merge, 
   requires PHP 7.1.3+ to be interpreted on the bridge side.
-
-
 
 ## 1.3.0 (2017-04-23)
 
