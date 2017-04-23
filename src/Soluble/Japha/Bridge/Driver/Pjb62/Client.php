@@ -613,6 +613,9 @@ class Client
         }
     }
 
+    /**
+     * @param int $object object identifier
+     */
     public function unref($object)
     {
         if (isset($this->protocol)) {

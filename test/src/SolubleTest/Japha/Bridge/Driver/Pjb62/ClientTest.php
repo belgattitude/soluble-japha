@@ -53,16 +53,48 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'JAVA_HOSTS' => $conn['servlet_host'],
             'JAVA_SERVLET' => $conn['servlet_uri'],
             'JAVA_SEND_SIZE' => 4096,
-            'JAVA_RECV_SIZE' => 8192
+            'JAVA_RECV_SIZE' => 8192,
+            'internal_encoding' => 'ISO-8859-1'
+        ]);
+
+        $client = new Client($params, new NullLogger());
+
+        $this->assertEquals(4096, $client->java_send_size);
+        $this->assertEquals(8192, $client->java_recv_size);
+        $this->assertEquals('ISO-8859-1', $client->getInternalEncoding());
+        $this->assertInstanceOf(NullLogger::class, $client->getLogger());
+        $this->assertEquals($params, $client->getParams());
+        $this->assertEquals($conn['servlet_host'], $client->getServerName());
+        $enc = $this->client->getInternalEncoding();
+        $this->assertEquals('UTF-8', $enc);
+    }
+
+    public function testDefaults()
+    {
+        $conn = PjbProxyClient::parseServletUrl($this->servlet_address);
+        $params = new \ArrayObject([
+            'JAVA_HOSTS' => $conn['servlet_host'],
+            'JAVA_SERVLET' => $conn['servlet_uri'],
+        ]);
+
+        $client = new Client($params, new NullLogger());
+        $this->assertEquals(8192, $client->java_send_size);
+        $this->assertEquals(8192, $client->java_recv_size);
+        $this->assertEquals('UTF-8', $client->getInternalEncoding());
+    }
+
+    public function testSetHandler()
+    {
+        $conn = PjbProxyClient::parseServletUrl($this->servlet_address);
+        $params = new \ArrayObject([
+            'JAVA_HOSTS' => $conn['servlet_host'],
+            'JAVA_SERVLET' => $conn['servlet_uri'],
         ]);
 
         $client = new Client($params, new NullLogger());
         $client->setDefaultHandler();
-        $this->assertEquals(4096, $client->java_send_size);
-        $this->assertEquals(8192, $client->java_recv_size);
-        $this->assertInstanceOf(NullLogger::class, $client->getLogger());
-        $this->assertEquals($params, $client->getParams());
-        $this->assertEquals($conn['servlet_host'], $client->getServerName());
+
+        $this->client->setAsyncHandler();
     }
 
     public function testSetExitCode()
