@@ -38,6 +38,7 @@ class Pjb62Driver extends AbstractDriver
      *      //'java_log_level' => null,
      *      //'java_send_size' => 8192,
      *      //'java_recv_size' => 8192
+     *      //'internal_encoding' => 'UTF-8'
      *    ], $logger);
      *
      * </code>

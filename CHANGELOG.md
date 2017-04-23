@@ -4,7 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.3.0 (TBD)
+## 1.4.0 (TBD)
+
+## Added
+
+- Pjb62\Driver added method `setExitCode(int $code)` from 7.1.3 upstream merge, 
+  requires PHP 7.1.3+ to be interpreted on the bridge side.
+
+
+
+## 1.3.0 (2017-04-23)
 
 ## Added
 
@@ -12,7 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   the following code is possible without calling java methods:
   
   ```php
-  $hashMap = $ba->java('java.util.HashMap`);
+  $hashMap = $ba->java('java.util.HashMap');
   $hashMap['key'] = 'cool';
   if (isset($hashMap['key']) {
      echo $hashMap['key']; 

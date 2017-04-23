@@ -89,6 +89,11 @@ class Protocol
     public $java_send_size;
 
     /**
+     * @var string
+     */
+    protected $internal_encoding;
+
+    /**
      * @param Client $client
      * @param string $java_hosts
      * @param string $java_servlet
@@ -98,6 +103,7 @@ class Protocol
     public function __construct(Client $client, $java_hosts, $java_servlet, $java_recv_size, $java_send_size)
     {
         $this->client = $client;
+        $this->internal_encoding = $client->getInternalEncoding();
         $this->java_hosts = $java_hosts;
         $this->java_servlet = $java_servlet;
         $this->java_recv_size = $java_recv_size;
@@ -455,7 +461,7 @@ class Protocol
     public function writeString($name)
     {
         $this->client->currentArgumentsFormat .= $format = '<S v="%s"/>';
-        $this->write(sprintf($format, htmlspecialchars($name, ENT_COMPAT, 'UTF-8')));
+        $this->write(sprintf($format, htmlspecialchars($name, ENT_COMPAT, $this->internal_encoding)));
     }
 
     /**
@@ -513,7 +519,7 @@ class Protocol
      */
     public function writeException($object, $str)
     {
-        $this->write(sprintf('<E v="%x" m="%s"/>', $object, htmlspecialchars($str, ENT_COMPAT, 'UTF-8')));
+        $this->write(sprintf('<E v="%x" m="%s"/>', $object, htmlspecialchars($str, ENT_COMPAT, $this->internal_encoding)));
     }
 
     public function writeCompositeBegin_a()
@@ -536,7 +542,7 @@ class Protocol
      */
     public function writePairBegin_s($key)
     {
-        $this->write(sprintf('<P t="S" v="%s">', htmlspecialchars($key, ENT_COMPAT, 'UTF-8')));
+        $this->write(sprintf('<P t="S" v="%s">', htmlspecialchars($key, ENT_COMPAT, 'ISO-8859-1')));
     }
 
     /**
@@ -573,5 +579,15 @@ class Protocol
     public function getServerName()
     {
         return $this->serverName;
+    }
+
+    /**
+     * @param int $code
+     */
+    public function writeExitCode($code)
+    {
+        $this->client->sendBuffer .= $this->client->preparedToSendBuffer;
+        $this->client->preparedToSendBuffer = null;
+        $this->write(sprintf('<Z v="%x"/>', 0xffffffff & $code));
     }
 }

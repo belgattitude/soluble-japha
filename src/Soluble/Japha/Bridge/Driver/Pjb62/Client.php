@@ -178,6 +178,11 @@ class Client
     protected $default_buffer_size = 8192;
 
     /**
+     * @var string
+     */
+    protected $internal_encoding = 'UTF-8';
+
+    /**
      * @var LoggerInterface
      */
     protected $logger;
@@ -200,6 +205,10 @@ class Client
             $this->java_recv_size = $params['JAVA_RECV_SIZE'];
         } else {
             $this->java_recv_size = $this->default_buffer_size;
+        }
+
+        if (isset($params['internal_encoding'])) {
+            $this->internal_encoding = $params['internal_encoding'];
         }
 
         $this->java_hosts = $params['JAVA_HOSTS'];
@@ -592,6 +601,18 @@ class Client
         return $val;
     }
 
+    /**
+     * Write exit code.
+     *
+     * @param int $code
+     */
+    public function setExitCode($code)
+    {
+        if (isset($this->protocol)) {
+            $this->protocol->writeExitCode($code);
+        }
+    }
+
     public function unref($object)
     {
         if (isset($this->protocol)) {
@@ -862,5 +883,13 @@ class Client
     public function getParam($param)
     {
         return $this->params[$param];
+    }
+
+    /**
+     * @return string
+     */
+    public function getInternalEncoding()
+    {
+        return $this->internal_encoding;
     }
 }

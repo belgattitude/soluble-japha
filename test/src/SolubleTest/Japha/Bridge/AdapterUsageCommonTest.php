@@ -82,7 +82,7 @@ class AdapterUsageCommonTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(41.5, $a);
     }
 
-    public function testJavaStrings()
+    public function testJavaStringsEncodings()
     {
         $ba = $this->adapter;
 

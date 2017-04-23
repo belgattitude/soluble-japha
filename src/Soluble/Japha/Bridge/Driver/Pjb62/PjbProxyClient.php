@@ -119,7 +119,8 @@ class PjbProxyClient implements ClientInterface
      *    $options = [
      *      'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge'
      *      "java_send_size" => 8192,
-     *      "java_recv_size" => 8192
+     *      "java_recv_size" => 8192,
+     *      "internal_encoding" => 'UTF-8'
      *    ];
      *    $pjb = PjbProxyClient::getInstance($options, $logger);
      * </code>
@@ -390,7 +391,7 @@ class PjbProxyClient implements ClientInterface
      *
      * @return array associative array with 'servlet_host' and 'servlet_uri'
      */
-    protected function parseServletUrl($servlet_address)
+    public static function parseServletUrl($servlet_address)
     {
         $url = parse_url($servlet_address);
         if ($url === false || !isset($url['host'])) {

@@ -42,6 +42,8 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class Java extends AbstractJava
 {
+    protected $__internal_encoding;
+
     /**
      * Java constructor.
      *
@@ -51,6 +53,7 @@ class Java extends AbstractJava
     public function __construct($name, ...$args)
     {
         $this->__client = PjbProxyClient::getInstance()->getClient();
+        $this->__internal_encoding = $this->__client->getInternalEncoding();
 
         $client = $this->__client;
 
@@ -73,7 +76,7 @@ class Java extends AbstractJava
                     $sig .= '@d';
                     break;
                 case 'string':
-                    $args2[] = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
+                    $args2[] = htmlspecialchars($val, ENT_COMPAT, $this->__internal_encoding);
                     $sig .= '@s';
                     break;
                 case 'array':
@@ -171,7 +174,7 @@ class Java extends AbstractJava
                     $sig .= '@d';
                     break;
                 case 'string':
-                    $args2[] = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
+                    $args2[] = htmlspecialchars($val, ENT_COMPAT, $this->__internal_encoding);
                     $sig .= '@s';
                     break;
                 case 'array':
