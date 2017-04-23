@@ -74,9 +74,11 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
             // Those tests does not make sense with the standalone
             $httpServletRequest = $context->getHttpServletRequest();
             $this->assertInstanceOf(JavaObject::class, $httpServletRequest);
+
             $this->assertContains($this->driver->getClassName($httpServletRequest), [
                 'io.soluble.pjb.servlet.RemoteHttpServletRequest',
-                'php.java.servlet.RemoteServletRequest'
+                'php.java.servlet.RemoteServletRequest',
+                'php.java.servlet.RemoteHttpServletRequest' // For Pjb713
             ]);
 
             //echo $this->driver->inspect($httpServletRequest);
@@ -121,7 +123,8 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
 
             $this->assertContains($this->driver->getClassName($httpServletResponse), [
                 'io.soluble.pjb.servlet.RemoteHttpServletResponse',
-                'php.java.servlet.RemoteServletResponse'
+                'php.java.servlet.RemoteServletResponse',
+                'php.java.servlet.RemoteHttpServletResponse' // For pjb713
             ]);
 
             if ($this->driver->getClassName($context) == 'io.soluble.pjb.servlet.HttpContext') {
