@@ -105,6 +105,15 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         $this->__client = $this->__delegate->__client;
     }
 
+    /**
+     * Delegate the magic method __get() to the java object
+     * to access the Java object properties (and not the PHP
+     * remote proxied object).
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
     public function __get($key)
     {
         if (!isset($this->__delegate)) {
@@ -114,6 +123,14 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         return $this->__delegate->__get($key);
     }
 
+    /**
+     * Delegate the magic method __set() to the java object
+     * to access the Java object properties (and not the PHP
+     * remote proxied object).
+     *
+     * @param string $key
+     * @param mixed  $val
+     */
     public function __set($key, $val)
     {
         if (!isset($this->__delegate)) {
@@ -122,6 +139,16 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         $this->__delegate->__set($key, $val);
     }
 
+    /**
+     * Delegate the magic method __cal() to the java object
+     * to access the Java object method (and not the PHP
+     * remote proxied object).
+     *
+     * @param string $method
+     * @param array  $args
+     *
+     * @return mixed
+     */
     public function __call($method, $args)
     {
         if (!isset($this->__delegate)) {
@@ -257,6 +284,9 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
 
     /**
+     * The PHP magic method __toString() cannot be applied
+     * on the PHP object but has to be delegated to the Java one.
+     *
      * @return string
      */
     public function __toString()

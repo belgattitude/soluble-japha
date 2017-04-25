@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## 1.4.0 (TBD)
+
+## Added
+
+- `Interfaces\JavaObject` exposes magic methods `__call()`, `__get()` and `__set()`
+  to better reflect that non-existing method and properties will be delegated to
+  the remote Java object.
+    
+## Improved
+    
+- Serialization with `__sleep()` and `__wakeup()` has preliminary test support    
+
 ## 1.3.1 (2017-04-23)
 
 This release has been tested with the latest official phpjavabridge 7.1.3.

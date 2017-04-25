@@ -153,6 +153,14 @@ class Java extends AbstractJava
         }
     }
 
+    /**
+     * Call a method on this JavaObject.
+     *
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return mixed
+     */
     public function __call($method, $args)
     {
         $client = $this->__client;
