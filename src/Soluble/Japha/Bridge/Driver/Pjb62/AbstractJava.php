@@ -110,6 +110,8 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      * to access the Java object properties (and not the PHP
      * remote proxied object).
      *
+     * @throws \Exception Depending on ThrowExceptionProxy
+     *
      * @param string $key
      *
      * @return mixed
@@ -128,6 +130,8 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      * to access the Java object properties (and not the PHP
      * remote proxied object).
      *
+     * @throws \Exception Depending on ThrowExceptionProxy
+     *
      * @param string $key
      * @param mixed  $val
      */
@@ -143,6 +147,8 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      * Delegate the magic method __cal() to the java object
      * to access the Java object method (and not the PHP
      * remote proxied object).
+     *
+     * @throws \Exception Depending on ThrowExceptionProxy
      *
      * @param string $method
      * @param array  $args
