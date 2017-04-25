@@ -82,16 +82,26 @@ class DriverManager
     /**
      * Return a JDBC DSN formatted string.
      *
-     * @param string $db         database name
-     * @param string $host       server ip or name
-     * @param string $user       username to connect
-     * @param string $password   password to connect
-     * @param string $driverType diverType (mysql/oracle/postgres...)
+     * @param string $driver   driver name  (mysql/mariadb/oracle/postgres...)
+     * @param string $db       database name
+     * @param string $host     server ip or name
+     * @param string $user     username to connect
+     * @param string $password password to connect
+     * @param array  $options  extra options as an associative array
      *
      * @return string
      */
-    public static function getJdbcDsn($db, $host, $user, $password, $driverType = 'mysql')
+    public static function getJdbcDsn($driver, $db, $host, $user, $password, $options = [])
     {
-        return "jdbc:$driverType://$host/$db?user=$user&password=$password";
+        $extras = '';
+        if (count($options) > 0) {
+            $tmp = [];
+            foreach ($options as $key => $value) {
+                $tmp[] = urlencode($key) . '=' . urlencode($value);
+            }
+            $extras = '&' . implode('&', $tmp);
+        }
+
+        return "jdbc:$driver://$host/$db?user=$user&password=$password" . $extras;
     }
 }

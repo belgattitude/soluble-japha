@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `Interfaces\JavaObject` exposes magic methods `__call()`, `__get()` and `__set()`
   to better reflect that non-existing methods and properties will be delegated to
   the remote Java object. 
+
+## Changed
+  
+- Possible bc-break in undocumented feature. The `DB\DriverManager::getJdbcDSN()` has changed its signature
+  and starts now with the driver name. An `$options` array allows to pass extra options.
     
 ## Improved
     
