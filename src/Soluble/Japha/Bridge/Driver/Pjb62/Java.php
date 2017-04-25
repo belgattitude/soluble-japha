@@ -42,6 +42,9 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class Java extends AbstractJava
 {
+    /**
+     * @var string
+     */
     protected $__internal_encoding;
 
     /**

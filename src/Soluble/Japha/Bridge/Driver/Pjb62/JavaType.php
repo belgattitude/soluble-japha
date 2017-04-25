@@ -61,15 +61,15 @@ interface JavaType extends Interfaces\JavaType
     public function get__signature();
 
     /**
-     * @param mixed $key
+     * @param string $key
      *
      * @return mixed
      */
     public function __get($key);
 
     /**
-     * @param mixed $key
-     * @param mixed $val
+     * @param string $key
+     * @param mixed  $val
      */
     public function __set($key, $val);
 
