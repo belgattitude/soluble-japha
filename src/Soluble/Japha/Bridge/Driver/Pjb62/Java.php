@@ -156,8 +156,8 @@ class Java extends AbstractJava
     /**
      * Call a method on this JavaObject.
      *
-     * @param string $name
-     * @param array  $arguments
+     * @param string $method
+     * @param array  $args
      *
      * @return mixed
      */

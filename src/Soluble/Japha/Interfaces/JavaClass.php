@@ -3,7 +3,11 @@
 namespace Soluble\Japha\Interfaces;
 
 /**
- * @method JavaObject forName(string $name)
+ * Those methods have been annotated from the java.lang.Class JDK8 API.
+ *
+ * @see https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html
+ *
+ * @method \Soluble\Japha\Interfaces\JavaClass forName(string $name, boolean $initialize=null, \Soluble\Japha\Interfaces\JavaObject $loader=null)
  */
 interface JavaClass extends JavaObject
 {

@@ -10,8 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Added
 
 - `Interfaces\JavaObject` exposes magic methods `__call()`, `__get()` and `__set()`
-  to better reflect that non-existing method and properties will be delegated to
-  the remote Java object.
+  to better reflect that non-existing methods and properties will be delegated to
+  the remote Java object. 
     
 ## Improved
     
