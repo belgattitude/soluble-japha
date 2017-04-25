@@ -9,7 +9,7 @@ use Soluble\Japha\Interfaces;
 class DriverManager
 {
     /**
-     * @Java(java.sql.DriverManager)
+     * @var Interfaces\JavaObject DriverManager object ('java.sql.DriverManager')
      */
     protected $driverManager;
 
@@ -80,7 +80,7 @@ class DriverManager
     }
 
     /**
-     * Return a JDBC DSN formatted string.
+     * Return a JDBC DSN formatted string from options.
      *
      * @param string $driver   driver name  (mysql/mariadb/oracle/postgres...)
      * @param string $db       database name
