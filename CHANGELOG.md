@@ -4,15 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.4.1 (TBD)
+
+## Improved
+
+- PHPDoc, magic methods `__call()`, `__get()` and `__set()` will inform
+  about possible exceptions
 
 ## 1.4.0 (2017-04-25)
 
 ## Added
 
-- `Interfaces\JavaObject` exposes magic methods `__call()`, `__get()` and `__set()`
-  to better reflect that non-existing methods and properties will be delegated to
-  the remote Java object. 
-
+- `Interfaces\JavaObject` exposes magic methods `__call()`, `__get()` and `__set()` 
+   to better reflect that method calls and property accesses 
+   will be delegated to the remote Java object.
+   
 ## Changed
   
 - Possible bc-break in undocumented feature. The `DB\DriverManager::getJdbcDSN()` has changed its signature
