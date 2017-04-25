@@ -71,16 +71,4 @@ class AdapterJavaDestructTest extends \PHPUnit_Framework_TestCase
         }*/
     }
 
-    public function testGetClassOnClass()
-    {
-        $ba = $this->adapter;
-
-        $cls = $ba->javaClass('java.util.HashMap');
-        $class = $cls->getClass();
-        $this->assertInstanceOf(JavaObject::class, $class);
-        // @TODO possible bc-break, makes this type of call returning a
-        // JavaClass
-        //$this->assertInstanceOf(JavaClass::class, $class);
-        $this->assertEquals('java.lang.Class', $class->getName());
-    }
 }
