@@ -614,6 +614,9 @@ class Client
     }
 
     /**
+     * Unref will be called whenever a JavaObject is not used,
+     * see JavaProxy::__destruct() method.
+     *
      * @param int $object object identifier
      */
     public function unref($object)

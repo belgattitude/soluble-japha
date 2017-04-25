@@ -122,6 +122,10 @@ class JavaProxy implements JavaType
         $this->__java = $this->__client->invokeMethod(0, 'deserialize', $args);
     }
 
+    /**
+     * Automatically detroy this object
+     * by delegating the unref to the bridge side.
+     */
     public function __destruct()
     {
         if (isset($this->__client)) {
