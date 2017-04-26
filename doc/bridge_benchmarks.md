@@ -35,12 +35,11 @@ Connection time: `$ba = new BridgeAdapter([])` varies between around 2ms and 7ms
     
     You'll realize that average time is always lower than x1 (or x10). There's some optimzations
     happening on subsequent calls that make very difficult to give sense to an average here. The best
-    is to always refer to x1 for timing.
+    is to always refer to x1 for worst-case scenario timing.
      
     Memory does not include the JVM side, that explains differences from pure php tests and Java one. 
          
-         
-    
+             
 The figures above will vary between systems, but intuitively you might get a glimpse about how
 the bridge is sensitive to the number of object creations and method calls (roundtrips): 
 

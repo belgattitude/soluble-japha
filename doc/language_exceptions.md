@@ -103,3 +103,16 @@ try {
 
 ```
 
+## BrokenConnectionException
+
+The `Soluble\Japha\Bridge\Exception\BrokenConnectionException` is thrown whenever there's
+a communication failure with the bridge (closed unexpectedly, server down in middle of transaction...).
+ 
+This exception might happen in very rare circumstances. Be sure to enable the logger at connection
+to keep track on this.
+ 
+!!! tip
+    If the `BrokenConnectionException` happens just after the connection, chances
+    are that you are not connecting to the bridge but to another service. Please check
+    notes [here](./bridge_connection.md#errors_and_exceptions).
+

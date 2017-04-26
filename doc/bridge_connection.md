@@ -107,7 +107,7 @@ During initialization with the BridgeAdapter, the following exceptions could hap
     To provide faster initialization, soluble-japha does not deeply check the connection and
     consider a running http(s) port as valid. This can lead to confusion if your connection
     params points to a different running servlet. In this case the `ConnectionException` won't be
-    thrown but you'll experience a `Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException`
+    thrown but you'll experience a `Soluble\Japha\Bridge\Exception\BrokenConnectionException`
     when calling java objects. 
      
     A classic example: you forgot to include the servlet uri in your connection params. Instead
