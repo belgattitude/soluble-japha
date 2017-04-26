@@ -20,8 +20,9 @@ interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
      * to access the Java object properties (and not the PHP
      * remote proxied object).
      *
-     * @throws \Soluble\Japha\Bridge\Exception\JavaException        generic java exception
-     * @throws \Soluble\Japha\Bridge\Exception\NoSuchFieldException when field does not exists
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     * @throws \Soluble\Japha\Bridge\Exception\JavaException             generic java exception
+     * @throws \Soluble\Japha\Bridge\Exception\NoSuchFieldException      when field does not exists
      *
      * @param string $key
      *
@@ -34,8 +35,9 @@ interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
      * to access the Java object properties (and not the PHP
      * remote proxied object).
      *
-     * @throws \Soluble\Japha\Bridge\Exception\JavaException        generic java exception
-     * @throws \Soluble\Japha\Bridge\Exception\NoSuchFieldException when field does not exists
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     * @throws \Soluble\Japha\Bridge\Exception\JavaException             generic java exception
+     * @throws \Soluble\Japha\Bridge\Exception\NoSuchFieldException      when field does not exists
      *
      * @param string $key
      * @param mixed  $val
@@ -49,8 +51,9 @@ interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
      * a method that is not defined on the PHP object it will be
      * delegated to the JVM through the bridge.
      *
-     * @throws \Soluble\Japha\Bridge\Exception\JavaException         generic java exception
-     * @throws \Soluble\Japha\Bridge\Exception\NoSuchMethodException when method does not exists
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     * @throws \Soluble\Japha\Bridge\Exception\JavaException             generic java exception
+     * @throws \Soluble\Japha\Bridge\Exception\NoSuchMethodException     when method does not exists
      *
      * @param string $name
      * @param array  $arguments
@@ -62,6 +65,8 @@ interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
     /**
      * Delegate the magic method __toString() to the java object
      * to get the JavaObject as string.
+     *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
      * @return string
      */

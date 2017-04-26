@@ -85,6 +85,9 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         return $this->__delegate->__cast($type);
     }
 
+    /**
+     * @return array
+     */
     public function __sleep()
     {
         if (!isset($this->__delegate)) {
