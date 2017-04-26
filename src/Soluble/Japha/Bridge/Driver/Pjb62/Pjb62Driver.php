@@ -5,7 +5,8 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Soluble\Japha\Bridge\Driver\AbstractDriver;
-use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException;
+use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException as Pjb62BrokenConnectionException;
+use Soluble\Japha\Bridge\Exception\BrokenConnectionException;
 use Soluble\Japha\Interfaces;
 use Soluble\Japha\Bridge\Exception;
 
@@ -105,9 +106,9 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             $java = new Java($class_name, ...$args);
-        } catch (BrokenConnectionException $e) {
+        } catch (Pjb62BrokenConnectionException $e) {
             PjbProxyClient::getInstance()->destroy();
-            throw $e;
+            throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $java;
@@ -147,9 +148,9 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             return $this->pjbProxyClient->invokeMethod($javaObject, $method, $args);
-        } catch (BrokenConnectionException $e) {
+        } catch (Pjb62BrokenConnectionException $e) {
             PjbProxyClient::getInstance()->destroy();
-            throw $e;
+            throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -164,9 +165,9 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             return $this->pjbProxyClient->getClient()->getContext();
-        } catch (BrokenConnectionException $e) {
+        } catch (Pjb62BrokenConnectionException $e) {
             PjbProxyClient::getInstance()->destroy();
-            throw $e;
+            throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -191,9 +192,9 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             return $this->pjbProxyClient->getClient()->getSession();
-        } catch (BrokenConnectionException $e) {
+        } catch (Pjb62BrokenConnectionException $e) {
             PjbProxyClient::getInstance()->destroy();
-            throw $e;
+            throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -214,7 +215,12 @@ class Pjb62Driver extends AbstractDriver
      */
     public function isInstanceOf(Interfaces\JavaObject $javaObject, $className)
     {
-        return $this->pjbProxyClient->isInstanceOf($javaObject, $className);
+        try {
+            return $this->pjbProxyClient->isInstanceOf($javaObject, $className);
+        } catch (Pjb62BrokenConnectionException $e) {
+            PjbProxyClient::getInstance()->destroy();
+            throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**
@@ -224,9 +230,9 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             return $this->pjbProxyClient->getValues($javaObject);
-        } catch (BrokenConnectionException $e) {
+        } catch (Pjb62BrokenConnectionException $e) {
             PjbProxyClient::getInstance()->destroy();
-            throw $e;
+            throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -328,6 +334,7 @@ class Pjb62Driver extends AbstractDriver
      * Return object java class name.
      *
      * @throws Exception\UnexpectedException
+     * @throws BrokenConnectionException
      *
      * @param Interfaces\JavaObject $javaObject
      *
@@ -335,7 +342,13 @@ class Pjb62Driver extends AbstractDriver
      */
     public function getClassName(Interfaces\JavaObject $javaObject)
     {
-        $inspect = $this->inspect($javaObject);
+        try {
+            $inspect = $this->inspect($javaObject);
+        } catch (Pjb62BrokenConnectionException $e) {
+            PjbProxyClient::getInstance()->destroy();
+            throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
+        }
+
         // [class java.sql.DriverManager:
         $matches = [];
         preg_match('/^\[class (.+)\:/', $inspect, $matches);

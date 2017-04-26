@@ -6,6 +6,7 @@ use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\InternalJava;
 use Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
+use Soluble\Japha\Bridge\Exception\ClassNotFoundException;
 use Soluble\Japha\Interfaces\JavaObject;
 use Soluble\Japha\Bridge\Exception\InvalidArgumentException;
 
@@ -87,9 +88,16 @@ class PjbDriverTest extends \PHPUnit_Framework_TestCase
 
     public function testIsInstanceOfThrowsException1()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->setExpectedException(ClassNotFoundException::class);
         $string = $this->adapter->java('java.lang.String', 'hello');
         $bool = $this->adapter->getDriver()->isInstanceOf($string, 'java.invalid.Str');
+    }
+
+    public function testIsInstanceOfThrowsException2()
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+        $string = $this->adapter->java('java.lang.String', 'hello');
+        $bool = $this->adapter->getDriver()->isInstanceOf($string, []);
     }
 
     public function testSetFileEncoding()

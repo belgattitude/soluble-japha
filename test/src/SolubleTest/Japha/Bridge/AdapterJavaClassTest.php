@@ -3,6 +3,7 @@
 namespace SolubleTest\Japha\Bridge;
 
 use Soluble\Japha\Bridge\Adapter;
+use Soluble\Japha\Bridge\Exception\ClassNotFoundException;
 use Soluble\Japha\Interfaces\JavaClass;
 use Soluble\Japha\Interfaces\JavaObject;
 
@@ -58,5 +59,14 @@ class AdapterJavaClassTest extends \PHPUnit_Framework_TestCase
         // JavaClass
         //$this->assertInstanceOf(JavaClass::class, $class);
         $this->assertEquals('java.lang.Class', $class->getName());
+    }
+
+    public function testJavaClassThrowsClassNotFoundException()
+    {
+        $this->setExpectedException(ClassNotFoundException::class);
+
+        $ba = $this->adapter;
+
+        $cls = $ba->javaClass('java.INVALIDPKG.HashMap');
     }
 }

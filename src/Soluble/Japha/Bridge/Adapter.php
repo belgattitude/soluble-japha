@@ -3,7 +3,6 @@
 namespace Soluble\Japha\Bridge;
 
 use Soluble\Japha\Interfaces;
-use Soluble\Japha\Util\Exception\UnsupportedTzException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -87,6 +86,7 @@ class Adapter
      *
      * @throws \Soluble\Japha\Bridge\Exception\JavaException
      * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
      * @see Adapter::javaClass($class) for information about classes
      *
@@ -111,11 +111,12 @@ class Adapter
      * echo $tz->getDisplayName(false, $tzClass->SHORT);
      * </code>
      *
+     * @see Adapter::java($class, $args) for object creation
+     *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
+     *
      * @param string $class Java class name (FQDN)
-     *
-     * @see Adapter\java($class, $args) for object creation
-     *
-     * @param string $class
      *
      * @return Interfaces\JavaClass
      */
@@ -127,8 +128,12 @@ class Adapter
     /**
      * Checks whether object is an instance of a class or interface.
      *
-     * @param Interfaces\JavaObject        $javaObject
-     * @param string|Interfaces\JavaObject $className  java class name
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
+     * @throws \Soluble\Japha\Bridge\Exception\InvalidArgumentException
+     *
+     * @param Interfaces\JavaObject                             $javaObject
+     * @param string|Interfaces\JavaObject|Interfaces\JavaClass $className  java class name
      *
      * @return bool
      */
@@ -139,6 +144,8 @@ class Adapter
 
     /**
      * Return object java FQDN class name.
+     *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
      * @param Interfaces\JavaObject $javaObject
      *
@@ -152,6 +159,8 @@ class Adapter
     /**
      * Whether a java internal value is null.
      *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     *
      * @param Interfaces\JavaObject|null $javaObject
      *
      * @return bool
@@ -163,6 +172,8 @@ class Adapter
 
     /**
      * Check wether a java value is true (boolean).
+     *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
      * @param Interfaces\JavaObject|null $javaObject
      *
@@ -192,6 +203,8 @@ class Adapter
      * use it on Java array structures (ArrayList, HashMap...)
      * to avoid the need of iterations on the PHP side.
      *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     *
      * @param Interfaces\JavaObject $javaObject
      *
      * @return mixed
@@ -219,8 +232,8 @@ class Adapter
      * scripts may change it.
      *
      *
-     * @throws Exception\ConfigurationException
-     * @throws UnsupportedTzException
+     * @throws \Soluble\Japha\Util\Exception\UnsupportedTzException
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
      * @param string $timezone
      */

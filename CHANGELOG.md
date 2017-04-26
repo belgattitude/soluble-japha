@@ -6,10 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.4.1 (TBD)
 
+## Added
+
+- Created `Soluble\Japha\Bridge\Exception\BrokenConnectionException` to mask
+  internal pjb62 drive BrokenConnectionException. Documented in DriverInterface as well.  
+
 ## Improved
 
-- PHPDoc, magic methods `__call()`, `__get()` and `__set()` will inform
-  about possible exceptions
+- PHPDoc, improved documentation on Exception in DriveInterface and AbstractDriver.
+
+- PHPDoc, magic methods `__call()`, `__get()` and `__set()` nows inform
+  about possible exception. Thanks @marcospassos for persisting on this.
+  
 
 ## 1.4.0 (2017-04-25)
 

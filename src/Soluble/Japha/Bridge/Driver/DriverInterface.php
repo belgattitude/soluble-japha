@@ -19,6 +19,7 @@ interface DriverInterface extends ConnectionInterface
      * Instanciate a new java object.
      *
      * @throws \Soluble\Japha\Bridge\Exception\ClassFoundException
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
      * @param string     $class_name Java FQDN i.e: 'java.lang.String'
      * @param mixed|null ...$args    arguments as variadic notation
@@ -30,6 +31,9 @@ interface DriverInterface extends ConnectionInterface
     /**
      * Return a new java class.
      *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
+     *
      * @param string $class_name Java class FQDN i.e: 'java.lang.String'
      *
      * @return Interfaces\JavaClass
@@ -38,6 +42,9 @@ interface DriverInterface extends ConnectionInterface
 
     /**
      * Whether object is an instance of specific java class or interface.
+     *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
      *
      * @param Interfaces\JavaObject                             $javaObject
      * @param string|Interfaces\JavaClass|Interfaces\JavaObject $className  java class or interface name
@@ -49,6 +56,8 @@ interface DriverInterface extends ConnectionInterface
     /**
      * Return object java class name.
      *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     *
      * @param Interfaces\JavaObject $javaObject
      *
      * @return string
@@ -58,6 +67,8 @@ interface DriverInterface extends ConnectionInterface
     /**
      * Inspect object.
      *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     *
      * @param Interfaces\JavaObject $javaObject
      *
      * @return string
@@ -66,6 +77,8 @@ interface DriverInterface extends ConnectionInterface
 
     /**
      * Invoke a method on a JavaObject (or a static method on a JavaClass).
+     *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
      * @param Interfaces\JavaType $javaObject javaObject can be Interfaces\JavaClass or Interfaces\JavaObject, if null use servlet methods registered on th JavaBridge side
      * @param string              $method     Method name on the JavaObject or JavaClass
@@ -78,6 +91,8 @@ interface DriverInterface extends ConnectionInterface
     /**
      * Check whether a java value is null.
      *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     *
      * @param Interfaces\JavaObject $javaObject
      *
      * @return bool
@@ -86,6 +101,8 @@ interface DriverInterface extends ConnectionInterface
 
     /**
      * Check whether a java value is true (boolean and int values are considered).
+     *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
      * @param Interfaces\JavaObject $javaObject
      *
@@ -96,12 +113,16 @@ interface DriverInterface extends ConnectionInterface
     /**
      * Returns the jsr223 script context handle.
      *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
+     *
      * @return Interfaces\JavaObject
      */
     public function getContext();
 
     /**
      * One round trip retrieval of Java object value representation.
+     *
+     * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
      * @param Interfaces\JavaObject $javaObject
      *

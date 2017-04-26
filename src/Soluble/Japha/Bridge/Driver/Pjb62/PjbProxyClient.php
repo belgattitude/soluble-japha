@@ -145,6 +145,7 @@ class PjbProxyClient implements ClientInterface
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ConnectionException
+     * @throws \Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException
      *
      * @param array|null      $options
      * @param LoggerInterface $logger  any psr3 logger
@@ -221,6 +222,8 @@ class PjbProxyClient implements ClientInterface
     /**
      * Return a Java class.
      *
+     * @throws \Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException
+     *
      * @param string $name Name of the java class
      *
      * @return JavaClass
@@ -249,6 +252,8 @@ class PjbProxyClient implements ClientInterface
      * not be caught unless declared in the methods throws clause -- OutOfMemoryErrors cannot be caught at all,
      * even if declared.
      *
+     * @throws \Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException
+     *
      * @param Interfaces\JavaType|null $object a java object or type
      * @param string                   $method A method string
      * @param mixed                    $args   Arguments to send to method
@@ -264,6 +269,8 @@ class PjbProxyClient implements ClientInterface
 
     /**
      * Inspect the java object | type.
+     *
+     * @throws \Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException
      *
      * @param Interfaces\JavaType $object
      *
@@ -282,6 +289,7 @@ class PjbProxyClient implements ClientInterface
      * Test whether an object is an instance of java class or interface.
      *
      * @throws Exception\InvalidArgumentException
+     * @throws \Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException
      *
      * @param Interfaces\JavaObject                                             $object
      * @param JavaType|string|Interfaces\JavaClass|Interfaces\JavaObject|string $class
@@ -291,13 +299,12 @@ class PjbProxyClient implements ClientInterface
     public function isInstanceOf(Interfaces\JavaObject $object, $class)
     {
         if (is_string($class)) {
-            // Attempt to autoload classname
+            // Attempt to initiate a class
             $name = $class;
-            try {
-                $class = $this->getJavaClass($name);
-            } catch (\Exception $e) {
-                throw new Exception\InvalidArgumentException(__METHOD__ . " Class '$name' not found and cannot be resolved for comparison.");
-            }
+            // Will eventually throws ClassNotFoundException
+            $class = $this->getJavaClass($name);
+        } elseif (!$class instanceof Interfaces\JavaObject) {
+            throw new Exception\InvalidArgumentException(__METHOD__ . 'Class $class parameter must be of Interfaces\JavaClass, Interfaces\JavaObject or string');
         }
 
         return self::$client->invokeMethod(0, 'instanceOf', [$object, $class]);
@@ -335,6 +342,8 @@ class PjbProxyClient implements ClientInterface
      * => h
      * </code>
      *
+     * @throws \Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException
+     *
      * @param Interfaces\JavaObject $object
      *
      * @return mixed
@@ -345,6 +354,12 @@ class PjbProxyClient implements ClientInterface
     }
 
     /**
+     * Return latest exception.
+     *
+     * @deprecated
+     *
+     * @throws \Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException
+     *
      * @return \Soluble\Japha\Bridge\Driver\Pjb62\Exception\JavaException
      */
     public function getLastException()
@@ -352,6 +367,13 @@ class PjbProxyClient implements ClientInterface
         return self::$client->invokeMethod(0, 'getLastException', []);
     }
 
+    /**
+     * Clear last exception.
+     *
+     * @deprecated
+     *
+     * @throws \Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException
+     */
     public function clearLastException()
     {
         self::$client->invokeMethod(0, 'clearLastException', []);

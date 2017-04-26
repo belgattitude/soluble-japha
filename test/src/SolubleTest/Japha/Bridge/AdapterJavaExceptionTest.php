@@ -4,6 +4,8 @@ namespace SolubleTest\Japha\Bridge;
 
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Exception;
+use Soluble\Japha\Bridge\Exception\ClassNotFoundException;
+use Soluble\Japha\Bridge\Exception\InvalidArgumentException;
 use Soluble\Japha\Util\Exception\UnsupportedTzException;
 
 /**
@@ -118,6 +120,31 @@ class AdapterJavaExceptionTest extends \PHPUnit_Framework_TestCase
         } catch (\Exception $e) {
             $this->assertFalse(true, 'This code cannot be reached');
         }
+    }
+
+    public function testJavaClassThrowsClassNotFoundException()
+    {
+        $this->setExpectedException(ClassNotFoundException::class);
+        $ba = $this->adapter;
+        $cls = $ba->javaClass('java.INVALIDPKG.HashMap');
+    }
+
+    public function testIsInstanceThrowsClassNotFoundException()
+    {
+        $this->setExpectedException(ClassNotFoundException::class);
+        $ba = $this->adapter;
+        $string = $ba->java('java.lang.String', 'cool');
+
+        $ba->isInstanceOf($string, 'java.InvalidPKG.String');
+    }
+
+    public function testIsInstanceThrowsInvalidArgumentException()
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+        $ba = $this->adapter;
+        $string = $ba->java('java.lang.String', 'cool');
+
+        $ba->isInstanceOf($string, []);
     }
 
     public function testExceptionToString()
