@@ -39,6 +39,17 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class SocketChannelP extends SocketChannel
 {
+    /**
+     * @param resource $peer
+     * @param string   $host
+     * @param int      $recv_size
+     * @param int      $send_size
+     */
+    public function __construct($peer, $host, $recv_size, $send_size)
+    {
+        parent::__construct($peer, $host, $recv_size, $send_size);
+    }
+
     public function getKeepAlive()
     {
         return $this->getKeepAliveA();

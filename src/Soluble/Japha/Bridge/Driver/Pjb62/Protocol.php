@@ -254,23 +254,6 @@ class Protocol
                 throw new ConnectionException("No Java server at $host:$channelName. Error message: $errstr ($errno)");
             }
         }
-        /* Autostart server disabled for soluble
-        if (!$peer) {
-            $java = file_exists(ini_get("extension_dir") . "/JavaBridge.jar") ? ini_get("extension_dir") . "/JavaBridge.jar" : (java_get_base() . "/JavaBridge.jar");
-            if (!file_exists($java)) {
-                throw new Exception\IOException("Could not find $java in " . getcwd() . ". Download it from http://sf.net/projects/php-java-bridge/files/Binary%20package/php-java-bridge_" . JAVA_PEAR_VERSION . "/exploded/JavaBridge.jar/download and try again.");
-            }
-            $java_cmd = "java -Dphp.java.bridge.daemon=true -jar \"${java}\" INET_LOCAL:$channelName 0";
-            if (!$again) {
-                throw new ConnectionException("No Java back end! Please run it with: $java_cmd. Error message: $errstr ($errno)");
-            }
-            if (!java_checkCliSapi()) {
-                trigger_error("This PHP SAPI requires a JEE or SERVLET back end. Start it,define ('JAVA_SERVLET',true); define('JAVA_HOSTS',...); and try again.", E_USER_ERROR);
-            }
-            system($java_cmd);
-            return $this->createSimpleHandler($name, false);
-        }
-        */
         stream_set_timeout($peer, -1);
         $handler = new SocketHandler($this, new SocketChannelP($peer, $host, $this->java_recv_size, $this->java_send_size));
         //$compatibility = java_getCompatibilityOption($this->client);

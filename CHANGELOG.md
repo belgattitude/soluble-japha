@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Created `Soluble\Japha\Bridge\Exception\BrokenConnectionException` to mask
   internal pjb62 drive BrokenConnectionException. Documented in DriverInterface as well.  
 
+## Fixed
+
+- Minor issue with `$ba->isInstanceOf($object, $class)` when second arg `class` is
+  not a string neither an `Interface\JavaObject`. The exception `Exception\InvalidArgumentException`
+  is now thrown (was masked before).
+
 ## Improved
 
 - PHPDoc, improved documentation on Exception in DriveInterface and AbstractDriver.

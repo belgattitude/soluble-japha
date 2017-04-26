@@ -6,6 +6,8 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
+ini_set('display_errors', 1);
+
 $bm = new Benchmark();
 
 $start_total_time = $bm->getTimeMs();

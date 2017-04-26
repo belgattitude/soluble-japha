@@ -241,10 +241,23 @@ class SimpleHttpHandler extends SocketHandler
     {
         $errstr = null;
         $errno = null;
+
+        /*
+        // prototype
+        $context = stream_context_create([
+        //    'http' => [
+        //        'protocol_version' => "1.1"
+        //    ]
+        ]);
+        $address = $this->host . $this->getWebApp() .  ':' . $channelName;
+        $peer = stream_socket_client($address, $errno, $errstr, 20, STREAM_CLIENT_PERSISTENT, $context);
+        */
+
         $peer = pfsockopen($this->host, $channelName, $errno, $errstr, 20);
         if (!$peer) {
             throw new Exception\IllegalStateException("No ContextServer for {$this->host}:{$channelName}. Error: $errstr ($errno)\n");
         }
+
         stream_set_timeout($peer, -1);
 
         return new SocketChannelP($peer, $this->host, $this->java_recv_size, $this->java_send_size);
