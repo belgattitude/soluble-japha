@@ -53,7 +53,7 @@ class System
      *
      * @throws UnsupportedTzException
      *
-     * @param string|Interfaces\JavaObject|DateTimeZone $timezone timezone id, Java(java.util.Timezone) or php DateTimeZone
+     * @param string|Interfaces\JavaObject|\DateTimeZone $timezone timezone id, Java(java.util.Timezone) or php DateTimeZone
      */
     public function setTimeZoneId($timezone)
     {

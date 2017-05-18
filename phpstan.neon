@@ -1,0 +1,12 @@
+parameters:
+	ignoreErrors:
+		- '#Call to an undefined method Soluble\\Japha\\Interfaces\\JavaObject::#'
+		- '#Call to an undefined method Soluble\\Japha\\Interfaces\\JavaClass::#'
+		- '#Driver\\Pjb62\\JavaClass::__construct\(\) does not call parent constructor#'
+		- '#Driver\\Pjb62\\SocketChannel::__construct\(\) does not call parent constructor#'
+		- '#Driver\\Pjb62\\InternalJava::__construct\(\) does not call parent constructor#'
+		- '#Driver\\Pjb62\\JavaProxyProxy::__construct\(\) does not call parent constructor#'
+		- '#Driver\\Pjb62\\Exception\\InternalException::__construct\(\) does not call parent constructor#'
+		- '#Driver\\Pjb62\\SimpleHttpHandler::__construct\(\) does not call parent constructor#'
+
+		#- '#but returns PHPUnit_Framework_MockObject_MockObject#'

@@ -42,6 +42,8 @@ use Soluble\Japha\Bridge\Exception;
 class ChunkedSocketChannel extends SocketChannel
 {
     /**
+     * @throws Exception\RuntimeException
+     *
      * @param string $data
      */
     public function fwrite($data)
@@ -57,7 +59,7 @@ class ChunkedSocketChannel extends SocketChannel
     /**
      * @param int $size
      *
-     * @return string|void
+     * @return string|null
      */
     public function fread($size)
     {
@@ -66,7 +68,7 @@ class ChunkedSocketChannel extends SocketChannel
         while ($length > 0) {
             $str = fread($this->peer, $length);
             if (feof($this->peer)) {
-                return;
+                return null;
             }
             $length -= strlen($str);
             $data .= $str;

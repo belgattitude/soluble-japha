@@ -32,18 +32,30 @@
     "require-dev" : {
         "phpunit/phpunit": "^5.5",
         "belgattitude/pjbserver-tools": "^2.1.2",
-        "friendsofphp/php-cs-fixer": "^2.1.2",
+        "friendsofphp/php-cs-fixer": "^2.3.1",
+        "phpstan/phpstan": "^0.7.0",
         "monolog/monolog": "^1.21.0"
     },
     "scripts": {
+        "check": [
+            "@cs-check",
+            "@phpstan",
+            "@test"
+        ],
+        "fix": [
+            "@cs-fix"
+        ],
         "test": "./vendor/bin/phpunit",
+        "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
+        "cs-fix": "vendor/bin/php-cs-fixer -v fix",
+        "phpstan": "vendor/bin/phpstan analyse -l 4 -c phpstan.neon src",
         "build-doc": "mkdocs build && apigen.phar generate --config=./.apigen.yml"
     },
     "suggest": {
         "monolog/monolog": "PSR-3 comptatible logger"
     },
     "archive": {
-        "exclude": ["test", "doc", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
+        "exclude": ["phpstan.neon", "test", "doc", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
     },
     "extra": {
         "branch-alias": {

@@ -50,7 +50,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     public $__client;
 
     /**
-     * @var JavaProxy
+     * @var JavaProxy|JavaType
      */
     public $__delegate;
     protected $__serialID;

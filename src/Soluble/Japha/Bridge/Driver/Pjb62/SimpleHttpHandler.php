@@ -131,12 +131,12 @@ class SimpleHttpHandler extends SocketHandler
         $this->protocol->handler = $this->protocol->getSocketHandler();
 
         $ret = $this->protocol->handler->write($this->protocol->client->sendBuffer);
-        if ($ret === false) {
+        if ($ret === null) {
             $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
         }
         $this->protocol->client->sendBuffer = null;
         $ret2 = $this->protocol->handler->read(1);
-        if ($ret2 === false) {
+        if ($ret2 === null) {
             $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
         }
     }

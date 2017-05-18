@@ -30,7 +30,7 @@ class TimeZone
     /**
      * Cache for default TimeZone.
      *
-     * @var Interfaces\JavaObject Java(java.util.Timezone)
+     * @var Interfaces\JavaObject|null Java(java.util.Timezone)
      */
     protected static $defaultTz;
 
@@ -111,7 +111,7 @@ class TimeZone
     {
         if ($id instanceof DateTimeZone) {
             $phpTimezone = $id->getName();
-        } elseif (is_string($id) && ((string) $id) != '') {
+        } elseif (is_string($id) && trim($id) != '') {
             $phpTimezone = $id;
         } else {
             throw new Exception\InvalidArgumentException('Method getTimeZone($id) require argument to be datetimeZone or a non empty string');

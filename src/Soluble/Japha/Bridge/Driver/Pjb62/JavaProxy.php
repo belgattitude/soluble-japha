@@ -74,7 +74,7 @@ class JavaProxy implements JavaType
     public $__client;
 
     /**
-     * @var GlobalRef
+     * @var GlobalRef|null
      */
     public $__tempGlobalRef;
 

@@ -41,9 +41,10 @@ use Exception;
 use Soluble\Japha\Bridge\Driver\Pjb62\JavaType;
 use Soluble\Japha\Bridge\Driver\Pjb62\Client;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
+use Soluble\Japha\Interfaces\JavaObject;
 
 /**
- * @method string getCause()
+ * @method JavaObject getCause() Standard java Throwable::getCause() method: java('java.lang.String')
  */
 class JavaException extends Exception implements JavaType
 {
@@ -79,8 +80,8 @@ class JavaException extends Exception implements JavaType
         }
 
         $this->__delegate = $this->__client->createObject($name, $args);
-        $this->__java = $this->__delegate->__java;
-        $this->__signature = $this->__delegate->__signature;
+        $this->__java = $this->__delegate->get__java();
+        $this->__signature = $this->__delegate->get__signature();
         $this->__hasDeclaredExceptions = 'T';
     }
 

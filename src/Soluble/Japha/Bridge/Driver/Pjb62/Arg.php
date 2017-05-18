@@ -37,8 +37,6 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-use Soluble\Japha\Bridge\Exception\JavaException;
-
 class Arg
 {
     /**
@@ -87,7 +85,7 @@ class Arg
     /**
      * @param bool $wrap
      *
-     * @return JavaException
+     * @return JavaType
      */
     public function getResult($wrap)
     {

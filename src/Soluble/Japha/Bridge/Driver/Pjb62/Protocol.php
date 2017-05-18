@@ -279,8 +279,8 @@ class Protocol
     public function createHandler()
     {
         if (!Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_OVERRIDE_HOSTS', $_SERVER) &&
-                ((function_exists('java_get_default_channel') && ($defaultChannel = java_get_default_channel())) ||
-                ($defaultChannel = $this->java_get_simple_channel()))) {
+                //((function_exists('java_get_default_channel') && ($defaultChannel = java_get_default_channel())) ||
+                ($defaultChannel = $this->java_get_simple_channel())) {
             return $this->createSimpleHandler($defaultChannel);
         } else {
             return $this->createHttpHandler();
@@ -357,7 +357,8 @@ class Protocol
 
     public function referenceEnd()
     {
-        $this->client->currentArgumentsFormat .= $format = '</H>';
+        $format = '</H>';
+        $this->client->currentArgumentsFormat .= $format;
         $this->write($format);
         $this->finish();
         $this->client->currentCacheKey = null;
@@ -378,7 +379,8 @@ class Protocol
 
     public function createObjectEnd()
     {
-        $this->client->currentArgumentsFormat .= $format = '</K>';
+        $format = '</K>';
+        $this->client->currentArgumentsFormat .= $format;
         $this->write($format);
         $this->finish();
         $this->client->currentCacheKey = null;
@@ -398,7 +400,8 @@ class Protocol
 
     public function propertyAccessEnd()
     {
-        $this->client->currentArgumentsFormat .= $format = '</G>';
+        $format = '</G>';
+        $this->client->currentArgumentsFormat .= $format;
         $this->write($format);
         $this->finish();
         $this->client->currentCacheKey = null;
@@ -418,7 +421,8 @@ class Protocol
 
     public function invokeEnd()
     {
-        $this->client->currentArgumentsFormat .= $format = '</Y>';
+        $format = '</Y>';
+        $this->client->currentArgumentsFormat .= $format;
         $this->write($format);
         $this->finish();
         $this->client->currentCacheKey = null;
@@ -443,7 +447,8 @@ class Protocol
      */
     public function writeString($name)
     {
-        $this->client->currentArgumentsFormat .= $format = '<S v="%s"/>';
+        $format = '<S v="%s"/>';
+        $this->client->currentArgumentsFormat .= $format;
         $this->write(sprintf($format, htmlspecialchars($name, ENT_COMPAT, $this->internal_encoding)));
     }
 
@@ -452,7 +457,8 @@ class Protocol
      */
     public function writeBoolean($boolean)
     {
-        $this->client->currentArgumentsFormat .= $format = '<T v="%s"/>';
+        $format = '<T v="%s"/>';
+        $this->client->currentArgumentsFormat .= $format;
         $this->write(sprintf($format, $boolean));
     }
 
@@ -474,7 +480,8 @@ class Protocol
      */
     public function writeULong($l)
     {
-        $this->client->currentArgumentsFormat .= $format = '<L v="%x" p="O"/>';
+        $format = '<L v="%x" p="O"/>';
+        $this->client->currentArgumentsFormat .= $format;
         $this->write(sprintf($format, $l));
     }
 
@@ -483,7 +490,8 @@ class Protocol
      */
     public function writeDouble($d)
     {
-        $this->client->currentArgumentsFormat .= $format = '<D v="%.14e"/>';
+        $format = '<D v="%.14e"/>';
+        $this->client->currentArgumentsFormat .= $format;
         $this->write(sprintf($format, $d));
     }
 
@@ -492,7 +500,8 @@ class Protocol
      */
     public function writeObject($object)
     {
-        $this->client->currentArgumentsFormat .= $format = '<O v="%x"/>';
+        $format = '<O v="%x"/>';
+        $this->client->currentArgumentsFormat .= $format;
         $this->write(sprintf($format, $object));
     }
 

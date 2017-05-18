@@ -32,7 +32,8 @@ before_script:
   # be fully running, assume 6 seconds
   # and show the log file
   - sleep 6 && cat ./.travis/webapp-runner.8083.log
-  - composer install
+  - composer --ignore-platform-reqs install
+
     
 script: 
   - ./vendor/bin/phpunit -c .travis/phpunit.travis.xml -v --coverage-clover=coverage.xml

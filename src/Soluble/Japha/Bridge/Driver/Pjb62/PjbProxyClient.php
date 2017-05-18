@@ -20,7 +20,7 @@ use Psr\Log\NullLogger;
 class PjbProxyClient implements ClientInterface
 {
     /**
-     * @var PjbProxyClient
+     * @var PjbProxyClient|null
      */
     protected static $instance;
 
@@ -169,7 +169,7 @@ class PjbProxyClient implements ClientInterface
      */
     public static function isInitialized()
     {
-        $init = (isset(self::$instance) && self::$instance !== null);
+        $init = self::$instance !== null;
 
         return (bool) $init;
     }
@@ -447,7 +447,7 @@ class PjbProxyClient implements ClientInterface
     /**
      * Return options.
      *
-     * @return array
+     * @return ArrayObject
      */
     public function getOptions()
     {

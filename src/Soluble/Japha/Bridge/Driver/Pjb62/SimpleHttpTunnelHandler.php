@@ -131,7 +131,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     /**
      * @param int $size
      *
-     * @return string
+     * @return string|null
      */
     public function fread($size)
     {
@@ -140,7 +140,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         while ($length > 0) {
             $str = fread($this->socket, $length);
             if (feof($this->socket)) {
-                return;
+                return null;
             }
             $length -= strlen($str);
             $data .= $str;
@@ -176,6 +176,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
             $this->parseHeaders();
         }
         if (isset($this->headers['http_error'])) {
+            $str = '';
             if (isset($this->headers['transfer_chunked'])) {
                 $str = $this->fread($this->java_recv_size);
             } elseif (isset($this->headers['content_length'])) {

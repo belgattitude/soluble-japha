@@ -131,8 +131,8 @@ class Java extends AbstractJava
             $this->__delegate = $client->createObject($name, $args);
             $delegate = $this->__delegate;
 
-            $this->__java = $delegate->__java;
-            $this->__signature = $delegate->__signature;
+            $this->__java = $delegate->get__java();
+            $this->__signature = $delegate->get__signature();
         }
     }
 

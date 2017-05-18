@@ -33,6 +33,7 @@ class DriverManager
      * @throws Exception\JavaException
      * @throws Exception\ClassNotFoundException
      * @throws Exception\InvalidArgumentException
+     * @throws Exception\BrokenConnectionException
      *
      * @param string $dsn
      * @param string $driverClass
@@ -57,9 +58,6 @@ class DriverManager
             $conn = $this->getDriverManager()->getConnection($dsn);
         } catch (Exception\JavaExceptionInterface $e) {
             throw $e;
-        } catch (\Exception $e) {
-            $message = 'Unexpected exception thrown with message ' . $e->getMessage();
-            throw new Exception\UnexpectedException(__METHOD__ . ' ' . $message);
         }
 
         return $conn;
