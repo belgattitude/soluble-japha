@@ -1,8 +1,11 @@
 <?php
-/**
- * Caution: This is only required for SimpleParser
- * to maintain compatibility with HHVM. Regular
- * usage on PHP will use the NativeParser.
+
+/*
+ * Soluble Japha
+ *
+ * @link      https://github.com/belgattitude/soluble-japha
+ * @copyright Copyright (c) 2013-2017 Vanvelthem Sébastien
+ * @license   MIT License https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.md
  */
 
 namespace SolubleTest\Japha\Bridge\Driver\Pjb62\Exception;

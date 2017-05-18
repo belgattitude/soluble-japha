@@ -1,11 +1,11 @@
 <?php
 
 $header = <<<'EOF'
+Soluble Japha
 
-(c) Sébastien Vanvelthem
-
-This source file is subject to the MIT license that is bundled
-with this source code in the file LICENSE.
+@link      https://github.com/belgattitude/soluble-japha
+@copyright Copyright (c) 2013-2017 Vanvelthem Sébastien
+@license   MIT License https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.md
 EOF;
 
 return PhpCsFixer\Config::create()

@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * Soluble Japha
+ *
+ * @link      https://github.com/belgattitude/soluble-japha
+ * @copyright Copyright (c) 2013-2017 Vanvelthem Sébastien
+ * @license   MIT License https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.md
+ */
+
 if (!$loader = @include __DIR__ . '/../vendor/autoload.php') {
     die('You must set up the project dependencies, run the following commands:' . PHP_EOL .
             'curl -s http://getcomposer.org/installer | php' . PHP_EOL .
