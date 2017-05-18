@@ -10,6 +10,9 @@
 
 namespace Soluble\Japha\Interfaces;
 
+/**
+ * @method JavaClass getClass(string $type) Java('java.lang.Class')
+ */
 interface JavaType
 {
     /**

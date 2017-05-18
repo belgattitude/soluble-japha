@@ -69,8 +69,6 @@ class Pjb62Driver extends AbstractDriver
             $msg = 'Invalid arguments, cannot initiate connection to java-bridge.';
             $this->logger->error("[soluble-japha] $msg (" . $e->getMessage() . ')');
             throw $e;
-        } catch (\Exception $e) {
-            throw $e;
         }
     }
 

@@ -39,8 +39,7 @@
     "scripts": {
         "check": [
             "@cs-check",
-            "@phpstan",
-            "@test"
+            "@phpstan"
         ],
         "fix": [
             "@cs-fix"

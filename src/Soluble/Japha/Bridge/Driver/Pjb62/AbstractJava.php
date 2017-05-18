@@ -104,8 +104,8 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
             $this->__createDelegate();
         }
         $this->__delegate->__wakeup();
-        $this->__java = $this->__delegate->__java;
-        $this->__client = $this->__delegate->__client;
+        $this->__java = $this->__delegate->get__java();
+        $this->__client = $this->__delegate->get__signature();
     }
 
     /**
