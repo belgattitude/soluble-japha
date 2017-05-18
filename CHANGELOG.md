@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Added
 
-- New composer scripts for hecking source code.
+- New composer scripts for checking source code.
 
 ## 1.4.1 (2017-04-26)
 
