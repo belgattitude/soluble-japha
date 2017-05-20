@@ -8,7 +8,7 @@
  * @license   MIT License https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.md
  */
 
-namespace SolubleTest\Japha\Bridge;
+namespace SolubleTest\Japha\Bridge\Driver;
 
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\DriverInterface;

@@ -45,7 +45,7 @@ class ObjectIterator implements Iterator
     private $var;
 
     /**
-     * @param JavaObject $javaObject
+     * @param JavaObject|JavaType $javaObject
      */
     public function __construct($javaObject)
     {

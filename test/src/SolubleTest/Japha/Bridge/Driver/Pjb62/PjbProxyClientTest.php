@@ -27,7 +27,7 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
     protected $servlet_address;
 
     /**
-     * @var string
+     * @var array
      */
     protected $options;
 

@@ -22,6 +22,5 @@ if (defined('HHVM_VERSION')) {
 } else {
     ini_set('memory_limit', '384M');
 }
-require_once __DIR__ . '/SolubleTestFactories.php';
 
 $loader = require __DIR__ . '/../vendor/autoload.php';

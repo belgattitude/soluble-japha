@@ -44,9 +44,15 @@ use Soluble\Japha\Bridge\Driver\Pjb62\Utils\HelperFunctions;
 
 class Client
 {
+    /**
+     * @var array
+     */
     public $RUNTIME;
     public $result;
     public $exception;
+    /**
+     * @var Parser
+     */
     public $parser;
 
     /**
@@ -366,8 +372,8 @@ class Client
     }
 
     /**
-     * @param array $name
-     * @param array $st   param
+     * @param array|string $name
+     * @param array        $st   param
      */
     public function begin($name, $st)
     {
@@ -443,7 +449,7 @@ class Client
     }
 
     /**
-     * @param array $name
+     * @param array|string $name
      */
     public function end($name)
     {

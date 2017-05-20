@@ -64,6 +64,7 @@ class JDBCPerformanceTest extends \PHPUnit_Framework_TestCase
     {
         $ba = $this->adapter;
         $dsn = $this->getPHPUnitJdbcDSN(); // "jdbc:mysql://$host/$db?user=$user&password=$password"
+        $conn = null;
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
@@ -97,6 +98,7 @@ class JDBCPerformanceTest extends \PHPUnit_Framework_TestCase
     {
         $ba = $this->adapter;
         $dsn = $this->getPHPUnitJdbcDSN(); // "jdbc:mysql://$host/$db?user=$user&password=$password"
+        $conn = null;
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {

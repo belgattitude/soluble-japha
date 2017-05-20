@@ -22,8 +22,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Soluble\\JaphaTest\\": "test/Soluble/JaphaTest"
-        }
+            "SolubleTest\\Japha\\": "test/src/SolubleTest/Japha"
+        },
+        "files": ["test/SolubleTestFactories.php"]
     },
     "require": {
         "php": "^5.6 || ^7.0",
@@ -47,7 +48,7 @@
         "test": "./vendor/bin/phpunit",
         "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
         "cs-fix": "vendor/bin/php-cs-fixer -v fix",
-        "phpstan": "vendor/bin/phpstan analyse -l 4 -c phpstan.neon src",
+        "phpstan": "vendor/bin/phpstan analyse -l 5 -c phpstan.neon src",
         "build-doc": "mkdocs build && apigen.phar generate --config=./.apigen.yml"
     },
     "suggest": {

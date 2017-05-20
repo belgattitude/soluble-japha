@@ -496,7 +496,7 @@ class Protocol
     }
 
     /**
-     * @param int $object
+     * @param string|int|null $object
      */
     public function writeObject($object)
     {

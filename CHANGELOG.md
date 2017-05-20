@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.4.3 (2017-05-20)
+
+## Fixed
+
+- Temporarily remove phpstan from require-dev. It will be re-added in 2.0 due 
+  to possible issues with plaform requirements.
+  If you want to install, add to your require-dev: `"phpstan/phpstan": "^0.7.0"`
+- More typehints fixed or added
+- Unit test autoloading is now fixed. 
+
 ## 1.4.2 (2017-05-18)
 
 ## Fixed

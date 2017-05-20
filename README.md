@@ -1,3 +1,5 @@
+# soluble-japha  
+
 [![PHP Version](http://img.shields.io/badge/php-5.5+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
 [![Build Status](https://travis-ci.org/belgattitude/soluble-japha.svg?branch=master)](https://travis-ci.org/belgattitude/soluble-japha)
 [![codecov](https://codecov.io/gh/belgattitude/soluble-japha/branch/master/graph/badge.svg)](https://codecov.io/gh/belgattitude/soluble-japha)
@@ -7,14 +9,12 @@
 [![License](https://poser.pugx.org/soluble/japha/license.png)](https://packagist.org/packages/soluble/japha)
 [![HHVM Status](https://php-eye.com/badge/soluble/japha/hhvm.svg)](https://php-eye.com/package/soluble/japha)
 
-# soluble-japha  
-
 In short **soluble-japha** allows to write Java code in PHP and interact with the JVM ecosystem.  
 
 ----
 
-Read the [http://docs.soluble.io/soluble-japha](http://docs.soluble.io/soluble-japha) 
-website for complete information
+> Read the [http://docs.soluble.io/soluble-japha](http://docs.soluble.io/soluble-japha) 
+> website for complete information
 
 ----
 

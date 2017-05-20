@@ -110,6 +110,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
     public function testCreateConnection()
     {
         $dsn = $this->getWorkingDSN();
+        $conn = null;
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
@@ -123,6 +124,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
     public function testStatement()
     {
         $dsn = $this->getWorkingDSN();
+        $conn = null;
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
@@ -149,6 +151,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->expectException(\Soluble\Japha\Bridge\Exception\JavaException::class);
         $dsn = $this->getWorkingDSN();
+        $conn = null;
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
