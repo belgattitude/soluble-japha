@@ -33,11 +33,14 @@ before_script:
   # and show the log file
   - sleep 6 && cat ./.travis/webapp-runner.8083.log
   - composer --ignore-platform-reqs install
+  - composer require phpstan/phpstan
 
     
-script: 
+script:
+  - ./vendor/bin/phpstan analyse -l 5 -c phpstan.neon src
   - ./vendor/bin/phpunit -c .travis/phpunit.travis.xml -v --coverage-clover=coverage.xml
   - ./vendor/bin/php-cs-fixer --diff --dry-run -v fix
+
 
 after_script:
   - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
