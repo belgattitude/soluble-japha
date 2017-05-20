@@ -6,11 +6,11 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_DIR="$SCRIPT_DIR/.."
 
 # PHPJavabridge version
-PJB_VERSION="7.0.0"
+PJB_VERSION="7.1.3"
 PJB_DIR="$SCRIPT_DIR/downloads/php-java-bridge-$PJB_VERSION"
 
 # Webapp runner properties
-WEBAPP_RUNNER_VERSION="8.5.11.2";
+WEBAPP_RUNNER_VERSION="8.5.11.3";
 WEBAPP_RUNNER_URL="http://search.maven.org/remotecontent?filepath=com/github/jsimone/webapp-runner/$WEBAPP_RUNNER_VERSION/webapp-runner-$WEBAPP_RUNNER_VERSION.jar"
 WEBAPP_RUNNER_JAR="$SCRIPT_DIR/downloads/webapp-runner.jar"
 WEBAPP_RUNNER_PORT=8083
