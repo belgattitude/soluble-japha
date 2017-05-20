@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   to possible issues with plaform requirements.
   If you want to install, add to your require-dev: `"phpstan/phpstan": "^0.7.0"`
 - More typehints fixed or added
-- Unit test autoloading is now fixed. 
+- Unit tests autoloading is now fixed. 
 
 ## 1.4.2 (2017-05-18)
 
