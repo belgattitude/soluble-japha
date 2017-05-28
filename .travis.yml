@@ -13,6 +13,9 @@ matrix:
     - php: 7.1
     - php: hhvm-3.9
     - php: hhvm-3.12
+      env:
+        - EXECUTE_TEST_COVERALLS=true
+        - SEND_COVERAGE=true
     - php: hhvm-nightly
                     
 before_script:
