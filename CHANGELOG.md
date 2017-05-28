@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Minor fix and cleanup in `SimpleHttpHandler` channel creation.
 
+## Added
+
+- Parser tests added for invalid xml errors
+
 ## 1.4.3 (2017-05-20)
 
 ## Fixed

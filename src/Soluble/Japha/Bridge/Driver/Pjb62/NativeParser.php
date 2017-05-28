@@ -65,6 +65,11 @@ class NativeParser implements ParserInterface
     protected $buf;
 
     /**
+     * @var int
+     */
+    protected $java_recv_size;
+
+    /**
      * @param Client $client
      */
     public function __construct(Client $client)
@@ -76,6 +81,7 @@ class NativeParser implements ParserInterface
         xml_set_element_handler($this->parser, 'begin', 'end');
         xml_parse($this->parser, '<F>');
         $this->level = 0;
+        $this->java_recv_size = $client->java_recv_size;
     }
 
     /**
@@ -120,12 +126,10 @@ class NativeParser implements ParserInterface
 
     public function parse()
     {
-        $java_recv_size = $this->client->getParam('JAVA_RECV_SIZE');
-
         do {
             $this->event = false;
 
-            $this->buf = $this->client->read($java_recv_size);
+            $this->buf = $this->client->read($this->java_recv_size);
             $len = strlen($this->buf);
             if (!xml_parse($this->parser, $this->buf, $len == 0)) {
                 $this->client->protocol->handler->shutdownBrokenConnection(

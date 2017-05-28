@@ -89,6 +89,9 @@ class SimpleParser implements ParserInterface
         $this->i0 = 0;
     }
 
+    /**
+     * @param string $c
+     */
     public function APPEND($c)
     {
         if ($this->i >= $this->len - 1) {

@@ -298,9 +298,7 @@ class Client
      */
     public function getWrappedResult($wrap)
     {
-        $result = $this->simpleArg->getResult($wrap);
-
-        return $result;
+        return $this->simpleArg->getResult($wrap);
     }
 
     public function getInternalResult()

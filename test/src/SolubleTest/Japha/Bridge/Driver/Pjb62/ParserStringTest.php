@@ -32,4 +32,14 @@ class ParserStringTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('23', $pe->getString());
         $this->assertEquals('23', $pe->toString());
     }
+
+    public function testParserStringUTF8()
+    {
+        $pe = new ParserString();
+        $pe->string = '你好，世界';
+        $pe->off = 0;
+        $pe->length = 20;
+        $this->assertEquals('你好，世界', $pe->getString());
+        $this->assertEquals('你好，世界', $pe->toString());
+    }
 }
