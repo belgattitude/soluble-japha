@@ -88,6 +88,8 @@ class SimpleHttpHandler extends SocketHandler
     protected $java_send_size;
 
     /**
+     * @throws Exception\IllegalStateException on channel creation error
+     *
      * @param Protocol $protocol
      * @param string   $ssl
      * @param string   $host
@@ -114,6 +116,9 @@ class SimpleHttpHandler extends SocketHandler
         $this->createChannel();
     }
 
+    /**
+     * @throws Exception\IllegalStateException on channel creation error
+     */
     protected function createChannel()
     {
         $channelName = Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_REDIRECT', $_SERVER);
@@ -123,7 +128,6 @@ class SimpleHttpHandler extends SocketHandler
         $len1 = chr($len & 0xFF);
         $len >>= 8;
         $len2 = chr($len & 0xFF);
-        $this->channel = new EmptyChannel($this, $this->java_recv_size, $this->java_send_size);
         $this->channel = $this->getChannel($channelName);
         $this->protocol->setSocketHandler(new SocketHandler($this->protocol, $this->channel));
         $this->protocol->write("\177${len0}${len1}${len2}${context}");
