@@ -97,8 +97,9 @@ class PjbProxyClient implements ClientInterface
      */
     protected function __construct(array $options, LoggerInterface $logger)
     {
-        self::$instanceOptionsKey = serialize($options);
         $this->options = new ArrayObject(array_merge($options, $this->defaultOptions));
+        self::$instanceOptionsKey = serialize((array) $this->options);
+
         $this->logger = $logger;
         $this->loadClient();
     }
@@ -203,7 +204,7 @@ class PjbProxyClient implements ClientInterface
             self::$client = new Client($params, $this->logger);
 
             // Added in order to work with custom exceptions
-            self::$client->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory(self::$client, $this->logger);
+            self::getClient()->throwExceptionProxyFactory = new Proxy\DefaultThrowExceptionProxyFactory(self::$client, $this->logger);
 
             $this->bootstrap();
         }
@@ -216,6 +217,10 @@ class PjbProxyClient implements ClientInterface
      */
     public static function getClient()
     {
+        if (self::$client === null) {
+            throw new Exception\BrokenConnectionException('Client is not registered');
+        }
+
         return self::$client;
     }
 
@@ -264,7 +269,7 @@ class PjbProxyClient implements ClientInterface
     {
         $id = ($object == null) ? 0 : $object->__getJavaInternalObjectId();
 
-        return self::$client->invokeMethod($id, $method, $args);
+        return self::getClient()->invokeMethod($id, $method, $args);
     }
 
     /**
@@ -282,7 +287,7 @@ class PjbProxyClient implements ClientInterface
     {
         //$client = self::getClient();
         //return $client->invokeMethod(0, "inspect", array($object));
-        return self::$client->invokeMethod(0, 'inspect', [$object]);
+        return self::getClient()->invokeMethod(0, 'inspect', [$object]);
     }
 
     /**
@@ -307,7 +312,7 @@ class PjbProxyClient implements ClientInterface
             throw new Exception\InvalidArgumentException(__METHOD__ . 'Class $class parameter must be of Interfaces\JavaClass, Interfaces\JavaObject or string');
         }
 
-        return self::$client->invokeMethod(0, 'instanceOf', [$object, $class]);
+        return self::getClient()->invokeMethod(0, 'instanceOf', [$object, $class]);
     }
 
     /**
@@ -350,7 +355,7 @@ class PjbProxyClient implements ClientInterface
      */
     public function getValues(Interfaces\JavaObject $object)
     {
-        return self::$client->invokeMethod(0, 'getValues', [$object]);
+        return self::getClient()->invokeMethod(0, 'getValues', [$object]);
     }
 
     /**
@@ -364,7 +369,7 @@ class PjbProxyClient implements ClientInterface
      */
     public function getLastException()
     {
-        return self::$client->invokeMethod(0, 'getLastException', []);
+        return self::getClient()->invokeMethod(0, 'getLastException', []);
     }
 
     /**
@@ -376,7 +381,7 @@ class PjbProxyClient implements ClientInterface
      */
     public function clearLastException()
     {
-        self::$client->invokeMethod(0, 'clearLastException', []);
+        self::getClient()->invokeMethod(0, 'clearLastException', []);
     }
 
     /**
@@ -475,20 +480,18 @@ class PjbProxyClient implements ClientInterface
      */
     public static function unregisterInstance()
     {
-        if (self::isInitialized()) {
+        if (self::$client !== null) {
             // TODO CHECK WITH SESSIONS
-            if (session_id()) {
-                session_write_close();
-            }
-            if (!isset(self::$client->protocol) || self::$client->inArgs) {
-                return;
-            }
+            //if (session_id()) {
+            //    session_write_close();
+            //}
+            //if (!isset(self::$client->protocol) || self::$client->inArgs) {
+                //return;
+            //}
             if (self::$client->preparedToSendBuffer) {
                 self::$client->sendBuffer .= self::$client->preparedToSendBuffer;
             }
-
             self::$client->sendBuffer .= self::$client->protocol->getKeepAlive();
-
             self::$client->protocol->flush();
 
             // TODO MUST TEST, IT WAS REMOVED FROM FUNCTION
@@ -496,7 +499,7 @@ class PjbProxyClient implements ClientInterface
             // ADDED AN IF TO CHECK THE CHANNEL In CASE OF
             //
             if (isset(self::$client->protocol->handler->channel) &&
-                    !preg_match('/EmptyChannel/', get_class(self::$client->protocol->handler->channel))) {
+                    !preg_match('/EmptyChannel/', get_class(self::getClient()->protocol->handler->channel))) {
                 try {
                     self::$client->protocol->keepAlive();
                 } catch (\Exception $e) {
@@ -507,22 +510,6 @@ class PjbProxyClient implements ClientInterface
             self::$client = null;
             self::$instance = null;
             self::$instanceOptionsKey = null;
-            //unset(self::$instance);
         }
-    }
-
-    public static function destroy()
-    {
-        self::$client = null;
-        self::$instance = null;
-        self::$instanceOptionsKey = null;
-    }
-
-    /**
-     * Before removing instance.
-     */
-    public function __destruct()
-    {
-        $this->unregisterInstance();
     }
 }

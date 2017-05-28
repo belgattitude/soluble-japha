@@ -37,6 +37,8 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Exception\BrokenConnectionException;
+
 abstract class SocketChannel extends EmptyChannel
 {
     public $peer;
@@ -73,7 +75,13 @@ abstract class SocketChannel extends EmptyChannel
      */
     public function fwrite($data)
     {
-        return fwrite($this->peer, $data);
+        $written = @fwrite($this->peer, $data);
+        if ($written === false) {
+            PjbProxyClient::unregisterInstance();
+            throw new BrokenConnectionException('Broken socket communication with the php-java-bridge (write)');
+        }
+
+        return $written;
     }
 
     /**
@@ -83,7 +91,13 @@ abstract class SocketChannel extends EmptyChannel
      */
     public function fread($size)
     {
-        return fread($this->peer, $size);
+        $read = @fread($this->peer, $size);
+        if ($read === false) {
+            PjbProxyClient::unregisterInstance();
+            throw new BrokenConnectionException('Broken socket communication with the php-java-bridge (read)');
+        }
+
+        return $read;
     }
 
     public function shutdownBrokenConnection()

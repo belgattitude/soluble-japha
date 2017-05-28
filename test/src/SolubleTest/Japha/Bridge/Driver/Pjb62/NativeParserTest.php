@@ -39,6 +39,10 @@ class NativeParserTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped('Skipped native parser tests, HHVM use SimpleParser instead');
+        }
+
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
         $this->adapter = new Adapter([
             'driver' => 'Pjb62',
@@ -47,12 +51,8 @@ class NativeParserTest extends \PHPUnit_Framework_TestCase
         $this->client = $this->adapter->getDriver()->getClient()->getClient();
     }
 
-    public function testParseError()
+    public function testInvalidXMLWillShutdownBrokenConnection()
     {
-        //$clientStub = $this->prophesize(Client::class);
-        //$clientStub->read()->with($this->client->java_recv_size)->willReturn($this->returnValue('<xml></xml>'));
-        //$clientMock = $this->createMock(Client::class);
-
         $clientMock = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->disableOriginalClone()
@@ -82,10 +82,12 @@ class NativeParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('你好，世界', $nativeParser->getData(base64_encode('你好，世界')));
     }
 
+    /*
     protected function getNativeParserMock()
     {
         $stub = $this->createMock(NativeParser::class);
         $stub->method('getData')
             ->will($this->returnCallback('base64_decode'));
     }
+    */
 }

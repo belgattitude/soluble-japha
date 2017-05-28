@@ -124,4 +124,36 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $enc = $this->client->getInternalEncoding();
         $this->assertEquals('UTF-8', $enc);
     }
+
+    public function testUnsupportedXMLWillCallClientParserError()
+    {
+        // SHOULD BE TESTED
+        //$this->client->begin('G', []);
+
+        /*
+        $clientMock = $this->getMockBuilder(Client::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
+
+        $clientMock->method('read')
+            ->withAnyParameters()
+            // Unsupported protocol object identification
+            ->willReturn('<G v="efd" m="sun.util.calendar.ZoneInfo" p="O" n="T"/>');
+
+        $parserStub = $this->prophesize(NativeParser::class);
+        $parserStub->parserError()->shouldBeCalled();
+
+        $clientMock->parser = $parserStub->reveal();
+*/
+
+        //$clientMock->protocol->handler = $handlerStub->reveal();
+
+        /*
+                $parser = new NativeParser($clientMock);
+                $parser->parse();
+        */
+    }
 }

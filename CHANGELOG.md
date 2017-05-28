@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.x.x (2017-xx-xx)
+## 1.4.4 (2017-05-28)
 
 ## Fixed
 
+- Ensure BrokenConnectionException if socket write/read fails (communication interrupted)
 - Minor fix and cleanup in `SimpleHttpHandler` channel creation.
 
 ## Added

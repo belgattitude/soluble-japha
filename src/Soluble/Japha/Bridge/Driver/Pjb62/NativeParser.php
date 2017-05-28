@@ -96,6 +96,7 @@ class NativeParser implements ParserInterface
             case 'X':
             case 'A':
                 $this->level += 1;
+                break;
         }
         $this->client->begin($name, $param);
     }
@@ -128,7 +129,6 @@ class NativeParser implements ParserInterface
     {
         do {
             $this->event = false;
-
             $this->buf = $this->client->read($this->java_recv_size);
             $len = strlen($this->buf);
             if (!xml_parse($this->parser, $this->buf, $len == 0)) {

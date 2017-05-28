@@ -61,6 +61,7 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
     {
         $ba = $this->adapter;
         $save_mem = ini_get('memory_limit');
+        $memory_test = 31554432;
         if (defined('HHVM_VERSION')) {
             ini_set('memory_limit', '800M');
         } else {
@@ -69,9 +70,9 @@ class EdgeCasesTest extends \PHPUnit_Framework_TestCase
 
         // Very big string
         $initial_mem = memory_get_usage();
-        $s = str_repeat('1', 31554432);
+        $s = str_repeat('1', $memory_test);
         $str = $ba->java('java.lang.String', $s);
-        $this->assertEquals(31554432, $str->length());
+        $this->assertEquals($memory_test, $str->length());
         $full_mem = memory_get_usage();
 
         // releasing
