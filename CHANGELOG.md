@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.4.5 (2017-05-29)
+
+## Fixed
+
+- Fix call to `PjbProxyClient::getInstance()->destroy()` in favour of `PjbProxyClient::unregisterIntance()`. 
+
 ## 1.4.4 (2017-05-28)
 
 ## Fixed
