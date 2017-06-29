@@ -6,9 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.0.0 (to be release)
 
+This release requires PHP7.1 !!! 
+
+While major version have been incremented, the api between `v1.4.0` and `2.0.0` has remained the same.
+In other words no breaking changes should happen (BC preserved). 
+ 
 ## Changed
 
-- Support for PHP7.1 only `declare(strict_types=1)`
+- Support for PHP7.1 only `declare(strict_types=1)`.
 
 ## Fixed
 
