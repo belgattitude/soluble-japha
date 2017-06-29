@@ -95,8 +95,13 @@ to take advantage of
 
 ## Requirements
 
-- Version 2.+ requires PHP 7.1 ![PHP Version](http://img.shields.io/badge/php-7.1+-ff69b4.svg)
-- PHP 5.6, 7.0+, 7.1+ or HHVM >= 3.9 *(for PHP5.5 use the "^0.13.0" releases)*.
+- Version `^2.0` requires PHP 7.1 ![PHP Version](http://img.shields.io/badge/php-7.1+-ff69b4.svg)
+
+If you're looking for compatibility with older PHP versions, note that:
+
+- Version `^1.0` requires PHP 5.6 ![PHP Version](http://img.shields.io/badge/php-5.6+-ff69b4.svg) and works with HHVM.
+- Version `^0.13` requires PHP 5.5 ![PHP Version](http://img.shields.io/badge/php-5.6+-ff69b4.svg) and works with HHVM.
+
 
 ## Documentation
 
