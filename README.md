@@ -8,7 +8,6 @@
 [![Latest Stable Version](https://poser.pugx.org/soluble/japha/v/stable.svg)](https://packagist.org/packages/soluble/japha)
 [![Total Downloads](https://poser.pugx.org/soluble/japha/downloads.png)](https://packagist.org/packages/soluble/japha)
 [![License](https://poser.pugx.org/soluble/japha/license.png)](https://packagist.org/packages/soluble/japha)
-[![HHVM Status](https://php-eye.com/badge/soluble/japha/hhvm.svg)](https://php-eye.com/package/soluble/japha)
 
 In short **soluble-japha** allows to write Java code in PHP and interact with the JVM ecosystem.  
 
@@ -100,7 +99,7 @@ to take advantage of
 If you're looking for compatibility with older PHP versions, note that:
 
 - Version `^1.0` requires PHP 5.6 ![PHP Version](http://img.shields.io/badge/php-5.6+-ff69b4.svg) and works with HHVM.
-- Version `^0.13` requires PHP 5.5 ![PHP Version](http://img.shields.io/badge/php-5.6+-ff69b4.svg) and works with HHVM.
+- Version `^0.13` requires PHP 5.5 ![PHP Version](http://img.shields.io/badge/php-5.5+-ff69b4.svg) and works with HHVM.
 
 
 ## Documentation
