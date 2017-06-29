@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -21,9 +23,9 @@ interface JavaClass extends JavaObject
 {
     /**
      * Returns the name of the entity (class, interface, array class, primitive type, or void)
-     * represented by this Class object, as a string.
+     * represented by this class object, as a string.
      *
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 }

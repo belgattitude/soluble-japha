@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -17,7 +19,7 @@ interface ConnectionInterface
      *
      * @return ClientInterface
      */
-    public function getClient();
+    public function getClient(): ClientInterface;
 
-    public function connect();
+    public function connect(): void;
 }

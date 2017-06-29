@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -41,7 +43,7 @@ class System
      *
      * @return TimeZone
      */
-    public function getTimeZone()
+    public function getTimeZone(): TimeZone
     {
         return $this->timeZone;
     }
@@ -51,7 +53,7 @@ class System
      *
      * @return string
      */
-    public function getTimeZoneId()
+    public function getTimeZoneId(): string
     {
         return (string) $this->timeZone->getDefault()->getID();
     }
@@ -63,7 +65,7 @@ class System
      *
      * @param string|Interfaces\JavaObject|\DateTimeZone $timezone timezone id, Java(java.util.Timezone) or php DateTimeZone
      */
-    public function setTimeZoneId($timezone)
+    public function setTimeZoneId($timezone): void
     {
         $this->timeZone->setDefault($timezone);
     }

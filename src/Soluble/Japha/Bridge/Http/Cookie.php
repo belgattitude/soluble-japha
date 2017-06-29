@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -55,7 +57,7 @@ class Cookie
      *
      * @return string
      */
-    private static function serializePHPCookies($cookieName, $cookieValue)
+    private static function serializePHPCookies(string $cookieName, $cookieValue): string
     {
         $cookieParts = [];
         $urlEncodedCookieName = urlencode($cookieName);
@@ -64,7 +66,7 @@ class Cookie
             case 'integer':
             case 'double':
             case 'string':
-                $urlEncodedCookieValue = urlencode($cookieValue);
+                $urlEncodedCookieValue = urlencode((string) $cookieValue);
                 $cookieParts[] = "$urlEncodedCookieName=$urlEncodedCookieValue";
                 break;
 

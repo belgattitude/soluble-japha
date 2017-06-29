@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -67,7 +69,7 @@ class JavaException extends Exception implements JavaExceptionInterface
      *
      * @param Exception $driverException
      */
-    protected function setDriverException(Exception $driverException)
+    protected function setDriverException(Exception $driverException): void
     {
         $this->driverException = $driverException;
     }
@@ -77,7 +79,7 @@ class JavaException extends Exception implements JavaExceptionInterface
      *
      * @return Exception|null
      */
-    public function getDriverException()
+    public function getDriverException(): ?Exception
     {
         return $this->driverException;
     }
@@ -87,7 +89,7 @@ class JavaException extends Exception implements JavaExceptionInterface
      *
      * @param string $cause
      */
-    protected function setCause($cause)
+    protected function setCause(string $cause): void
     {
         $this->cause = $cause;
     }
@@ -95,7 +97,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getCause()
+    public function getCause(): string
     {
         return $this->cause;
     }
@@ -103,7 +105,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     /**
      * @param string $stackTrace
      */
-    protected function setStackTrace($stackTrace)
+    protected function setStackTrace(string $stackTrace): void
     {
         $this->stackTrace = $stackTrace;
     }
@@ -111,7 +113,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getStackTrace()
+    public function getStackTrace(): string
     {
         return $this->stackTrace;
     }
@@ -119,7 +121,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getJavaClassName()
+    public function getJavaClassName(): string
     {
         return $this->javaClassName;
     }
@@ -127,7 +129,7 @@ class JavaException extends Exception implements JavaExceptionInterface
     /**
      * @param string $javaClassName
      */
-    protected function setJavaClassName($javaClassName)
+    protected function setJavaClassName(string $javaClassName): void
     {
         $this->javaClassName = $javaClassName;
     }

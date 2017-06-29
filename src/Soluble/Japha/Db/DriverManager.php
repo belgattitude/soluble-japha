@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -48,7 +50,7 @@ class DriverManager
      *
      * @return Interfaces\JavaObject Java('java.sql.Connection')
      */
-    public function createConnection($dsn, $driverClass = 'com.mysql.jdbc.Driver')
+    public function createConnection(string $dsn, string $driverClass = 'com.mysql.jdbc.Driver'): Interfaces\JavaObject
     {
         if (!is_string($dsn) || trim($dsn) == '') {
             $message = 'DSN param must be a valid (on-empty) string';
@@ -76,7 +78,7 @@ class DriverManager
      *
      * @return Interfaces\JavaObject Java('java.sql.DriverManager')
      */
-    public function getDriverManager()
+    public function getDriverManager(): Interfaces\JavaObject
     {
         if ($this->driverManager === null) {
             $this->driverManager = $this->ba->javaClass('java.sql.DriverManager');
@@ -97,7 +99,7 @@ class DriverManager
      *
      * @return string
      */
-    public static function getJdbcDsn($driver, $db, $host, $user, $password, $options = [])
+    public static function getJdbcDsn(string $driver, string $db, string $host, string $user, string $password, array $options = []): string
     {
         $extras = '';
         if (count($options) > 0) {

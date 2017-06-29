@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -46,40 +49,40 @@ interface JavaType extends Interfaces\JavaType
      *
      * @return int
      */
-    public function get__java();
+    public function get__java(): int;
 
     /**
      * Return java object id.
      *
      * @return int
      */
-    public function __getJavaInternalObjectId();
+    public function __getJavaInternalObjectId(): int;
 
     /**
      * @return string
      */
-    public function get__signature();
+    public function get__signature(): ?string;
 
     /**
      * @param string $key
      *
      * @return mixed
      */
-    public function __get($key);
+    public function __get(string $key);
 
     /**
      * @param string $key
      * @param mixed  $val
      */
-    public function __set($key, $val);
+    public function __set(string $key, $val): void;
 
     /**
      * @param string $method
      * @param array  $args
      */
-    public function __call($method, $args);
+    public function __call(string $method, array $args);
 
-    public function __cast($type);
+    public function __cast(string $type);
 
     public function __sleep();
 
@@ -88,5 +91,5 @@ interface JavaType extends Interfaces\JavaType
     /**
      * @return string
      */
-    public function __toString();
+    public function __toString(): string;
 }

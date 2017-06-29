@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -85,7 +87,7 @@ class JavaException extends Exception implements JavaType
         $this->__hasDeclaredExceptions = 'T';
     }
 
-    public function __cast($type)
+    public function __cast(string $type)
     {
         return $this->__delegate->__cast($type);
     }
@@ -104,17 +106,17 @@ class JavaException extends Exception implements JavaType
         $this->__client = $this->__delegate->__client;
     }
 
-    public function __get($key)
+    public function __get(string $key)
     {
         return $this->__delegate->__get($key);
     }
 
-    public function __set($key, $val)
+    public function __set(string $key, $val): void
     {
         $this->__delegate->__set($key, $val);
     }
 
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
         return $this->__delegate->__call($method, $args);
     }
@@ -122,7 +124,7 @@ class JavaException extends Exception implements JavaType
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->__delegate->__toExceptionString($this->getTraceAsString());
     }
@@ -130,7 +132,7 @@ class JavaException extends Exception implements JavaType
     /**
      * @return int
      */
-    public function get__java()
+    public function get__java(): int
     {
         return $this->__java;
     }
@@ -140,7 +142,7 @@ class JavaException extends Exception implements JavaType
      *
      * @return int
      */
-    public function __getJavaInternalObjectId()
+    public function __getJavaInternalObjectId(): int
     {
         return $this->__java;
     }
@@ -148,7 +150,7 @@ class JavaException extends Exception implements JavaType
     /**
      * @return string|null
      */
-    public function get__signature()
+    public function get__signature(): ?string
     {
         return $this->__signature;
     }

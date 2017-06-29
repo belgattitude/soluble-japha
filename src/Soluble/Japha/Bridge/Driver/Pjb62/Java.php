@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -164,7 +166,7 @@ class Java extends AbstractJava
      *
      * @return mixed
      */
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
         $client = $this->__client;
         $sig = "@{$this->__signature}@$method";

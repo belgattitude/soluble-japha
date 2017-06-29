@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -100,7 +102,7 @@ class Adapter
      *
      * @return Interfaces\JavaObject
      */
-    public function java($class, ...$args)
+    public function java(string $class, ...$args): Interfaces\JavaObject
     {
         return $this->driver->instanciate($class, ...$args);
     }
@@ -128,7 +130,7 @@ class Adapter
      *
      * @return Interfaces\JavaClass
      */
-    public function javaClass($class)
+    public function javaClass(string $class): Interfaces\JavaClass
     {
         return $this->driver->getJavaClass($class);
     }
@@ -145,7 +147,7 @@ class Adapter
      *
      * @return bool
      */
-    public function isInstanceOf(Interfaces\JavaObject $javaObject, $className)
+    public function isInstanceOf(Interfaces\JavaObject $javaObject, $className): bool
     {
         return $this->driver->isInstanceOf($javaObject, $className);
     }
@@ -159,7 +161,7 @@ class Adapter
      *
      * @return string
      */
-    public function getClassName(Interfaces\JavaObject $javaObject)
+    public function getClassName(Interfaces\JavaObject $javaObject): string
     {
         return $this->driver->getClassName($javaObject);
     }
@@ -173,7 +175,7 @@ class Adapter
      *
      * @return bool
      */
-    public function isNull(Interfaces\JavaObject $javaObject = null)
+    public function isNull(Interfaces\JavaObject $javaObject = null): bool
     {
         return $this->driver->isNull($javaObject);
     }
@@ -187,7 +189,7 @@ class Adapter
      *
      * @return bool
      */
-    public function isTrue(Interfaces\JavaObject $javaObject)
+    public function isTrue(Interfaces\JavaObject $javaObject): bool
     {
         return $this->driver->isTrue($javaObject);
     }
@@ -197,7 +199,7 @@ class Adapter
      *
      * @return Adapter\System
      */
-    public function getSystem()
+    public function getSystem(): Adapter\System
     {
         if ($this->system === null) {
             $this->system = new Adapter\System($this);
@@ -227,7 +229,7 @@ class Adapter
      *
      * @return Driver\DriverInterface
      */
-    public function getDriver()
+    public function getDriver(): Driver\DriverInterface
     {
         return $this->driver;
     }
@@ -245,7 +247,7 @@ class Adapter
      *
      * @param string $timezone
      */
-    protected function setJavaDefaultTimezone($timezone)
+    protected function setJavaDefaultTimezone(string $timezone): void
     {
         $this->getSystem()->setTimeZoneId($timezone);
     }

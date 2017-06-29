@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -94,7 +97,7 @@ class JavaProxy implements JavaType
      *
      * @return mixed
      */
-    public function __cast($type)
+    public function __cast(string $type)
     {
         return $this->__client->cast($this, $type);
     }
@@ -138,7 +141,7 @@ class JavaProxy implements JavaType
      *
      * @return mixed
      */
-    public function __get($key)
+    public function __get(string $key)
     {
         return $this->__client->getProperty($this->__java, $key);
     }
@@ -147,12 +150,12 @@ class JavaProxy implements JavaType
      * @param string $key
      * @param mixed  $val
      */
-    public function __set($key, $val)
+    public function __set(string $key, $val): void
     {
         $this->__client->setProperty($this->__java, $key, $val);
     }
 
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
         return $this->__client->invokeMethod($this->__java, $method, $args);
     }
@@ -160,7 +163,7 @@ class JavaProxy implements JavaType
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         try {
             return (string) $this->__client->invokeMethod(0, 'ObjectToString', [$this]);
@@ -176,7 +179,7 @@ class JavaProxy implements JavaType
     /**
      * @return int
      */
-    public function get__java()
+    public function get__java(): int
     {
         return $this->__java;
     }
@@ -186,7 +189,7 @@ class JavaProxy implements JavaType
      *
      * @return int
      */
-    public function __getJavaInternalObjectId()
+    public function __getJavaInternalObjectId(): int
     {
         return $this->__java;
     }
@@ -194,7 +197,7 @@ class JavaProxy implements JavaType
     /**
      * @return string
      */
-    public function get__signature()
+    public function get__signature(): ?string
     {
         return $this->__signature;
     }

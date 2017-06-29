@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -21,7 +23,7 @@ interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
      *
      * @return JavaObject Java('java.lang.Class')
      */
-    public function getClass();
+    public function getClass(): JavaObject;
 
     /**
      * Delegate the magic method __get() to the java object
@@ -36,7 +38,7 @@ interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
      *
      * @return mixed
      */
-    public function __get($key);
+    public function __get(string $key);
 
     /**
      * Delegate the magic method __set() to the java object
@@ -50,7 +52,7 @@ interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
      * @param string $key
      * @param mixed  $val
      */
-    public function __set($key, $val);
+    public function __set(string $key, $val);
 
     /**
      * Call a java method on the JavaObject (delegated to Java object).
@@ -68,7 +70,7 @@ interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
      *
      * @return mixed
      */
-    public function __call($name, $arguments);
+    public function __call(string $name, array $arguments);
 
     /**
      * Delegate the magic method __toString() to the java object
@@ -78,5 +80,5 @@ interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
      *
      * @return string
      */
-    public function __toString();
+    public function __toString(): string;
 }

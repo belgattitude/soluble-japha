@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -22,14 +24,14 @@ interface JavaExceptionInterface
      *
      * @return string
      */
-    public function getCause();
+    public function getCause(): string;
 
     /**
      * Return Java stack trace as string.
      *
      * @return string
      */
-    public function getStackTrace();
+    public function getStackTrace(): string;
 
     /**
      * Return the originating Java Exception
@@ -37,5 +39,5 @@ interface JavaExceptionInterface
      *
      * @return string ava exception class name (FQDN)
      */
-    public function getJavaClassName();
+    public function getJavaClassName(): string;
 }

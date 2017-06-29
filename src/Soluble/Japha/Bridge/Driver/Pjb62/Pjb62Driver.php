@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Soluble\Japha\Bridge\Driver\AbstractDriver;
+use Soluble\Japha\Bridge\Driver\ClientInterface;
 use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException as Pjb62BrokenConnectionException;
 use Soluble\Japha\Bridge\Exception\BrokenConnectionException;
 use Soluble\Japha\Interfaces;
@@ -77,12 +80,12 @@ class Pjb62Driver extends AbstractDriver
      *
      * @return PjbProxyClient
      */
-    public function getClient()
+    public function getClient(): ClientInterface
     {
         return $this->pjbProxyClient;
     }
 
-    public function connect()
+    public function connect(): void
     {
         if (!$this->connected) {
             $this->connected = true;
@@ -92,7 +95,7 @@ class Pjb62Driver extends AbstractDriver
     /**
      * {@inheritdoc}
      */
-    public function getJavaClass($class_name)
+    public function getJavaClass(string $class_name): Interfaces\JavaClass
     {
         return $this->pjbProxyClient->getJavaClass($class_name);
     }
@@ -100,7 +103,7 @@ class Pjb62Driver extends AbstractDriver
     /**
      * {@inheritdoc}
      */
-    public function instanciate($class_name, ...$args)
+    public function instanciate(string $class_name, ...$args): Interfaces\JavaObject
     {
         try {
             $java = new Java($class_name, ...$args);
@@ -122,7 +125,7 @@ class Pjb62Driver extends AbstractDriver
      *
      * @throws BrokenConnectionException
      */
-    public function setFileEncoding($encoding)
+    public function setFileEncoding(string $encoding): void
     {
         $this->invoke(null, 'setFileEncoding', [$encoding]);
     }
@@ -134,7 +137,7 @@ class Pjb62Driver extends AbstractDriver
      *
      * @return Interfaces\JavaObject Java("io.soluble.pjb.bridge.Options")
      */
-    public function getConnectionOptions()
+    public function getConnectionOptions(): Interfaces\JavaObject
     {
         return $this->invoke(null, 'getOptions');
     }
@@ -142,7 +145,7 @@ class Pjb62Driver extends AbstractDriver
     /**
      * {@inheritdoc}
      */
-    public function invoke(Interfaces\JavaType $javaObject = null, $method, array $args = [])
+    public function invoke(Interfaces\JavaType $javaObject = null, string $method, array $args = [])
     {
         try {
             return $this->pjbProxyClient->invokeMethod($javaObject, $method, $args);
@@ -159,7 +162,7 @@ class Pjb62Driver extends AbstractDriver
      *
      * @return Interfaces\JavaObject
      */
-    public function getContext()
+    public function getContext(): Interfaces\JavaObject
     {
         try {
             return $this->pjbProxyClient->getClient()->getContext();
@@ -186,7 +189,7 @@ class Pjb62Driver extends AbstractDriver
      *
      * @return Interfaces\JavaObject
      */
-    public function getJavaSession(array $args = [])
+    public function getJavaSession(array $args = []): Interfaces\JavaObject
     {
         try {
             return $this->pjbProxyClient->getClient()->getSession();
@@ -203,7 +206,7 @@ class Pjb62Driver extends AbstractDriver
      *
      * @return string
      */
-    public function inspect(Interfaces\JavaObject $javaObject)
+    public function inspect(Interfaces\JavaObject $javaObject): string
     {
         return $this->pjbProxyClient->inspect($javaObject);
     }
@@ -211,7 +214,7 @@ class Pjb62Driver extends AbstractDriver
     /**
      * {@inheritdoc}
      */
-    public function isInstanceOf(Interfaces\JavaObject $javaObject, $className)
+    public function isInstanceOf(Interfaces\JavaObject $javaObject, $className): bool
     {
         try {
             return $this->pjbProxyClient->isInstanceOf($javaObject, $className);
@@ -242,7 +245,7 @@ class Pjb62Driver extends AbstractDriver
      *
      * @return string header value or empty string if not exists
      */
-    public static function getJavaBridgeHeader($name, array $array)
+    public static function getJavaBridgeHeader(string $name, array $array): string
     {
         if (array_key_exists($name, $array)) {
             return $array[$name];
@@ -258,12 +261,12 @@ class Pjb62Driver extends AbstractDriver
     /**
      * Cast internal objects to a new type.
      *
-     * @param Interfaces\JavaObject $javaObject
-     * @param string                $cast_type
+     * @param Interfaces\JavaObject|JavaType $javaObject
+     * @param string                         $cast_type
      *
      * @return mixed
      */
-    public static function castPjbInternal($javaObject, $cast_type)
+    public static function castPjbInternal($javaObject, string $cast_type)
     {
         if (!$javaObject instanceof JavaType) {
             $first_char = strtoupper($cast_type[0]);
@@ -293,7 +296,7 @@ class Pjb62Driver extends AbstractDriver
     /**
      * {@inheritdoc}
      */
-    public function cast(Interfaces\JavaObject $javaObject, $cast_type)
+    public function cast(Interfaces\JavaObject $javaObject, string $cast_type): Interfaces\JavaObject
     {
         /* @todo see how can it be possible to clean up to new structure
             const CAST_TYPE_STRING  = 'string';
@@ -338,7 +341,7 @@ class Pjb62Driver extends AbstractDriver
      *
      * @return string
      */
-    public function getClassName(Interfaces\JavaObject $javaObject)
+    public function getClassName(Interfaces\JavaObject $javaObject): string
     {
         try {
             $inspect = $this->inspect($javaObject);

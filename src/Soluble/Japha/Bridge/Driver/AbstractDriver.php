@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -25,7 +27,7 @@ abstract class AbstractDriver implements DriverInterface
     /**
      * {@inheritdoc}
      */
-    abstract public function instanciate($class_name, ...$args);
+    abstract public function instanciate(string $class_name, ...$args): Interfaces\JavaObject;
 
     /**
      * Fast retrieval of JavaObject values (one roundtrip),
@@ -45,38 +47,32 @@ abstract class AbstractDriver implements DriverInterface
      *
      * @return string
      */
-    abstract public function inspect(Interfaces\JavaObject $javaObject);
+    abstract public function inspect(Interfaces\JavaObject $javaObject): string;
 
     /**
      * {@inheritdoc}
      */
-    abstract public function isInstanceOf(Interfaces\JavaObject $javaObject, $className);
+    abstract public function isInstanceOf(Interfaces\JavaObject $javaObject, $className): bool;
 
     /**
      * {@inheritdoc}
      */
-    abstract public function getClassName(Interfaces\JavaObject $javaObject);
+    abstract public function getClassName(Interfaces\JavaObject $javaObject): string;
 
     /**
      * {@inheritdoc}
      */
-    abstract public function getJavaClass($class_name);
+    abstract public function getJavaClass(string $class_name): Interfaces\JavaClass;
 
     /**
      * {@inheritdoc}
      */
-    abstract public function invoke(Interfaces\JavaType $javaObject = null, $method, array $args = []);
+    abstract public function invoke(Interfaces\JavaType $javaObject = null, string $method, array $args = []);
 
     /**
-     * Return Java servlet context.
-     *
-     * <code>
-     *
-     * </code>
-     *
-     * @return Interfaces\JavaObject
+     * {@inheritdoc}
      */
-    abstract public function getContext();
+    abstract public function getContext(): Interfaces\JavaObject;
 
     /**
      * Return java servlet session.
@@ -95,7 +91,7 @@ abstract class AbstractDriver implements DriverInterface
      *
      * @return Interfaces\JavaObject
      */
-    abstract public function getJavaSession(array $args = []);
+    abstract public function getJavaSession(array $args = []): Interfaces\JavaObject;
 
     /**
      * Cast a java object into a php type.
@@ -109,16 +105,12 @@ abstract class AbstractDriver implements DriverInterface
      *
      * @return mixed
      */
-    abstract public function cast(Interfaces\JavaObject $javaObject, $cast_type);
+    abstract public function cast(Interfaces\JavaObject $javaObject, string $cast_type): Interfaces\JavaObject;
 
     /**
-     * Check whether a java value is null.
-     *
-     * @param Interfaces\JavaObject|null $javaObject
-     *
-     * @return bool
+     * {@inheritdoc}
      */
-    public function isNull(Interfaces\JavaObject $javaObject = null)
+    public function isNull(Interfaces\JavaObject $javaObject = null): bool
     {
         if ($javaObject === null) {
             return true;
@@ -128,13 +120,9 @@ abstract class AbstractDriver implements DriverInterface
     }
 
     /**
-     * Check wether a java value is true (boolean and int values are considered).
-     *
-     * @param Interfaces\JavaObject $javaObject
-     *
-     * @return bool
+     * {@inheritdoc}
      */
-    public function isTrue(Interfaces\JavaObject $javaObject)
+    public function isTrue(Interfaces\JavaObject $javaObject): bool
     {
         $values = $this->values($javaObject);
         if (is_int($values) || is_bool($values)) {

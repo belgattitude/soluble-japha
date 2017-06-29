@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -76,7 +78,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      *
      * @return mixed
      */
-    public function __cast($type)
+    public function __cast(string $type)
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
@@ -119,7 +121,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      *
      * @return mixed
      */
-    public function __get($key)
+    public function __get(string $key)
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
@@ -138,7 +140,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      * @param string $key
      * @param mixed  $val
      */
-    public function __set($key, $val)
+    public function __set(string $key, $val): void
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
@@ -158,7 +160,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      *
      * @return mixed
      */
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
@@ -191,7 +193,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      *
      * @return bool
      */
-    public function offsetExists($idx, ...$args)
+    public function offsetExists($idx, ...$args): bool
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
@@ -269,7 +271,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     /**
      * @return int
      */
-    public function get__java()
+    public function get__java(): int
     {
         return $this->__java;
     }
@@ -279,7 +281,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      *
      * @return int
      */
-    public function __getJavaInternalObjectId()
+    public function __getJavaInternalObjectId(): int
     {
         return $this->__java;
     }
@@ -287,7 +289,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     /**
      * @return string
      */
-    public function get__signature()
+    public function get__signature(): ?string
     {
         return $this->__signature;
     }
@@ -298,7 +300,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
@@ -313,7 +315,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
      *
      * @return Interfaces\JavaObject Java('java.lang.Object')
      */
-    public function getClass()
+    public function getClass(): Interfaces\JavaObject
     {
         return $this->__delegate->getClass();
     }

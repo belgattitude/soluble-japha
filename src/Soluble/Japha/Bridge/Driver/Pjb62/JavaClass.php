@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -50,7 +52,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
      * @param string $name    Java FQDN
      * @param array  ...$args optional args
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->__client = PjbProxyClient::getInstance()->getClient();
 
@@ -63,7 +65,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
     /**
      * @return Interfaces\JavaClass Java('java.lang.Class')
      */
-    public function getClass()
+    public function getClass(): Interfaces\JavaObject
     {
         return $this->__delegate->getClass();
     }
@@ -73,7 +75,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
      *
      * @return string java class name as string
      */
-    public function getName()
+    public function getName(): string
     {
         return (string) $this->__delegate->getName();
     }

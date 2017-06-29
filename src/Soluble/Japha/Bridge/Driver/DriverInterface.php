@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -26,7 +28,7 @@ interface DriverInterface extends ConnectionInterface
     /**
      * Instanciate a new java object.
      *
-     * @throws \Soluble\Japha\Bridge\Exception\ClassFoundException
+     * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
      * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
      * @param string     $class_name Java FQDN i.e: 'java.lang.String'
@@ -34,7 +36,7 @@ interface DriverInterface extends ConnectionInterface
      *
      * @return Interfaces\JavaObject
      */
-    public function instanciate($class_name, ...$args);
+    public function instanciate(string $class_name, ...$args): Interfaces\JavaObject;
 
     /**
      * Return a new java class.
@@ -46,7 +48,7 @@ interface DriverInterface extends ConnectionInterface
      *
      * @return Interfaces\JavaClass
      */
-    public function getJavaClass($class_name);
+    public function getJavaClass(string $class_name): Interfaces\JavaClass;
 
     /**
      * Whether object is an instance of specific java class or interface.
@@ -59,7 +61,7 @@ interface DriverInterface extends ConnectionInterface
      *
      * @return bool
      */
-    public function isInstanceOf(Interfaces\JavaObject $javaObject, $className);
+    public function isInstanceOf(Interfaces\JavaObject $javaObject, $className): bool;
 
     /**
      * Return object java class name.
@@ -70,7 +72,7 @@ interface DriverInterface extends ConnectionInterface
      *
      * @return string
      */
-    public function getClassName(Interfaces\JavaObject $javaObject);
+    public function getClassName(Interfaces\JavaObject $javaObject): string;
 
     /**
      * Inspect object.
@@ -81,7 +83,7 @@ interface DriverInterface extends ConnectionInterface
      *
      * @return string
      */
-    public function inspect(Interfaces\JavaObject $javaObject);
+    public function inspect(Interfaces\JavaObject $javaObject): string;
 
     /**
      * Invoke a method on a JavaObject (or a static method on a JavaClass).
@@ -94,7 +96,7 @@ interface DriverInterface extends ConnectionInterface
      *
      * @return mixed
      */
-    public function invoke(Interfaces\JavaType $javaObject = null, $method, array $args = []);
+    public function invoke(Interfaces\JavaType $javaObject = null, string $method, array $args = []);
 
     /**
      * Check whether a java value is null.
@@ -105,7 +107,7 @@ interface DriverInterface extends ConnectionInterface
      *
      * @return bool
      */
-    public function isNull(Interfaces\JavaObject $javaObject = null);
+    public function isNull(Interfaces\JavaObject $javaObject = null): bool;
 
     /**
      * Check whether a java value is true (boolean and int values are considered).
@@ -116,7 +118,7 @@ interface DriverInterface extends ConnectionInterface
      *
      * @return bool
      */
-    public function isTrue(Interfaces\JavaObject $javaObject);
+    public function isTrue(Interfaces\JavaObject $javaObject): bool;
 
     /**
      * Returns the jsr223 script context handle.
@@ -125,7 +127,7 @@ interface DriverInterface extends ConnectionInterface
      *
      * @return Interfaces\JavaObject
      */
-    public function getContext();
+    public function getContext(): Interfaces\JavaObject;
 
     /**
      * One round trip retrieval of Java object value representation.

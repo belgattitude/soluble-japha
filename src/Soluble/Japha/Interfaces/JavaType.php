@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Soluble Japha
  *
@@ -11,7 +13,7 @@
 namespace Soluble\Japha\Interfaces;
 
 /**
- * @method JavaClass getClass(string $type) Java('java.lang.Class')
+ * @method JavaObject getClass(string $type=null) Java('java.lang.Class')
  */
 interface JavaType
 {
@@ -20,5 +22,5 @@ interface JavaType
      *
      * @return int
      */
-    public function __getJavaInternalObjectId();
+    public function __getJavaInternalObjectId(): int;
 }
