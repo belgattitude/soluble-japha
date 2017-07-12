@@ -52,7 +52,7 @@ class Parser
      * @param Client $handler
      * @param bool $forceSimpleParser - Always use SimpleParser, even if NativeParser can be used
      */
-    public function __construct(Client $handler, bool $forceSimpleParser)
+    public function __construct(Client $handler, bool $forceSimpleParser = false)
     {
         if ($forceSimpleParser || defined('HHVM_VERSION') || !function_exists('xml_parser_create')) {
             // Later on maybe a version_compare(HHVM_VERSION, '3.8.0', '<')
