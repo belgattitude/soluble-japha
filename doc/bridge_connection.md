@@ -52,7 +52,9 @@ The `Soluble\Japha\Bridge\Adapter` constructor requires `$options`, an associati
 |`java_send_size`     | Socket write buffer, by default `8192`. |
 |`java_recv_size`     | Socket read buffer, by default `8192`. |
 |`java_log_level`     | To enable java side logging level, by default `null`. |
+|`force_simple_xml_parser` | By default `false`: force the Use the php xml parser instead of native xml_parser(). |
 |`java_prefer_values` | By default `true`, see warning below. |
+
 
 !!! warning
     In short, setting `java_prefer_value` to `false` should theoretically give
@@ -60,7 +62,13 @@ The `Soluble\Japha\Bridge\Adapter` constructor requires `$options`, an associati
     improvements have not been measured in practice (yet), the default is `true` in the
     `soluble-japha` implementation. Better to not change it as it will bc-break
     you code.  
-
+    
+!!! note
+    The `force_simple_xml_parser` param can be set to `true` to force usage of the
+    pure-php implementation of the xml parser. This can fix possible issues with
+    the native xml parser when the size of an xml message exceeds 10M. 
+    Before applying this feature, always check whether it's your only option... 
+              
 
 ### Optional PSR-3 logger
 

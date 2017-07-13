@@ -39,14 +39,13 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class Parser
 {
+    public const PARSER_NATIVE = 'NATIVE';
+    public const PARSER_SIMPLE = 'SIMPLE';
+
     /**
      * @var ParserInterface
      */
     protected $parser;
-
-    const PARSER_NATIVE = 'NATIVE';
-
-    const PARSER_SIMPLE = 'SIMPLE';
 
     /**
      * @param Client $handler

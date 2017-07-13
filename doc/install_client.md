@@ -21,8 +21,13 @@ requirements.*
 
 ### Versions
 
-- For PHP5.5, use the 0.13 releases.
-- For PHP5.6, use the 1.+ releases.
+- For PHP7.1, use the ^2.0.0 version.
+- For PHP5.6, use the ^1.0.0 version.
+- For PHP5.5, use the ^0.13.0 version.
+
+!!! note
+    While the `^2.0.0` version is PHP7.1 only, there were no bc-break with the `1.4.0`.
+
 
 ## Composer notes
 
