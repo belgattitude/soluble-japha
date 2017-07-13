@@ -127,11 +127,10 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
 
         // For sake of simplicity just inverse the boolean default options
         $overridenOptions = $defaultOptions;
-        foreach($overridenOptions as $option => $value) {
+        foreach ($overridenOptions as $option => $value) {
             if (is_bool($value)) {
                 $overridenOptions[$option] = !$value;
-            }
-            else {
+            } else {
                 $overridenOptions[$option] = $value;
             }
         }
@@ -141,7 +140,7 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
 
         $options = (array) PjbProxyClient::getInstance($overridenOptions)->getOptions();
 
-        foreach($options as $option => $value) {
+        foreach ($options as $option => $value) {
             if (is_bool($value)) {
                 $this->assertNotEquals($value, $defaultOptions[$option]);
             }
@@ -168,7 +167,7 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Clears the protected static variables of PjbProxyClient to force reinitialization
+     * Clears the protected static variables of PjbProxyClient to force reinitialization.
      */
     protected function clearPjbProxyClientSingleton()
     {
@@ -179,7 +178,7 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
             'client'
         ];
 
-        foreach($propertiesToClear as $propertyName) {
+        foreach ($propertiesToClear as $propertyName) {
             $reflProperty = $refl->getProperty($propertyName);
             $reflProperty->setAccessible(true);
             $reflProperty->setValue(null, null);

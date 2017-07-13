@@ -95,7 +95,7 @@ abstract class AbstractDriver implements DriverInterface
 
     /**
      * Cast a java object into a php type.
-     *(see self::CAST_TYPE_*)
+     *(see self::CAST_TYPE_*).
      *
      * @throws \Soluble\Japha\Bridge\Exception\RuntimeException
      *

@@ -206,7 +206,7 @@ class PjbProxyClient implements ClientInterface
             $params['JAVA_RECV_SIZE'] = $options['java_recv_size'];
             $params['JAVA_LOG_LEVEL'] = $options['java_log_level'];
             $params['XML_PARSER_FORCE_SIMPLE_PARSER'] = $options['force_simple_xml_parser'];
-            
+
             self::$client = new Client($params, $this->logger);
 
             // Added in order to work with custom exceptions

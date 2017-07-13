@@ -45,7 +45,7 @@ use Soluble\Japha\Bridge\Driver\Pjb62\Utils\HelperFunctions;
 /**
  * Some annotations for java.lang.Object.
  *
- * @link http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
+ * @see http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  *
  * @method JavaClass getClass() return object class name
  * @method bool equals(JavaObject $object)

@@ -50,7 +50,7 @@ class Parser
 
     /**
      * @param Client $handler
-     * @param bool $forceSimpleParser - Always use SimpleParser, even if NativeParser can be used
+     * @param bool   $forceSimpleParser - Always use SimpleParser, even if NativeParser can be used
      */
     public function __construct(Client $handler, bool $forceSimpleParser = false)
     {
