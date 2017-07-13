@@ -16,7 +16,7 @@ requirements.*
 
 ## Requirements
  
-- PHP 5.5+, 7.0+ or HHVM 3.2
+- PHP 5.5+, 7.1+ or HHVM 3.2
 - PHP xml extensions enabled (domxml)
 
 ### Versions
