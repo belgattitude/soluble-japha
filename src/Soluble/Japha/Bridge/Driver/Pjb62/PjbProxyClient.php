@@ -43,6 +43,9 @@ class PjbProxyClient implements ClientInterface
         // so the value is always transferred for those types. If you put
         // at false you'll have to rework on the code.
         'java_prefer_values' => true,
+        // use SimpleParser (pure PHP code) even if NativeParser (based on xml_* php functions) may be used
+        // should only be used to workaround bugs or limitations regarding the xml extension
+        'force_simple_xml_parser' => false
     ];
 
     /**
@@ -99,7 +102,7 @@ class PjbProxyClient implements ClientInterface
      */
     protected function __construct(array $options, LoggerInterface $logger)
     {
-        $this->options = new ArrayObject(array_merge($options, $this->defaultOptions));
+        $this->options = new ArrayObject(array_merge($this->defaultOptions, $options));
         self::$instanceOptionsKey = serialize((array) $this->options);
 
         $this->logger = $logger;
@@ -202,7 +205,8 @@ class PjbProxyClient implements ClientInterface
             $params['JAVA_SEND_SIZE'] = $options['java_send_size'];
             $params['JAVA_RECV_SIZE'] = $options['java_recv_size'];
             $params['JAVA_LOG_LEVEL'] = $options['java_log_level'];
-
+            $params['XML_PARSER_FORCE_SIMPLE_PARSER'] = $options['force_simple_xml_parser'];
+            
             self::$client = new Client($params, $this->logger);
 
             // Added in order to work with custom exceptions

@@ -11,6 +11,7 @@
 namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Driver\Pjb62\Exception\InternalException;
+use Soluble\Japha\Bridge\Driver\Pjb62\Parser;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\Java;
@@ -55,6 +56,7 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+        $this->clearPjbProxyClientSingleton();
     }
 
     public function testGetInstance()
@@ -117,5 +119,71 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidArgumentException::class);
         PjbProxyClient::getInstance($this->options)->getOption('DOESNOTEXISTS');
+    }
+
+    public function testOverrideDefaultOptions()
+    {
+        $defaultOptions = (array) PjbProxyClient::getInstance($this->options)->getOptions();
+
+        // For sake of simplicity just inverse the boolean default options
+        $overridenOptions = $defaultOptions;
+        foreach($overridenOptions as $option => $value) {
+            if (is_bool($value)) {
+                $overridenOptions[$option] = !$value;
+            }
+            else {
+                $overridenOptions[$option] = $value;
+            }
+        }
+
+        // Clear previous singleton to force re-creation of the object
+        $this->clearPjbProxyClientSingleton();
+
+        $options = (array) PjbProxyClient::getInstance($overridenOptions)->getOptions();
+
+        foreach($options as $option => $value) {
+            if (is_bool($value)) {
+                $this->assertNotEquals($value, $defaultOptions[$option]);
+            }
+        }
+    }
+
+    public function testForceSimpleParser()
+    {
+        // Should create a NativeParser by default
+        PjbProxyClient::getInstance($this->options);
+        $client = PjbProxyClient::getClient();
+        $this->assertEquals($client->RUNTIME['PARSER'], Parser::PARSER_NATIVE);
+
+        // Recreate singleton, this time forcing the simple parser
+        $this->clearPjbProxyClientSingleton();
+        PjbProxyClient::getInstance(array_merge(
+            $this->options, [
+            'force_simple_xml_parser' => true
+        ]));
+        $client = PjbProxyClient::getClient();
+        $this->assertEquals($client->RUNTIME['PARSER'], Parser::PARSER_SIMPLE);
+
+        $this->clearPjbProxyClientSingleton();
+    }
+
+    /**
+     * Clears the protected static variables of PjbProxyClient to force reinitialization
+     */
+    protected function clearPjbProxyClientSingleton()
+    {
+        $refl = new \ReflectionClass(PjbProxyClient::class);
+        $propertiesToClear = [
+            'instance',
+            'instanceOptionsKey',
+            'client'
+        ];
+
+        foreach($propertiesToClear as $propertyName) {
+            $reflProperty = $refl->getProperty($propertyName);
+            $reflProperty->setAccessible(true);
+            $reflProperty->setValue(null, null);
+            $reflProperty->setAccessible(false);
+        }
     }
 }
