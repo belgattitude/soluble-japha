@@ -26,7 +26,7 @@ class TimeZone
     protected static $enableTzCache = true;
 
     /**
-     * @var Bridge\Adapter;
+     * @var Bridge\Adapter
      */
     protected $ba;
 

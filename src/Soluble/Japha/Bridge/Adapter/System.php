@@ -20,7 +20,7 @@ use Soluble\Japha\Util\Exception\UnsupportedTzException;
 class System
 {
     /**
-     * @var Bridge\Adapter;
+     * @var Bridge\Adapter
      */
     protected $ba;
 
