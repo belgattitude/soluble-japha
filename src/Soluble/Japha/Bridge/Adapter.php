@@ -99,7 +99,7 @@ class Adapter
      * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
      * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
-     * @see Adapter::javaClass($class) for information about classes
+     * @see \Soluble\Japha\Bridge\Adapter::javaClass for information about classes
      *
      * @return Interfaces\JavaObject
      */
@@ -122,7 +122,7 @@ class Adapter
      * echo $tz->getDisplayName(false, $tzClass->SHORT);
      * </code>
      *
-     * @see Adapter::java($class, $args) for object creation
+     * @see \Soluble\Japha\Bridge\Adapter::java() for object creation
      *
      * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
