@@ -91,14 +91,20 @@ class DriverContextTest extends \PHPUnit_Framework_TestCase
 
             //echo $this->driver->inspect($httpServletRequest);
 
-            $this->assertEquals('java.util.Locale',
-                $this->driver->getClassName($httpServletRequest->getLocale()));
+            $this->assertEquals(
+                'java.util.Locale',
+                $this->driver->getClassName($httpServletRequest->getLocale())
+            );
 
-            $this->assertEquals('java.lang.String',
-                $this->driver->getClassName($httpServletRequest->getMethod()));
+            $this->assertEquals(
+                'java.lang.String',
+                $this->driver->getClassName($httpServletRequest->getMethod())
+            );
 
-            $this->assertEquals('java.lang.String',
-                $this->driver->getClassName($httpServletRequest->getProtocol()));
+            $this->assertEquals(
+                'java.lang.String',
+                $this->driver->getClassName($httpServletRequest->getProtocol())
+            );
 
             $this->assertContains('HTTP', (string) $httpServletRequest->getProtocol());
 

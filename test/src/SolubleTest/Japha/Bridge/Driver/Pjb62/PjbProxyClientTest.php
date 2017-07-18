@@ -157,9 +157,11 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
         // Recreate singleton, this time forcing the simple parser
         $this->clearPjbProxyClientSingleton();
         PjbProxyClient::getInstance(array_merge(
-            $this->options, [
+            $this->options,
+            [
             'force_simple_xml_parser' => true
-        ]));
+        ]
+        ));
         $client = PjbProxyClient::getClient();
         $this->assertEquals($client->RUNTIME['PARSER'], Parser::PARSER_SIMPLE);
 

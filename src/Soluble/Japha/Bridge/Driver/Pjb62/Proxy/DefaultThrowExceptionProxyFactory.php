@@ -103,8 +103,15 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
         } else {
             $cause = $message;
         }
-        $e = new $cls($message, $cause, $stackTrace,
-                      $javaExceptionClass, $code, $driverException, null);
+        $e = new $cls(
+            $message,
+            $cause,
+            $stackTrace,
+                      $javaExceptionClass,
+            $code,
+            $driverException,
+            null
+        );
 
         return $e;
     }

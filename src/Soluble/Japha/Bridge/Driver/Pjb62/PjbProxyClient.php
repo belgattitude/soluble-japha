@@ -492,7 +492,7 @@ class PjbProxyClient implements ClientInterface
             //    session_write_close();
             //}
             //if (!isset(self::$client->protocol) || self::$client->inArgs) {
-                //return;
+            //return;
             //}
             if (self::$client->preparedToSendBuffer) {
                 self::$client->sendBuffer .= self::$client->preparedToSendBuffer;

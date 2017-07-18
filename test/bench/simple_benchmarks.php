@@ -54,73 +54,90 @@ for ($i=0; $i < $it; $i++) {
 echo number_format((microtime(true)-$s) * 1000 / $it, 2);die();
 */
 
-$bm->time('New java(`java.lang.String`, "One")',
+$bm->time(
+    'New java(`java.lang.String`, "One")',
     function ($iterations) use ($ba) {
         for ($i = 0; $i < $iterations; ++$i) {
             $ba->java('java.lang.String', 'One');
         }
-    });
+    }
+);
 
-$bm->time('New java(`java.math.BigInteger`, 1)',
+$bm->time(
+    'New java(`java.math.BigInteger`, 1)',
     function ($iterations) use ($ba) {
         for ($i = 0; $i < $iterations; ++$i) {
             $ba->java('java.math.BigInteger', $i);
         }
-    });
+    }
+);
 
-$bm->time('javaClass(`java.sql.DriverManager`)',
+$bm->time(
+    'javaClass(`java.sql.DriverManager`)',
     function ($iterations) use ($ba) {
         for ($i = 0; $i < $iterations; ++$i) {
             $ba->javaClass('java.sql.DriverManager');
         }
-    });
+    }
+);
 
 $formatStyle = $ba->java('java.time.format.FormatStyle');
 
-$bm->time('Enums on javaClass',
+$bm->time(
+    'Enums on javaClass',
     function ($iterations) use ($ba, $formatStyle) {
         for ($i = 0; $i < $iterations; ++$i) {
             $style = $formatStyle->LONG;
         }
-    });
+    }
+);
 
 $jString = $ba->java('java.lang.String', 'Hello world');
-$bm->time('Method call `java.lang.String->length()`',
+$bm->time(
+    'Method call `java.lang.String->length()`',
     function ($iterations) use ($ba, $jString) {
         for ($i = 0; $i < $iterations; ++$i) {
             $len = $jString->length();
         }
-    });
+    }
+);
 
 $jString = $ba->java('java.lang.String', 'Hello world');
-$bm->time('Method call `String->concat("hello")`',
+$bm->time(
+    'Method call `String->concat("hello")`',
     function ($iterations) use ($ba, $jString) {
         for ($i = 0; $i < $iterations; ++$i) {
             $jString->concat('hello');
         }
-    });
+    }
+);
 
 $jString = $ba->java('java.lang.String', 'Hello world');
-$bm->time("\$a = `...String->concat('hello')` . ' world'",
+$bm->time(
+    "\$a = `...String->concat('hello')` . ' world'",
     function ($iterations) use ($ba, $jString) {
         for ($i = 0; $i < $iterations; ++$i) {
             $a = $jString->concat('hello') . ' world';
         }
-    });
+    }
+);
 
 $arr = [
         'arrKey' => ['str_val_1' => 'test', 'str_val_2' => 'test'],
 ];
 
-$bm->time('New java(`java.util.HashMap`, $arr)',
+$bm->time(
+    'New java(`java.util.HashMap`, $arr)',
     function ($iterations) use ($ba, $arr) {
         for ($i = 0; $i < $iterations; ++$i) {
             $ba->java('java.util.HashMap', $arr);
         }
-    });
+    }
+);
 
 $hashMap = $ba->java('java.util.HashMap', $arr);
-$bm->time('Method call `HashMap->get(\'arrKey\')`',
+$bm->time(
+    'Method call `HashMap->get(\'arrKey\')`',
     function ($iterations) use ($ba, $hashMap) {
         for ($i = 0; $i < $iterations; ++$i) {
             $phpArray = $hashMap->get('arrKey');
@@ -129,19 +146,23 @@ $bm->time('Method call `HashMap->get(\'arrKey\')`',
             // Retrieve the php array version
             // -> var_dump($ba->getDriver()->values($phpArray));
         }
-    });
+    }
+);
 
 $hashMap = $ba->java('java.util.HashMap', $arr);
-$bm->time('Call `(string) HashMap->get(\'arrKey\')[0]`',
+$bm->time(
+    'Call `(string) HashMap->get(\'arrKey\')[0]`',
     function ($iterations) use ($ba, $hashMap) {
         for ($i = 0; $i < $iterations; ++$i) {
             $phpArray = $hashMap->get('arrKey');
             $str = (string) $phpArray[0];
         }
-    });
+    }
+);
 
 $hashMap = $ba->java('java.util.HashMap', $arr);
-$bm->time('Iterate HashMap->get(\'arrKey\')[0]`',
+$bm->time(
+    'Iterate HashMap->get(\'arrKey\')[0]`',
     function ($iterations) use ($ba, $hashMap) {
         for ($i = 0; $i < $iterations; ++$i) {
             $phpArray = $hashMap->get('arrKey');
@@ -149,38 +170,47 @@ $bm->time('Iterate HashMap->get(\'arrKey\')[0]`',
                 $str = (string) $value;
             }
         }
-    });
+    }
+);
 
 $hashMap = $ba->java('java.util.HashMap', $arr);
-$bm->time('GetValues on `HashMap`',
+$bm->time(
+    'GetValues on `HashMap`',
     function ($iterations) use ($ba, $hashMap) {
         for ($i = 0; $i < $iterations; ++$i) {
             $vals = $ba->values($hashMap);
         }
-    });
+    }
+);
 
 $bigArray = array_fill(0, 100, true);
-$bm->time('New `java(HashMap(array_fill(0, 100, true)))`',
+$bm->time(
+    'New `java(HashMap(array_fill(0, 100, true)))`',
     function ($iterations) use ($ba, $bigArray) {
         for ($i = 0; $i < $iterations; ++$i) {
             $ba->java('java.util.HashMap', $bigArray);
         }
-    });
+    }
+);
 
-$bm->time('Pure PHP: call PHP strlen() method',
+$bm->time(
+    'Pure PHP: call PHP strlen() method',
     function ($iterations) {
         for ($i = 0; $i < $iterations; ++$i) {
             strlen('Hello World');
         }
-    });
+    }
+);
 
 $phpString = 'Hello world';
-$bm->time('Pure PHP: concat \'$string . "hello"\' ',
+$bm->time(
+    'Pure PHP: concat \'$string . "hello"\' ',
     function ($iterations) use (&$phpString) {
         for ($i = 0; $i < $iterations; ++$i) {
             $phpString = $phpString . 'Hello World';
         }
-    });
+    }
+);
 
 $end_total_time = $bm->getTimeMs();
 $total_time = $bm->getFormattedTimeMs($start_total_time, $end_total_time);

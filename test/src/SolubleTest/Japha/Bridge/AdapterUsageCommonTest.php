@@ -207,7 +207,8 @@ class AdapterUsageCommonTest extends \PHPUnit_Framework_TestCase
     public function testFileReader()
     {
         $ba = $this->adapter;
-        $reader = $ba->java('java.io.BufferedReader',
+        $reader = $ba->java(
+            'java.io.BufferedReader',
             $ba->java('java.io.FileReader', __FILE__)
         );
 

@@ -73,14 +73,18 @@ class AdapterUsageIOTest extends \PHPUnit_Framework_TestCase
         $socket = $socketFactory->createSocket($host, $serverPort);
 
         $socket->startHandshake();
-        $bufferedWriter = $ba->java('java.io.BufferedWriter',
-                    $ba->java('java.io.OutputStreamWriter',
+        $bufferedWriter = $ba->java(
+            'java.io.BufferedWriter',
+                    $ba->java(
+                        'java.io.OutputStreamWriter',
                             $socket->getOutputStream()
                     )
                 );
 
-        $bufferedReader = $ba->java('java.io.BufferedReader',
-                    $ba->java('java.io.InputStreamReader',
+        $bufferedReader = $ba->java(
+            'java.io.BufferedReader',
+                    $ba->java(
+                        'java.io.InputStreamReader',
                         $socket->getInputStream()
                     )
                 );
