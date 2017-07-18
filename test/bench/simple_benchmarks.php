@@ -28,7 +28,7 @@ try {
        // 'servlet_address' => 'localhost:8090/servlet.phpjavabridge',
         'servlet_address' => 'localhost:8080/JavaBridgeTemplate/servlet.phpjavabridge',
        // 'servlet_address' => 'localhost:8080/JavaBridgeSpringboot/servlet.phpjavabridge',
-
+        'force_simple_xml_parser' => false,
         'java_prefer_values' => true // te default and recommended way (possible to put at false for tests)
     ]);
     $init = $ba->java('java.lang.String');
