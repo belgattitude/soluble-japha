@@ -3,15 +3,17 @@ sudo: required
 dist: trusty
 group: edge
 
+
 matrix:
   include:
     - php: 7.1
+      env:
+        - EXECUTE_TEST_COVERALLS=true
+        - SEND_COVERAGE=true
+    #- php: hhvm-nightly
     #- php: hhvm-3.9
     #- php: hhvm-3.12
-    #  env:
-    #    - EXECUTE_TEST_COVERALLS=true
-    #    - SEND_COVERAGE=true
-    #- php: hhvm-nightly
+
                     
 before_script:
   - java -version
