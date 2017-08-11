@@ -29,7 +29,7 @@ class Cookie
      *
      * @return string
      */
-    public static function getCookiesHeaderLine(array $cookies = null)
+    public static function getCookiesHeaderLine(array $cookies = null): string
     {
         if ($cookies === null) {
             $cookies = $_COOKIE;

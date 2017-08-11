@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -51,7 +53,7 @@ class IteratorProxy extends JavaProxy implements \IteratorAggregate
     /**
      * @return ObjectIterator
      */
-    public function getIterator()
+    public function getIterator(): ObjectIterator
     {
         return new ObjectIterator($this);
     }

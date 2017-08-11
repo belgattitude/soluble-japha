@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -45,9 +47,9 @@ interface ParserInterface
     /**
      * @param string $str
      *
-     * @return mixed
+     * @return string
      */
-    public function getData($str);
+    public function getData(string $str): string;
 
     public function parserError();
 }

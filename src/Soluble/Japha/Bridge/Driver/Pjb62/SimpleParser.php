@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -79,7 +81,7 @@ class SimpleParser implements ParserInterface
         $this->type = $this->VOJD;
     }
 
-    public function RESET()
+    public function RESET(): void
     {
         $this->type = $this->VOJD;
         $this->level = 0;
@@ -138,7 +140,7 @@ class SimpleParser implements ParserInterface
         $this->i0 = $this->i;
     }
 
-    public function parse()
+    public function parse(): void
     {
         $java_recv_size = $this->handler->getParam('JAVA_RECV_SIZE');
         while ($this->eor == 0) {
@@ -264,12 +266,12 @@ class SimpleParser implements ParserInterface
         $this->RESET();
     }
 
-    public function getData($str)
+    public function getData(string $str): string
     {
         return $str;
     }
 
-    public function parserError()
+    public function parserError(): void
     {
         $this->handler->protocol->handler->shutdownBrokenConnection(
             sprintf('protocol error: %s. Check the back end log for details.', $this->s)

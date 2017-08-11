@@ -65,7 +65,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     public $__signature;
     public $__cancelProxyCreationTag;
 
-    protected function __createDelegate()
+    protected function __createDelegate(): void
     {
         $proxy = $this->__factory->create($this->__java, $this->__signature);
         $this->__delegate = $proxy;
@@ -180,7 +180,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
             $this->__createDelegate();
         }
 
-        if (count($args) == 0) {
+        if (empty($args)) {
             return $this->__delegate->getIterator();
         }
 
@@ -198,7 +198,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
-        if (count($args) == 0) {
+        if (empty($args)) {
             return $this->__delegate->offsetExists($idx);
         }
 
@@ -220,7 +220,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
-        if (count($args) == 0) {
+        if (empty($args)) {
             return $this->__delegate->offsetGet($idx);
         }
         array_unshift($args, $idx);

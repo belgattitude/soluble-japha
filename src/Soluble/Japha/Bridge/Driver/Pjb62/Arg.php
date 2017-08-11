@@ -120,7 +120,7 @@ class Arg
     {
         $this->signature = '@V';
         $key = $this->client->currentCacheKey;
-        if ($key && $key[0] != '~') {
+        if ($key && $key[0] !== '~') {
             $this->client->currentArgumentsFormat[6] = '3';
             $cacheEntry = new CacheEntry($this->client->currentArgumentsFormat, $this->signature, $this->factory, true);
             $this->client->methodCache[$key] = $cacheEntry;
@@ -134,7 +134,7 @@ class Arg
     {
         $this->signature = $signature;
         $key = $this->client->currentCacheKey;
-        if ($key && $key[0] != '~') {
+        if ($key && $key[0] !== '~') {
             $cacheEntry = new CacheEntry($this->client->currentArgumentsFormat, $this->signature, $this->factory, false);
             $this->client->methodCache[$key] = $cacheEntry;
         }

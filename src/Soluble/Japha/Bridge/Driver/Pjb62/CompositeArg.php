@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -60,7 +62,7 @@ class CompositeArg extends Arg
      * @param Client $client
      * @param string $type
      */
-    public function __construct(Client $client, $type)
+    public function __construct(Client $client, string $type)
     {
         parent::__construct($client);
         $this->type = $type;
@@ -68,7 +70,7 @@ class CompositeArg extends Arg
         $this->counter = 0;
     }
 
-    public function setNextIndex()
+    public function setNextIndex(): void
     {
         $this->idx = $this->counter++;
     }

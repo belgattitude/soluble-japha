@@ -55,7 +55,7 @@ class Java extends AbstractJava
      * @param string     $name    Java FQDN or an array with JavaFQDN followed by params
      * @param mixed|null ...$args variadic parameters
      */
-    public function __construct($name, ...$args)
+    public function __construct(string $name, ...$args)
     {
         $this->__client = PjbProxyClient::getInstance()->getClient();
         $this->__internal_encoding = $this->__client->getInternalEncoding();

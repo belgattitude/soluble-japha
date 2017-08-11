@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -57,7 +59,7 @@ class ParserString
     /**
      * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         return $this->getString();
     }
@@ -65,7 +67,7 @@ class ParserString
     /**
      * @return string
      */
-    public function getString()
+    public function getString(): string
     {
         return substr($this->string, $this->off, $this->length);
     }

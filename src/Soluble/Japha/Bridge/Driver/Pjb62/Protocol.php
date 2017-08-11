@@ -127,7 +127,7 @@ class Protocol
     {
         if (array_key_exists('X_JAVABRIDGE_OVERRIDE_HOSTS', $_ENV)) {
             $override = $_ENV['X_JAVABRIDGE_OVERRIDE_HOSTS'];
-            if (!is_null($override) && $override != '/') {
+            if (!is_null($override) && $override !== '/') {
                 return $override;
             }
         }
@@ -162,7 +162,7 @@ class Protocol
         while (count($host) < 3) {
             array_unshift($host, '');
         }
-        if (substr($host[1], 0, 2) == '//') {
+        if (substr($host[1], 0, 2) === '//') {
             $host[1] = substr($host[1], 2);
         }
         $this->host = $host;
@@ -185,8 +185,8 @@ class Protocol
         $ssl = '';
         if ($overrideHosts) {
             $s = $overrideHosts;
-            if ((strlen($s) > 2) && ($s[1] == ':')) {
-                if ($s[0] == 's') {
+            if ((strlen($s) > 2) && ($s[1] === ':')) {
+                if ($s[0] === 's') {
                     $ssl = 'ssl://';
                 }
                 $s = substr($s, 2);
@@ -272,7 +272,7 @@ class Protocol
         $java_hosts = $this->java_hosts;
         $java_servlet = $this->java_servlet;
 
-        return ($java_hosts && (!$java_servlet || ($java_servlet == 'Off'))) ? $java_hosts : null;
+        return ($java_hosts && (!$java_servlet || ($java_servlet === 'Off'))) ? $java_hosts : null;
         //return (JAVA_HOSTS && (!JAVA_SERVLET || (JAVA_SERVLET == "Off"))) ? JAVA_HOSTS : null;
     }
 

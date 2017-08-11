@@ -204,6 +204,27 @@ class AdapterUsageCommonTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1200, $bigdec->floatValue());
     }
 
+    public function testJavaWithDouble()
+    {
+        $ba = $this->adapter;
+        $double = 1.212009867e6;
+        $bigdec = $ba->java('java.math.BigDecimal', $double);
+        $this->assertEquals((int) $double, $bigdec->intValue());
+        $this->assertEquals((string) $double, $bigdec->toString());
+
+        // WARNING THOSE ones won't equals (floats are not treated equally between php and Java)
+        $this->assertNotEquals($double, $bigdec->floatValue());
+    }
+
+    public function testJavaWithDoubleFromValueOf()
+    {
+        $ba = $this->adapter;
+        $double = 1.212009867e6;
+        $bigdec = $ba->javaClass('java.math.BigDecimal')->valueOf($double);
+        $this->assertEquals((int) $double, $bigdec->intValue());
+        $this->assertEquals((string) $double, $bigdec->toString());
+    }
+
     public function testFileReader()
     {
         $ba = $this->adapter;

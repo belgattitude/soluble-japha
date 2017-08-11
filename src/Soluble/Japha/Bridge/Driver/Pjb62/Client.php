@@ -39,6 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use ArrayObject;
 use Psr\Log\LoggerInterface;
+use Soluble\Japha\Bridge\Exception\JavaException;
 use Soluble\Japha\Interfaces\JavaObject;
 use Soluble\Japha\Bridge\Driver\Pjb62\Utils\HelperFunctions;
 
@@ -460,6 +461,8 @@ class Client
     }
 
     /**
+     * @throws JavaException
+     *
      * @param mixed $arg
      */
     protected function writeArg($arg)
@@ -470,7 +473,7 @@ class Client
             if ((!$arg instanceof JavaType)) {
                 $msg = "Client failed to writeArg(), IllegalArgument 'arg:" . get_class($arg) . "' not a Java object, using NULL instead";
                 $this->logger->error("[soluble-japha] $msg (" . __METHOD__ . ')');
-                trigger_error($msg, E_USER_WARNING);
+                //trigger_error($msg, E_USER_WARNING);
                 $this->protocol->writeObject(null);
             } else {
                 $this->protocol->writeObject($arg->get__java());

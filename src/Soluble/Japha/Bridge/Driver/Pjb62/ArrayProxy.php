@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -44,7 +46,7 @@ class ArrayProxy extends IteratorProxy implements \ArrayAccess
      *
      * @return bool
      */
-    public function offsetExists($idx)
+    public function offsetExists($idx): bool
     {
         $ar = [$this, $idx];
 

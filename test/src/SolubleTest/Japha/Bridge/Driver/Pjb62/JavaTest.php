@@ -11,6 +11,7 @@
 namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Adapter;
+use Soluble\Japha\Bridge\Driver\Pjb62\Java;
 use Soluble\Japha\Bridge\Exception\JavaException;
 
 class JavaTest extends \PHPUnit_Framework_TestCase
@@ -46,14 +47,27 @@ class JavaTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    public function testNull()
+    public function testConstructArgTypeNull()
     {
-        $ba = $this->adapter;
         try {
-            $ret = $ba->java('java.lang.String', null);
+            $ret = new Java('java.lang.String', null);
             $this->assertFalse(true, 'Should throw a NullPointerException');
         } catch (JavaException $e) {
             $this->assertContains('NullPointerException', $e->getMessage());
         }
+    }
+
+    public function testConstructArgTypeResource()
+    {
+        $tmpFile = tmpfile();
+        fwrite($tmpFile, 'COOL');
+        $str = new Java('java.lang.String', $tmpFile);
+        $this->assertEquals('', (string) $str);
+    }
+
+    public function testConstructArgTypePHPObject()
+    {
+        $this->expectException(JavaException::class);
+        $str = new Java('java.lang.String', new \stdClass());
     }
 }

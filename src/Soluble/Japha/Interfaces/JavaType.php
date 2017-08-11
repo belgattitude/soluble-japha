@@ -12,9 +12,6 @@ declare(strict_types=1);
 
 namespace Soluble\Japha\Interfaces;
 
-/**
- * @method JavaObject getClass(string $type=null) Java('java.lang.Class')
- */
 interface JavaType
 {
     /**

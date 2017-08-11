@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -37,6 +39,7 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Driver\Pjb62\Exception\InternalException;
 use Soluble\Japha\Bridge\Driver\Pjb62\Utils\HelperFunctions;
 
 class ThrowExceptionProxyFactory extends ExceptionProxyFactory
@@ -52,11 +55,11 @@ class ThrowExceptionProxyFactory extends ExceptionProxyFactory
     /**
      * @return Exception\InternalException
      */
-    public function getProxy($result, $signature, $exception, $wrap)
+    public function getProxy($result, $signature, $exception, $wrap): InternalException
     {
         $proxy = $this->create($result, $signature);
 
-        return new Exception\InternalException($proxy, $exception);
+        return new InternalException($proxy, $exception);
     }
 
     /**
@@ -64,7 +67,7 @@ class ThrowExceptionProxyFactory extends ExceptionProxyFactory
      *
      * @throws Exception\JavaException
      */
-    public function checkResult(Exception\JavaException $result)
+    public function checkResult(Exception\JavaException $result): void
     {
         if (PjbProxyClient::getInstance()->getOption('java_prefer_values') || ($result->__hasDeclaredExceptions === 'T')) {
             throw $result;

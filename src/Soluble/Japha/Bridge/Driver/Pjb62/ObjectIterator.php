@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -52,7 +54,7 @@ class ObjectIterator implements Iterator
         $this->var = Pjb62Driver::castPjbInternal($javaObject, 'A');
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->var);
     }
@@ -60,7 +62,7 @@ class ObjectIterator implements Iterator
     /**
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->current() !== false;
     }
@@ -74,7 +76,7 @@ class ObjectIterator implements Iterator
     }
 
     /**
-     * @return string
+     * @return int|string
      */
     public function key()
     {

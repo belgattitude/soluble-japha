@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Soluble\Japha\Bridge\Driver\Pjb62\Proxy;
 
 use Psr\Log\LoggerInterface;
@@ -46,7 +48,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
      *
      * @throws Exception\JavaExceptionInterface
      */
-    public function checkResult(Pjb62\Exception\JavaException $result)
+    public function checkResult(Pjb62\Exception\JavaException $result): void
     {
         $exception = $this->getExceptionFromResult($result);
         throw $exception;
@@ -57,7 +59,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
      *
      * @return Exception\JavaExceptionInterface
      */
-    protected function getExceptionFromResult(Pjb62\Exception\JavaException $result)
+    protected function getExceptionFromResult(Pjb62\Exception\JavaException $result): Exception\JavaExceptionInterface
     {
         $found = false;
         $exceptionClass = '';

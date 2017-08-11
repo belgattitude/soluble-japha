@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -42,7 +44,7 @@ class IteratorProxyFactory extends ProxyFactory
     /**
      * @return IteratorProxy
      */
-    public static function create($result, $signature)
+    public static function create($result, $signature): IteratorProxy
     {
         return new IteratorProxy($result, $signature);
     }

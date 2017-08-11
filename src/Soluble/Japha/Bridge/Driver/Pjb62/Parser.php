@@ -64,7 +64,7 @@ class Parser
         }
     }
 
-    public function parse()
+    public function parse(): void
     {
         $this->parser->parse();
     }
@@ -72,9 +72,9 @@ class Parser
     /**
      * @param string $str
      *
-     * @return mixed|string
+     * @return string
      */
-    public function getData($str)
+    public function getData(string $str): string
     {
         return $this->parser->getData($str);
     }

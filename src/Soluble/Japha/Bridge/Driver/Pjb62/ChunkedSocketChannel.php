@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -46,7 +48,7 @@ class ChunkedSocketChannel extends SocketChannel
      *
      * @param string $data
      */
-    public function fwrite($data)
+    public function fwrite(string $data)
     {
         $len = dechex(strlen($data));
         $res = fwrite($this->peer, "${len}\r\n${data}\r\n");

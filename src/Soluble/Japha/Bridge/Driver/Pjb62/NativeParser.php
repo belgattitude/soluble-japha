@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -89,7 +91,7 @@ class NativeParser implements ParserInterface
      * @param string   $name
      * @param mixed    $param
      */
-    protected function begin($parser, $name, $param)
+    protected function begin($parser, $name, $param): void
     {
         $this->event = true;
         switch ($name) {
@@ -105,7 +107,7 @@ class NativeParser implements ParserInterface
      * @param resource $parser
      * @param string   $name
      */
-    public function end($parser, $name)
+    public function end($parser, $name): void
     {
         $this->client->end($name);
         switch ($name) {
@@ -120,12 +122,12 @@ class NativeParser implements ParserInterface
      *
      * @return string
      */
-    public function getData($str)
+    public function getData(string $str): string
     {
         return base64_decode($str);
     }
 
-    public function parse()
+    public function parse(): void
     {
         do {
             $this->event = false;
@@ -139,7 +141,7 @@ class NativeParser implements ParserInterface
         } while (!$this->event || $this->level > 0);
     }
 
-    public function parserError()
+    public function parserError(): void
     {
         $this->client->protocol->handler->shutdownBrokenConnection(
             sprintf('protocol error: %s. Check the back end log for details.', $this->buf)
