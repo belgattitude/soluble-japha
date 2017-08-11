@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -252,17 +254,17 @@ class Client
         return $this->logger;
     }
 
-    public function read($size)
+    public function read($size): string
     {
         return $this->protocol->read($size);
     }
 
-    public function setDefaultHandler()
+    public function setDefaultHandler(): void
     {
         $this->methodCache = $this->defaultCache;
     }
 
-    public function setAsyncHandler()
+    public function setAsyncHandler(): void
     {
         $this->methodCache = $this->asyncCache;
     }
@@ -272,14 +274,14 @@ class Client
      *
      * @throws Exception\RuntimeException
      */
-    public function handleRequests()
+    public function handleRequests(): void
     {
         $tail_call = false;
         do {
             $this->stack = [$this->arg = $this->simpleArg];
             $this->idx = 0;
             $this->parser->parse();
-            if ((count($this->stack)) > 1) {
+            if (count($this->stack) > 1) {
                 $arg = array_pop($this->stack);
                 if ($arg instanceof ApplyArg) {
                     $this->apply($arg);
@@ -302,7 +304,7 @@ class Client
         return $this->simpleArg->getResult($wrap);
     }
 
-    public function getInternalResult()
+    public function getInternalResult(): JavaType
     {
         return $this->getWrappedResult(false);
     }
@@ -317,7 +319,7 @@ class Client
      *
      * @return SimpleFactory
      */
-    protected function getProxyFactory($type)
+    protected function getProxyFactory($type): SimpleFactory
     {
         switch ($type[0]) {
             case 'E':
@@ -341,7 +343,7 @@ class Client
      * @param Arg          $arg
      * @param CompositeArg $newArg
      */
-    protected function link(&$arg, &$newArg)
+    protected function link(&$arg, &$newArg): void
     {
         $arg->linkResult($newArg->val);
         $newArg->parentArg = $arg;
@@ -374,7 +376,7 @@ class Client
      * @param array|string $name
      * @param array        $st   param
      */
-    public function begin($name, $st)
+    public function begin($name, $st): void
     {
         $arg = $this->arg;
         switch ($name[0]) {
@@ -423,8 +425,8 @@ class Client
                 if ($st['n'] != 'T') {
                     $arg->setVoidSignature();
                 }
-                // Fall back to setting result to null
-                // no break here
+                // possible bugfix, the break was missing here
+                break;
             case 'N':
                 $arg->setResult(null);
                 break;
@@ -450,7 +452,7 @@ class Client
     /**
      * @param array|string $name
      */
-    public function end($name)
+    public function end($name): void
     {
         switch ($name[0]) {
             case 'X':
@@ -465,12 +467,12 @@ class Client
      *
      * @param mixed $arg
      */
-    protected function writeArg($arg)
+    protected function writeArg($arg): void
     {
         if (is_string($arg)) {
             $this->protocol->writeString($arg);
         } elseif (is_object($arg)) {
-            if ((!$arg instanceof JavaType)) {
+            if (!$arg instanceof JavaType) {
                 $msg = "Client failed to writeArg(), IllegalArgument 'arg:" . get_class($arg) . "' not a Java object, using NULL instead";
                 $this->logger->error("[soluble-japha] $msg (" . __METHOD__ . ')');
                 //trigger_error($msg, E_USER_WARNING);
@@ -478,7 +480,7 @@ class Client
             } else {
                 $this->protocol->writeObject($arg->get__java());
             }
-        } elseif (is_null($arg)) {
+        } elseif (null === $arg) {
             $this->protocol->writeObject(null);
         } elseif (is_bool($arg)) {
             $this->protocol->writeBoolean($arg);
@@ -517,7 +519,7 @@ class Client
     /**
      * @param array $args
      */
-    protected function writeArgs(array $args)
+    protected function writeArgs(array $args): void
     {
         $this->inArgs = true;
         $n = count($args);
@@ -533,7 +535,7 @@ class Client
      *
      * @return JavaType
      */
-    public function createObject($name, array $args)
+    public function createObject($name, array $args): JavaType
     {
         $this->protocol->createObjectBegin($name);
         $this->writeArgs($args);
@@ -580,7 +582,7 @@ class Client
      *
      * @return mixed
      */
-    public function setProperty($object, $property, $arg)
+    public function setProperty($object, $property, $arg): void
     {
         $this->protocol->propertyAccessBegin($object, $property);
         $this->writeArg($arg);
@@ -613,7 +615,7 @@ class Client
      *
      * @param int $code
      */
-    public function setExitCode($code)
+    public function setExitCode($code): void
     {
         if (isset($this->protocol)) {
             $this->protocol->writeExitCode($code);
@@ -626,7 +628,7 @@ class Client
      *
      * @param int $object object identifier
      */
-    public function unref($object)
+    public function unref($object): void
     {
         if (isset($this->protocol)) {
             $this->protocol->writeUnref($object);
@@ -639,7 +641,7 @@ class Client
      * @throws Exception\JavaException
      * @throws Exception\RuntimeException
      */
-    public function apply(ApplyArg $arg)
+    public function apply(ApplyArg $arg): void
     {
         $name = $arg->p;
         $object = $arg->v;
@@ -790,7 +792,7 @@ class Client
      *
      * @return JavaObject
      */
-    public function getContext()
+    public function getContext(): \Soluble\Japha\Interfaces\JavaObject
     {
         if ($this->cachedValues['getContext'] === null) {
             $this->cachedValues['getContext'] = $this->invokeMethod(0, 'getContext', []);
@@ -841,7 +843,7 @@ class Client
      *
      * @return JavaObject
      */
-    public function getSession(array $args = [])
+    public function getSession(array $args = []): \Soluble\Japha\Interfaces\JavaObject
     {
         if (!isset($args[0])) {
             $args[0] = null;
@@ -867,7 +869,7 @@ class Client
     /**
      * @return string
      */
-    public function getServerName()
+    public function getServerName(): string
     {
         if ($this->cachedValues['getServerName'] === null) {
             $this->cachedValues['getServerName'] = $this->protocol->getServerName();
@@ -881,7 +883,7 @@ class Client
      *
      * @return ArrayObject
      */
-    public function getParams()
+    public function getParams(): \ArrayObject
     {
         return $this->params;
     }
@@ -901,7 +903,7 @@ class Client
     /**
      * @return string
      */
-    public function getInternalEncoding()
+    public function getInternalEncoding(): string
     {
         return $this->internal_encoding;
     }

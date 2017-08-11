@@ -150,7 +150,7 @@ class Java extends AbstractJava
             $preparedToSendBuffer[6] = '3';
             $client->sendBuffer .= $preparedToSendBuffer;
             $preparedToSendBuffer = null;
-            $client->asyncCtx -= 1;
+            --$client->asyncCtx;
         } else {
             if (!isset($this->__delegate)) {
                 $client->unref($this->__java);
@@ -164,7 +164,7 @@ class Java extends AbstractJava
      * @param string $method
      * @param array  $args
      *
-     * @return mixed
+     * @return mixed|null
      */
     public function __call(string $method, array $args)
     {
@@ -228,9 +228,9 @@ class Java extends AbstractJava
             }
             $client->preparedToSendBuffer = vsprintf($cacheEntry->fmt, $args2);
             if ($cacheEntry->resultVoid) {
-                $client->cancelProxyCreationTag += 1;
+                ++$client->cancelProxyCreationTag;
 
-                return;
+                return null;
             } else {
                 $result = clone $client->cachedJavaPrototype;
                 $result->__factory = $cacheEntry->factory;

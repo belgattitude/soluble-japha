@@ -240,7 +240,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
-        if (count($args) == 0) {
+        if (empty($args)) {
             return $this->__delegate->offsetSet($idx, $val);
         }
 
@@ -260,7 +260,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         if (!isset($this->__delegate)) {
             $this->__createDelegate();
         }
-        if (count($args) == 0) {
+        if (empty($args)) {
             return $this->__delegate->offsetUnset($idx);
         }
         array_unshift($args, $idx);

@@ -104,7 +104,7 @@ abstract class AbstractDriver implements DriverInterface
      *
      * @return mixed
      */
-    abstract public function cast(Interfaces\JavaObject $javaObject, string $cast_type): Interfaces\JavaObject;
+    abstract public function cast(Interfaces\JavaObject $javaObject, string $cast_type);
 
     /**
      * {@inheritdoc}

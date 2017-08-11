@@ -166,7 +166,7 @@ class Pjb62Driver extends AbstractDriver
     public function getContext(): Interfaces\JavaObject
     {
         try {
-            return $this->pjbProxyClient->getClient()->getContext();
+            return $this->pjbProxyClient::getClient()->getContext();
         } catch (Pjb62BrokenConnectionException $e) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
@@ -193,7 +193,7 @@ class Pjb62Driver extends AbstractDriver
     public function getJavaSession(array $args = []): Interfaces\JavaObject
     {
         try {
-            return $this->pjbProxyClient->getClient()->getSession();
+            return $this->pjbProxyClient::getClient()->getSession();
         } catch (Pjb62BrokenConnectionException $e) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
@@ -297,7 +297,7 @@ class Pjb62Driver extends AbstractDriver
     /**
      * {@inheritdoc}
      */
-    public function cast(Interfaces\JavaObject $javaObject, string $cast_type): Interfaces\JavaObject
+    public function cast(Interfaces\JavaObject $javaObject, string $cast_type)
     {
         /* @todo see how can it be possible to clean up to new structure
             const CAST_TYPE_STRING  = 'string';

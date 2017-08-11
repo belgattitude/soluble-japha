@@ -85,7 +85,7 @@ class Arg
     /**
      * @param bool $wrap
      *
-     * @return JavaType
+     * @return JavaType|string
      */
     public function getResult($wrap)
     {

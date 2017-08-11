@@ -146,7 +146,7 @@ class SimpleParser implements ParserInterface
         while ($this->eor == 0) {
             if ($this->c >= $this->pos) {
                 $this->buf = $this->handler->read($java_recv_size);
-                if (is_null($this->buf) || strlen($this->buf) == 0) {
+                if (null === $this->buf || strlen($this->buf) == 0) {
                     $this->handler->protocol->handler->shutdownBrokenConnection('protocol error. Check the back end log for OutOfMemoryErrors.');
                 }
                 $this->pos = strlen($this->buf);
@@ -161,7 +161,7 @@ class SimpleParser implements ParserInterface
                         $this->APPEND($ch);
                         break;
                     }
-                    $this->level += 1;
+                    ++$this->level;
                     $this->type = $this->BEGIN;
                     break;
                 case '\t':
@@ -193,9 +193,9 @@ class SimpleParser implements ParserInterface
                     }
                     if ($this->type == $this->BEGIN) {
                         $this->type = $this->END;
-                        $this->level -= 1;
+                        --$this->level;
                     }
-                    $this->level -= 1;
+                    --$this->level;
                     $this->eot = true;
                     break;
                 case '>':
@@ -261,7 +261,7 @@ class SimpleParser implements ParserInterface
                 default:
                     $this->APPEND($ch);
             }
-            $this->c += 1;
+            ++$this->c;
         }
         $this->RESET();
     }

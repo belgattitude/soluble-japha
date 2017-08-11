@@ -194,10 +194,10 @@ class SimpleHttpHandler extends SocketHandler
     public function getWebApp()
     {
         $context = $this->getWebAppInternal();
-        if (is_null($context)) {
+        if (null === $context) {
             $context = $this->java_servlet;
         }
-        if (is_null($context) || $context[0] != '/') {
+        if (null === $context || $context[0] != '/') {
             $context = '/JavaBridge/JavaBridge.phpjavabridge';
         }
 

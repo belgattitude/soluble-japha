@@ -119,6 +119,7 @@ return PhpCsFixer\Config::create()
                 if (strstr($file->getPath(), 'compatibility')) {
                     return false;
                 }
+                return true;
             })
     )
 ;

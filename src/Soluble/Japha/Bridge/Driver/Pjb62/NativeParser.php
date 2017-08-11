@@ -97,7 +97,7 @@ class NativeParser implements ParserInterface
         switch ($name) {
             case 'X':
             case 'A':
-                $this->level += 1;
+                ++$this->level;
                 break;
         }
         $this->client->begin($name, $param);
@@ -113,7 +113,7 @@ class NativeParser implements ParserInterface
         switch ($name) {
             case 'X':
             case 'A':
-                $this->level -= 1;
+                --$this->level;
         }
     }
 

@@ -87,7 +87,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     /**
      * @param string|null $msg
      */
-    public function shutdownBrokenConnection($msg = '')
+    public function shutdownBrokenConnection($msg = ''): void
     {
         fclose($this->socket);
         $this->dieWithBrokenConnection($msg);
@@ -172,7 +172,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      */
     public function read($size)
     {
-        if (is_null($this->headers)) {
+        if (null === $this->headers) {
             $this->parseHeaders();
         }
         if (isset($this->headers['http_error'])) {
@@ -239,7 +239,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         if ($code != 200) {
             $this->headers['http_error'] = $code;
         }
-        while (($str = trim(fgets($this->socket, $this->java_recv_size)))) {
+        while ($str = trim(fgets($this->socket, $this->java_recv_size))) {
             if ($str[0] == 'X') {
                 if (!strncasecmp('X_JAVABRIDGE_REDIRECT', $str, 21)) {
                     $this->headers['redirect'] = trim(substr($str, 22));

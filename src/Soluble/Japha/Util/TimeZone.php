@@ -63,7 +63,7 @@ class TimeZone
      *
      * @return array
      */
-    public function getAvailableIDs()
+    public function getAvailableIDs(): array
     {
         if ($this->availableTz === null) {
             $this->availableTz = [];
@@ -96,7 +96,7 @@ class TimeZone
      *
      * @return Interfaces\JavaObject Java('java.util.TimeZone')
      */
-    public function getDefault($enableTzCache = true)
+    public function getDefault($enableTzCache = true): Interfaces\JavaObject
     {
         $enableCache = $enableTzCache && self::$enableTzCache;
         if (!$enableCache || self::$defaultTz === null) {
@@ -117,7 +117,7 @@ class TimeZone
      *
      * @return Interfaces\JavaObject Java('java.util.TimeZone')
      */
-    public function getTimeZone($id)
+    public function getTimeZone($id): Interfaces\JavaObject
     {
         if ($id instanceof DateTimeZone) {
             $phpTimezone = $id->getName();
@@ -152,7 +152,7 @@ class TimeZone
      *
      * @param string|Interfaces\JavaObject|DateTimeZone $timeZone timezone id, Java(java.util.Timezone) or php DateTimeZone
      */
-    public function setDefault($timeZone)
+    public function setDefault($timeZone): void
     {
         if (is_string($timeZone) || $timeZone instanceof DateTimeZone) {
             $timeZone = $this->getTimeZone($timeZone);
@@ -174,7 +174,7 @@ class TimeZone
      * If you don't want to rely on automatic timezone caching, you can
      * disable it at bootstrap (Soluble\Japha\Util\TimeZone::disableTzCache)
      */
-    public static function enableTzCache()
+    public static function enableTzCache(): void
     {
         self::$enableTzCache = true;
         self::$defaultTz = null;
@@ -186,7 +186,7 @@ class TimeZone
      * TimeZone::disbaleTzCache() disable local object caching
      * for defaultTimezone
      */
-    public static function disableTzCache()
+    public static function disableTzCache(): void
     {
         self::$enableTzCache = false;
         self::$defaultTz = null;

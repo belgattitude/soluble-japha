@@ -79,7 +79,7 @@ class Parser
         return $this->parser->getData($str);
     }
 
-    public function parserError()
+    public function parserError(): void
     {
         $this->parser->parserError();
     }

@@ -195,7 +195,7 @@ class PjbProxyClient implements ClientInterface
                 throw new Exception\InvalidArgumentException(__METHOD__ . ' Missing required parameter servlet_address');
             }
 
-            $connection = $this->parseServletUrl($options['servlet_address']);
+            $connection = static::parseServletUrl($options['servlet_address']);
 
             $params = new ArrayObject();
             $params['JAVA_HOSTS'] = $connection['servlet_host'];
@@ -437,7 +437,7 @@ class PjbProxyClient implements ClientInterface
         }
         $host = $url['host'];
         $port = $url['port'];
-        $path = isset($url['path']) ? $url['path'] : '';
+        $path = $url['path'] ?? '';
 
         $infos = [
             'servlet_host' => "${scheme}${host}:${port}",

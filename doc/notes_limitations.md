@@ -70,7 +70,7 @@ class TimeZone
     protected $timezone;
     
     /**
-     * @return Adapter $adapter bridge adapter
+     * @param Adapter $adapter bridge adapter
      */
     public function __construct(Adapter $adapter) {
         $this->timezone = $adapter->java('java.util.TimeZone');

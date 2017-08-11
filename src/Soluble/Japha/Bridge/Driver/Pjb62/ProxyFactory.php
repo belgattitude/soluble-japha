@@ -57,7 +57,7 @@ class ProxyFactory extends SimpleFactory
 
     public function getProxy($result, $signature, $exception, $wrap)
     {
-        $proxy = $this->create($result, $signature);
+        $proxy = static::create($result, $signature);
         if ($wrap) {
             $proxy = $this->createInternal($proxy);
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -115,7 +117,7 @@ class Protocol
     /**
      * @return Client
      */
-    public function getClient()
+    public function getClient(): Client
     {
         return $this->client;
     }
@@ -123,11 +125,11 @@ class Protocol
     /**
      * @return string
      */
-    public function getOverrideHosts()
+    public function getOverrideHosts(): string
     {
         if (array_key_exists('X_JAVABRIDGE_OVERRIDE_HOSTS', $_ENV)) {
             $override = $_ENV['X_JAVABRIDGE_OVERRIDE_HOSTS'];
-            if (!is_null($override) && $override !== '/') {
+            if (null !== $override && $override !== '/') {
                 return $override;
             }
         }
@@ -138,7 +140,7 @@ class Protocol
     /**
      * @param SocketHandler $socketHandler
      */
-    public function setSocketHandler(SocketHandler $socketHandler)
+    public function setSocketHandler(SocketHandler $socketHandler): void
     {
         $this->socketHandler = $socketHandler;
     }
@@ -146,7 +148,7 @@ class Protocol
     /**
      * @return SocketHandler socket handler
      */
-    public function getSocketHandler()
+    public function getSocketHandler(): SocketHandler
     {
         return $this->socketHandler;
     }
@@ -154,7 +156,7 @@ class Protocol
     /**
      * @param string $java_hosts
      */
-    public function setHost($java_hosts)
+    public function setHost($java_hosts): void
     {
         $hosts = explode(';', $java_hosts);
         //$hosts = explode(";", JAVA_HOSTS);
@@ -171,7 +173,7 @@ class Protocol
     /**
      * @return array
      */
-    public function getHost()
+    public function getHost(): array
     {
         return $this->host;
     }
@@ -239,7 +241,7 @@ class Protocol
      * @throws ConnectionException
      * @throws Exception\IOException
      */
-    public function createSimpleHandler($name, $again = true)
+    public function createSimpleHandler($name, $again = true): SocketHandler
     {
         $channelName = $name;
         $errno = null;
@@ -287,7 +289,7 @@ class Protocol
         }
     }
 
-    public function redirect()
+    public function redirect(): void
     {
         $this->handler->redirect();
     }
@@ -295,33 +297,33 @@ class Protocol
     /**
      * @return string
      */
-    public function read($size)
+    public function read($size): string
     {
         return $this->handler->read($size);
     }
 
-    public function sendData()
+    public function sendData(): void
     {
         $this->handler->write($this->client->sendBuffer);
         $this->client->sendBuffer = null;
     }
 
-    public function flush()
+    public function flush(): void
     {
         $this->sendData();
     }
 
-    public function getKeepAlive()
+    public function getKeepAlive(): string
     {
         return $this->handler->getKeepAlive();
     }
 
-    public function keepAlive()
+    public function keepAlive(): void
     {
         $this->handler->keepAlive();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $this->client->handleRequests();
     }
@@ -329,12 +331,12 @@ class Protocol
     /**
      * @param string $data
      */
-    public function write($data)
+    public function write($data): void
     {
         $this->client->sendBuffer .= $data;
     }
 
-    public function finish()
+    public function finish(): void
     {
         $this->flush();
         $this->handle();
@@ -345,7 +347,7 @@ class Protocol
      * @param string $name java class name, i.e java.math.BigInteger
      */
 
-    public function referenceBegin($name)
+    public function referenceBegin($name): void
     {
         $this->client->sendBuffer .= $this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
@@ -355,7 +357,7 @@ class Protocol
         $this->client->currentArgumentsFormat = $signature;
     }
 
-    public function referenceEnd()
+    public function referenceEnd(): void
     {
         $format = '</H>';
         $this->client->currentArgumentsFormat .= $format;
@@ -367,7 +369,7 @@ class Protocol
     /**
      * @param string $name java class name i.e java.math.BigInteger
      */
-    public function createObjectBegin($name)
+    public function createObjectBegin($name): void
     {
         $this->client->sendBuffer .= $this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
@@ -377,7 +379,7 @@ class Protocol
         $this->client->currentArgumentsFormat = $signature;
     }
 
-    public function createObjectEnd()
+    public function createObjectEnd(): void
     {
         $format = '</K>';
         $this->client->currentArgumentsFormat .= $format;
@@ -390,7 +392,7 @@ class Protocol
      * @param int    $object object id
      * @param string $method method name
      */
-    public function propertyAccessBegin($object, $method)
+    public function propertyAccessBegin($object, $method): void
     {
         $this->client->sendBuffer .= $this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
@@ -398,7 +400,7 @@ class Protocol
         $this->client->currentArgumentsFormat = "<G p=\"2\" v=\"%x\" m=\"${method}\">";
     }
 
-    public function propertyAccessEnd()
+    public function propertyAccessEnd(): void
     {
         $format = '</G>';
         $this->client->currentArgumentsFormat .= $format;
@@ -411,7 +413,7 @@ class Protocol
      * @param int    $object_id object id
      * @param string $method    method name
      */
-    public function invokeBegin($object_id, $method)
+    public function invokeBegin($object_id, $method): void
     {
         $this->client->sendBuffer .= $this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
@@ -419,7 +421,7 @@ class Protocol
         $this->client->currentArgumentsFormat = "<Y p=\"2\" v=\"%x\" m=\"${method}\">";
     }
 
-    public function invokeEnd()
+    public function invokeEnd(): void
     {
         $format = '</Y>';
         $this->client->currentArgumentsFormat .= $format;
@@ -428,14 +430,14 @@ class Protocol
         $this->client->currentCacheKey = null;
     }
 
-    public function resultBegin()
+    public function resultBegin(): void
     {
         $this->client->sendBuffer .= $this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
         $this->write('<R>');
     }
 
-    public function resultEnd()
+    public function resultEnd(): void
     {
         $this->client->currentCacheKey = null;
         $this->write('</R>');
@@ -445,7 +447,7 @@ class Protocol
     /**
      * @param string $name
      */
-    public function writeString($name)
+    public function writeString($name): void
     {
         $format = '<S v="%s"/>';
         $this->client->currentArgumentsFormat .= $format;
@@ -455,7 +457,7 @@ class Protocol
     /**
      * @param bool $boolean
      */
-    public function writeBoolean($boolean)
+    public function writeBoolean($boolean): void
     {
         $format = '<T v="%s"/>';
         $this->client->currentArgumentsFormat .= $format;
@@ -465,7 +467,7 @@ class Protocol
     /**
      * @param int $l
      */
-    public function writeLong($l)
+    public function writeLong($l): void
     {
         $this->client->currentArgumentsFormat .= '<J v="%d"/>';
         if ($l < 0) {
@@ -478,7 +480,7 @@ class Protocol
     /**
      * @param int $l
      */
-    public function writeULong($l)
+    public function writeULong($l): void
     {
         $format = '<L v="%x" p="O"/>';
         $this->client->currentArgumentsFormat .= $format;
@@ -488,7 +490,7 @@ class Protocol
     /**
      * @param float $d
      */
-    public function writeDouble($d)
+    public function writeDouble($d): void
     {
         $format = '<D v="%.14e"/>';
         $this->client->currentArgumentsFormat .= $format;
@@ -498,7 +500,7 @@ class Protocol
     /**
      * @param string|int|null $object
      */
-    public function writeObject($object)
+    public function writeObject($object): void
     {
         $format = '<O v="%x"/>';
         $this->client->currentArgumentsFormat .= $format;
@@ -509,22 +511,22 @@ class Protocol
      * @param int    $object
      * @param string $str
      */
-    public function writeException($object, $str)
+    public function writeException($object, $str): void
     {
         $this->write(sprintf('<E v="%x" m="%s"/>', $object, htmlspecialchars($str, ENT_COMPAT, $this->internal_encoding)));
     }
 
-    public function writeCompositeBegin_a()
+    public function writeCompositeBegin_a(): void
     {
         $this->write('<X t="A">');
     }
 
-    public function writeCompositeBegin_h()
+    public function writeCompositeBegin_h(): void
     {
         $this->write('<X t="H">');
     }
 
-    public function writeCompositeEnd()
+    public function writeCompositeEnd(): void
     {
         $this->write('</X>');
     }
@@ -532,7 +534,7 @@ class Protocol
     /**
      * @param string $key
      */
-    public function writePairBegin_s($key)
+    public function writePairBegin_s($key): void
     {
         $this->write(sprintf('<P t="S" v="%s">', htmlspecialchars($key, ENT_COMPAT, 'ISO-8859-1')));
     }
@@ -540,17 +542,17 @@ class Protocol
     /**
      * @param int $key
      */
-    public function writePairBegin_n($key)
+    public function writePairBegin_n($key): void
     {
         $this->write(sprintf('<P t="N" v="%x">', $key));
     }
 
-    public function writePairBegin()
+    public function writePairBegin(): void
     {
         $this->write('<P>');
     }
 
-    public function writePairEnd()
+    public function writePairEnd(): void
     {
         $this->write('</P>');
     }
@@ -558,7 +560,7 @@ class Protocol
     /**
      * @param int $object
      */
-    public function writeUnref($object)
+    public function writeUnref($object): void
     {
         $this->client->sendBuffer .= $this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;
@@ -568,7 +570,7 @@ class Protocol
     /**
      * @return string
      */
-    public function getServerName()
+    public function getServerName(): string
     {
         return $this->serverName;
     }
@@ -576,7 +578,7 @@ class Protocol
     /**
      * @param int $code
      */
-    public function writeExitCode($code)
+    public function writeExitCode($code): void
     {
         $this->client->sendBuffer .= $this->client->preparedToSendBuffer;
         $this->client->preparedToSendBuffer = null;

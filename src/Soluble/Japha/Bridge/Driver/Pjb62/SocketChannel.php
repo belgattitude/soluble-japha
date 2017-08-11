@@ -100,7 +100,7 @@ abstract class SocketChannel extends EmptyChannel
         return $read;
     }
 
-    public function shutdownBrokenConnection()
+    public function shutdownBrokenConnection(): void
     {
         fclose($this->peer);
     }

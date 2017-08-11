@@ -56,7 +56,7 @@ class GlobalRef
      */
     public function add($object)
     {
-        if (is_null($object)) {
+        if (null === $object) {
             return 0;
         }
 

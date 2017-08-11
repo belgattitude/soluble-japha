@@ -75,7 +75,7 @@ class JavaException extends Exception implements JavaType
             $name = array_shift($args);
         }
 
-        if (count($args) == 0) {
+        if (empty($args)) {
             parent::__construct($name);
         } else {
             parent::__construct($args[0]);

@@ -63,7 +63,7 @@ class HttpTunnelHandler extends SimpleHttpTunnelHandler
             fwrite($this->socket, "0\r\n\r\n");
             fclose($this->socket);
         } else {
-            parent::close($this->socket);
+            parent::close();
         }
     }
 }
