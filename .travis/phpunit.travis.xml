@@ -71,7 +71,8 @@
             <directory>../test/src/SolubleTest/Japha</directory>
         </testsuite>
     </testsuites>
-    
+
+    <!--
     <filter>
         <whitelist>
             <directory>../src/Soluble</directory>
@@ -80,4 +81,5 @@
             </exclude>		
         </whitelist>
     </filter>
+    -->
 </phpunit>
