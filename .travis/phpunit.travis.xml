@@ -72,14 +72,16 @@
         </testsuite>
     </testsuites>
 
-    <!--
+
     <filter>
         <whitelist>
             <directory>../src/Soluble</directory>
+            <!--
             <exclude>
                 <file>../src/Soluble/Japha/Bridge/Driver/Pjb62/SimpleParser.php</file>
-            </exclude>		
+            </exclude>
+            -->
         </whitelist>
     </filter>
-    -->
+
 </phpunit>
