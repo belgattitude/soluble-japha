@@ -34,9 +34,9 @@
         "phpunit/phpunit": "^5.7",
         "mockery/mockery": "^0.9.9",
         "belgattitude/pjbserver-tools": "^2.1.2",
-        "friendsofphp/php-cs-fixer": "^2.1.0",
+        "friendsofphp/php-cs-fixer": "^2.4.0",
         "monolog/monolog": "^1.21.0",
-        "phpstan/phpstan": "^0.7.0"
+        "phpstan/phpstan": "^0.8.0"
     },
     "scripts": {
         "check": [
