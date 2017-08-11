@@ -164,7 +164,7 @@ class PjbProxyClient implements ClientInterface
             if ($logger === null) {
                 $logger = new NullLogger();
             }
-            self::$instance = new self($options, $logger);
+            self::$instance = new static($options, $logger);
         }
 
         return self::$instance;

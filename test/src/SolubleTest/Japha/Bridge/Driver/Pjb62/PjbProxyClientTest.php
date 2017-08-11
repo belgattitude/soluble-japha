@@ -126,19 +126,19 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
         $defaultOptions = (array) PjbProxyClient::getInstance($this->options)->getOptions();
 
         // For sake of simplicity just inverse the boolean default options
-        $overridenOptions = $defaultOptions;
-        foreach ($overridenOptions as $option => $value) {
+        $overriddenOptions = $defaultOptions;
+        foreach ($overriddenOptions as $option => $value) {
             if (is_bool($value)) {
-                $overridenOptions[$option] = !$value;
+                $overriddenOptions[$option] = !$value;
             } else {
-                $overridenOptions[$option] = $value;
+                $overriddenOptions[$option] = $value;
             }
         }
 
         // Clear previous singleton to force re-creation of the object
         $this->clearPjbProxyClientSingleton();
 
-        $options = (array) PjbProxyClient::getInstance($overridenOptions)->getOptions();
+        $options = (array) PjbProxyClient::getInstance($overriddenOptions)->getOptions();
 
         foreach ($options as $option => $value) {
             if (is_bool($value)) {
@@ -150,21 +150,31 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
     public function testForceSimpleParser()
     {
         // Should create a NativeParser by default
-        PjbProxyClient::getInstance($this->options);
-        $client = PjbProxyClient::getClient();
-        $this->assertEquals($client->RUNTIME['PARSER'], Parser::PARSER_NATIVE);
+        $defaultClient = PjbProxyClient::getInstance($this->options)::getClient();
+        $this->assertEquals($defaultClient->RUNTIME['PARSER'], Parser::PARSER_NATIVE);
 
         // Recreate singleton, this time forcing the simple parser
         $this->clearPjbProxyClientSingleton();
-        PjbProxyClient::getInstance(array_merge(
+
+        $proxyClient = PjbProxyClient::getInstance(array_merge(
             $this->options,
             [
-            'force_simple_xml_parser' => true
-        ]
+                'force_simple_xml_parser' => true
+            ]
         ));
-        $client = PjbProxyClient::getClient();
+        $client = $proxyClient::getClient();
         $this->assertEquals($client->RUNTIME['PARSER'], Parser::PARSER_SIMPLE);
 
+        // Test protocol
+        $cls = $proxyClient->getJavaClass('java.lang.Class');
+        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $cls);
+
+        $str = new Java('java.lang.String', 'Hello');
+        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $str);
+        $len = $str->length();
+        $this->assertEquals(5, $len);
+
+        // Clean up client instance
         $this->clearPjbProxyClientSingleton();
     }
 
@@ -173,6 +183,8 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function clearPjbProxyClientSingleton()
     {
+        PjbProxyClient::unregisterInstance();
+        /*
         $refl = new \ReflectionClass(PjbProxyClient::class);
         $propertiesToClear = [
             'instance',
@@ -186,5 +198,6 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
             $reflProperty->setValue(null, null);
             $reflProperty->setAccessible(false);
         }
+        */
     }
 }

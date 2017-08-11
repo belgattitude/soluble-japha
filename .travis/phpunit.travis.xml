@@ -76,11 +76,11 @@
     <filter>
         <whitelist>
             <directory>../src/Soluble</directory>
-            <!--
+            <!-- exclude simpleparser from coverage -->
             <exclude>
                 <file>../src/Soluble/Japha/Bridge/Driver/Pjb62/SimpleParser.php</file>
             </exclude>
-            -->
+
         </whitelist>
     </filter>
 
