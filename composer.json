@@ -46,11 +46,12 @@
         "fix": [
             "@cs-fix"
         ],
-        "test": "./vendor/bin/phpunit",
+        "test": "vendor/bin/phpunit",
         "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
         "cs-fix": "vendor/bin/php-cs-fixer -v fix",
         "phpstan": "vendor/bin/phpstan analyse -l 5 -c phpstan.neon src",
-        "build-doc": "mkdocs build && apigen.phar generate --config=./.apigen.yml"
+        "build-doc": "mkdocs build",
+        "apigen": "apigen.phar generate --config=./.apigen.yml"
     },
     "suggest": {
         "monolog/monolog": "PSR-3 comptatible logger"
