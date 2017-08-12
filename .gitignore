@@ -11,6 +11,7 @@ composer.lock
 /vendor
 /nbproject
 /build
+/cache
 .travis/downloads
 .travis/target
 .travis/*.log
