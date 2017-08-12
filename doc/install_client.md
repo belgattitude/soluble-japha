@@ -33,7 +33,7 @@ requirements.*
 
 If you're not familiar with composer you can jump
 to the official [install docs](https://getcomposer.org/doc/00-intro.md),
-ensure `soluble-japha:^1.0` is present in your project `composer.json` file and
+ensure `soluble-japha:^2.0` (or `soluble-japha:^1.0`) is present in your project `composer.json` file and
 run the `composer update` command.
 
 Most modern frameworks relies on composer out of the box, if not the case 

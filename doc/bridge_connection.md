@@ -61,7 +61,7 @@ The `Soluble\Japha\Bridge\Adapter` constructor requires `$options`, an associati
     more performance at the cost of some more boilerplate in the code. As the perf 
     improvements have not been measured in practice (yet), the default is `true` in the
     `soluble-japha` implementation. Better to not change it as it will bc-break
-    you code.  
+    your code.  
     
 !!! note
     The `force_simple_xml_parser` param can be set to `true` to force usage of the
