@@ -194,4 +194,12 @@ class PjbDriverTest extends \PHPUnit_Framework_TestCase
         PjbProxyClient::unregisterInstance();
         $driver->getJavaSession();
     }
+
+    public function testGetJavaClassThrowsBrokenConnectionException()
+    {
+        $this->expectException(BrokenConnectionException::class);
+        $driver = $this->adapter->getDriver();
+        PjbProxyClient::unregisterInstance();
+        $driver->getJavaClass('java.lang.String');
+    }
 }

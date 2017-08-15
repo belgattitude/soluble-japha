@@ -95,14 +95,25 @@ class Pjb62Driver extends AbstractDriver
 
     /**
      * {@inheritdoc}
+     *
+     * @throws BrokenConnectionException
      */
     public function getJavaClass(string $class_name): Interfaces\JavaClass
     {
-        return $this->pjbProxyClient->getJavaClass($class_name);
+        try {
+            $class = $this->pjbProxyClient->getJavaClass($class_name);
+        } catch (Pjb62BrokenConnectionException|Exception\InvalidUsageException $e) {
+            PjbProxyClient::unregisterInstance();
+            throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
+        }
+
+        return $class;
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @throws BrokenConnectionException
      */
     public function instanciate(string $class_name, ...$args): Interfaces\JavaObject
     {
