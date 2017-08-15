@@ -153,14 +153,20 @@ class PjbProxyClient implements ClientInterface
      * @throws Exception\ConnectionException
      * @throws \Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException
      *
-     * @param array|null      $options
-     * @param LoggerInterface $logger  any psr3 logger
+     * @param array|null           $options
+     * @param LoggerInterface|null $logger  any psr3 logger
      *
      * @return PjbProxyClient
      */
-    public static function getInstance(array $options = null, LoggerInterface $logger = null): PjbProxyClient
+    public static function getInstance(?array $options = null, ?LoggerInterface $logger = null): PjbProxyClient
     {
         if (self::$instance === null) {
+            if ($options === null) {
+                throw new Exception\InvalidUsageException(
+                    'Cannot instanciate PjbProxyClient without "$options" the first time, ' .
+                    'or the instance have been unregistered since'
+                );
+            }
             if ($logger === null) {
                 $logger = new NullLogger();
             }
@@ -271,9 +277,9 @@ class PjbProxyClient implements ClientInterface
      *
      * @return mixed
      */
-    public function invokeMethod(Interfaces\JavaType $object = null, $method, array $args = [])
+    public function invokeMethod(?Interfaces\JavaType $object = null, string $method, array $args = [])
     {
-        $id = ($object == null) ? 0 : $object->__getJavaInternalObjectId();
+        $id = ($object === null) ? 0 : $object->__getJavaInternalObjectId();
 
         return self::getClient()->invokeMethod($id, $method, $args);
     }

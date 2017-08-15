@@ -96,6 +96,12 @@ to take advantage of
 
 - Version `^2.0` requires PHP 7.1 ![PHP Version](http://img.shields.io/badge/php-7.1+-ff69b4.svg)
 
+> **Important**. There's **NO API BC-BREAK** between v0.13, v1.x and v2.x so you should be
+> able to upgrade safely between releases. The choice to increment version numbers to drop
+> support for older php versions was made to avoid any confusion with multiple php installs.   
+
+
+
 If you're looking for compatibility with older PHP versions, note that:
 
 - Version `^1.0` requires PHP 5.6 ![PHP Version](http://img.shields.io/badge/php-5.6+-ff69b4.svg) and works with HHVM.

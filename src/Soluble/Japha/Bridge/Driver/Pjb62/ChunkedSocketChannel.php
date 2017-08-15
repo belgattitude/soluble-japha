@@ -48,25 +48,22 @@ class ChunkedSocketChannel extends SocketChannel
      *
      * @param string $data
      */
-    public function fwrite(string $data)
+    public function fwrite(string $data): int
     {
         $len = dechex(strlen($data));
-        $res = fwrite($this->peer, "${len}\r\n${data}\r\n");
-        if (!$res) {
+        $written = fwrite($this->peer, "${len}\r\n${data}\r\n");
+        if (!$written) {
             $msg = 'Cannot write to socket';
             throw new Exception\RuntimeException($msg);
         }
+
+        return $written;
     }
 
-    /**
-     * @param int $size
-     *
-     * @return string|null
-     */
-    public function fread($size)
+    public function fread(int $size): ?string
     {
         $length = hexdec(fgets($this->peer, $this->recv_size));
-        $data = '';
+        $data = null;
         while ($length > 0) {
             $str = fread($this->peer, $length);
             if (feof($this->peer)) {

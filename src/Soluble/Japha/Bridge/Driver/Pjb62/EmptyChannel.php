@@ -47,7 +47,7 @@ class EmptyChannel
     protected $handler;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $res;
 
@@ -73,26 +73,16 @@ class EmptyChannel
         $this->handler = $handler;
     }
 
-    public function shutdownBrokenConnection()
+    public function shutdownBrokenConnection(string $msg = ''): void
     {
     }
 
-    /**
-     * @param string $data
-     *
-     * @return int
-     */
-    public function fwrite($data)
+    public function fwrite(string $data): ?int
     {
         return $this->handler->fwrite($data);
     }
 
-    /**
-     * @param int $size
-     *
-     * @return string
-     */
-    public function fread($size)
+    public function fread(int $size): ?string
     {
         return $this->handler->fread($size);
     }

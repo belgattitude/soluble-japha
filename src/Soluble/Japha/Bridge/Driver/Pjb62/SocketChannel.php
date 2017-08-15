@@ -68,12 +68,7 @@ abstract class SocketChannel extends EmptyChannel
         $this->send_size = $send_size;
     }
 
-    /**
-     * @param string $data
-     *
-     * @return int
-     */
-    public function fwrite($data)
+    public function fwrite(string $data): ?int
     {
         $written = @fwrite($this->peer, $data);
         if ($written === false) {
@@ -84,12 +79,7 @@ abstract class SocketChannel extends EmptyChannel
         return $written;
     }
 
-    /**
-     * @param int $size
-     *
-     * @return string
-     */
-    public function fread($size)
+    public function fread(int $size): ?string
     {
         $read = @fread($this->peer, $size);
         if ($read === false) {
@@ -100,7 +90,7 @@ abstract class SocketChannel extends EmptyChannel
         return $read;
     }
 
-    public function shutdownBrokenConnection(): void
+    public function shutdownBrokenConnection(?string $msg = ''): void
     {
         fclose($this->peer);
     }

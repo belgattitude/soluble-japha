@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.2.0 (2017-08-15)
+
+## Added
+
+- Support for PHP7.2 (tested against PHP7.2-beta2)
+- More type checking for PHP7.1
+
+## Improved
+
+- Internal socket api improvements.
+
+## Tests
+
+- Upgraded to phpstan 0.8.2, with max level analysis
+
 ## 2.1.1 (2017-08-11)
 
 ## Fixed

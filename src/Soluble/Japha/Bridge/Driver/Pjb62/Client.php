@@ -42,7 +42,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 use ArrayObject;
 use Psr\Log\LoggerInterface;
 use Soluble\Japha\Bridge\Exception\JavaException;
-use Soluble\Japha\Interfaces\JavaObject;
+use Soluble\Japha\Interfaces;
 use Soluble\Japha\Bridge\Driver\Pjb62\Utils\HelperFunctions;
 
 class Client
@@ -99,7 +99,7 @@ class Client
     public $throwExceptionProxyFactory;
 
     /**
-     * @var CompositeArg
+     * @var Arg|CompositeArg
      */
     public $arg;
     /**
@@ -278,7 +278,8 @@ class Client
     {
         $tail_call = false;
         do {
-            $this->stack = [$this->arg = $this->simpleArg];
+            $this->arg = $this->simpleArg;
+            $this->stack = [$this->arg];
             $this->idx = 0;
             $this->parser->parse();
             if (count($this->stack) > 1) {
@@ -304,7 +305,7 @@ class Client
         return $this->simpleArg->getResult($wrap);
     }
 
-    public function getInternalResult(): JavaType
+    public function getInternalResult(): JavaProxy
     {
         return $this->getWrappedResult(false);
     }
@@ -315,11 +316,11 @@ class Client
     }
 
     /**
-     * @param array $type
+     * @param string $type
      *
      * @return SimpleFactory
      */
-    protected function getProxyFactory($type): SimpleFactory
+    protected function getProxyFactory(string $type): SimpleFactory
     {
         switch ($type[0]) {
             case 'E':
@@ -354,7 +355,7 @@ class Client
      *
      * @return int
      */
-    protected function getExact($str)
+    protected function getExact($str): int
     {
         return hexdec($str);
     }
@@ -373,10 +374,10 @@ class Client
     }
 
     /**
-     * @param array|string $name
-     * @param array        $st   param
+     * @param string $name
+     * @param array  $st   param
      */
-    public function begin($name, $st): void
+    public function begin(string $name, array $st): void
     {
         $arg = $this->arg;
         switch ($name[0]) {
@@ -450,9 +451,9 @@ class Client
     }
 
     /**
-     * @param array|string $name
+     * @param string $name
      */
-    public function end($name): void
+    public function end(string $name): void
     {
         switch ($name[0]) {
             case 'X':
@@ -533,9 +534,9 @@ class Client
      * @param string $name java class name, i.e java.math.BigInteger
      * @param array  $args
      *
-     * @return JavaType
+     * @return JavaProxy
      */
-    public function createObject($name, array $args): JavaType
+    public function createObject(string $name, array $args): JavaProxy
     {
         $this->protocol->createObjectBegin($name);
         $this->writeArgs($args);
@@ -551,7 +552,7 @@ class Client
      *
      * @return JavaProxy
      */
-    public function referenceObject($name, array $args)
+    public function referenceObject(string $name, array $args): JavaProxy
     {
         $this->protocol->referenceBegin($name);
         $this->writeArgs($args);
@@ -567,7 +568,7 @@ class Client
      *
      * @return mixed
      */
-    public function getProperty($object, $property)
+    public function getProperty(int $object, string $property)
     {
         $this->protocol->propertyAccessBegin($object, $property);
         $this->protocol->propertyAccessEnd();
@@ -582,7 +583,7 @@ class Client
      *
      * @return mixed
      */
-    public function setProperty($object, $property, $arg): void
+    public function setProperty(int $object, string $property, $arg): void
     {
         $this->protocol->propertyAccessBegin($object, $property);
         $this->writeArg($arg);
@@ -599,7 +600,7 @@ class Client
      *
      * @return mixed
      */
-    public function invokeMethod($object_id, $method, array $args = [])
+    public function invokeMethod(int $object_id, string $method, array $args = [])
     {
         $this->protocol->invokeBegin($object_id, $method);
         $this->writeArgs($args);
@@ -615,7 +616,7 @@ class Client
      *
      * @param int $code
      */
-    public function setExitCode($code): void
+    public function setExitCode(int $code): void
     {
         if (isset($this->protocol)) {
             $this->protocol->writeExitCode($code);
@@ -628,7 +629,7 @@ class Client
      *
      * @param int $object object identifier
      */
-    public function unref($object): void
+    public function unref(?int $object): void
     {
         if (isset($this->protocol)) {
             $this->protocol->writeUnref($object);
@@ -790,9 +791,9 @@ class Client
      * ((Closeable)e).close ();
      * </code>
      *
-     * @return JavaObject
+     * @return Interfaces\JavaObject
      */
-    public function getContext(): \Soluble\Japha\Interfaces\JavaObject
+    public function getContext(): Interfaces\JavaObject
     {
         if ($this->cachedValues['getContext'] === null) {
             $this->cachedValues['getContext'] = $this->invokeMethod(0, 'getContext', []);
@@ -841,9 +842,9 @@ class Client
      *
      * @param array $args
      *
-     * @return JavaObject
+     * @return Interfaces\JavaObject
      */
-    public function getSession(array $args = []): \Soluble\Japha\Interfaces\JavaObject
+    public function getSession(array $args = []): Interfaces\JavaObject
     {
         if (!isset($args[0])) {
             $args[0] = null;

@@ -39,7 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class HttpTunnelHandler extends SimpleHttpTunnelHandler
 {
-    public function fread($size)
+    public function fread(int $size): ?string
     {
         if ($this->hasContentLength) {
             return fread($this->socket, $this->headers['content_length']);
@@ -48,7 +48,7 @@ class HttpTunnelHandler extends SimpleHttpTunnelHandler
         }
     }
 
-    public function fwrite($data)
+    public function fwrite(string $data): ?int
     {
         if ($this->hasContentLength) {
             return fwrite($this->socket, $data);
@@ -57,7 +57,7 @@ class HttpTunnelHandler extends SimpleHttpTunnelHandler
         }
     }
 
-    public function close()
+    public function close(): void
     {
         if ($this->hasContentLength) {
             fwrite($this->socket, "0\r\n\r\n");

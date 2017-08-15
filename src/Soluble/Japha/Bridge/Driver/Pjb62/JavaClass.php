@@ -58,6 +58,7 @@ class JavaClass extends Java implements Interfaces\JavaClass
 
         $args = []; // no arguments for JavaClass
         $this->__delegate = $this->__client->referenceObject($name, $args);
+
         $this->__java = $this->__delegate->__java;
         $this->__signature = $this->__delegate->__signature;
     }

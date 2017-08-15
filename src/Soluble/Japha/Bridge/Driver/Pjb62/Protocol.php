@@ -233,15 +233,12 @@ class Protocol
     }
 
     /**
-     * @param string $name
-     * @param bool   $again
-     *
      * @return \Soluble\Japha\Bridge\Driver\Pjb62\SocketHandler
      *
      * @throws ConnectionException
      * @throws Exception\IOException
      */
-    public function createSimpleHandler($name, $again = true): SocketHandler
+    public function createSimpleHandler(?string $name = '', bool $again = true): SocketHandler
     {
         $channelName = $name;
         $errno = null;
@@ -266,10 +263,7 @@ class Protocol
         return $handler;
     }
 
-    /**
-     * @return string
-     */
-    public function java_get_simple_channel()
+    public function java_get_simple_channel(): ?string
     {
         $java_hosts = $this->java_hosts;
         $java_servlet = $this->java_servlet;
@@ -478,7 +472,7 @@ class Protocol
     }
 
     /**
-     * @param int $l
+     * @param mixed $l
      */
     public function writeULong($l): void
     {

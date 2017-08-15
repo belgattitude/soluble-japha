@@ -57,22 +57,12 @@ class SocketHandler
         $this->channel = $channel;
     }
 
-    /**
-     * @param string $data
-     *
-     * @return int
-     */
-    public function write($data)
+    public function write(string $data): ?int
     {
         return $this->channel->fwrite($data);
     }
 
-    /**
-     * @param string $data
-     *
-     * @return int
-     */
-    public function fwrite($data)
+    public function fwrite(string $data): ?int
     {
         return $this->write($data);
     }
@@ -82,22 +72,17 @@ class SocketHandler
      *
      * @return string
      */
-    public function read($size)
+    public function read(int $size): ?string
     {
         return $this->channel->fread($size);
     }
 
-    /**
-     * @param int $size
-     *
-     * @return string
-     */
-    public function fread($size)
+    public function fread(int $size): ?string
     {
         return $this->read($size);
     }
 
-    public function redirect()
+    public function redirect(): void
     {
     }
 
@@ -106,15 +91,12 @@ class SocketHandler
         return $this->channel->getKeepAlive();
     }
 
-    public function keepAlive()
+    public function keepAlive(): void
     {
         $this->channel->keepAlive();
     }
 
-    /**
-     * @param string $msg
-     */
-    public function dieWithBrokenConnection($msg = '')
+    public function dieWithBrokenConnection(string $msg = ''): void
     {
         if ($msg == '') {
             $msg = 'Unkown error: please see back end log for detail';
@@ -130,10 +112,7 @@ class SocketHandler
         throw new BrokenConnectionException("Broken connection: $msg, check the backend log for details");
     }
 
-    /**
-     * @param string $msg
-     */
-    public function shutdownBrokenConnection($msg = '')
+    public function shutdownBrokenConnection(string $msg = ''): void
     {
         $this->channel->shutdownBrokenConnection();
         $this->dieWithBrokenConnection($msg);

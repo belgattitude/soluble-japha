@@ -186,7 +186,7 @@ class Adapter
      *
      * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
-     * @param Interfaces\JavaObject|null $javaObject
+     * @param Interfaces\JavaObject $javaObject
      *
      * @return bool
      */

@@ -56,9 +56,7 @@ class ExceptionProxyFactory extends SimpleFactory
     }
 
     /**
-     * @throws \Soluble\Japha\Bridge\Driver\Pjb62\Exception\InternalException
-     *
-     * @return JavaProxy
+     * @return JavaProxy|ExceptionProxy|Exception\InternalException
      */
     public function getProxy($result, $signature, $exception, $wrap)
     {

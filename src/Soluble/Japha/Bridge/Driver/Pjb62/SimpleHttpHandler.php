@@ -197,19 +197,14 @@ class SimpleHttpHandler extends SocketHandler
         if (null === $context) {
             $context = $this->java_servlet;
         }
-        if (null === $context || $context[0] != '/') {
+        if ($context[0] != '/') {
             $context = '/JavaBridge/JavaBridge.phpjavabridge';
         }
 
         return $context;
     }
 
-    /**
-     * @param string $data
-     *
-     * @return int
-     */
-    public function write($data)
+    public function write(string $data): ?int
     {
         return $this->protocol->getSocketHandler()->write($data);
     }
@@ -226,10 +221,8 @@ class SimpleHttpHandler extends SocketHandler
 
     /**
      * @param int $size
-     *
-     * @return string
      */
-    public function read($size)
+    public function read(int $size): ?string
     {
         return $this->protocol->getSocketHandler()->read($size);
     }
@@ -267,12 +260,12 @@ class SimpleHttpHandler extends SocketHandler
         return new SocketChannelP($peer, $this->host, $this->java_recv_size, $this->java_send_size);
     }
 
-    public function keepAlive()
+    public function keepAlive(): void
     {
         parent::keepAlive();
     }
 
-    public function redirect()
+    public function redirect(): void
     {
     }
 }
