@@ -355,7 +355,7 @@ class Client
      *
      * @return int
      */
-    protected function getExact($str): int
+    protected function getExact($str)
     {
         return hexdec($str);
     }
