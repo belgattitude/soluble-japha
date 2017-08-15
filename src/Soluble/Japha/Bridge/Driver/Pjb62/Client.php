@@ -380,7 +380,8 @@ class Client
     public function begin(string $name, array $st): void
     {
         $arg = $this->arg;
-        switch ($name[0]) {
+        $code = $name[0];
+        switch ($code) {
             case 'A':
                 $object = $this->globalRef->get($this->getExact($st['v']));
                 $newArg = new ApplyArg($this, 'A', $this->parser->getData($st['m']), $this->parser->getData($st['p']), $object, $this->getExact($st['n']));
@@ -446,7 +447,14 @@ class Client
                 $arg->setResult($this->asyncCtx = $this->getExact($st['v']));
                 break;
             default:
-                $this->parser->parserError();
+                $this->protocol->handler->shutdownBrokenConnection(
+                    sprintf(
+                        'Parser error, check the backend for details, $name: %s, ' .
+                        '$st params: %s',
+                        $name,
+                        json_encode($st)
+                    )
+                );
         }
     }
 

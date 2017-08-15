@@ -73,10 +73,6 @@ class EmptyChannel
         $this->handler = $handler;
     }
 
-    public function shutdownBrokenConnection(string $msg = ''): void
-    {
-    }
-
     public function fwrite(string $data): ?int
     {
         return $this->handler->fwrite($data);
