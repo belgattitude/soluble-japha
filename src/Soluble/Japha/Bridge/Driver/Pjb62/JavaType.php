@@ -42,11 +42,6 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Interfaces;
 
-/**
- * From the bridge side.
- *
- * @method \Soluble\Japha\Interfaces\JavaClass getIterator()
- */
 interface JavaType extends Interfaces\JavaType
 {
     /**
