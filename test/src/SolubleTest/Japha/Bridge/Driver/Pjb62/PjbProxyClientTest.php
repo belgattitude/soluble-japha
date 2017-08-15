@@ -15,6 +15,7 @@ use Soluble\Japha\Bridge\Driver\Pjb62\ParserFactory;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\Java;
+use Soluble\Japha\Bridge\Exception\BrokenConnectionException;
 use Soluble\Japha\Bridge\Exception\InvalidArgumentException;
 use Soluble\Japha\Bridge\Exception\InvalidUsageException;
 
@@ -88,6 +89,21 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
         PjbProxyClient::getInstance();
     }
 
+    public function testGetClientThrowsBrokenConnectionException()
+    {
+        $this->expectException(BrokenConnectionException::class);
+        $pjbProxyClient = PjbProxyClient::getInstance($this->options);
+
+        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', $pjbProxyClient);
+        $this->assertTrue(PjbProxyClient::isInitialized());
+        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Client', $pjbProxyClient->getClient());
+
+        $pjbProxyClient->unregisterInstance();
+        $this->assertFalse(PjbProxyClient::isInitialized());
+
+        PjbProxyClient::getClient();
+    }
+
     public function testGetJavaClass()
     {
         $pjbProxyClient = PjbProxyClient::getInstance($this->options);
@@ -125,42 +141,22 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($e);
     }
 
-    public function getOptions()
+    public function testGetOptions()
     {
         $options = PjbProxyClient::getInstance($this->options)->getOptions();
-        $this->assertEquals($this->options, $options);
+        $this->assertEquals($this->options['servlet_address'], $options['servlet_address']);
+    }
+
+    public function testGetCompatibilityOption()
+    {
+        $option = PjbProxyClient::getInstance($this->options)->getCompatibilityOption();
+        $this->assertEquals('B', $option);
     }
 
     public function testGetOptionThrowsException()
     {
         $this->setExpectedException(InvalidArgumentException::class);
         PjbProxyClient::getInstance($this->options)->getOption('DOESNOTEXISTS');
-    }
-
-    public function testOverrideDefaultOptions()
-    {
-        $defaultOptions = (array) PjbProxyClient::getInstance($this->options)->getOptions();
-
-        // For sake of simplicity just inverse the boolean default options
-        $overriddenOptions = $defaultOptions;
-        foreach ($overriddenOptions as $option => $value) {
-            if (is_bool($value)) {
-                $overriddenOptions[$option] = !$value;
-            } else {
-                $overriddenOptions[$option] = $value;
-            }
-        }
-
-        // Clear previous singleton to force re-creation of the object
-        $this->clearPjbProxyClientSingleton();
-
-        $options = (array) PjbProxyClient::getInstance($overriddenOptions)->getOptions();
-
-        foreach ($options as $option => $value) {
-            if (is_bool($value)) {
-                $this->assertNotEquals($value, $defaultOptions[$option]);
-            }
-        }
     }
 
     public function testForceSimpleParser()
@@ -215,5 +211,31 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
             $reflProperty->setAccessible(false);
         }
         */
+    }
+
+    public function testOverrideDefaultOptions()
+    {
+        $defaultOptions = (array) PjbProxyClient::getInstance($this->options)->getOptions();
+
+        // For sake of simplicity just inverse the boolean default options
+        $overriddenOptions = $defaultOptions;
+        foreach ($overriddenOptions as $option => $value) {
+            if (is_bool($value)) {
+                $overriddenOptions[$option] = !$value;
+            } else {
+                $overriddenOptions[$option] = $value;
+            }
+        }
+
+        // Clear previous singleton to force re-creation of the object
+        $this->clearPjbProxyClientSingleton();
+
+        $options = (array) PjbProxyClient::getInstance($overriddenOptions)->getOptions();
+
+        foreach ($options as $option => $value) {
+            if (is_bool($value)) {
+                $this->assertNotEquals($value, $defaultOptions[$option]);
+            }
+        }
     }
 }

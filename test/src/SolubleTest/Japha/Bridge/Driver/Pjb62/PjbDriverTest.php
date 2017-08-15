@@ -14,6 +14,7 @@ use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\InternalJava;
 use Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
+use Soluble\Japha\Bridge\Exception\BrokenConnectionException;
 use Soluble\Japha\Bridge\Exception\ClassNotFoundException;
 use Soluble\Japha\Interfaces\JavaObject;
 use Soluble\Japha\Bridge\Exception\InvalidArgumentException;
@@ -152,5 +153,45 @@ class PjbDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('HTTP_OVERRIDE_HOST', $headersToTest));
         $this->assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('HTTP_HEADER_HOST', $headersToTest));
         $this->assertEquals('', Pjb62Driver::getJavaBridgeHeader('NOTHING', $headersToTest));
+    }
+
+    public function testInstanciateThrowsBrokenConnectionException()
+    {
+        $this->expectException(BrokenConnectionException::class);
+        $driver = $this->adapter->getDriver();
+        PjbProxyClient::unregisterInstance();
+        $driver->instanciate('java.lang.String');
+    }
+
+    public function testGetContextThrowsBrokenConnectionException()
+    {
+        $this->expectException(BrokenConnectionException::class);
+        $driver = $this->adapter->getDriver();
+        PjbProxyClient::unregisterInstance();
+        $driver->getContext();
+    }
+
+    public function testInvokeThrowsBrokenConnectionException()
+    {
+        $this->expectException(BrokenConnectionException::class);
+        $driver = $this->adapter->getDriver();
+        PjbProxyClient::unregisterInstance();
+        $driver->invoke(null, 'getContext');
+    }
+
+    public function testJavaSessionThrowsBrokenConnectionException()
+    {
+        $this->expectException(BrokenConnectionException::class);
+        $driver = $this->adapter->getDriver();
+        PjbProxyClient::unregisterInstance();
+        $driver->getJavaSession();
+    }
+
+    public function testGetClassNameThrowsBrokenConnectionException()
+    {
+        $this->expectException(BrokenConnectionException::class);
+        $driver = $this->adapter->getDriver();
+        PjbProxyClient::unregisterInstance();
+        $driver->getJavaSession();
     }
 }
