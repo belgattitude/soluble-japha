@@ -42,7 +42,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 interface ParserInterface
 {
-    public function parse();
+    public function parse(): void;
 
     /**
      * @param string $str
@@ -50,6 +50,4 @@ interface ParserInterface
      * @return string
      */
     public function getData(string $str): string;
-
-    public function parserError();
 }

@@ -140,11 +140,4 @@ class NativeParser implements ParserInterface
             }
         } while (!$this->event || $this->level > 0);
     }
-
-    public function parserError(): void
-    {
-        $this->client->protocol->handler->shutdownBrokenConnection(
-            sprintf('protocol error: %s. Check the back end log for details.', $this->buf)
-        );
-    }
 }

@@ -270,11 +270,4 @@ class SimpleParser implements ParserInterface
     {
         return $str;
     }
-
-    public function parserError(): void
-    {
-        $this->handler->protocol->handler->shutdownBrokenConnection(
-            sprintf('protocol error: %s. Check the back end log for details.', $this->s)
-        );
-    }
 }

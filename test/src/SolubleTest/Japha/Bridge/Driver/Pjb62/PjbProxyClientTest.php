@@ -11,7 +11,7 @@
 namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Driver\Pjb62\Exception\InternalException;
-use Soluble\Japha\Bridge\Driver\Pjb62\Parser;
+use Soluble\Japha\Bridge\Driver\Pjb62\ParserFactory;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\Java;
@@ -167,7 +167,7 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
     {
         // Should create a NativeParser by default
         $defaultClient = PjbProxyClient::getInstance($this->options)::getClient();
-        $this->assertEquals($defaultClient->RUNTIME['PARSER'], Parser::PARSER_NATIVE);
+        $this->assertEquals($defaultClient->RUNTIME['PARSER'], ParserFactory::PARSER_NATIVE);
 
         // Recreate singleton, this time forcing the simple parser
         $this->clearPjbProxyClientSingleton();
@@ -179,7 +179,7 @@ class PjbProxyClientTest extends \PHPUnit_Framework_TestCase
             ]
         ));
         $client = $proxyClient::getClient();
-        $this->assertEquals($client->RUNTIME['PARSER'], Parser::PARSER_SIMPLE);
+        $this->assertEquals($client->RUNTIME['PARSER'], ParserFactory::PARSER_SIMPLE);
 
         // Test protocol
         $cls = $proxyClient->getJavaClass('java.lang.Class');

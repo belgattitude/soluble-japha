@@ -54,7 +54,7 @@ class Client
     public $result;
     public $exception;
     /**
-     * @var Parser
+     * @var ParserFactory
      */
     public $parser;
 
@@ -225,7 +225,7 @@ class Client
 
         $this->RUNTIME = [];
         $this->RUNTIME['NOTICE'] = '***USE echo $adapter->getDriver()->inspect(jVal) OR print_r($adapter->values(jVal)) TO SEE THE CONTENTS OF THIS JAVA OBJECT!***';
-        $this->parser = new Parser($this, $params['XML_PARSER_FORCE_SIMPLE_PARSER'] ?? false);
+        $this->parser = new ParserFactory($this, $params['XML_PARSER_FORCE_SIMPLE_PARSER'] ?? false);
         $this->protocol = new Protocol($this, $this->java_hosts, $this->java_servlet, $this->java_recv_size, $this->java_send_size);
         $this->simpleFactory = new SimpleFactory($this);
         $this->proxyFactory = new ProxyFactory($this);

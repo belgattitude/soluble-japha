@@ -37,7 +37,7 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-class Parser
+class ParserFactory
 {
     public const PARSER_NATIVE = 'NATIVE';
     public const PARSER_SIMPLE = 'SIMPLE';
@@ -77,10 +77,5 @@ class Parser
     public function getData(string $str): string
     {
         return $this->parser->getData($str);
-    }
-
-    public function parserError(): void
-    {
-        $this->parser->parserError();
     }
 }
