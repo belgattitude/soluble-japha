@@ -148,4 +148,9 @@ class EmptyChannel
         $this->keepAliveH();
         $this->checkE();
     }
+
+    public function shutdownBrokenConnection(string $msg = ''): void
+    {
+        // so nothing
+    }
 }
