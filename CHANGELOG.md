@@ -8,8 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-
-
 - Prevent loop when un-registering client after an error. Not a major issue, but help when unit testing.
 
 ## 2.2.0 (2017-08-15)
