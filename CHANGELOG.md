@@ -4,74 +4,82 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.2.1 (2017-08-17)
+
+### Fixed
+
+
+
+- Prevent loop when un-registering client after an error. Not a major issue, but help when unit testing.
+
 ## 2.2.0 (2017-08-15)
 
-## Added
+### Added
 
 - Support for PHP7.2 (tested against PHP7.2-beta2)
 - More type checking for PHP7.1
 
-## Improved
+### Improved
 
 - Internal socket api improvements.
 
-## Tests
+### Tests
 
 - Upgraded to phpstan 0.8.2, with max level analysis
 
 ## 2.1.1 (2017-08-11)
 
-## Fixed
+### Fixed
 
 - Removed a `trigger_error` when using a php object as Java argument (a `JavaException` is still thrown).
 - Missing `break` for `$arg->setVoidSignature()` in Pjb62 `Client.php`.
 
-## Improved
+### Improved
 
 - Some more polishing for types (PHP 7.1)  
 - Minor optimization, using `empty` instead of `count`.
 
 ## 2.1.0 (2017-07-13)
 
-## Added
+### Added
 
 - Possibility to force usage of the php xml parser instead of the native dom xml, see [#48](https://github.com/belgattitude/soluble-japha/pull/48)
 
-## 2.0.0 (2017-06-29)
+### 2.0.0 (2017-06-29)
 
 This release requires PHP7.1 !!! 
 
 While major version have been incremented, the api between `v1.4.0` and `2.0.0` has remained the same.
 In other words no breaking changes should happen (BC preserved). 
  
-## Changed
+### Changed
 
 - Support for PHP7.1 only `declare(strict_types=1)`.
 
-## Fixed
+### Fixed
 
 - Minor bugfix with integer cookie encoding due to strict_types
 
 ## 1.4.5 (2017-05-29)
 
-## Fixed
+### Fixed
 
 - Fix call to `PjbProxyClient::getInstance()->destroy()` in favour of `PjbProxyClient::unregisterIntance()`. 
 
 ## 1.4.4 (2017-05-28)
 
-## Fixed
+### Fixed
 
 - Ensure BrokenConnectionException if socket write/read fails (communication interrupted)
 - Minor fix and cleanup in `SimpleHttpHandler` channel creation.
 
-## Added
+### Added
 
 - Parser tests added for invalid xml errors
 
 ## 1.4.3 (2017-05-20)
 
-## Fixed
+### Fixed
 
 - Temporarily remove phpstan from require-dev. It will be re-added in 2.0 due 
   to possible issues with plaform requirements.
@@ -79,30 +87,30 @@ In other words no breaking changes should happen (BC preserved).
 - More typehints fixed or added
 - Unit tests autoloading is now fixed. 
 
-## 1.4.2 (2017-05-18)
+### 1.4.2 (2017-05-18)
 
-## Fixed
+### Fixed
 
 - Fixed some invalid typehints thanks to phpstan !!! 
 
-## Added
+### Added
 
 - New composer scripts for checking source code.
 
 ## 1.4.1 (2017-04-26)
 
-## Added
+### Added
 
 - Created `Soluble\Japha\Bridge\Exception\BrokenConnectionException` to mask
   internal pjb62 drive BrokenConnectionException. Documented in DriverInterface as well.  
 
-## Fixed
+### Fixed
 
 - Minor issue with `$ba->isInstanceOf($object, $class)` when second arg `class` is
   not a string neither an `Interface\JavaObject`. The exception `Exception\InvalidArgumentException`
   is now thrown (was masked before).
 
-## Improved
+### Improved
 
 - PHPDoc, improved documentation on Exception in DriveInterface and AbstractDriver.
 

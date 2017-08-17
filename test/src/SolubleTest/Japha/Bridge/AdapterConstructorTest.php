@@ -99,6 +99,7 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
      * the global default timezone as it's shared by all clients instances
      * and shared by all threads/process/...
      */
+    /*
     public function testThreadShareDefaultTimezone()
     {
         $ba = new Adapter([
@@ -143,7 +144,7 @@ class AdapterConstructorTest extends \PHPUnit_Framework_TestCase
         $getThread3 = trim(exec("$get_cmd"));
         $this->assertEquals('Europe/Paris', $getThread3);
     }
-
+    */
     public function testConstructorSetsInvalidIniTimeZoneThrowsException()
     {
         $this->setExpectedException('\Soluble\Japha\Util\Exception\UnsupportedTzException');

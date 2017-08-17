@@ -503,8 +503,13 @@ class PjbProxyClient implements ClientInterface
             if (self::$client->preparedToSendBuffer) {
                 self::$client->sendBuffer .= self::$client->preparedToSendBuffer;
             }
-            self::$client->sendBuffer .= self::$client->protocol->getKeepAlive();
-            self::$client->protocol->flush();
+
+            //  if (is_resource(self::$client->protocol->handler->socket ?? null)) {
+            try {
+                self::$client->sendBuffer .= self::$client->protocol->getKeepAlive();
+                self::$client->protocol->flush();
+            } catch (\Exception $e) {
+            }
 
             // TODO MUST TEST, IT WAS REMOVED FROM FUNCTION
             // BECAUSE IT SIMPLY LOOKS LIKE THE LINES BEFORE

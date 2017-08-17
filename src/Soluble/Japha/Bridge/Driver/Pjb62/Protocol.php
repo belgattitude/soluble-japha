@@ -40,6 +40,7 @@ declare(strict_types=1);
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException;
 use Soluble\Japha\Bridge\Exception\ConnectionException;
 
 class Protocol
@@ -145,11 +146,12 @@ class Protocol
         $this->socketHandler = $socketHandler;
     }
 
-    /**
-     * @return SocketHandler socket handler
-     */
     public function getSocketHandler(): SocketHandler
     {
+        if ($this->socketHandler === null) {
+            throw new BrokenConnectionException('No SocketHandler defined');
+        }
+
         return $this->socketHandler;
     }
 
