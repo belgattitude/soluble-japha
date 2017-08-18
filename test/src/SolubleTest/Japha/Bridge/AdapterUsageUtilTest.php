@@ -80,7 +80,7 @@ class AdapterUsageUtilTest extends \PHPUnit_Framework_TestCase
     public function testEnum()
     {
         $ba = $this->adapter;
-        $formatStyle = $ba->java('java.time.format.FormatStyle');
+        $formatStyle = $ba->javaClass('java.time.format.FormatStyle');
 
         $this->assertEquals('LONG', $formatStyle->LONG);
         $this->assertNotEquals('LONG', $formatStyle->SHORT);
@@ -96,7 +96,7 @@ class AdapterUsageUtilTest extends \PHPUnit_Framework_TestCase
     public function testEnumSet()
     {
         $ba = $this->adapter;
-        $formatStyle = $ba->java('java.time.format.FormatStyle');
+        $formatStyle = $ba->javaClass('java.time.format.FormatStyle');
 
         $enumSet = $ba->javaClass('java.util.EnumSet');
         $set = $enumSet->of($formatStyle->LONG);

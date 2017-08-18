@@ -81,7 +81,7 @@ $bm->time(
     }
 );
 
-$formatStyle = $ba->java('java.time.format.FormatStyle');
+$formatStyle = $ba->javaClass('java.time.format.FormatStyle');
 
 $bm->time(
     'Enums on javaClass',
