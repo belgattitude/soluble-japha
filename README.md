@@ -35,6 +35,9 @@ echo $hashMap->get('message');
 
 ```php
 <?php
+
+use Soluble\Japha\Bridge\Exception;
+
 // An imaginary java library class (i.e. NLP, Android, Jasper, Tensorflow,
 // enterprise stuff, esoteric java lib/driver or your own Java class...)
 try {    
@@ -59,6 +62,27 @@ try {
     echo $e->getStackTrace(); 
 }
 
+```
+
+And if you're wondering what's the `$ba` object, it's a connection
+to the java bridge server:
+
+```php
+<?php
+
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
+use Soluble\Japha\Bridge\Exception as BridgeException;
+
+$options = [     
+    'servlet_address' => 'localhost:8080/MyJavaBridge/servlet.phpjavabridge'
+];
+
+try {
+    $ba = new BridgeAdapter($options);    
+} catch (BridgeException\ConnectionException $e) {  
+    // Server is not reachable
+    echo $e->getMessage();
+} 
 ```
 
 ## Use cases 

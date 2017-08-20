@@ -12,7 +12,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
-ini_set('display_errors', 1);
+ini_set('display_errors', 'true');
 
 $bm = new Benchmark();
 
@@ -29,7 +29,7 @@ try {
         'servlet_address' => 'localhost:8080/JavaBridgeTemplate/servlet.phpjavabridge',
        // 'servlet_address' => 'localhost:8080/JavaBridgeSpringboot/servlet.phpjavabridge',
         'force_simple_xml_parser' => false,
-        'java_prefer_values' => true // te default and recommended way (possible to put at false for tests)
+        'java_prefer_values' => true // the default and recommended way (possible to put at false for tests)
     ]);
     $init = $ba->java('java.lang.String');
 } catch (\Exception $e) {
@@ -230,7 +230,7 @@ class Benchmark
     /**
      * @var array
      */
-    public $iterations = [1, 100, 1000, 10000];
+    public $iterations = [1, 10, 100];
 
     public function __construct()
     {

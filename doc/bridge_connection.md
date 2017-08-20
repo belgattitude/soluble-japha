@@ -18,8 +18,7 @@ and should be initialized once *(similarly to a database connection)*.
 use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 use Soluble\Japha\Bridge\Exception as BridgeException;
 
-$options = [
-    'driver' => 'Pjb62',  // actually the protocol version 
+$options = [     
     'servlet_address' => 'localhost:8080/MyJavaBridge/servlet.phpjavabridge'
 ];
 
@@ -39,9 +38,8 @@ The `Soluble\Japha\Bridge\Adapter` constructor requires `$options`, an associati
 
 | Parameter        | Description                              |
 |------------------|------------------------------------------|
-|`driver`          | Currently only 'Pjb62' is supported *(protocol)*. Compatible with php-java-bridge 6.2+ and 7.0+ |
 |`servlet_address` | Servlet address: &lt;host&gt;:&lt;port&gt;/&lt;uri&gt;     |
-
+|`driver`          | (Optional) defaults to `pjb62` driver implementation.      |
 !!! tip
     The `servlet_address` &lt;uri&gt; should ends with the **'servlet.phpjavabridge'** file,
     i.e: 'localhost:8080/path/servlet.phpjavabridge'.  
@@ -78,6 +76,7 @@ Optionally you can send any PSR-3 logger as the second parameter, for example wi
 <?php
 
 //...
+use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 use Soluble\Japha\Bridge\Exception;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -87,8 +86,8 @@ $options = [
     'servlet_address' => 'localhost:8089/servlet.phpjavabridge'
 ];
 
-$log = new Logger('name');
-$log->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
+$logger = new Logger('name');
+$logger->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
 
 try {
     $ba = new BridgeAdapter($options, $logger);    

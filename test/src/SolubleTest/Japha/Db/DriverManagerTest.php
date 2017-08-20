@@ -12,8 +12,9 @@ namespace SolubleTest\Japha\Db;
 
 use Soluble\Japha\Bridge\Adapter as Adapter;
 use Soluble\Japha\Db\DriverManager;
+use PHPUnit\Framework\TestCase;
 
-class DriverManagerTest extends \PHPUnit_Framework_TestCase
+class DriverManagerTest extends TestCase
 {
     /**
      * @var string
@@ -67,7 +68,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateConnectionThrowsClassNotFoundException()
     {
-        $this->setExpectedException('Soluble\Japha\Bridge\Exception\ClassNotFoundException');
+        $this->expectException('Soluble\Japha\Bridge\Exception\ClassNotFoundException');
         //$this->driverManager->createConnection()
         $config = \SolubleTestFactories::getDatabaseConfig();
         $host = $config['hostname'];
@@ -80,7 +81,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateConnectionThrowsSqlException()
     {
-        $this->setExpectedException('Soluble\Japha\Bridge\Exception\SqlException');
+        $this->expectException('Soluble\Japha\Bridge\Exception\SqlException');
         //$this->driverManager->createConnection()
         $config = \SolubleTestFactories::getDatabaseConfig();
         $host = $config['hostname'];
@@ -93,7 +94,7 @@ class DriverManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateConnectionThrowsInvalidArgumentException()
     {
-        $this->setExpectedException('Soluble\Japha\Bridge\Exception\InvalidArgumentException');
+        $this->expectException('Soluble\Japha\Bridge\Exception\InvalidArgumentException');
         $dsn = '';
         $conn = $this->driverManager->createConnection($dsn, 'com.nuvolia.jdbc.JDBC4Connection');
     }

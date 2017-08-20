@@ -12,17 +12,20 @@ declare(strict_types=1);
 
 namespace Soluble\Japha\Bridge;
 
+use Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver;
 use Soluble\Japha\Interfaces;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 class Adapter
 {
+    public const DEFAULT_DRIVER = 'pjb62';
+
     /**
      * @var array
      */
     protected static $registeredDrivers = [
-        'pjb62' => 'Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver'
+        self::DEFAULT_DRIVER => Pjb62Driver::class
     ];
 
     /**
@@ -70,12 +73,14 @@ class Adapter
         }
         $this->logger = $logger;
 
-        $driver = strtolower($options['driver']);
-        if (!array_key_exists($driver, self::$registeredDrivers)) {
-            throw new Exception\UnsupportedDriverException(__METHOD__ . "Driver '$driver' is not supported");
+        $driver = !isset($options['driver']) ? self::DEFAULT_DRIVER : strtolower($options['driver']);
+
+        $driver_class = self::$registeredDrivers[$driver] ?? null;
+
+        if ($driver_class === null) {
+            throw new Exception\UnsupportedDriverException(__METHOD__ . " Driver '$driver' is not supported");
         }
 
-        $driver_class = self::$registeredDrivers[$driver];
         $this->driver = new $driver_class($options, $logger);
 
         if (array_key_exists('java_default_timezone', $options)

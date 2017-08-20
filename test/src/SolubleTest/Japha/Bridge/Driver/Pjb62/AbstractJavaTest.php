@@ -16,8 +16,9 @@ use Soluble\Japha\Bridge\Driver\Pjb62\InternalJava;
 use Soluble\Japha\Bridge\Exception\NoSuchFieldException;
 use Soluble\Japha\Bridge\Exception\NoSuchMethodException;
 use Soluble\Japha\Interfaces\JavaObject;
+use PHPUnit\Framework\TestCase;
 
-class AbstractJavaTest extends \PHPUnit_Framework_TestCase
+class AbstractJavaTest extends TestCase
 {
     /**
      * @var string

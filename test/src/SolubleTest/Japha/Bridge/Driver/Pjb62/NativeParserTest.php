@@ -15,8 +15,9 @@ use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\Client;
 use Soluble\Japha\Bridge\Driver\Pjb62\NativeParser;
 use Soluble\Japha\Bridge\Driver\Pjb62\SocketHandler;
+use PHPUnit\Framework\TestCase;
 
-class NativeParserTest extends \PHPUnit_Framework_TestCase
+class NativeParserTest extends TestCase
 {
     /**
      * @var string

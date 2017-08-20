@@ -14,8 +14,9 @@ use Soluble\Japha\Bridge;
 use Soluble\Japha\Util\TimeZone;
 use Soluble\Japha\Interfaces;
 use DateTimeZone;
+use PHPUnit\Framework\TestCase;
 
-class TimeZoneTest extends \PHPUnit_Framework_TestCase
+class TimeZoneTest extends TestCase
 {
     /**
      * @var string
@@ -103,13 +104,13 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
     public function testGetTimezoneThrowsUnsupportedTzException()
     {
         //TimeZone.getTimeZone("GMT-8").getID() returns "GMT-08:00".
-        $this->setExpectedException('Soluble\Japha\Util\Exception\UnsupportedTzException');
+        $this->expectException('Soluble\Japha\Util\Exception\UnsupportedTzException');
         $tz = $this->timeZone->getTimeZone('invalidTz');
     }
 
     public function testGetTimezoneThrowsInvalidArgumentException()
     {
-        $this->setExpectedException('Soluble\Japha\Util\Exception\InvalidArgumentException');
+        $this->expectException('Soluble\Japha\Util\Exception\InvalidArgumentException');
         $tz = $this->timeZone->getTimeZone([0, 2, 3]);
     }
 

@@ -12,8 +12,9 @@ namespace SolubleTest\Japha\Db;
 
 use Soluble\Japha\Bridge\Adapter as Adapter;
 use Soluble\Japha\Db\DriverManager;
+use PHPUnit\Framework\TestCase;
 
-class JDBCPerformanceTest extends \PHPUnit_Framework_TestCase
+class JDBCPerformanceTest extends TestCase
 {
     /**
      * @var string

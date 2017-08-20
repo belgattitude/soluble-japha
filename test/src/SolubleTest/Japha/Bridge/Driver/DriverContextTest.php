@@ -14,8 +14,9 @@ use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\ClientInterface;
 use Soluble\Japha\Bridge\Driver\DriverInterface;
 use Soluble\Japha\Interfaces\JavaObject;
+use PHPUnit\Framework\TestCase;
 
-class DriverContextTest extends \PHPUnit_Framework_TestCase
+class DriverContextTest extends TestCase
 {
     /**
      * @var string

@@ -13,8 +13,9 @@ namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\Java;
 use Soluble\Japha\Bridge\Exception\JavaException;
+use PHPUnit\Framework\TestCase;
 
-class JavaTest extends \PHPUnit_Framework_TestCase
+class JavaTest extends TestCase
 {
     /**
      * @var string

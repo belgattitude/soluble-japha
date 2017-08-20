@@ -12,8 +12,9 @@ namespace SolubleTest\Japha\Bridge\Driver;
 
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\DriverInterface;
+use PHPUnit\Framework\TestCase;
 
-class DriverInterfaceTest extends \PHPUnit_Framework_TestCase
+class DriverInterfaceTest extends TestCase
 {
     /**
      * @var string

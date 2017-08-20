@@ -11,8 +11,9 @@
 namespace SolubleTest\Japha\Http;
 
 use Soluble\Japha\Bridge\Http\Cookie;
+use PHPUnit\Framework\TestCase;
 
-class CookieTest extends \PHPUnit_Framework_TestCase
+class CookieTest extends TestCase
 {
     /**
      * @dataProvider cookiesProvider
@@ -23,7 +24,7 @@ class CookieTest extends \PHPUnit_Framework_TestCase
         $cookieString = Cookie::getCookiesHeaderLine($cookies);
 
         $urlDecodedString = urldecode($cookieString);
-        \PHPUnit_Framework_Assert::assertEquals($expectedString, $urlDecodedString, 'test that cookie was correctly serialized');
+        $this->assertEquals($expectedString, $urlDecodedString, 'test that cookie was correctly serialized');
     }
 
     public function cookiesProvider()

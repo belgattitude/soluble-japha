@@ -14,8 +14,9 @@ use Psr\Log\NullLogger;
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\Client;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
+use PHPUnit\Framework\TestCase;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     /**
      * @var string
