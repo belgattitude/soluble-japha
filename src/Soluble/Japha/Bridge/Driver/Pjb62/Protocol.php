@@ -238,7 +238,7 @@ class Protocol
      * @throws ConnectionException
      * @throws Exception\IOException
      */
-    public function createSimpleHandler(string $name = ''): SocketHandler
+    public function createSimpleHandler(?string $name = ''): SocketHandler
     {
         $channelName = $name;
         $errno = null;

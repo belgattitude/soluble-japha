@@ -13,7 +13,6 @@ namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 use Psr\Log\NullLogger;
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\Client;
-use Soluble\Japha\Bridge\Driver\Pjb62\NativeParser;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
 use PHPUnit\Framework\TestCase;
 use Soluble\Japha\Bridge\Driver\Pjb62\Protocol;
@@ -141,31 +140,4 @@ class ClientTest extends TestCase
         $enc = $this->client->getInternalEncoding();
         $this->assertEquals('UTF-8', $enc);
     }
-
-    /*
-        public function testUnsupportedXMLWillCallClientParserError()
-        {
-            // SHOULD BE TESTED
-            //$this->client->begin('G', []);
-    
-            $clientMock = $this->getMockBuilder(Client::class)
-                ->disableOriginalConstructor()
-                ->disableOriginalClone()
-                ->disableArgumentCloning()
-                ->disallowMockingUnknownTypes()
-                ->getMock();
-    
-            $clientMock->method('read')
-                ->withAnyParameters()
-                // Unsupported protocol object identification
-                ->willReturn('<G v="efd" m="sun.util.calendar.ZoneInfo" p="O" n="T"/>');
-    
-            $parserStub = $this->prophesize(NativeParser::class);
-            $parserStub->parserError()->shouldBeCalled();
-    
-            $clientMock->parser = $parserStub->reveal();
-    
-    
-        }
-    */
 }
