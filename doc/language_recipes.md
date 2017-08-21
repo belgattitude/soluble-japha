@@ -15,7 +15,7 @@ The following examples are based on third-party Java libraries.
     Their installation can be done easily added when 
     [building](./install_server.md) your own Javabridge server. 
     *(pre-made init-scripts are available [here](https://github.com/belgattitude/php-java-bridge/blob/master/init-scripts/README.md)).*
-        
+
 ### CoreNLP
 
 Example based on the [http://stanfordnlp.github.io/CoreNLP/simple.html](http://stanfordnlp.github.io/CoreNLP/simple.html).
@@ -58,6 +58,40 @@ assertEquals('Hello', $results[2]['words'][0]);
     While the bridge might offer more flexibility, CoreNLP provides a [rest server](http://stanfordnlp.github.io/CoreNLP/corenlp-server.html)
     that should be considered first for integration with PHP.         
 
+
+### JasperReport
+
+Basic example with jasper reports:
+
+```php
+<?php 
+
+$report = '/path/report.jrxml';
+
+$compileManager = $ba->javaClass('net.sf.jasperreports.engine.JasperCompileManager');
+$compiledReport = $compileManager->compileReport($report); 
+
+$dataSource = $ba->java('net.sf.jasperreports.engine.JREmptyDataSource');
+
+$fillManager  = $ba->java('net.sf.jasperreports.engine.JasperFillManager');
+$filledReport = $fillManager->fillReport(
+                   $compiledReport,
+                   [
+                       'reportParam1' => 'Title', 
+                       'reportParam2' => 'Subtitle'
+                       ],
+                   $dataSource
+                );
+    
+$exportManager = $ba->javaClass('net.sf.jasperreports.engine.JasperExportManager');
+ 
+$exportManager->exportReportToPdfFile($filledReport, '/tmp/output.pdf');
+
+```
+
+!!! tip
+    Don't forget to look at the ready to use wrapper [soluble-jasper](https://github.com/belgattitude/soluble-jasper)
+    based on the bridge.
 
 ### Json 
 
