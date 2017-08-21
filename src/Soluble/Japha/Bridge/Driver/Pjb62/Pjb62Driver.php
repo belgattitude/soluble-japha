@@ -76,6 +76,11 @@ class Pjb62Driver extends AbstractDriver
         }
     }
 
+    public function getLogger(): LoggerInterface
+    {
+        return $this->logger;
+    }
+
     /**
      * Return underlying bridge client.
      *
@@ -84,13 +89,6 @@ class Pjb62Driver extends AbstractDriver
     public function getClient(): ClientInterface
     {
         return $this->pjbProxyClient;
-    }
-
-    public function connect(): void
-    {
-        if (!$this->connected) {
-            $this->connected = true;
-        }
     }
 
     /**

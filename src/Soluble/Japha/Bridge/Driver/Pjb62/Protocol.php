@@ -235,12 +235,10 @@ class Protocol
     }
 
     /**
-     * @return \Soluble\Japha\Bridge\Driver\Pjb62\SocketHandler
-     *
      * @throws ConnectionException
      * @throws Exception\IOException
      */
-    public function createSimpleHandler(?string $name = ''): SocketHandler
+    public function createSimpleHandler(string $name = ''): SocketHandler
     {
         $channelName = $name;
         $errno = null;

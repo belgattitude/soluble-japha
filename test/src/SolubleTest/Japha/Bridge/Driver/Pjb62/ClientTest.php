@@ -13,8 +13,10 @@ namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 use Psr\Log\NullLogger;
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\Client;
+use Soluble\Japha\Bridge\Driver\Pjb62\NativeParser;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
 use PHPUnit\Framework\TestCase;
+use Soluble\Japha\Bridge\Driver\Pjb62\Protocol;
 
 class ClientTest extends TestCase
 {
@@ -104,6 +106,7 @@ class ClientTest extends TestCase
         $client->setDefaultHandler();
 
         $this->client->setAsyncHandler();
+        $this->assertEquals($client->methodCache, $client->asyncCache);
     }
 
     public function testSetExitCode()
@@ -117,7 +120,20 @@ class ClientTest extends TestCase
         ]);
 
         $client = new Client($params, new NullLogger());
-        $client->setExitCode(0);
+        $client->setExitCode(1);
+        /*
+        $clientMock = $this->getMockBuilder(Client::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+
+        $protocolStub = $this->prophesize(Protocol::class);
+        $protocolStub->writeExitCode()->shouldBeCalled();
+        $protocolStub->writeExitCode();
+
+        $clientMock->protocol = $protocolStub;
+        $clientMock->setExitCode(0);
+        */
     }
 
     public function testGetInternalEncoding()
@@ -126,35 +142,30 @@ class ClientTest extends TestCase
         $this->assertEquals('UTF-8', $enc);
     }
 
-    public function testUnsupportedXMLWillCallClientParserError()
-    {
-        // SHOULD BE TESTED
-        //$this->client->begin('G', []);
-
-        /*
-        $clientMock = $this->getMockBuilder(Client::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->disallowMockingUnknownTypes()
-            ->getMock();
-
-        $clientMock->method('read')
-            ->withAnyParameters()
-            // Unsupported protocol object identification
-            ->willReturn('<G v="efd" m="sun.util.calendar.ZoneInfo" p="O" n="T"/>');
-
-        $parserStub = $this->prophesize(NativeParser::class);
-        $parserStub->parserError()->shouldBeCalled();
-
-        $clientMock->parser = $parserStub->reveal();
-*/
-
-        //$clientMock->protocol->handler = $handlerStub->reveal();
-
-        /*
-                $parser = new NativeParser($clientMock);
-                $parser->parse();
-        */
-    }
+    /*
+        public function testUnsupportedXMLWillCallClientParserError()
+        {
+            // SHOULD BE TESTED
+            //$this->client->begin('G', []);
+    
+            $clientMock = $this->getMockBuilder(Client::class)
+                ->disableOriginalConstructor()
+                ->disableOriginalClone()
+                ->disableArgumentCloning()
+                ->disallowMockingUnknownTypes()
+                ->getMock();
+    
+            $clientMock->method('read')
+                ->withAnyParameters()
+                // Unsupported protocol object identification
+                ->willReturn('<G v="efd" m="sun.util.calendar.ZoneInfo" p="O" n="T"/>');
+    
+            $parserStub = $this->prophesize(NativeParser::class);
+            $parserStub->parserError()->shouldBeCalled();
+    
+            $clientMock->parser = $parserStub->reveal();
+    
+    
+        }
+    */
 }

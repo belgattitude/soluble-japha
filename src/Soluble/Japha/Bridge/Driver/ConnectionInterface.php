@@ -20,6 +20,4 @@ interface ConnectionInterface
      * @return ClientInterface
      */
     public function getClient(): ClientInterface;
-
-    public function connect(): void;
 }

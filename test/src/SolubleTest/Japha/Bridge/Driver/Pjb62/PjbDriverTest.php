@@ -10,6 +10,7 @@
 
 namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 
+use Psr\Log\NullLogger;
 use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\InternalJava;
 use Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver;
@@ -67,20 +68,14 @@ class PjbDriverTest extends TestCase
         $driver = new Pjb62Driver([
             'servlet_address' => $this->servlet_address,
         ], $logger = null);
-    }
-
-    public function testConnect()
-    {
-        $driver = new Pjb62Driver([
-            'servlet_address' => $this->servlet_address,
-        ]);
-        $driver->connect();
+        $this->assertInstanceOf(NullLogger::class, $driver->getLogger());
     }
 
     public function testInstanciate()
     {
         $driver = $this->adapter->getDriver();
-        $driver->instanciate('java.lang.String');
+        $string = $driver->instanciate('java.lang.String');
+        $this->assertEquals('java.lang.String', $driver->getClassName($string));
     }
 
     public function testGetClient()
