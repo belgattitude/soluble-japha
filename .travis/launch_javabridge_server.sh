@@ -11,7 +11,7 @@ PJB_DIR="$SCRIPT_DIR/downloads/php-java-bridge-$PJB_VERSION"
 
 # Webapp runner properties
 WEBAPP_RUNNER_VERSION="8.5.15.1";
-WEBAPP_RUNNER_URL="http://search.maven.org/remotecontent?filepath=com/github/jsimone/webapp-runner/$WEBAPP_RUNNER_VERSION/webapp-runner-$WEBAPP_RUNNER_VERSION.jar"
+WEBAPP_RUNNER_URL="http://central.maven.org/maven2/com/github/jsimone/webapp-runner/${WEBAPP_RUNNER_VERSION}/webapp-runner-${WEBAPP_RUNNER_VERSION}.jar"
 WEBAPP_RUNNER_JAR="$SCRIPT_DIR/downloads/webapp-runner.jar"
 WEBAPP_RUNNER_PORT=8083
 WEBAPP_RUNNER_LOGFILE="$SCRIPT_DIR/webapp-runner.$WEBAPP_RUNNER_PORT.log"

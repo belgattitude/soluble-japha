@@ -99,14 +99,16 @@ and check the landing page:
 
 The [webapp-runner](https://github.com/jsimone/webapp-runner) actually embeds a
 *standalone runnable* Tomcat and is a viable option for those who don't want to
-install an additional system wide server. Here's some steps to quickly download
-and run your war from the command-line:
+install an additional system wide server. 
+
+You can download the webapp-runner on [maven central]() or alternatively
+from the command line:
+
 
 ```shell
 # Get the latest webapp-runner from maven.
-$ export WR_VERSION="8.5.11.2" 
-$ export WR_URL="http://search.maven.org/remotecontent?filepath=com/github/jsimone/webapp-runner"
-$ wget "${WR_URL}${WR_VERSION}/webapp-runner-${WR_VERSION}.jar" -O webapp-runner.jar    
+$ export WR_VERSION="8.5.15.1";
+$ wget http://central.maven.org/maven2/com/github/jsimone/webapp-runner/${WR_VERSION}/webapp-runner-${WR_VERSION}.jar" -O webapp-runner.jar
 ```   
 
 Run your server `JavaBridgeTemplate.war` file with the webapp-runner:
