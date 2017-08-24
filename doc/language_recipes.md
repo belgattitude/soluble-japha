@@ -66,26 +66,68 @@ Basic example with jasper reports:
 ```php
 <?php 
 
-$report = '/path/report.jrxml';
+// Variables
+$reportFile = '/path/10_report_test_json_northwind.jrxml';
+$jsonDataFile = '/path/northwind.json';
+$outputFile = '/path/output.pdf';
 
+
+// --------------------------------------------------------------------------------------
+// STEP 1 - compile report
+// --------------------------------------------------------------------------------------
 $compileManager = $ba->javaClass('net.sf.jasperreports.engine.JasperCompileManager');
-$compiledReport = $compileManager->compileReport($report); 
+$jasperPrint = $compileManager->compileReport($reportFile);
 
-$dataSource = $ba->java('net.sf.jasperreports.engine.JREmptyDataSource');
+// ---------------------------------------------------------------------------------------
+// STEP 2 - getting fileResolver and classLoader
+// ---------------------------------------------------------------------------------------
 
-$fillManager  = $ba->java('net.sf.jasperreports.engine.JasperFillManager');
-$filledReport = $fillManager->fillReport(
-                   $compiledReport,
-                   [
-                       'reportParam1' => 'Title', 
-                       'reportParam2' => 'Subtitle'
-                       ],
-                   $dataSource
-                );
-    
-$exportManager = $ba->javaClass('net.sf.jasperreports.engine.JasperExportManager');
- 
-$exportManager->exportReportToPdfFile($filledReport, '/tmp/output.pdf');
+$reportPath = $ba->java('java.io.File', dirname($reportFile));
+
+$fileResolver = $ba->java('net.sf.jasperreports.engine.util.SimpleFileResolver', [
+    $reportPath
+]);
+$fileResolver->setResolveAbsolutePath(true);
+$classLoader = $ba->java('java.net.URLClassLoader', [$reportPath->toUrl()]);
+
+// ---------------------------------------------------------------------------------------
+// STEP 3 - setting context props
+// ---------------------------------------------------------------------------------------
+
+$props = [
+    //'net.sf.jasperreports.json.source'         => $jsonDataFile,
+    'net.sf.jasperreports.json.source'         => $ba->java('java.io.File', $jsonDataFile)->getAbsolutePath(),
+    'net.sf.jasperreports.json.date.pattern'   => 'yyyy-MM-dd',
+    'net.sf.jasperreports.json.number.pattern' => '#,##0.##',
+    'net.sf.jasperreports.json.locale.code'    => 'en_GB',
+    'net.sf.jasperreports.json.timezone.id'    => 'Europe/Brussels',
+
+    'REPORT_FILE_RESOLVER'                 => $fileResolver,
+    'REPORT_CLASS_LOADER'                  => $classLoader
+];
+
+// ------------------------------------------------------------------------------------
+// Step 4: filling report
+// ------------------------------------------------------------------------------------
+
+$fillManager = $ba->javaClass('net.sf.jasperreports.engine.JasperFillManager');
+
+$params = array_merge($props, [
+    'REPORT_LOGO'  => './assets/wave.png',
+    'REPORT_TITLE' => 'Test'
+]);
+$jasperPrint = $fillManager->fillReport(
+    $jasperPrint,
+    $ba->java('java.util.HashMap', $params)
+);
+
+// -----------------------------------------------------------------------------------
+// Step 5: Exporting report in pdf
+// -----------------------------------------------------------------------------------
+
+$exportManager = $this->ba->javaClass('net.sf.jasperreports.engine.JasperExportManager');
+
+$exportManager->exportReportToPdfFile($jasperPrint, $outputFile);
 
 ```
 

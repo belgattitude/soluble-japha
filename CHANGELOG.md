@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.x.x (unreleased)
 
-- Updated to PHPUnit 6+
+
+### Improved 
+
+- Dev updated to PHPUnit 6+
+- Dev removed pjbserver-tools from require-dev
+- Doc update: recipe for jasper reports
 
 ## 2.2.3 (2017-08-17)
 
