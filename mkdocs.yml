@@ -53,7 +53,9 @@ theme: 'material'
 
 # Options
 extra:
-  logo: 'images/logo.svg'
+  logo:
+    icon: 'thumbs_up_down'
+  #logo: 'images/logo.svg'
   palette:
     primary: 'deep-orange'
     accent: 'light blue'
