@@ -679,7 +679,7 @@ class Client
             $this->protocol->resultBegin();
             $this->protocol->writeException($e->__java, $trace);
             $this->protocol->resultEnd();
-        } catch (\Exception $ex) {
+        } catch (\Throwable $ex) {
             $msg = 'Unchecked exception detected in callback (' . $ex->__toString() . ')';
             $this->logger->error("[soluble-japha] $msg (" . __METHOD__ . ')');
             trigger_error($msg, E_USER_WARNING);

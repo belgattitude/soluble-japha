@@ -25,9 +25,10 @@ $start_connection_time = $bm->getTimeMs();
 try {
     $ba = new BridgeAdapter([
         'driver' => 'Pjb62',
-       // 'servlet_address' => 'localhost:8090/servlet.phpjavabridge',
-        'servlet_address' => 'localhost:8080/JavaBridgeTemplate/servlet.phpjavabridge',
-       // 'servlet_address' => 'localhost:8080/JavaBridgeSpringboot/servlet.phpjavabridge',
+        //'servlet_address' => 'localhost:8090/servlet.phpjavabridge',
+        //'servlet_address' => 'localhost:8080/JavaBridgeTemplate/servlet.phpjavabridge',
+        'servlet_address' => 'localhost:8080/JasperReports/servlet.phpjavabridge',
+        //'servlet_address' => 'localhost:8080/JavaBridgeSpringboot/servlet.phpjavabridge',
         'force_simple_xml_parser' => false,
         'java_prefer_values' => true // the default and recommended way (possible to put at false for tests)
     ]);

@@ -181,9 +181,7 @@ class PjbProxyClient implements ClientInterface
      */
     public static function isInitialized(): bool
     {
-        $init = self::$instance !== null;
-
-        return (bool) $init;
+        return self::$instance !== null;
     }
 
     /**
@@ -508,7 +506,7 @@ class PjbProxyClient implements ClientInterface
             try {
                 self::$client->sendBuffer .= self::$client->protocol->getKeepAlive();
                 self::$client->protocol->flush();
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
             }
 
             // TODO MUST TEST, IT WAS REMOVED FROM FUNCTION
@@ -519,7 +517,7 @@ class PjbProxyClient implements ClientInterface
                     !preg_match('/EmptyChannel/', get_class(self::getClient()->protocol->handler->channel))) {
                 try {
                     self::$client->protocol->keepAlive();
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     // silently discard exceptions when unregistering
                 }
             }
