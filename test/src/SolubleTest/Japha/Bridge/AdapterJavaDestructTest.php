@@ -58,10 +58,10 @@ class AdapterJavaDestructTest extends TestCase
         $hmId = $hm->get__java();
         $hm2Id = $hm2->get__java();
 
-        $this->assertInternalType('integer', $hmId);
-        $this->assertEquals($hmId, $hm2Id);
-        $this->assertGreaterThan(0, $hmId);
-        $this->assertEquals(8, $hm->get('my_key')->length());
+        self::assertInternalType('integer', $hmId);
+        self::assertEquals($hmId, $hm2Id);
+        self::assertGreaterThan(0, $hmId);
+        self::assertEquals(8, $hm->get('my_key')->length());
 
         unset($hm); // or basically $hm->__destruct();
 
@@ -71,7 +71,7 @@ class AdapterJavaDestructTest extends TestCase
         /*
         try {
             $my_key = $hm2->get('my_key');
-            $this->assertEquals(8, $my_key->length());
+            self::assertEquals(8, $my_key->length());
         } catch (JavaException $e) {
             var_dump($e);
             die();

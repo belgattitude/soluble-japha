@@ -53,8 +53,8 @@ class AdapterJavaClassTest extends TestCase
 
         $cls = $ba->javaClass('java.util.HashMap');
         $className = $cls->getName();
-        $this->assertInternalType('string', $className);
-        $this->assertEquals('java.util.HashMap', $className);
+        self::assertInternalType('string', $className);
+        self::assertEquals('java.util.HashMap', $className);
     }
 
     public function testGetClassOnClass()
@@ -63,11 +63,11 @@ class AdapterJavaClassTest extends TestCase
 
         $cls = $ba->javaClass('java.util.HashMap');
         $class = $cls->getClass();
-        $this->assertInstanceOf(JavaObject::class, $class);
+        self::assertInstanceOf(JavaObject::class, $class);
         // @TODO possible bc-break, makes this type of call returning a
         // JavaClass
-        //$this->assertInstanceOf(JavaClass::class, $class);
-        $this->assertEquals('java.lang.Class', $class->getName());
+        //self::assertInstanceOf(JavaClass::class, $class);
+        self::assertEquals('java.lang.Class', $class->getName());
     }
 
     public function testJavaClassThrowsClassNotFoundException()

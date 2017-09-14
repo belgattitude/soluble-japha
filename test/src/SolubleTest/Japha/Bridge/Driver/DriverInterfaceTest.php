@@ -54,27 +54,27 @@ class DriverInterfaceTest extends TestCase
     {
         $javaString = $this->adapter->java('java.lang.String', 'Hello World');
         $className = $this->driver->getClassName($javaString);
-        $this->assertEquals('java.lang.String', $className);
+        self::assertEquals('java.lang.String', $className);
     }
 
     public function testInspect()
     {
         $javaString = $this->adapter->java('java.lang.String', 'Hello World');
         $inspected = $this->driver->inspect($javaString);
-        $this->assertInternalType('string', $inspected);
-        $this->assertStringStartsWith('[class java.lang.String:', $inspected);
-        $this->assertContains('Constructors:', $inspected);
-        $this->assertContains('Fields:', $inspected);
-        $this->assertContains('Methods:', $inspected);
-        $this->assertContains('Classes:', $inspected);
+        self::assertInternalType('string', $inspected);
+        self::assertStringStartsWith('[class java.lang.String:', $inspected);
+        self::assertContains('Constructors:', $inspected);
+        self::assertContains('Fields:', $inspected);
+        self::assertContains('Methods:', $inspected);
+        self::assertContains('Classes:', $inspected);
     }
 
     public function testInvoke()
     {
         $javaString = $this->adapter->java('java.lang.String', 'Hello');
         $length = $this->driver->invoke($javaString, 'length');
-        $this->assertEquals(5, $length);
-        $this->assertEquals($javaString->length(), $length);
+        self::assertEquals(5, $length);
+        self::assertEquals($javaString->length(), $length);
 
         // Multiple arguments
         $javaString = $this->adapter->java('java.lang.String', 'Hello World! World!');
@@ -83,9 +83,9 @@ class DriverInterfaceTest extends TestCase
         $index12 = $this->driver->invoke($javaString, 'indexOf', ['World', $fromIndex = 12]);
         $index16 = $this->driver->invoke($javaString, 'indexOf', ['World', $fromIndex = 16]);
 
-        $this->assertEquals(6, $indexStart);
-        $this->assertEquals(13, $index12);
-        $this->assertEquals(-1, $index16);
+        self::assertEquals(6, $indexStart);
+        self::assertEquals(13, $index12);
+        self::assertEquals(-1, $index16);
     }
 
     public function testInvokeWithClass()
@@ -93,6 +93,6 @@ class DriverInterfaceTest extends TestCase
         $javaClass = $this->adapter->javaClass('java.lang.System');
         $invokedVersion = $this->driver->invoke($javaClass, 'getProperty', ['java.version']);
         $javaVersion = $javaClass->getProperty('java.version');
-        $this->assertEquals((string) $javaVersion, (string) $invokedVersion);
+        self::assertEquals((string) $javaVersion, (string) $invokedVersion);
     }
 }

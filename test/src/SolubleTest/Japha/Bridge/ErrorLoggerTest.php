@@ -81,12 +81,12 @@ class ErrorLoggerTest extends TestCase
         } catch (\Soluble\Japha\Bridge\Exception\ConnectionException $e) {
             $mustContain = '[soluble-japha] Cannot connect to php-java-bridge server';
             $logged = $this->loggerTestHandler->hasCriticalThatContains($mustContain);
-            $this->assertTrue($logged, 'Assert that logger actually logs connection exception');
+            self::assertTrue($logged, 'Assert that logger actually logs connection exception');
         } catch (\Exception $e) {
-            $this->assertFalse(true, 'ConnectionException should be thrown !!!');
+            self::assertFalse(true, 'ConnectionException should be thrown !!!');
         }
         if (!$logged) {
-            $this->assertFalse(true, 'ConnectionException should be logged');
+            self::assertFalse(true, 'ConnectionException should be logged');
         }
     }
 
@@ -97,12 +97,12 @@ class ErrorLoggerTest extends TestCase
         try {
             $string = $ba->java('java.lang.String', 'Hello world');
             $string->anInvalidMethod();
-            $this->assertFalse(true, 'This code cannot be reached');
+            self::assertFalse(true, 'This code cannot be reached');
         } catch (Exception\NoSuchMethodException $e) {
 
             $mustContain = '[soluble-japha] Cannot connect to php-java-bridge server';
             $logged = $this->loggerTestHandler->hasCriticalThatContains($mustContain);
-            $this->assertTrue($logged, 'Assert that logger actually logs connection exception');
+            self::assertTrue($logged, 'Assert that logger actually logs connection exception');
 
         }
 

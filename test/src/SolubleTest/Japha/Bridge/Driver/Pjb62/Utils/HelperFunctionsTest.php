@@ -37,16 +37,16 @@ class HelperFunctionsTest extends TestCase
     public function testSessionLifeTime()
     {
         $lifetime = HelperFunctions::java_get_session_lifetime();
-        $this->assertEquals(ini_get('session.gc_maxlifetime'), $lifetime);
+        self::assertEquals(ini_get('session.gc_maxlifetime'), $lifetime);
     }
 
     public function testTruncate()
     {
         $str = HelperFunctions::java_truncate('hello');
-        $this->assertEquals('hello', $str);
+        self::assertEquals('hello', $str);
 
         $str2 = implode('', array_fill(0, 1000, 'a'));
         $str3 = HelperFunctions::java_truncate($str2);
-        $this->assertContains('[...]', $str3);
+        self::assertContains('[...]', $str3);
     }
 }

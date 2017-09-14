@@ -55,7 +55,7 @@ class EdgeCasesTest extends TestCase
     public function testGetDriver()
     {
         $driver = $this->adapter->getDriver();
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\AbstractDriver', $driver);
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\AbstractDriver', $driver);
     }
 
     public function testJavaBigMemory()
@@ -73,7 +73,7 @@ class EdgeCasesTest extends TestCase
         $initial_mem = memory_get_usage();
         $s = str_repeat('1', $memory_test);
         $str = $ba->java('java.lang.String', $s);
-        $this->assertEquals($memory_test, $str->length());
+        self::assertEquals($memory_test, $str->length());
         $full_mem = memory_get_usage();
 
         // releasing
@@ -92,9 +92,9 @@ class EdgeCasesTest extends TestCase
 
         if (defined('HHVM_VERSION')) {
             // because hhvm does not really return memory consumption
-            $this->assertLessThanOrEqual($full_mem, $released_mem);
+            self::assertLessThanOrEqual($full_mem, $released_mem);
         } else {
-            $this->assertLessThan($full_mem, $released_mem);
+            self::assertLessThan($full_mem, $released_mem);
         }
         // restore memory limit
         ini_set('memory_limit', $save_mem);

@@ -66,13 +66,13 @@ class PjbProxyClientTest extends TestCase
     {
         $pjbProxyClient = PjbProxyClient::getInstance($this->options);
 
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', $pjbProxyClient);
-        $this->assertTrue(PjbProxyClient::isInitialized());
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Client', $pjbProxyClient->getClient());
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', $pjbProxyClient);
+        self::assertTrue(PjbProxyClient::isInitialized());
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Client', $pjbProxyClient->getClient());
 
         $pjbProxyClient->unregisterInstance();
-        $this->assertFalse(PjbProxyClient::isInitialized());
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', $pjbProxyClient);
+        self::assertFalse(PjbProxyClient::isInitialized());
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', $pjbProxyClient);
     }
 
     public function testGetInstanceThrowsInvalidUsageException()
@@ -80,12 +80,12 @@ class PjbProxyClientTest extends TestCase
         $this->expectException(InvalidUsageException::class);
         $pjbProxyClient = PjbProxyClient::getInstance($this->options);
 
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', $pjbProxyClient);
-        $this->assertTrue(PjbProxyClient::isInitialized());
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Client', $pjbProxyClient->getClient());
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', $pjbProxyClient);
+        self::assertTrue(PjbProxyClient::isInitialized());
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Client', $pjbProxyClient->getClient());
 
         $pjbProxyClient->unregisterInstance();
-        $this->assertFalse(PjbProxyClient::isInitialized());
+        self::assertFalse(PjbProxyClient::isInitialized());
 
         PjbProxyClient::getInstance();
     }
@@ -95,12 +95,12 @@ class PjbProxyClientTest extends TestCase
         $this->expectException(BrokenConnectionException::class);
         $pjbProxyClient = PjbProxyClient::getInstance($this->options);
 
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', $pjbProxyClient);
-        $this->assertTrue(PjbProxyClient::isInitialized());
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Client', $pjbProxyClient->getClient());
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient', $pjbProxyClient);
+        self::assertTrue(PjbProxyClient::isInitialized());
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\Client', $pjbProxyClient->getClient());
 
         $pjbProxyClient->unregisterInstance();
-        $this->assertFalse(PjbProxyClient::isInitialized());
+        self::assertFalse(PjbProxyClient::isInitialized());
 
         PjbProxyClient::getClient();
     }
@@ -109,7 +109,7 @@ class PjbProxyClientTest extends TestCase
     {
         $pjbProxyClient = PjbProxyClient::getInstance($this->options);
         $cls = $pjbProxyClient->getJavaClass('java.lang.Class');
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $cls);
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $cls);
     }
 
     public function testInvokeMethod()
@@ -117,11 +117,11 @@ class PjbProxyClientTest extends TestCase
         $pjbProxyClient = PjbProxyClient::getInstance($this->options);
         $bigint1 = new Java('java.math.BigInteger', 10);
         $value = $pjbProxyClient->invokeMethod($bigint1, 'intValue');
-        $this->assertEquals(10, $value);
+        self::assertEquals(10, $value);
 
         $bigint2 = new Java('java.math.BigInteger', 20);
         $bigint3 = $pjbProxyClient->invokeMethod($bigint1, 'add', [$bigint2]);
-        $this->assertEquals(30, $bigint3->intValue());
+        self::assertEquals(30, $bigint3->intValue());
     }
 
     public function testGetClearLastException()
@@ -135,23 +135,23 @@ class PjbProxyClientTest extends TestCase
         }
 
         $e = $pjbProxyClient->getLastException();
-        $this->assertInstanceOf(InternalException::class, $e);
+        self::assertInstanceOf(InternalException::class, $e);
         $pjbProxyClient->clearLastException();
 
         $e = $pjbProxyClient->getLastException();
-        $this->assertNull($e);
+        self::assertNull($e);
     }
 
     public function testGetOptions()
     {
         $options = PjbProxyClient::getInstance($this->options)->getOptions();
-        $this->assertEquals($this->options['servlet_address'], $options['servlet_address']);
+        self::assertEquals($this->options['servlet_address'], $options['servlet_address']);
     }
 
     public function testGetCompatibilityOption()
     {
         $option = PjbProxyClient::getInstance($this->options)->getCompatibilityOption();
-        $this->assertEquals('B', $option);
+        self::assertEquals('B', $option);
     }
 
     public function testGetOptionThrowsException()
@@ -164,7 +164,7 @@ class PjbProxyClientTest extends TestCase
     {
         // Should create a NativeParser by default
         $defaultClient = PjbProxyClient::getInstance($this->options)::getClient();
-        $this->assertEquals($defaultClient->RUNTIME['PARSER'], ParserFactory::PARSER_NATIVE);
+        self::assertEquals($defaultClient->RUNTIME['PARSER'], ParserFactory::PARSER_NATIVE);
 
         // Recreate singleton, this time forcing the simple parser
         $this->clearPjbProxyClientSingleton();
@@ -176,16 +176,16 @@ class PjbProxyClientTest extends TestCase
             ]
         ));
         $client = $proxyClient::getClient();
-        $this->assertEquals($client->RUNTIME['PARSER'], ParserFactory::PARSER_SIMPLE);
+        self::assertEquals($client->RUNTIME['PARSER'], ParserFactory::PARSER_SIMPLE);
 
         // Test protocol
         $cls = $proxyClient->getJavaClass('java.lang.Class');
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $cls);
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaClass', $cls);
 
         $str = new Java('java.lang.String', 'Hello');
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $str);
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $str);
         $len = $str->length();
-        $this->assertEquals(5, $len);
+        self::assertEquals(5, $len);
 
         // Clean up client instance
         $this->clearPjbProxyClientSingleton();
@@ -235,7 +235,7 @@ class PjbProxyClientTest extends TestCase
 
         foreach ($options as $option => $value) {
             if (is_bool($value)) {
-                $this->assertNotEquals($value, $defaultOptions[$option]);
+                self::assertNotEquals($value, $defaultOptions[$option]);
             }
         }
     }

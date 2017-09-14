@@ -80,7 +80,7 @@ class NativeParserTest extends TestCase
     public function testParserGetDataBase64()
     {
         $nativeParser = new NativeParser($this->client);
-        $this->assertEquals('你好，世界', $nativeParser->getData(base64_encode('你好，世界')));
+        self::assertEquals('你好，世界', $nativeParser->getData(base64_encode('你好，世界')));
     }
 
     /*

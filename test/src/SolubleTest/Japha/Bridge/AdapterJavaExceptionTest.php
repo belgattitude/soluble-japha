@@ -59,7 +59,7 @@ class AdapterJavaExceptionTest extends TestCase
     public function testGetDriver()
     {
         $driver = $this->adapter->getDriver();
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\AbstractDriver', $driver);
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\AbstractDriver', $driver);
     }
 
     public function testJavaExceptionInterfaceMethods()
@@ -69,30 +69,30 @@ class AdapterJavaExceptionTest extends TestCase
         try {
             $string = $ba->java('java.lang.String', 'Hello world');
             $string->anInvalidMethod();
-            $this->assertFalse(true, 'This code cannot be reached');
+            self::assertFalse(true, 'This code cannot be reached');
         } catch (Exception\NoSuchMethodException $e) {
-            $this->assertInstanceOf(Exception\JavaExceptionInterface::class, $e);
+            self::assertInstanceOf(Exception\JavaExceptionInterface::class, $e);
 
             $stackTrace = $e->getStackTrace();
-            $this->assertInternalType('string', $stackTrace);
+            self::assertInternalType('string', $stackTrace);
 
             $cause = $e->getCause();
-            $this->assertInternalType('string', $cause);
-            $this->assertStringStartsWith('java.lang.NoSuchMethodException: anInvalidMethod()', $cause);
+            self::assertInternalType('string', $cause);
+            self::assertStringStartsWith('java.lang.NoSuchMethodException: anInvalidMethod()', $cause);
 
             $message = $e->getMessage();
-            $this->assertInternalType('string', $message);
-            $this->assertContains('java.lang.NoSuchMethodException', $message);
-            $this->assertContains('[[o:String]]->anInvalidMethod', $message);
+            self::assertInternalType('string', $message);
+            self::assertContains('java.lang.NoSuchMethodException', $message);
+            self::assertContains('[[o:String]]->anInvalidMethod', $message);
 
             $javaClassName = $e->getJavaClassName();
-            $this->assertInternalType('string', $javaClassName);
-            $this->assertEquals('java.lang.NoSuchMethodException', $javaClassName);
+            self::assertInternalType('string', $javaClassName);
+            self::assertEquals('java.lang.NoSuchMethodException', $javaClassName);
 
             $driverException = $e->getDriverException();
-            $this->assertInstanceOf(\Exception::class, $driverException);
+            self::assertInstanceOf(\Exception::class, $driverException);
         } catch (\Exception $e) {
-            $this->assertFalse(true, 'This code cannot be reached');
+            self::assertFalse(true, 'This code cannot be reached');
         }
     }
 
@@ -103,31 +103,31 @@ class AdapterJavaExceptionTest extends TestCase
         try {
             $string = $ba->java('java.lang.String', 'Hello world');
             $string->anInvalidMethod();
-            $this->assertFalse(true, 'This code cannot be reached');
+            self::assertFalse(true, 'This code cannot be reached');
         } catch (Exception\NoSuchMethodException $e) {
-            $this->assertInstanceOf(Exception\JavaExceptionInterface::class, $e);
-            $this->assertTrue(true);
+            self::assertInstanceOf(Exception\JavaExceptionInterface::class, $e);
+            self::assertTrue(true);
         } catch (\Exception $e) {
-            $this->assertFalse(true, 'This code cannot be reached');
+            self::assertFalse(true, 'This code cannot be reached');
         }
 
         // Class not found
         try {
             $string = $ba->java('java.INVALID.String', 'Hello world');
-            $this->assertFalse(true, 'This code cannot be reached');
+            self::assertFalse(true, 'This code cannot be reached');
         } catch (Exception\ClassNotFoundException $e) {
-            $this->assertInstanceOf(Exception\JavaExceptionInterface::class, $e);
-            $this->assertTrue(true);
+            self::assertInstanceOf(Exception\JavaExceptionInterface::class, $e);
+            self::assertTrue(true);
         } catch (\Exception $e) {
-            $this->assertFalse(true, 'This code cannot be reached');
+            self::assertFalse(true, 'This code cannot be reached');
         }
 
         try {
             $string = $ba->java('java.Invalid.String', 'Hello world');
         } catch (Exception\JavaException $e) {
-            $this->assertTrue(true);
+            self::assertTrue(true);
         } catch (\Exception $e) {
-            $this->assertFalse(true, 'This code cannot be reached');
+            self::assertFalse(true, 'This code cannot be reached');
         }
     }
 
@@ -167,10 +167,10 @@ class AdapterJavaExceptionTest extends TestCase
                 'java_default_timezone' => 'InvalidTimezone'
             ]);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception\RuntimeException::class, $e);
-            $this->assertInstanceOf(UnsupportedTzException::class, $e);
-            $this->assertTrue(true);
-            $this->assertInternalType('string', $e->__toString());
+            self::assertInstanceOf(Exception\RuntimeException::class, $e);
+            self::assertInstanceOf(UnsupportedTzException::class, $e);
+            self::assertTrue(true);
+            self::assertInternalType('string', $e->__toString());
         }
     }
 }

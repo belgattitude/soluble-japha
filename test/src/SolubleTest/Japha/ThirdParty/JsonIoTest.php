@@ -57,7 +57,7 @@ class JsonIoTest extends TestCase
 
         $string = $ba->java('java.lang.String', 'Hello world');
         $encoded = $jsonWriter->objectToJson($string);
-        $this->assertEquals('"Hello world"', (string) $encoded);
+        self::assertEquals('"Hello world"', (string) $encoded);
     }
 
     public function testObjectJsonSerialization()
@@ -90,10 +90,10 @@ class JsonIoTest extends TestCase
         //   }
         // }
 
-        $this->assertJson($jsonString);
+        self::assertJson($jsonString);
         $decoded = json_decode($jsonString);
-        $this->assertEquals('date', $decoded->javadate->{'@type'});
-        $this->assertEquals('Java Héllo', $decoded->javastring);
+        self::assertEquals('date', $decoded->javadate->{'@type'});
+        self::assertEquals('Java Héllo', $decoded->javastring);
     }
 
     protected function isJsonIoTestsEnabled()

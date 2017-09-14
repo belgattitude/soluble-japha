@@ -69,14 +69,14 @@ class ClientTest extends TestCase
 
         $client = new Client($params, new NullLogger());
 
-        $this->assertEquals(4096, $client->java_send_size);
-        $this->assertEquals(8192, $client->java_recv_size);
-        $this->assertEquals('ISO-8859-1', $client->getInternalEncoding());
-        $this->assertInstanceOf(NullLogger::class, $client->getLogger());
-        $this->assertEquals($params, $client->getParams());
-        $this->assertEquals($conn['servlet_host'], $client->getServerName());
+        self::assertEquals(4096, $client->java_send_size);
+        self::assertEquals(8192, $client->java_recv_size);
+        self::assertEquals('ISO-8859-1', $client->getInternalEncoding());
+        self::assertInstanceOf(NullLogger::class, $client->getLogger());
+        self::assertEquals($params, $client->getParams());
+        self::assertEquals($conn['servlet_host'], $client->getServerName());
         $enc = $this->client->getInternalEncoding();
-        $this->assertEquals('UTF-8', $enc);
+        self::assertEquals('UTF-8', $enc);
     }
 
     public function testDefaults()
@@ -88,9 +88,9 @@ class ClientTest extends TestCase
         ]);
 
         $client = new Client($params, new NullLogger());
-        $this->assertEquals(8192, $client->java_send_size);
-        $this->assertEquals(8192, $client->java_recv_size);
-        $this->assertEquals('UTF-8', $client->getInternalEncoding());
+        self::assertEquals(8192, $client->java_send_size);
+        self::assertEquals(8192, $client->java_recv_size);
+        self::assertEquals('UTF-8', $client->getInternalEncoding());
     }
 
     public function testSetHandler()
@@ -105,7 +105,7 @@ class ClientTest extends TestCase
         $client->setDefaultHandler();
 
         $this->client->setAsyncHandler();
-        $this->assertEquals($client->methodCache, $client->asyncCache);
+        self::assertEquals($client->methodCache, $client->asyncCache);
     }
 
     public function testSetExitCode()
@@ -138,6 +138,6 @@ class ClientTest extends TestCase
     public function testGetInternalEncoding()
     {
         $enc = $this->client->getInternalEncoding();
-        $this->assertEquals('UTF-8', $enc);
+        self::assertEquals('UTF-8', $enc);
     }
 }

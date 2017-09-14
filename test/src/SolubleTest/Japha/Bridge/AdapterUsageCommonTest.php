@@ -59,11 +59,11 @@ class AdapterUsageCommonTest extends TestCase
         $javaString = $ba->java('java.lang.String', 'A key is a key!');
         $index = $javaString->indexOf('key');
 
-        $this->assertEquals(2, $index);
+        self::assertEquals(2, $index);
 
         // Method overloading, use the `indexOf(String, $fromIndex)` method
         $index = $javaString->indexOf('key', $fromIndex = 8);
-        $this->assertEquals(11, $index);
+        self::assertEquals(11, $index);
     }
 
     public function testJavaBigInt()
@@ -71,12 +71,12 @@ class AdapterUsageCommonTest extends TestCase
         $ba = $this->adapter;
         $bigint1 = $ba->java('java.math.BigInteger', 10);
         $bigint2 = $ba->java('java.math.BigInteger', 1234567890);
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $bigint1);
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $bigint2);
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $bigint1);
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $bigint2);
         $bigint1 = $bigint1->add($bigint2);
 
-        $this->assertEquals('1234567900', (string) $bigint1);
-        $this->assertEquals(1234567900, $bigint1->intValue());
+        self::assertEquals('1234567900', (string) $bigint1);
+        self::assertEquals(1234567900, $bigint1->intValue());
     }
 
     public function testOperators()
@@ -84,11 +84,11 @@ class AdapterUsageCommonTest extends TestCase
         $ba = $this->adapter;
         $bigint = $ba->java('java.math.BigInteger', 10);
         $a = $bigint->intValue() * 4;
-        $this->assertEquals(40, $a);
+        self::assertEquals(40, $a);
 
         $int = $ba->java('java.lang.Integer', 10);
         $a = $int->intValue() * 4.15;
-        $this->assertEquals(41.5, $a);
+        self::assertEquals(41.5, $a);
     }
 
     public function testJavaStringsEncodings()
@@ -97,19 +97,19 @@ class AdapterUsageCommonTest extends TestCase
 
         // ascii
         $string = $ba->java('java.lang.String', 'Am I the only one ?');
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $string);
-        $this->assertEquals('Am I the only one ?', $string);
-        $this->assertNotEquals('Am I the only one', $string);
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $string);
+        self::assertEquals('Am I the only one ?', $string);
+        self::assertNotEquals('Am I the only one', $string);
 
         // unicode - utf8
         $string = $ba->java('java.lang.String', '保障球迷權益');
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $string);
-        $this->assertEquals('保障球迷權益', $string);
-        $this->assertNotEquals('保障球迷', $string);
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $string);
+        self::assertEquals('保障球迷權益', $string);
+        self::assertNotEquals('保障球迷', $string);
 
         $string = $ba->java('java.lang.String', '保éà');
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $string);
-        $this->assertEquals('保éà', $string);
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $string);
+        self::assertEquals('保éà', $string);
     }
 
     public function testJavaHashMap()
@@ -117,20 +117,20 @@ class AdapterUsageCommonTest extends TestCase
         $ba = $this->adapter;
         $hash = $ba->java('java.util.HashMap', ['my_key' => 'my_value']);
 
-        $this->assertEquals(1, $hash->size());
+        self::assertEquals(1, $hash->size());
 
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $hash);
-        $this->assertEquals('my_value', $hash->get('my_key'));
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $hash);
+        self::assertEquals('my_value', $hash->get('my_key'));
         $hash->put('new_key', 'oooo');
-        $this->assertEquals('oooo', $hash->get('new_key'));
+        self::assertEquals('oooo', $hash->get('new_key'));
         $hash->put('new_key', 'pppp');
-        $this->assertEquals('pppp', $hash->get('new_key'));
+        self::assertEquals('pppp', $hash->get('new_key'));
 
-        $this->assertEquals(4, $hash->get('new_key')->length());
+        self::assertEquals(4, $hash->get('new_key')->length());
 
         $hash->put('key', $ba->java('java.lang.String', '保障球迷權益'));
-        $this->assertEquals('保障球迷權益', $hash->get('key'));
-        $this->assertEquals(6, $hash->get('key')->length());
+        self::assertEquals('保障球迷權益', $hash->get('key'));
+        self::assertEquals(6, $hash->get('key')->length());
 
         $hashMap = $ba->java('java.util.HashMap', [
             'year' => 2017,
@@ -139,7 +139,7 @@ class AdapterUsageCommonTest extends TestCase
         ]);
 
         $hashMap->put('message', '你好，世界');
-        $this->assertEquals('你好，世界', $hashMap->get('message'));
+        self::assertEquals('你好，世界', $hashMap->get('message'));
         //echo $hashMap->get('year') + 1;
     }
 
@@ -152,7 +152,7 @@ class AdapterUsageCommonTest extends TestCase
         $arrayList->add('World');
 
         $array = $ba->values($arrayList->toArray());
-        $this->assertEquals(['Hello', 'World'], $array);
+        self::assertEquals(['Hello', 'World'], $array);
     }
 
     public function testJavaHashMapArrayValues()
@@ -167,7 +167,7 @@ class AdapterUsageCommonTest extends TestCase
         $values = $map->values()->toArray();
 
         $v = $ba->values($values);
-        $this->assertEquals(array_values($array), $v);
+        self::assertEquals(array_values($array), $v);
     }
 
     public function testJavaReflectArray()
@@ -187,22 +187,22 @@ class AdapterUsageCommonTest extends TestCase
         for ($i = 0; $i < $arrayClass->getLength($values); ++$i) {
             $v[$i] = (string) $values[$i];
         }
-        $this->assertEquals(array_values($array), $v);
+        self::assertEquals(array_values($array), $v);
     }
 
     public function testJavaConstructorOverloading()
     {
         $ba = $this->adapter;
         $vec1 = $ba->java('java.util.Vector', $initialCapacity = 1, $capacityIncrement = 2);
-        $this->assertEquals('java.util.Vector', $ba->getDriver()->getClassName($vec1));
+        self::assertEquals('java.util.Vector', $ba->getDriver()->getClassName($vec1));
         $vec2 = $ba->java('java.util.Vector', [1, 2, 3]);
-        $this->assertEquals('java.util.Vector', $ba->getDriver()->getClassName($vec2));
+        self::assertEquals('java.util.Vector', $ba->getDriver()->getClassName($vec2));
 
         $mathContext = $ba->java('java.math.MathContext', $precision = 2);
         $bigint = $ba->java('java.math.BigInteger', 123456);
         $bigdec = $ba->java('java.math.BigDecimal', $bigint, $scale = 2, $mathContext);
 
-        $this->assertEquals(1200, $bigdec->floatValue());
+        self::assertEquals(1200, $bigdec->floatValue());
     }
 
     public function testJavaWithDouble()
@@ -210,11 +210,11 @@ class AdapterUsageCommonTest extends TestCase
         $ba = $this->adapter;
         $double = 1.212009867e6;
         $bigdec = $ba->java('java.math.BigDecimal', $double);
-        $this->assertEquals((int) $double, $bigdec->intValue());
-        $this->assertEquals((string) $double, $bigdec->toString());
+        self::assertEquals((int) $double, $bigdec->intValue());
+        self::assertEquals((string) $double, $bigdec->toString());
 
         // WARNING THOSE ones won't equals (floats are not treated equally between php and Java)
-        $this->assertNotEquals($double, $bigdec->floatValue());
+        self::assertNotEquals($double, $bigdec->floatValue());
     }
 
     public function testJavaWithDoubleFromValueOf()
@@ -222,8 +222,8 @@ class AdapterUsageCommonTest extends TestCase
         $ba = $this->adapter;
         $double = 1.212009867e6;
         $bigdec = $ba->javaClass('java.math.BigDecimal')->valueOf($double);
-        $this->assertEquals((int) $double, $bigdec->intValue());
-        $this->assertEquals((string) $double, $bigdec->toString());
+        self::assertEquals((int) $double, $bigdec->intValue());
+        self::assertEquals((string) $double, $bigdec->toString());
     }
 
     public function testFileReader()
@@ -238,7 +238,7 @@ class AdapterUsageCommonTest extends TestCase
         while (($line = $reader->readLine()) != null) {
             $content .= (string) $line . PHP_EOL;
         }
-        $this->assertContains('testFileReader', $content);
+        self::assertContains('testFileReader', $content);
     }
 
     public function testForeach()
@@ -257,7 +257,7 @@ class AdapterUsageCommonTest extends TestCase
         foreach ($hashMap as $key => $value) {
             $newArr[$key] = $ba->getDriver()->values($value);
         }
-        $this->assertEquals($arr, $newArr);
+        self::assertEquals($arr, $newArr);
     }
 
     public function testIterator()
@@ -268,24 +268,24 @@ class AdapterUsageCommonTest extends TestCase
         $properties = $system->getProperties();
 
         foreach ($properties as $key => $value) {
-            $this->assertInternalType('string', $key);
-            $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $value);
+            self::assertInternalType('string', $key);
+            self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $value);
 
             if ($key == 'java.version') {
-                $this->assertStringStartsWith('1', $value->__toString());
+                self::assertStringStartsWith('1', $value->__toString());
             }
         }
 
         $iterator = $properties->getIterator();
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\ObjectIterator', $iterator);
-        $this->assertInstanceOf('Iterator', $iterator);
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\ObjectIterator', $iterator);
+        self::assertInstanceOf('Iterator', $iterator);
 
         foreach ($iterator as $key => $value) {
-            $this->assertInternalType('string', $key);
-            $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $value);
+            self::assertInternalType('string', $key);
+            self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $value);
 
             if ($key == 'java.version') {
-                $this->assertStringStartsWith('1', $value->__toString());
+                self::assertStringStartsWith('1', $value->__toString());
             }
         }
     }

@@ -60,10 +60,10 @@ class AdapterUsageInnerClassTest extends TestCase
         // @see https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html
         $builder = $ba->java('java.util.Calendar$Builder');
 
-        $this->assertEquals('java.util.Calendar$Builder', $ba->getClassName($builder));
+        self::assertEquals('java.util.Calendar$Builder', $ba->getClassName($builder));
 
         $calendar = $builder->setCalendarType('gregory')->build();
 
-        $this->assertEquals('java.util.GregorianCalendar', $ba->getClassName($calendar));
+        self::assertEquals('java.util.GregorianCalendar', $ba->getClassName($calendar));
     }
 }

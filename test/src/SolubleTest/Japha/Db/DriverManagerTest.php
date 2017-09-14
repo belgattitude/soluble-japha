@@ -102,10 +102,10 @@ class DriverManagerTest extends TestCase
     public function testGetDriverManager()
     {
         $dm = $this->driverManager->getDriverManager();
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $dm);
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $dm);
         $className = $this->adapter->getDriver()->getClassName($dm);
-        $this->assertEquals('java.sql.DriverManager', $className);
-        //$this->assertTrue($this->adapter->isInstanceOf($dm, 'java.sql.DriverManager'));
+        self::assertEquals('java.sql.DriverManager', $className);
+        //self::assertTrue($this->adapter->isInstanceOf($dm, 'java.sql.DriverManager'));
     }
 
     public function testCreateConnection()
@@ -115,10 +115,10 @@ class DriverManagerTest extends TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            $this->assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+            self::assertFalse(true, 'Cannot connect: ' . $e->getMessage());
         }
         $className = $this->adapter->getDriver()->getClassName($conn);
-        $this->assertTrue(in_array($className, ['com.mysql.jdbc.JDBC4Connection', 'com.mysql.cj.jdbc.ConnectionImpl']));
+        self::assertTrue(in_array($className, ['com.mysql.jdbc.JDBC4Connection', 'com.mysql.cj.jdbc.ConnectionImpl']));
         $conn->close();
     }
 
@@ -129,14 +129,14 @@ class DriverManagerTest extends TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            $this->assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+            self::assertFalse(true, 'Cannot connect: ' . $e->getMessage());
         }
 
         $stmt = $conn->createStatement();
         $rs = $stmt->executeQuery('select * from product_category_translation limit 100');
         while ($rs->next()) {
             $category_id = $rs->getString('category_id');
-            $this->assertInternalType('numeric', $category_id->__toString());
+            self::assertInternalType('numeric', $category_id->__toString());
         }
         $ba = $this->adapter;
         if (!$ba->isNull($rs)) {
@@ -156,17 +156,17 @@ class DriverManagerTest extends TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            $this->assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+            self::assertFalse(true, 'Cannot connect: ' . $e->getMessage());
         }
 
         $stmt = $conn->createStatement();
         try {
             $rs = $stmt->executeQuery('select * from non_existing_table limit 100');
-            $this->assertTrue(false, 'Error: a JavaException exception was expected');
+            self::assertTrue(false, 'Error: a JavaException exception was expected');
         } catch (\Soluble\Japha\Bridge\Exception\JavaException $e) {
-            $this->assertTrue(true, 'Exception have been thrown');
+            self::assertTrue(true, 'Exception have been thrown');
             $java_cls = $e->getJavaClassName();
-            $this->assertTrue(in_array($java_cls, [
+            self::assertTrue(in_array($java_cls, [
                 'com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException',
                 'java.sql.SQLSyntaxErrorException'
             ]));
@@ -178,7 +178,7 @@ class DriverManagerTest extends TestCase
     public function testGetJdbcDSN()
     {
         $dsn = DriverManager::getJdbcDsn('mysql', 'db', 'host', 'user', 'password', []);
-        $this->assertEquals('jdbc:mysql://host/db?user=user&password=password', $dsn);
+        self::assertEquals('jdbc:mysql://host/db?user=user&password=password', $dsn);
     }
 
     public function testGetJdbcDSNWithExtras()
@@ -189,7 +189,7 @@ class DriverManagerTest extends TestCase
         ];
         $dsn = DriverManager::getJdbcDsn('mysql', 'db', 'host', 'user', 'password', $extras);
         $expected = 'jdbc:mysql://host/db?user=user&password=password&param1=Hello&param2=%C3%A9%C3%A0%26AA';
-        $this->assertEquals($expected, $dsn);
+        self::assertEquals($expected, $dsn);
     }
 
     protected function getWorkingDSN()

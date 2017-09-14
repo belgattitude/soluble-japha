@@ -55,13 +55,13 @@ class DriverContextTest extends TestCase
     public function testGetClient()
     {
         $client = $this->driver->getClient();
-        $this->assertInstanceOf(ClientInterface::class, $client);
+        self::assertInstanceOf(ClientInterface::class, $client);
     }
 
     public function testContext()
     {
         $context = $this->driver->getContext();
-        $this->assertInstanceOf(JavaObject::class, $context);
+        self::assertInstanceOf(JavaObject::class, $context);
 
         $className = $this->driver->getClassName($context);
 
@@ -76,15 +76,15 @@ class DriverContextTest extends TestCase
             'php.java.bridge.http.Context' => 'standalone',
         ];
 
-        $this->assertContains($className, array_keys($supported));
+        self::assertContains($className, array_keys($supported));
 
         if ($supported[$className] == 'servlet') {
             // ## TESTING HttpServletRequest
             // Those tests does not make sense with the standalone
             $httpServletRequest = $context->getHttpServletRequest();
-            $this->assertInstanceOf(JavaObject::class, $httpServletRequest);
+            self::assertInstanceOf(JavaObject::class, $httpServletRequest);
 
-            $this->assertContains($this->driver->getClassName($httpServletRequest), [
+            self::assertContains($this->driver->getClassName($httpServletRequest), [
                 'io.soluble.pjb.servlet.RemoteHttpServletRequest',
                 'php.java.servlet.RemoteServletRequest',
                 'php.java.servlet.RemoteHttpServletRequest' // For Pjb713
@@ -92,31 +92,31 @@ class DriverContextTest extends TestCase
 
             //echo $this->driver->inspect($httpServletRequest);
 
-            $this->assertEquals(
+            self::assertEquals(
                 'java.util.Locale',
                 $this->driver->getClassName($httpServletRequest->getLocale())
             );
 
-            $this->assertEquals(
+            self::assertEquals(
                 'java.lang.String',
                 $this->driver->getClassName($httpServletRequest->getMethod())
             );
 
-            $this->assertEquals(
+            self::assertEquals(
                 'java.lang.String',
                 $this->driver->getClassName($httpServletRequest->getProtocol())
             );
 
-            $this->assertContains('HTTP', (string) $httpServletRequest->getProtocol());
+            self::assertContains('HTTP', (string) $httpServletRequest->getProtocol());
 
             $requestUri = $httpServletRequest->getRequestUri();
-            $this->assertEquals('java.lang.String', $this->driver->getClassName($requestUri));
+            self::assertEquals('java.lang.String', $this->driver->getClassName($requestUri));
 
-            $this->assertContains('.phpjavabridge', (string) $requestUri);
+            self::assertContains('.phpjavabridge', (string) $requestUri);
 
             $headerNames = $httpServletRequest->getHeaderNames();
 
-            $this->assertContains('Enum', $this->driver->getClassName($headerNames));
+            self::assertContains('Enum', $this->driver->getClassName($headerNames));
 
             $headers = [];
             while ($headerNames->hasMoreElements()) {
@@ -125,18 +125,18 @@ class DriverContextTest extends TestCase
                 $headers[(string) $name] = (string) $value;
             }
 
-            $this->assertArrayHasKey('host', $headers); // 127.0.0.1:8080 (tomcat listening address)
+            self::assertArrayHasKey('host', $headers); // 127.0.0.1:8080 (tomcat listening address)
 
             /*
-            $this->assertArrayHasKey('cache-control', $headers);
-            $this->assertArrayHasKey('transfert-encoding', $headers);
+            self::assertArrayHasKey('cache-control', $headers);
+            self::assertArrayHasKey('transfert-encoding', $headers);
             */
 
             // ## TESTING HttpServletResponse
 
             $httpServletResponse = $context->getHttpServletResponse();
 
-            $this->assertContains($this->driver->getClassName($httpServletResponse), [
+            self::assertContains($this->driver->getClassName($httpServletResponse), [
                 'io.soluble.pjb.servlet.RemoteHttpServletResponse',
                 'php.java.servlet.RemoteServletResponse',
                 'php.java.servlet.RemoteHttpServletResponse' // For pjb713
@@ -144,7 +144,7 @@ class DriverContextTest extends TestCase
 
             if ($this->driver->getClassName($context) == 'io.soluble.pjb.servlet.HttpContext') {
                 $httpServletRequestFromAttribute = $context->getAttribute('io.soluble.pjb.servlet.HttpServletRequest');
-                $this->assertEquals('io.soluble.pjb.servlet.RemoteHttpServletRequest', $this->driver->getClassName($httpServletRequestFromAttribute));
+                self::assertEquals('io.soluble.pjb.servlet.RemoteHttpServletRequest', $this->driver->getClassName($httpServletRequestFromAttribute));
             }
 
             // @todo future work on session (issue with session already committed, need more tests)

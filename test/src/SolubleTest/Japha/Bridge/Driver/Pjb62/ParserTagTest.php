@@ -21,7 +21,7 @@ class ParserTagTest extends TestCase
     public function testParserTag()
     {
         $pt = new ParserTag();
-        $this->assertEquals([], $pt->strings);
-        $this->assertEquals(0, $pt->n);
+        self::assertEquals([], $pt->strings);
+        self::assertEquals(0, $pt->n);
     }
 }

@@ -68,27 +68,27 @@ class PjbDriverTest extends TestCase
         $driver = new Pjb62Driver([
             'servlet_address' => $this->servlet_address,
         ], $logger = null);
-        $this->assertInstanceOf(NullLogger::class, $driver->getLogger());
+        self::assertInstanceOf(NullLogger::class, $driver->getLogger());
     }
 
     public function testInstanciate()
     {
         $driver = $this->adapter->getDriver();
         $string = $driver->instanciate('java.lang.String');
-        $this->assertEquals('java.lang.String', $driver->getClassName($string));
+        self::assertEquals('java.lang.String', $driver->getClassName($string));
     }
 
     public function testGetClient()
     {
         $client = $this->adapter->getDriver()->getClient();
-        $this->assertInstanceOf(PjbProxyClient::class, $client);
+        self::assertInstanceOf(PjbProxyClient::class, $client);
     }
 
     public function testIsIntanceOf()
     {
         $string = $this->adapter->java('java.lang.String', 'hello');
         $bool = $this->adapter->getDriver()->isInstanceOf($string, 'java.lang.String');
-        $this->assertTrue($bool);
+        self::assertTrue($bool);
     }
 
     public function testIsInstanceOfThrowsException1()
@@ -112,19 +112,19 @@ class PjbDriverTest extends TestCase
         $encoding = 'ASCII';
         $driver->setFileEncoding($encoding);
         $encoding = (string) $driver->getConnectionOptions()->getEncoding();
-        $this->assertEquals('ASCII', $encoding);
+        self::assertEquals('ASCII', $encoding);
 
         $encoding = 'UTF-8';
         $driver->setFileEncoding($encoding);
         $encoding = (string) $driver->getConnectionOptions()->getEncoding();
-        $this->assertEquals('UTF-8', $encoding);
+        self::assertEquals('UTF-8', $encoding);
     }
 
     public function testJavaContext()
     {
         $context = $this->adapter->getDriver()->getContext();
-        $this->assertInstanceOf(JavaObject::class, $context);
-        $this->assertInstanceOf(InternalJava::class, $context);
+        self::assertInstanceOf(JavaObject::class, $context);
+        self::assertInstanceOf(InternalJava::class, $context);
 
         $fqdn = $this->adapter->getClassName($context);
         $supported = [
@@ -135,7 +135,7 @@ class PjbDriverTest extends TestCase
           'standalone' => 'php.java.bridge.http.Context',
         ];
 
-        $this->assertTrue(in_array($fqdn, $supported));
+        self::assertTrue(in_array($fqdn, $supported));
     }
 
     public function testGetJavaBridgeHeader()
@@ -145,10 +145,10 @@ class PjbDriverTest extends TestCase
           'HTTP_HEADER_HOST' => 'cool'
         ];
 
-        $this->assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('OVERRIDE_HOST', $headersToTest));
-        $this->assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('HTTP_OVERRIDE_HOST', $headersToTest));
-        $this->assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('HTTP_HEADER_HOST', $headersToTest));
-        $this->assertEquals('', Pjb62Driver::getJavaBridgeHeader('NOTHING', $headersToTest));
+        self::assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('OVERRIDE_HOST', $headersToTest));
+        self::assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('HTTP_OVERRIDE_HOST', $headersToTest));
+        self::assertEquals('cool', Pjb62Driver::getJavaBridgeHeader('HTTP_HEADER_HOST', $headersToTest));
+        self::assertEquals('', Pjb62Driver::getJavaBridgeHeader('NOTHING', $headersToTest));
     }
 
     public function testInstanciateThrowsBrokenConnectionException()

@@ -72,16 +72,16 @@ class TimeZoneTest extends TestCase
     public function testGetAvailableIDs()
     {
         $availableTz = $this->timeZone->getAvailableIDs();
-        $this->assertInternalType('array', $availableTz);
-        $this->assertContains('Europe/Paris', $availableTz);
+        self::assertInternalType('array', $availableTz);
+        self::assertContains('Europe/Paris', $availableTz);
     }
 
     public function testGetDefault()
     {
         $default = $this->timeZone->getDefault();
-        $this->assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $default);
+        self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $default);
         $iof = $this->ba->isInstanceOf($default, 'java.util.TimeZone');
-        $this->assertTrue($iof);
+        self::assertTrue($iof);
     }
 
     public function testGetTimezone()
@@ -90,14 +90,14 @@ class TimeZoneTest extends TestCase
         foreach ($ids as $id) {
             $tz = $this->timeZone->getTimeZone($id);
             $iof = $this->ba->isInstanceOf($tz, 'java.util.TimeZone');
-            $this->assertTrue($iof);
-            $this->assertEquals($id, (string) $tz->getID());
+            self::assertTrue($iof);
+            self::assertEquals($id, (string) $tz->getID());
 
             $phpTz = new DateTimeZone($id);
             $tz = $this->timeZone->getTimeZone($phpTz);
             $iof = $this->ba->isInstanceOf($tz, 'java.util.TimeZone');
-            $this->assertTrue($iof);
-            $this->assertEquals($id, (string) $tz->getID());
+            self::assertTrue($iof);
+            self::assertEquals($id, (string) $tz->getID());
         }
     }
 
@@ -122,7 +122,7 @@ class TimeZoneTest extends TestCase
             $tz = $this->timeZone->getTimeZone($id);
             $this->timeZone->setDefault($tz);
             $default = $this->timeZone->getDefault()->getID();
-            $this->assertEquals($id, (string) $default);
+            self::assertEquals($id, (string) $default);
         }
         $this->timeZone->setDefault($originalTz);
     }
@@ -138,15 +138,15 @@ class TimeZoneTest extends TestCase
         $newTz = $this->timeZone->getTimeZone('Europe/London');
         $this->ba->javaClass('java.util.TimeZone')->setDefault($newTz);
         $newDefault = $this->ba->javaClass('java.util.TimeZone')->getDefault()->getID();
-        $this->assertEquals('Europe/London', (string) $newDefault);
+        self::assertEquals('Europe/London', (string) $newDefault);
 
         // should produce same as previous (means wrong behaviour)
         $cachedTz = $this->timeZone->getDefault($enableTzCache = true)->getID();
-        $this->assertEquals((string) $parisTz, (string) $cachedTz);
+        self::assertEquals((string) $parisTz, (string) $cachedTz);
 
         // with uncached you should have the new one
         $uncachedTz = $this->timeZone->getDefault($enableTzCache = false)->getID();
-        $this->assertEquals('Europe/London', (string) $uncachedTz);
+        self::assertEquals('Europe/London', (string) $uncachedTz);
 
         $this->timeZone->setDefault($originalTz);
     }
@@ -164,15 +164,15 @@ class TimeZoneTest extends TestCase
         $newTz = $this->timeZone->getTimeZone('Europe/London');
         $this->ba->javaClass('java.util.TimeZone')->setDefault($newTz);
         $newDefault = $this->ba->javaClass('java.util.TimeZone')->getDefault()->getID();
-        $this->assertEquals('Europe/London', (string) $newDefault);
+        self::assertEquals('Europe/London', (string) $newDefault);
 
         // should always produce the good behaviour
         $cachedTz = $this->timeZone->getDefault($enableTzCache = true)->getID();
-        $this->assertEquals('Europe/London', (string) $cachedTz);
+        self::assertEquals('Europe/London', (string) $cachedTz);
 
         // with uncached you should have the new one
         $uncachedTz = $this->timeZone->getDefault($enableTzCache = false)->getID();
-        $this->assertEquals('Europe/London', (string) $uncachedTz);
+        self::assertEquals('Europe/London', (string) $uncachedTz);
 
         $this->timeZone->setDefault($originalTz);
     }

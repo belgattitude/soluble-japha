@@ -65,23 +65,23 @@ class AdapterSystemTest extends TestCase
     public function testGetSystemTimeZoneId()
     {
         $tzId = $this->ba->getSystem()->getTimeZoneId();
-        $this->assertInternalType('string', $tzId);
+        self::assertInternalType('string', $tzId);
     }
 
     public function testSetSystemTimeZoneId()
     {
         $this->ba->getSystem()->setTimeZoneId('Europe/London');
         $tzId = $this->ba->getSystem()->getTimeZoneId();
-        $this->assertEquals('Europe/London', $tzId);
+        self::assertEquals('Europe/London', $tzId);
 
         $this->ba->getSystem()->setTimeZoneId('CET');
         $tzId = $this->ba->getSystem()->getTimeZoneId();
-        $this->assertEquals('CET', $tzId);
+        self::assertEquals('CET', $tzId);
     }
 
     public function testGetTimeZone()
     {
         $tz = $this->ba->getSystem()->getTimeZone();
-        $this->assertInstanceOf('Soluble\Japha\Util\TimeZone', $tz);
+        self::assertInstanceOf('Soluble\Japha\Util\TimeZone', $tz);
     }
 }

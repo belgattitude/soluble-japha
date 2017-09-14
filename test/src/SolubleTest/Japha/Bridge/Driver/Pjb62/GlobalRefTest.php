@@ -56,9 +56,9 @@ class GlobalRefTest extends TestCase
 
         $gr->add($string);
         $tmp = $gr->get(1);
-        $this->assertEquals($string, $tmp);
+        self::assertEquals($string, $tmp);
 
-        $this->assertEquals(0, $gr->add(null));
-        $this->assertEquals(0, $gr->get(false));
+        self::assertEquals(0, $gr->add(null));
+        self::assertEquals(0, $gr->get(false));
     }
 }

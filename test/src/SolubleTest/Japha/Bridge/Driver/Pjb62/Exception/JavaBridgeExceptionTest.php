@@ -21,6 +21,6 @@ class JavaBridgeExceptionTest extends TestCase
     public function testToString()
     {
         $e = new JavaBridgeException('cool');
-        $this->assertEquals('cool', (string) $e);
+        self::assertEquals('cool', (string) $e);
     }
 }

@@ -59,7 +59,7 @@ class AdapterUsageIOTest extends TestCase
         $f = $this->adapter->java('java.io.File', $dir);
         $paths = $f->listFiles();
         foreach ($paths as $path) {
-            $this->assertFileExists((string) $path);
+            self::assertFileExists((string) $path);
         }
     }
 
@@ -108,7 +108,7 @@ class AdapterUsageIOTest extends TestCase
         $bufferedReader->close();
         $socket->close();
 
-        $this->assertGreaterThan(0, count($lines));
-        $this->assertContains('HTTP/1.0', $content);
+        self::assertGreaterThan(0, count($lines));
+        self::assertContains('HTTP/1.0', $content);
     }
 }

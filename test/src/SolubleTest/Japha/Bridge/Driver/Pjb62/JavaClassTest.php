@@ -54,10 +54,10 @@ class JavaClassTest extends TestCase
         $cls = $this->adapter->javaClass('java.lang.String');
 
         $class = $cls->getClass();
-        $this->assertInstanceOf(JavaType::class, $class);
-        $this->assertInstanceOf(JavaObject::class, $class);
+        self::assertInstanceOf(JavaType::class, $class);
+        self::assertInstanceOf(JavaObject::class, $class);
 
         $name = $cls->getName();
-        $this->assertEquals('java.lang.String', $name);
+        self::assertEquals('java.lang.String', $name);
     }
 }

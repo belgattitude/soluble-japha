@@ -24,14 +24,14 @@ class ParserStringTest extends TestCase
         $pe->string = '1234';
         $pe->off = 0;
         $pe->length = 20;
-        $this->assertEquals('1234', $pe->getString());
-        $this->assertEquals('1234', $pe->toString());
+        self::assertEquals('1234', $pe->getString());
+        self::assertEquals('1234', $pe->toString());
 
         $pe->off = 1;
         $pe->length = 2;
 
-        $this->assertEquals('23', $pe->getString());
-        $this->assertEquals('23', $pe->toString());
+        self::assertEquals('23', $pe->getString());
+        self::assertEquals('23', $pe->toString());
     }
 
     public function testParserStringUTF8()
@@ -40,7 +40,7 @@ class ParserStringTest extends TestCase
         $pe->string = '你好，世界';
         $pe->off = 0;
         $pe->length = 20;
-        $this->assertEquals('你好，世界', $pe->getString());
-        $this->assertEquals('你好，世界', $pe->toString());
+        self::assertEquals('你好，世界', $pe->getString());
+        self::assertEquals('你好，世界', $pe->toString());
     }
 }

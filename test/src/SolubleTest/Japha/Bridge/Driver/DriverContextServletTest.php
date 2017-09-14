@@ -76,7 +76,7 @@ class DriverContextServletTest extends TestCase
             }
         }
 
-        $this->assertInstanceOf(JavaObject::class, $servletContext);
+        self::assertInstanceOf(JavaObject::class, $servletContext);
 
         $className = $this->driver->getClassName($servletContext);
 
@@ -87,30 +87,30 @@ class DriverContextServletTest extends TestCase
             'io.soluble.pjb.servlet.PhpJavaServlet'
         ];
 
-        $this->assertContains($className, $supported);
+        self::assertContains($className, $supported);
 
         //  From javax.servlet.GenericServlet
 
         $servletName = $servletContext->getServletName();
-        $this->assertInstanceOf(JavaObject::class, $servletName);
-        $this->assertEquals('java.lang.String', $this->driver->getClassName($servletName));
-        $this->assertEquals('phpjavaservlet', strtolower((string) $servletName));
+        self::assertInstanceOf(JavaObject::class, $servletName);
+        self::assertEquals('java.lang.String', $this->driver->getClassName($servletName));
+        self::assertEquals('phpjavaservlet', strtolower((string) $servletName));
 
         $servletInfo = $servletContext->getServletInfo();
-        $this->assertInstanceOf(JavaObject::class, $servletInfo);
-        $this->assertEquals('java.lang.String', $this->driver->getClassName($servletInfo));
+        self::assertInstanceOf(JavaObject::class, $servletInfo);
+        self::assertEquals('java.lang.String', $this->driver->getClassName($servletInfo));
 
         $servletConfig = $servletContext->getServletConfig();
-        $this->assertInstanceOf(JavaObject::class, $servletConfig);
+        self::assertInstanceOf(JavaObject::class, $servletConfig);
 
         // on Tomcat could be : org.apache.catalina.core.StandardWrapperFacade
-        //$this->assertEquals('org.apache.catalina.core.StandardWrapperFacade', $this->driver->getClassName($servletConfig));
+        //self::assertEquals('org.apache.catalina.core.StandardWrapperFacade', $this->driver->getClassName($servletConfig));
 
         $servletContext = $context->getServletContext();
 
         $paramNames = $servletContext->getInitParameterNames();
         //echo $this->driver->getClassName($paramNames);
-        $this->assertInstanceOf(JavaObject::class, $paramNames);
+        self::assertInstanceOf(JavaObject::class, $paramNames);
     }
 
     public function testGetServletOnTomcat()
@@ -133,8 +133,8 @@ class DriverContextServletTest extends TestCase
         }
 
         $servletConfig = $servletContext->getServletConfig();
-        $this->assertEquals('org.apache.catalina.core.StandardWrapperFacade', $this->driver->getClassName($servletConfig));
+        self::assertEquals('org.apache.catalina.core.StandardWrapperFacade', $this->driver->getClassName($servletConfig));
 
-        $this->assertEquals('org.apache.catalina.core.ApplicationContextFacade', $this->driver->getClassName($context->getServletContext()));
+        self::assertEquals('org.apache.catalina.core.ApplicationContextFacade', $this->driver->getClassName($context->getServletContext()));
     }
 }

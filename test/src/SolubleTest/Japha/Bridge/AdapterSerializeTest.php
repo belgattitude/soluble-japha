@@ -53,6 +53,6 @@ class AdapterSerializeTest extends TestCase
         $serialized = serialize($string);
         $unserialized = unserialize($serialized);
 
-        $this->assertEquals('cool', $unserialized->__toString());
+        self::assertEquals('cool', $unserialized->__toString());
     }
 }

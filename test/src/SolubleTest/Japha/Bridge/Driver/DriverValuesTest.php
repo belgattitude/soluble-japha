@@ -60,6 +60,6 @@ class DriverValuesTest extends TestCase
         $hashMap = $ba->java('java.util.HashMap', $arrOfArray);
         $arrFromJava = $ba->getDriver()->values($hashMap);
 
-        $this->assertEquals($arrOfArray, $arrFromJava);
+        self::assertEquals($arrOfArray, $arrFromJava);
     }
 }

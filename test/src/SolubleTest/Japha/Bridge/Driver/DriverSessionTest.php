@@ -57,14 +57,14 @@ class DriverSessionTest extends TestCase
     {
         try {
             $session = $this->driver->getJavaSession();
-            $this->assertInstanceOf(JavaObject::class, $session);
+            self::assertInstanceOf(JavaObject::class, $session);
         } catch (JavaException $e) {
             $cls = $e->getJavaClassName();
 
             if ($cls == 'java.lang.IllegalStateException') {
                 $this->markTestSkipped('Skipped session test: Probably under tomcat -> Cannot create a session after the response has been committed');
             } else {
-                $this->assertTrue(false, "Cannot test session type: ($cls)");
+                self::assertTrue(false, "Cannot test session type: ($cls)");
             }
         }
     }
@@ -85,7 +85,7 @@ class DriverSessionTest extends TestCase
             if ($cls == 'java.lang.IllegalStateException') {
                 $this->markTestSkipped('Skipped session test: Probably under tomcat -> Cannot create a session after the response has been committed');
             } else {
-                $this->assertTrue(false, "Cannot test session type: ($cls)");
+                self::assertTrue(false, "Cannot test session type: ($cls)");
             }
         }
     }

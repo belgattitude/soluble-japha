@@ -55,7 +55,7 @@ class AdapterUsageDateTest extends TestCase
     public function testGetDriver()
     {
         $driver = $this->adapter->getDriver();
-        $this->assertInstanceOf('Soluble\Japha\Bridge\Driver\AbstractDriver', $driver);
+        self::assertInstanceOf('Soluble\Japha\Bridge\Driver\AbstractDriver', $driver);
     }
 
     public function testDate()
@@ -70,14 +70,14 @@ class AdapterUsageDateTest extends TestCase
         $formatter->setTimeZone($tz);
 
         $first = $formatter->format($ba->java('java.util.Date', 0));
-        $this->assertEquals('1970-01-01 00:00', $first);
+        self::assertEquals('1970-01-01 00:00', $first);
 
         $systemJavaTz = (string) $formatter->getTimeZone()->getId();
 
         $dateTime = new \DateTime(null, new \DateTimeZone($systemJavaTz));
 
         $now = $formatter->format($ba->java('java.util.Date'));
-        $this->assertEquals($dateTime->format('Y-m-d H:i'), $now);
+        self::assertEquals($dateTime->format('Y-m-d H:i'), $now);
 
         // Step 2: Check with system php timezone
 
@@ -90,7 +90,7 @@ class AdapterUsageDateTest extends TestCase
         $dateTime = new \DateTime(null);
 
         $now = $formatter->format($ba->java('java.util.Date'));
-        $this->assertEquals($dateTime->format('Y-m-d H:i'), $now);
+        self::assertEquals($dateTime->format('Y-m-d H:i'), $now);
 
         // Step 3: Different Timezones (europe/london and europe/paris -> 1 hour difference)
 
@@ -107,11 +107,11 @@ class AdapterUsageDateTest extends TestCase
         $date = $formatter->parse($reference_date);
         $formatter->setTimeZone($ba->javaClass('java.util.TimeZone')->getTimezone('Europe/London'));
         $javaDate = (string) $formatter->format($date);
-        $this->assertNotEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
-        $this->assertEquals($reference_date, $phpDate->format('Y-m-d H:i:s'));
+        self::assertNotEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
+        self::assertEquals($reference_date, $phpDate->format('Y-m-d H:i:s'));
 
         $phpDate->sub(new \DateInterval('PT1H'));
-        $this->assertEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
+        self::assertEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
     }
 
     public function testSqlDate()
@@ -133,7 +133,7 @@ class AdapterUsageDateTest extends TestCase
         $sqlDate = $ba->java('java.sql.Date', $javaDate->getTime());
 
         $newDate = $sqlDate->valueOf('2012-11-07');
-        $this->assertEquals((string) $newDate->toString(), (string) $sqlDate->toString());
+        self::assertEquals((string) $newDate->toString(), (string) $sqlDate->toString());
     }
 
     public function testDateStrToTimeMilliseconds()
@@ -154,19 +154,19 @@ class AdapterUsageDateTest extends TestCase
             $phpMilli = (strtotime($date) * 1000);
             $jDate = $ba->java('java.util.Date', $phpMilli);
             $formattedDate = (string) $simpleDateFormat->format($jDate);
-            $this->assertEquals($date, $formattedDate);
+            self::assertEquals($date, $formattedDate);
         }
 
         // When strtotime fails
 
         $faultyDate = '2012-12-34 23:59:59';
         $phpMilli = (strtotime($faultyDate) * 1000);
-        $this->assertEquals(0, $phpMilli);
+        self::assertEquals(0, $phpMilli);
         $jDate = $ba->java('java.util.Date', $phpMilli);
         // To limit issues with different timezones
         // just check the date part
         $dateFormatter = $ba->java('java.text.SimpleDateFormat', 'yyyy-MM-dd');
-        $this->assertEquals('1970-01-01', (string) $dateFormatter->format($jDate));
+        self::assertEquals('1970-01-01', (string) $dateFormatter->format($jDate));
     }
 
     public function testDateWithDateTime()
@@ -190,8 +190,8 @@ class AdapterUsageDateTest extends TestCase
 
             $parsedJavaDate = $jDateFormatter->parse($value);
 
-            $this->assertEquals($value, (string) $jDateFormatter->format($javaDate));
-            $this->assertEquals($value, (string) $jDateFormatter->format($parsedJavaDate));
+            self::assertEquals($value, (string) $jDateFormatter->format($javaDate));
+            self::assertEquals($value, (string) $jDateFormatter->format($parsedJavaDate));
         }
     }
 
@@ -207,14 +207,14 @@ class AdapterUsageDateTest extends TestCase
         $formatter->setTimeZone($tz);
 
         $first = $formatter->format($ba->java('java.util.Date', 0));
-        $this->assertEquals('1970-01-01 00:00', $first);
+        self::assertEquals('1970-01-01 00:00', $first);
 
         $systemJavaTz = (string) $formatter->getTimeZone()->getId();
 
         $dateTime = new \DateTime(null, new \DateTimeZone($systemJavaTz));
 
         $now = $formatter->format($ba->java('java.util.Date'));
-        $this->assertEquals($dateTime->format('Y-m-d H:i'), $now);
+        self::assertEquals($dateTime->format('Y-m-d H:i'), $now);
 
         // Step 2: Check with system php timezone
 
@@ -227,7 +227,7 @@ class AdapterUsageDateTest extends TestCase
         $dateTime = new \DateTime(null);
 
         $now = $formatter->format($ba->java('java.util.Date'));
-        $this->assertEquals($dateTime->format('Y-m-d H:i'), $now);
+        self::assertEquals($dateTime->format('Y-m-d H:i'), $now);
 
         // Step 3: Different Timezones (europe/london and europe/paris -> 1 hour difference)
 
@@ -244,10 +244,10 @@ class AdapterUsageDateTest extends TestCase
         $date = $formatter->parse($reference_date);
         $formatter->setTimeZone($ba->javaClass('java.util.TimeZone')->getTimezone('Europe/London'));
         $javaDate = (string) $formatter->format($date);
-        $this->assertNotEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
-        $this->assertEquals($reference_date, $phpDate->format('Y-m-d H:i:s'));
+        self::assertNotEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
+        self::assertEquals($reference_date, $phpDate->format('Y-m-d H:i:s'));
 
         $phpDate->sub(new \DateInterval('PT1H'));
-        $this->assertEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
+        self::assertEquals($phpDate->format('Y-m-d H:i:s'), $javaDate);
     }
 }

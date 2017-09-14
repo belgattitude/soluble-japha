@@ -90,8 +90,8 @@ class CoreNLPTest extends TestCase
             // $results[$idx]['lemmas'] = $driver->values($sentence->lemmas()->toArray()),
         }
 
-        $this->assertEquals('add your text here!', $results[0]['sentence']);
-        $this->assertEquals('Hello world.', $results[2]['sentence']);
-        $this->assertEquals('Hello', $results[2]['words'][0]);
+        self::assertEquals('add your text here!', $results[0]['sentence']);
+        self::assertEquals('Hello world.', $results[2]['sentence']);
+        self::assertEquals('Hello', $results[2]['words'][0]);
     }
 }

@@ -52,9 +52,9 @@ class JavaTest extends TestCase
     {
         try {
             $ret = new Java('java.lang.String', null);
-            $this->assertFalse(true, 'Should throw a NullPointerException');
+            self::assertFalse(true, 'Should throw a NullPointerException');
         } catch (JavaException $e) {
-            $this->assertContains('NullPointerException', $e->getMessage());
+            self::assertContains('NullPointerException', $e->getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ class JavaTest extends TestCase
         $tmpFile = tmpfile();
         fwrite($tmpFile, 'COOL');
         $str = new Java('java.lang.String', $tmpFile);
-        $this->assertEquals('', (string) $str);
+        self::assertEquals('', (string) $str);
     }
 
     public function testConstructArgTypePHPObject()

@@ -55,10 +55,10 @@ class JavaProxyTest extends TestCase
 
         $string = new Java('java.lang.String', 'Hello');
         $javaProxy = new JavaProxy($string->get__java(), $string->get__signature());
-        $this->assertEquals('Hello', $javaProxy->__toString());
+        self::assertEquals('Hello', $javaProxy->__toString());
 
-        $this->assertEquals($string->get__signature(), $javaProxy->get__signature());
-        $this->assertEquals($string->get__java(), $javaProxy->get__java());
-        $this->assertEquals($javaProxy->__getJavaInternalObjectId(), $javaProxy->get__java());
+        self::assertEquals($string->get__signature(), $javaProxy->get__signature());
+        self::assertEquals($string->get__java(), $javaProxy->get__java());
+        self::assertEquals($javaProxy->__getJavaInternalObjectId(), $javaProxy->get__java());
     }
 }

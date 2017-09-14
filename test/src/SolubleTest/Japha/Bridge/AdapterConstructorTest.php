@@ -83,7 +83,7 @@ class AdapterConstructorTest extends TestCase
         ]);
 
         $javaTz = $ba->getSystem()->getTimeZoneId();
-        $this->assertEquals('Europe/London', $javaTz);
+        self::assertEquals('Europe/London', $javaTz);
     }
 
     public function testConstructorWithDefaultriver()
@@ -93,7 +93,7 @@ class AdapterConstructorTest extends TestCase
         ]);
 
         $driverClass = get_class($ba->getDriver());
-        $this->assertEquals(Pjb62Driver::class, $driverClass);
+        self::assertEquals(Pjb62Driver::class, $driverClass);
     }
 
     public function testConstructorSetsInvalidDefaultTimeZoneThrowsException()
@@ -153,23 +153,23 @@ class AdapterConstructorTest extends TestCase
         // The current Timezone default should be the same
         // as the one returned by an external thread
         $getThread1 = trim(exec("$get_cmd"));
-        $this->assertEquals($originalTz, $getThread1);
+        self::assertEquals($originalTz, $getThread1);
 
         // Setting the default timezone in this process
         $system->getTimeZone()->setDefault('Europe/London');
-        $this->assertEquals('Europe/London', (string) $system->getTimeZone()->getDefault($enableCache)->getID());
+        self::assertEquals('Europe/London', (string) $system->getTimeZone()->getDefault($enableCache)->getID());
 
         // External processes will retrieve the same timezone
         $getThread2 = trim(exec("$get_cmd"));
-        $this->assertEquals('Europe/London', $getThread2);
+        self::assertEquals('Europe/London', $getThread2);
 
         // Set timezone from an external process
         $setThread1 = trim(exec("$set_cmd Europe/Paris"));
-        $this->assertEquals('Europe/Paris', $setThread1);
-        $this->assertEquals('Europe/Paris', (string) $system->getTimeZone()->getDefault($enableCache)->getID());
+        self::assertEquals('Europe/Paris', $setThread1);
+        self::assertEquals('Europe/Paris', (string) $system->getTimeZone()->getDefault($enableCache)->getID());
 
         $getThread3 = trim(exec("$get_cmd"));
-        $this->assertEquals('Europe/Paris', $getThread3);
+        self::assertEquals('Europe/Paris', $getThread3);
     }
     */
 }

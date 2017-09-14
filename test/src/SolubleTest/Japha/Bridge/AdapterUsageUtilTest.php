@@ -60,9 +60,9 @@ class AdapterUsageUtilTest extends TestCase
         foreach ($elements as $element) {
             $set->add($element);
         }
-        $this->assertEquals(count($elements), $set->size());
-        $this->assertTrue($set->contains('one'));
-        $this->assertFalse($set->contains('four'));
+        self::assertEquals(count($elements), $set->size());
+        self::assertTrue($set->contains('one'));
+        self::assertFalse($set->contains('four'));
     }
 
     public function testTreeSet()
@@ -74,8 +74,8 @@ class AdapterUsageUtilTest extends TestCase
             $set->add($number);
         }
         $treeSet = $ba->java('java.util.TreeSet', $set);
-        $this->assertEquals(8, $treeSet->first()->intValue());
-        $this->assertEquals(200, $treeSet->last()->intValue());
+        self::assertEquals(8, $treeSet->first()->intValue());
+        self::assertEquals(200, $treeSet->last()->intValue());
     }
 
     public function testEnum()
@@ -83,15 +83,15 @@ class AdapterUsageUtilTest extends TestCase
         $ba = $this->adapter;
         $formatStyle = $ba->javaClass('java.time.format.FormatStyle');
 
-        $this->assertEquals('LONG', $formatStyle->LONG);
-        $this->assertNotEquals('LONG', $formatStyle->SHORT);
+        self::assertEquals('LONG', $formatStyle->LONG);
+        self::assertNotEquals('LONG', $formatStyle->SHORT);
 
         $availableStyles = $formatStyle->values();
         $styles = [];
         foreach ($availableStyles as $style) {
             $styles[] = (string) $style->toString();
         }
-        $this->assertArraySubset(['FULL', 'LONG', 'MEDIUM', 'SHORT'], $styles);
+        self::assertArraySubset(['FULL', 'LONG', 'MEDIUM', 'SHORT'], $styles);
     }
 
     public function testEnumSet()
@@ -101,9 +101,9 @@ class AdapterUsageUtilTest extends TestCase
 
         $enumSet = $ba->javaClass('java.util.EnumSet');
         $set = $enumSet->of($formatStyle->LONG);
-        $this->assertEquals('[LONG]', (string) $set->toString());
+        self::assertEquals('[LONG]', (string) $set->toString());
 
         $sets = $enumSet->of($formatStyle->LONG, $formatStyle->SHORT);
-        $this->assertEquals('[LONG, SHORT]', (string) $sets->toString());
+        self::assertEquals('[LONG, SHORT]', (string) $sets->toString());
     }
 }

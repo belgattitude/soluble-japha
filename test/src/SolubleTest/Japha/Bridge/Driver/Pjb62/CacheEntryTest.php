@@ -58,9 +58,9 @@ class CacheEntryTest extends TestCase
 
         $ce = new CacheEntry($fmt, $signature, $factory, $resultVoid);
 
-        $this->assertEquals($fmt, $ce->fmt);
-        $this->assertEquals($signature, $ce->signature);
-        $this->assertEquals($factory, $ce->factory);
-        $this->assertEquals(true, $ce->resultVoid);
+        self::assertEquals($fmt, $ce->fmt);
+        self::assertEquals($signature, $ce->signature);
+        self::assertEquals($factory, $ce->factory);
+        self::assertEquals(true, $ce->resultVoid);
     }
 }

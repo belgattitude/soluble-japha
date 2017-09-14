@@ -69,7 +69,7 @@ class JDBCPerformanceTest extends TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            $this->assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+            self::assertFalse(true, 'Cannot connect: ' . $e->getMessage());
         }
 
         $stmt = $conn->createStatement();
@@ -83,7 +83,7 @@ class JDBCPerformanceTest extends TestCase
 
         $titles = (array) $ba->getDriver()->values($list); // 1 round trip
 
-        $this->assertContains('Jack', $titles);
+        self::assertContains('Jack', $titles);
 
         if (!$ba->isNull($rs)) {
             $rs->close();
@@ -103,7 +103,7 @@ class JDBCPerformanceTest extends TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            $this->assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+            self::assertFalse(true, 'Cannot connect: ' . $e->getMessage());
         }
 
         $stmt = $conn->createStatement();
@@ -117,9 +117,9 @@ class JDBCPerformanceTest extends TestCase
 
         $titles = (array) $ba->getDriver()->values($list); // 1 round trip
 
-        $this->assertContains('Accessoires', $titles);
-        $this->assertArrayHasKey('PIAC', $titles);
-        $this->assertEquals('Accessoires', $titles['PIAC']);
+        self::assertContains('Accessoires', $titles);
+        self::assertArrayHasKey('PIAC', $titles);
+        self::assertEquals('Accessoires', $titles['PIAC']);
 
         if (!$ba->isNull($rs)) {
             $rs->close();

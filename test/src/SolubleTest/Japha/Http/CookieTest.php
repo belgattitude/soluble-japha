@@ -24,7 +24,7 @@ class CookieTest extends TestCase
         $cookieString = Cookie::getCookiesHeaderLine($cookies);
 
         $urlDecodedString = urldecode($cookieString);
-        $this->assertEquals($expectedString, $urlDecodedString, 'test that cookie was correctly serialized');
+        self::assertEquals($expectedString, $urlDecodedString, 'test that cookie was correctly serialized');
     }
 
     public function cookiesProvider()

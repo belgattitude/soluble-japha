@@ -60,7 +60,7 @@ class GsonTest extends TestCase
         $gson = $ba->java('com.google.gson.Gson');
         $jsonString = $gson->toJson($ba->java('java.lang.String', 'Héllo'));
 
-        $this->assertEquals('"Héllo"', (string) $jsonString);
+        self::assertEquals('"Héllo"', (string) $jsonString);
     }
 
     public function testObjectJsonSerialization()
@@ -86,9 +86,9 @@ class GsonTest extends TestCase
         //     "integer":1
         //   }
 
-        $this->assertJson($jsonString);
+        self::assertJson($jsonString);
         $decoded = json_decode($jsonString);
-        $this->assertEquals('Java Héllo', $decoded->javastring);
+        self::assertEquals('Java Héllo', $decoded->javastring);
     }
 
     protected function isGSONTestsEnabled()
