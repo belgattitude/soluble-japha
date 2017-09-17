@@ -9,7 +9,9 @@ matrix:
         - CS_CHECKS=true
         - SEND_COVERAGE=true
     - php: 7.2
-    - php: hhvm-3.12
+    - php: hhvm-3.21
+  allow_failures:
+    - php: hhvm-3.21
 
 before_script:
   - java -version
