@@ -42,7 +42,6 @@ before_script:
     
 script:
   - ./vendor/bin/phpunit -c .travis/phpunit.travis.xml -v --coverage-clover=coverage.xml
-  - if [[ $HHVM != true ]]; then hhvm -d hhvm.php7.all=1 ./vendor/bin/phpunit -c .travis/phpunit.travis.xml -v --coverage-clover=coverage.xml fi;
   - if [[ $CS_CHECKS == true ]]; then ./vendor/bin/php-cs-fixer --diff --dry-run -v fix; fi
   - composer phpstan
 
