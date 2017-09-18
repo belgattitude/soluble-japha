@@ -3,18 +3,25 @@ sudo: required
 dist: trusty
 
 matrix:
+  fast_finish: true
   include:
     - php: 7.1
       env:
         - CS_CHECKS=true
         - SEND_COVERAGE=true
     - php: 7.2
-    - php: hhvm-3.20
+    - php: nightly
+    - php: hhvm-nightly
   allow_failures:
-    - php: hhvm-3.20
+    - php: nightly
+    - php: hhvm-nightly
 
 before_script:
+  # Debug Java version
   - java -version
+  # Enable HHVM config
+  - echo "hhvm.php7.all = 1" > php.ini
+  - echo "hhvm.hack.lang.look_for_typechecker = 0" >> php.ini
   # Creating the test database
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
   - mysql -e "create database phpunit_soluble_test_db;" -uroot
@@ -34,6 +41,7 @@ before_script:
     
 script:
   - ./vendor/bin/phpunit -c .travis/phpunit.travis.xml -v --coverage-clover=coverage.xml
+  - if [[ $HHVM != true ]]; then hhvm -d hhvm.php7.all=1 ./vendor/bin/phpunit -c .travis/phpunit.travis.xml -v --coverage-clover=coverage.xml fi;
   - if [[ $CS_CHECKS == true ]]; then ./vendor/bin/php-cs-fixer --diff --dry-run -v fix; fi
   - composer phpstan
 
