@@ -22,7 +22,7 @@ class Adapter
     public const DEFAULT_DRIVER = 'pjb62';
 
     /**
-     * @var array
+     * @var string[]
      */
     protected static $registeredDrivers = [
         self::DEFAULT_DRIVER => Pjb62Driver::class
@@ -63,7 +63,7 @@ class Adapter
      * @throws Exception\ConfigurationException
      * @throws Exception\ConnectionException
      *
-     * @param array           $options
+     * @param string[]        $options
      * @param LoggerInterface $logger  any PSR-3 compatible logger
      */
     public function __construct(array $options, LoggerInterface $logger = null)
