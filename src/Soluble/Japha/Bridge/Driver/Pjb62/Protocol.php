@@ -49,6 +49,10 @@ class Protocol
      * @var Client
      */
     public $client;
+
+    /**
+     * @var string
+     */
     public $webContext;
 
     /**
@@ -291,7 +295,7 @@ class Protocol
     /**
      * @return string
      */
-    public function read($size): string
+    public function read(int $size): string
     {
         return $this->handler->read($size);
     }

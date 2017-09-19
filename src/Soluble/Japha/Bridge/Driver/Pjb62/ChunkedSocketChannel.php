@@ -63,10 +63,10 @@ class ChunkedSocketChannel extends SocketChannel
     public function fread(int $size): ?string
     {
         $length = hexdec(fgets($this->peer, $this->recv_size));
-        $data = null;
+        $data = '';
         while ($length > 0) {
             $str = fread($this->peer, $length);
-            if (feof($this->peer)) {
+            if (feof($this->peer) || $str === false) {
                 return null;
             }
             $length -= strlen($str);
@@ -77,7 +77,7 @@ class ChunkedSocketChannel extends SocketChannel
         return $data;
     }
 
-    public function keepAlive()
+    public function keepAlive(): void
     {
         $this->keepAliveSC();
         $this->checkE();

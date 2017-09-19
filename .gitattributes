@@ -20,4 +20,5 @@
 /mkdocs.yml         export-ignore
 /phpcs.yml          export-ignore
 /phpunit.xml.dist   export-ignore
+/psalm.xml          export-ignore
 

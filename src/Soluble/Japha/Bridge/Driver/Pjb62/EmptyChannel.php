@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -83,17 +86,17 @@ class EmptyChannel
         return $this->handler->fread($size);
     }
 
-    public function getKeepAliveA()
+    public function getKeepAliveA(): string
     {
         return '<F p="A" />';
     }
 
-    public function getKeepAliveE()
+    public function getKeepAliveE(): string
     {
         return '<F p="E" />';
     }
 
-    public function getKeepAlive()
+    public function getKeepAlive(): string
     {
         return $this->getKeepAliveE();
     }
@@ -101,13 +104,13 @@ class EmptyChannel
     /**
      * @throws Exception\RuntimeException
      */
-    protected function error()
+    protected function error(): void
     {
         $msg = 'An unchecked exception occured during script execution. Please check the server log files for details.';
         throw new Exception\RuntimeException($msg);
     }
 
-    public function checkA($peer)
+    public function checkA($peer): void
     {
         $val = $this->res[6];
         if ($val != 'A') {
@@ -118,7 +121,7 @@ class EmptyChannel
         }
     }
 
-    public function checkE()
+    public function checkE(): void
     {
         $val = $this->res[6];
         if ($val != 'E') {
@@ -126,24 +129,24 @@ class EmptyChannel
         }
     }
 
-    public function keepAliveS()
+    public function keepAliveS(): void
     {
         $this->res = $this->fread(10);
     }
 
-    public function keepAliveSC()
+    public function keepAliveSC(): void
     {
         $this->res = $this->fread(10);
         $this->fwrite('');
         $this->fread($this->recv_size);
     }
 
-    public function keepAliveH()
+    public function keepAliveH(): void
     {
         $this->res = $this->handler->read(10);
     }
 
-    public function keepAlive()
+    public function keepAlive(): void
     {
         $this->keepAliveH();
         $this->checkE();

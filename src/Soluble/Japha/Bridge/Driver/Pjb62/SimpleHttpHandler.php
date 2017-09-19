@@ -134,25 +134,19 @@ class SimpleHttpHandler extends SocketHandler
         $this->context = sprintf("X_JAVABRIDGE_CONTEXT: %s\r\n", $context);
         $this->protocol->handler = $this->protocol->getSocketHandler();
 
-        $ret = $this->protocol->handler->write($this->protocol->client->sendBuffer);
-        if ($ret === null) {
-            $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
-        }
-        $this->protocol->client->sendBuffer = null;
-        $ret2 = $this->protocol->handler->read(1);
-        if ($ret2 === null) {
-            $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
+        if ($this->protocol->client->sendBuffer !== null) {
+            $ret = $this->protocol->handler->write($this->protocol->client->sendBuffer);
+            if ($ret === null) {
+                $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
+            }
+            $this->protocol->client->sendBuffer = null;
+            $ret2 = $this->protocol->handler->read(1);
         }
     }
 
-    /**
-     * @return string
-     */
-    public function getContextFromCgiEnvironment()
+    public function getContextFromCgiEnvironment(): string
     {
-        $ctx = Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_CONTEXT', $_SERVER);
-
-        return $ctx;
+        return Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_CONTEXT', $_SERVER);
     }
 
     /**
@@ -222,7 +216,7 @@ class SimpleHttpHandler extends SocketHandler
     /**
      * @param int $size
      */
-    public function read(int $size): ?string
+    public function read(int $size): string
     {
         return $this->protocol->getSocketHandler()->read($size);
     }

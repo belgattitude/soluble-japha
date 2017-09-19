@@ -35,7 +35,8 @@
         "phpunit/phpunit": "^6.2",
         "friendsofphp/php-cs-fixer": "^2.6.0",
         "monolog/monolog": "^1.23.0",
-        "phpstan/phpstan": "^0.8.5"
+        "phpstan/phpstan": "^0.8.5",
+        "vimeo/psalm": "^0.3.56"
     },
     "scripts": {
         "check": [
@@ -57,6 +58,6 @@
         "monolog/monolog": "PSR-3 comptatible logger"
     },
     "archive": {
-        "exclude": [".sami.php", "phpstan.neon", "test", "doc", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
+        "exclude": ["psalm.xml", ".sami.php", "phpstan.neon", "test", "doc", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
     }
 }

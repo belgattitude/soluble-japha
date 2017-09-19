@@ -82,7 +82,7 @@ class JavaProxy implements JavaType
     public $__tempGlobalRef;
 
     /**
-     * @param int    $java
+     * @param int $java
      */
     public function __construct($java, ?string $signature)
     {

@@ -50,12 +50,12 @@ class SocketChannelP extends SocketChannel
         parent::__construct($peer, $host, $recv_size, $send_size);
     }
 
-    public function getKeepAlive()
+    public function getKeepAlive(): string
     {
         return $this->getKeepAliveA();
     }
 
-    public function keepAlive()
+    public function keepAlive(): void
     {
         $this->keepAliveS();
         $this->checkA($this->peer);

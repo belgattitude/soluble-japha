@@ -41,6 +41,9 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class CompositeArg extends Arg
 {
+    /**
+     * @var Arg
+     */
     public $parentArg;
 
     /**
@@ -75,17 +78,23 @@ class CompositeArg extends Arg
         $this->idx = $this->counter++;
     }
 
-    public function setIndex($val)
+    /**
+     * @param mixed $val
+     */
+    public function setIndex($val): void
     {
         $this->idx = $val;
     }
 
-    public function linkResult(&$val)
+    /**
+     * @param mixed $val
+     */
+    public function linkResult(&$val): void
     {
         $this->val[$this->idx] = &$val;
     }
 
-    public function setResult($val)
+    public function setResult($val): void
     {
         $this->val[$this->idx] = $this->factory->getProxy($val, $this->signature, $this->exception, true);
         $this->factory = $this->client->simpleFactory;

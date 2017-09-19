@@ -263,7 +263,7 @@ class Client
 
     public function read($size): string
     {
-        $str = $this->protocol->read($size);
+        return $this->protocol->read($size);
     }
 
     public function setDefaultHandler(): void

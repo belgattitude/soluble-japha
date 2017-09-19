@@ -131,7 +131,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $data = '';
         while ($length > 0) {
             $str = fread($this->socket, $length);
-            if (feof($this->socket)) {
+            if (feof($this->socket) || $str === false) {
                 return null;
             }
             $length -= strlen($str);
@@ -161,11 +161,12 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         fclose($this->socket);
     }
 
-    public function read(int $size): ?string
+    public function read(int $size): string
     {
         if (null === $this->headers) {
             $this->parseHeaders();
         }
+
         if (isset($this->headers['http_error'])) {
             $str = null;
             if (isset($this->headers['transfer_chunked'])) {
@@ -180,11 +181,16 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
             } else {
                 $str = fread($this->socket, $this->java_recv_size);
             }
-            $str = $str === false ? '' : $str;
+            $str = ($str === false || $str === null) ? '' : $str;
             $this->shutdownBrokenConnection($str);
         }
 
-        return $this->fread($this->java_recv_size);
+        $response = $this->fread($this->java_recv_size);
+        if ($response === null) {
+            $this->shutdownBrokenConnection('Cannot socket read response from SimpleHttpTunnelHandler');
+        }
+
+        return (string) $response;
     }
 
     protected function getBodyFor($compat, $data)
@@ -300,14 +306,13 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
             $this->context = sprintf("X_JAVABRIDGE_CONTEXT: %s\r\n", $context);
             $this->close();
             $this->protocol->handler = $this->protocol->getSocketHandler();
-            $written = $this->protocol->handler->write($this->protocol->client->sendBuffer);
-            if ($written === null) {
-                $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
-            }
-            $this->protocol->client->sendBuffer = null;
-            $read = $this->protocol->handler->read(1);
-            if ($read === null) {
-                $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
+            if ($this->protocol->client->sendBuffer !== null) {
+                $written = $this->protocol->handler->write($this->protocol->client->sendBuffer);
+                if ($written === null) {
+                    $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
+                }
+                $this->protocol->client->sendBuffer = null;
+                $read = $this->protocol->handler->read(1);
             }
         } else {
             $this->protocol->setSocketHandler(new SocketHandler($this->protocol, $this->getSimpleChannel()));

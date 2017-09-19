@@ -72,9 +72,14 @@ class SocketHandler
      *
      * @return string
      */
-    public function read(int $size): ?string
+    public function read(int $size): string
     {
-        return $this->channel->fread($size);
+        $str = $this->channel->fread($size);
+        if ($str === null) {
+            $this->shutdownBrokenConnection('Cannot read from socket');
+        }
+
+        return $str;
     }
 
     public function fread(int $size): ?string
@@ -86,7 +91,7 @@ class SocketHandler
     {
     }
 
-    public function getKeepAlive()
+    public function getKeepAlive(): string
     {
         return $this->channel->getKeepAlive();
     }
