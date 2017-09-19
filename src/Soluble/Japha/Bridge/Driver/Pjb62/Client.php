@@ -130,6 +130,9 @@ class Client
      */
     public $methodCache = [];
     public $isAsync = 0;
+    /**
+     * @var string|null
+     */
     public $currentCacheKey;
 
     /**
@@ -137,7 +140,14 @@ class Client
      */
     public $currentArgumentsFormat;
     public $cachedJavaPrototype;
+
+    /**
+     * @var string|null
+     */
     public $sendBuffer;
+    /**
+     * @var string|null
+     */
     public $preparedToSendBuffer;
     public $inArgs;
 
@@ -253,7 +263,7 @@ class Client
 
     public function read($size): string
     {
-        return $this->protocol->read($size);
+        $str = $this->protocol->read($size);
     }
 
     public function setDefaultHandler(): void

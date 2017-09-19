@@ -45,7 +45,7 @@ class ArrayProxyFactory extends ProxyFactory
      *
      * @return ArrayProxy
      */
-    public static function create($result, $signature)
+    public static function create($result, ?string $signature): ArrayProxy
     {
         return new ArrayProxy($result, $signature);
     }

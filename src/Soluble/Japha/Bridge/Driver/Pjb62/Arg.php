@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -72,12 +75,18 @@ class Arg
         $this->factory = $client->simpleFactory;
     }
 
-    public function linkResult(&$val)
+    /**
+     * @param mixed $val
+     */
+    public function linkResult(&$val): void
     {
         $this->val = &$val;
     }
 
-    public function setResult($val)
+    /**
+     * @param mixed $val
+     */
+    public function setResult($val): void
     {
         $this->val = &$val;
     }
@@ -87,7 +96,7 @@ class Arg
      *
      * @return JavaType|string
      */
-    public function getResult($wrap)
+    public function getResult(bool $wrap)
     {
         $rc = $this->factory->getProxy($this->val, $this->signature, $this->exception, $wrap);
 
@@ -103,7 +112,7 @@ class Arg
     /**
      * @param SimpleFactory $factory
      */
-    public function setFactory(SimpleFactory $factory)
+    public function setFactory(SimpleFactory $factory): void
     {
         $this->factory = $factory;
     }
@@ -111,12 +120,12 @@ class Arg
     /**
      * @param string $string
      */
-    public function setException($string)
+    public function setException(string $string): void
     {
         $this->exception = $string;
     }
 
-    public function setVoidSignature()
+    public function setVoidSignature(): void
     {
         $this->signature = '@V';
         $key = $this->client->currentCacheKey;
@@ -127,10 +136,7 @@ class Arg
         }
     }
 
-    /**
-     * @param string $signature
-     */
-    public function setSignature($signature)
+    public function setSignature(string $signature): void
     {
         $this->signature = $signature;
         $key = $this->client->currentCacheKey;

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.2.5 (2017-09-19)
+
+### Improved 
+
+- More typehints in internal PJB62 driver.
+
 ## 2.2.4 (2017-09-02)
 
 ### Improved 
