@@ -44,7 +44,7 @@ class IteratorProxyFactory extends ProxyFactory
     /**
      * @return IteratorProxy
      */
-    public static function create($result, $signature): IteratorProxy
+    public static function create($result, ?string $signature): IteratorProxy
     {
         return new IteratorProxy($result, $signature);
     }

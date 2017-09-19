@@ -42,20 +42,17 @@ class ProxyFactory extends SimpleFactory
     /**
      * @return JavaProxy
      */
-    public static function create($result, $signature)
+    public static function create($result, ?string $signature)
     {
         return new JavaProxy($result, $signature);
     }
 
-    /**
-     * @return InternalJava
-     */
-    public function createInternal($proxy)
+    public function createInternal($proxy): InternalJava
     {
         return new InternalJava($proxy);
     }
 
-    public function getProxy($result, $signature, $exception, $wrap)
+    public function getProxy($result, ?string $signature, $exception, ?bool $wrap)
     {
         $proxy = static::create($result, $signature);
         if ($wrap) {

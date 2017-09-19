@@ -57,7 +57,7 @@ class SimpleFactory
     /**
      * @return JavaProxy|JavaType|Exception\InternalException
      */
-    public function getProxy($result, $signature, $exception, $wrap)
+    public function getProxy($result, ?string $signature, $exception, ?bool $wrap)
     {
         return $result;
     }
@@ -65,7 +65,7 @@ class SimpleFactory
     /**
      * @param JavaException $result
      */
-    public function checkResult(JavaException $result)
+    public function checkResult(JavaException $result): void
     {
     }
 }

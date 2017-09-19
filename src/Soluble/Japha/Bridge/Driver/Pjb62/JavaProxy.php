@@ -67,7 +67,7 @@ class JavaProxy implements JavaType
     public $__java;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $__signature;
 
@@ -83,9 +83,8 @@ class JavaProxy implements JavaType
 
     /**
      * @param int    $java
-     * @param string $signature
      */
-    public function __construct($java, $signature)
+    public function __construct($java, ?string $signature)
     {
         $this->__java = $java;
         $this->__signature = $signature;

@@ -55,7 +55,7 @@ class ThrowExceptionProxyFactory extends ExceptionProxyFactory
     /**
      * @return Exception\InternalException
      */
-    public function getProxy($result, $signature, $exception, $wrap): InternalException
+    public function getProxy($result, ?string $signature, $exception, ?bool $wrap): InternalException
     {
         $proxy = static::create($result, $signature);
 

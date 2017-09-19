@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -39,18 +42,12 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 class ExceptionProxyFactory extends SimpleFactory
 {
-    /**
-     * @param Client $client
-     */
     public function __construct(Client $client)
     {
         parent::__construct($client);
     }
 
-    /**
-     * @return ExceptionProxy
-     */
-    public static function create($result, $signature)
+    public static function create($result, $signature): ExceptionProxy
     {
         return new ExceptionProxy($result, $signature);
     }
@@ -58,7 +55,7 @@ class ExceptionProxyFactory extends SimpleFactory
     /**
      * @return JavaProxy|ExceptionProxy|Exception\InternalException
      */
-    public function getProxy($result, $signature, $exception, $wrap)
+    public function getProxy($result, ?string $signature, $exception, ?bool $wrap)
     {
         $proxy = static::create($result, $signature);
         if ($wrap) {
