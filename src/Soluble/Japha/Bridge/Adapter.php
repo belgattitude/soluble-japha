@@ -63,7 +63,7 @@ class Adapter
      * @throws Exception\ConfigurationException
      * @throws Exception\ConnectionException
      *
-     * @param string[]        $options
+     * @param array           $options
      * @param LoggerInterface $logger  any PSR-3 compatible logger
      */
     public function __construct(array $options, LoggerInterface $logger = null)
