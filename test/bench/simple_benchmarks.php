@@ -8,7 +8,7 @@
  * @license   MIT License https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.md
  */
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__.'/../../vendor/autoload.php';
 
 use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
@@ -18,7 +18,7 @@ $bm = new Benchmark();
 
 $start_total_time = $bm->getTimeMs();
 
-echo '<pre>' . PHP_EOL;
+echo '<pre>'.PHP_EOL;
 
 // BENCHING CONNECTION
 $start_connection_time = $bm->getTimeMs();
@@ -34,7 +34,7 @@ try {
     ]);
     $init = $ba->java('java.lang.String');
 } catch (\Exception $e) {
-    die('Error connecting: ' . $e->getMessage());
+    die('Error connecting: '.$e->getMessage());
 }
 $end_connection_time = $bm->getTimeMs();
 $connection_time = $bm->getFormattedTimeMs($start_connection_time, $end_connection_time);
@@ -118,7 +118,7 @@ $bm->time(
     "\$a = `...String->concat('hello')` . ' world'",
     function ($iterations) use ($ba, $jString) {
         for ($i = 0; $i < $iterations; ++$i) {
-            $a = $jString->concat('hello') . ' world';
+            $a = $jString->concat('hello').' world';
         }
     }
 );
@@ -208,7 +208,7 @@ $bm->time(
     'Pure PHP: concat \'$string . "hello"\' ',
     function ($iterations) use (&$phpString) {
         for ($i = 0; $i < $iterations; ++$i) {
-            $phpString = $phpString . 'Hello World';
+            $phpString = $phpString.'Hello World';
         }
     }
 );
@@ -217,8 +217,8 @@ $end_total_time = $bm->getTimeMs();
 $total_time = $bm->getFormattedTimeMs($start_total_time, $end_total_time);
 
 echo PHP_EOL;
-echo '- Connection time: ' . $connection_time . PHP_EOL;
-echo '- Total time     : ' . $total_time . PHP_EOL;
+echo '- Connection time: '.$connection_time.PHP_EOL;
+echo '- Total time     : '.$total_time.PHP_EOL;
 echo PHP_EOL;
 
 class Benchmark
@@ -244,12 +244,12 @@ class Benchmark
     public function time($name, callable $fn)
     {
         if (!$this->tableHeaderPrinted) {
-            echo '| Benchmark name | ' . implode('|', array_map(function ($iter) {
+            echo '| Benchmark name | '.implode('|', array_map(function ($iter) {
                 return " x$iter ";
-            }, $this->iterations)) . '| Average | Memory |' . PHP_EOL;
-            echo '|----| ' . implode('|', array_map(function ($iter) {
+            }, $this->iterations)).'| Average | Memory |'.PHP_EOL;
+            echo '|----| '.implode('|', array_map(function ($iter) {
                 return '----:';
-            }, $this->iterations)) . '|-------:|----:| ' . PHP_EOL;
+            }, $this->iterations)).'|-------:|----:| '.PHP_EOL;
             $this->tableHeaderPrinted = true;
         }
 
@@ -272,11 +272,11 @@ class Benchmark
         $ttime = array_sum($times);
         echo number_format($ttime * 1000, 2);
         */
-        echo  "| $name | " . implode('| ', array_map(function ($time) {
-            return number_format($time * 1000, 2) . 'ms';
-        }, $times)) . '| ' .
-            number_format($avg * 1000, 2) . 'ms| ' .
-            round($memory / 1024, 2) . 'Kb' . '|' . PHP_EOL;
+        echo  "| $name | ".implode('| ', array_map(function ($time) {
+            return number_format($time * 1000, 2).'ms';
+        }, $times)).'| '.
+            number_format($avg * 1000, 2).'ms| '.
+            round($memory / 1024, 2).'Kb'.'|'.PHP_EOL;
     }
 
     /**
@@ -289,7 +289,7 @@ class Benchmark
     {
         $time = $end_time - $start_time;
 
-        return number_format($time, 0, '.', '') . ' ms';
+        return number_format($time, 0, '.', '').' ms';
     }
 
     /**

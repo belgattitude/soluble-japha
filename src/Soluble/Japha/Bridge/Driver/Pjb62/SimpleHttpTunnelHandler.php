@@ -102,7 +102,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         try {
             $streamSocket = new StreamSocket(
                 $this->ssl === 'ssl' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP,
-                $this->host . ':' . $this->port,
+                $this->host.':'.$this->port,
                 self::DEFAULT_CONNECT_TIMEOUT
             );
             $socket = $streamSocket->getSocket();
@@ -227,7 +227,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $compat = PjbProxyClient::getInstance()->getCompatibilityOption($this->protocol->client);
         $this->headers = null; // reset headers
 
-        $request = $this->httpHeadersPayload . "\r\n" . $this->getBodyFor($compat, $data);
+        $request = $this->httpHeadersPayload."\r\n".$this->getBodyFor($compat, $data);
 
         $count = @fwrite($this->socket, $request);
         if ($count === false) {

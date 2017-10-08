@@ -27,7 +27,7 @@ class HelperFunctions
     public static function java_truncate(string $str): string
     {
         if (strlen($str) > 955) {
-            return substr($str, 0, 475) . '[...]' . substr($str, -475);
+            return substr($str, 0, 475).'[...]'.substr($str, -475);
         }
 
         return $str;

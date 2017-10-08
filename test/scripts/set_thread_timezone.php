@@ -8,11 +8,11 @@
  * @license   MIT License https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.md
  */
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__.'/../bootstrap.php';
 
 if ($_SERVER['argc'] != 3) {
-    echo 'This scripts must be run with 2 arguments:' . PHP_EOL;
-    echo ' ./set_thread_timezone.php <servlet_address> <timezone>' . PHP_EOL;
+    echo 'This scripts must be run with 2 arguments:'.PHP_EOL;
+    echo ' ./set_thread_timezone.php <servlet_address> <timezone>'.PHP_EOL;
     exit(1);
 }
 

@@ -115,7 +115,7 @@ class DriverManagerTest extends TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            self::assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+            self::assertFalse(true, 'Cannot connect: '.$e->getMessage());
         }
         $className = $this->adapter->getDriver()->getClassName($conn);
         self::assertTrue(in_array($className, ['com.mysql.jdbc.JDBC4Connection', 'com.mysql.cj.jdbc.ConnectionImpl']));
@@ -129,7 +129,7 @@ class DriverManagerTest extends TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            self::assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+            self::assertFalse(true, 'Cannot connect: '.$e->getMessage());
         }
 
         $stmt = $conn->createStatement();
@@ -156,7 +156,7 @@ class DriverManagerTest extends TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            self::assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+            self::assertFalse(true, 'Cannot connect: '.$e->getMessage());
         }
 
         $stmt = $conn->createStatement();

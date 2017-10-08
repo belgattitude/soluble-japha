@@ -38,7 +38,7 @@ class SolubleTestFactories
                     'port' => $port,
                     'classpaths' => [
                         //__DIR__ . '/resources/mysql-connector-java-5.1.36-bin.jar',
-                        __DIR__ . '/resources/*.jar'
+                        __DIR__.'/resources/*.jar'
                     ]
                 ];
 
@@ -79,7 +79,7 @@ class SolubleTestFactories
     {
         $cache_dir = $_SERVER['PHPUNIT_CACHE_DIR'];
         if (!preg_match('/^\//', $cache_dir)) {
-            $cache_dir = __DIR__ . DIRECTORY_SEPARATOR . $cache_dir;
+            $cache_dir = __DIR__.DIRECTORY_SEPARATOR.$cache_dir;
         }
 
         return $cache_dir;
@@ -90,7 +90,7 @@ class SolubleTestFactories
      */
     public static function getScriptPath()
     {
-        return __DIR__ . DIRECTORY_SEPARATOR . 'scripts';
+        return __DIR__.DIRECTORY_SEPARATOR.'scripts';
     }
 
     public static function getDatabaseConfig()

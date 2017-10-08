@@ -88,13 +88,13 @@ class CookieTest extends TestCase
                 ],
                 // Serialized string
                 'complexArrayCookie[firstNumericItem]=1;'
-                . 'complexArrayCookie[secondBooleanItem]=0;'
-                . 'complexArrayCookie[thirdNullItem]=;'
-                . 'complexArrayCookie[fourthArrayItem][0]=1;'
-                . 'complexArrayCookie[fourthArrayItem][1]=two;'
-                . 'complexArrayCookie[fourthArrayItem][2]=1;'
-                . 'complexArrayCookie[fourthArrayItem][3][0]=ABC;'
-                . 'complexArrayCookie[fourthArrayItem][key]=value'
+                .'complexArrayCookie[secondBooleanItem]=0;'
+                .'complexArrayCookie[thirdNullItem]=;'
+                .'complexArrayCookie[fourthArrayItem][0]=1;'
+                .'complexArrayCookie[fourthArrayItem][1]=two;'
+                .'complexArrayCookie[fourthArrayItem][2]=1;'
+                .'complexArrayCookie[fourthArrayItem][3][0]=ABC;'
+                .'complexArrayCookie[fourthArrayItem][key]=value'
             ],
 
             // scenario: unsupported types
@@ -106,7 +106,7 @@ class CookieTest extends TestCase
                     },
                 ],
                 // Serialized string
-                'dateTimeObject=' . Cookie::UNSUPPORTED_TYPE_VALUE . ';function=' . Cookie::UNSUPPORTED_TYPE_VALUE
+                'dateTimeObject='.Cookie::UNSUPPORTED_TYPE_VALUE.';function='.Cookie::UNSUPPORTED_TYPE_VALUE
             ],
         ];
     }

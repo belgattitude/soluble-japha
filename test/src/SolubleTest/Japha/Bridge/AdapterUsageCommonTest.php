@@ -236,7 +236,7 @@ class AdapterUsageCommonTest extends TestCase
 
         $content = '';
         while (($line = $reader->readLine()) != null) {
-            $content .= (string) $line . PHP_EOL;
+            $content .= (string) $line.PHP_EOL;
         }
         self::assertContains('testFileReader', $content);
     }

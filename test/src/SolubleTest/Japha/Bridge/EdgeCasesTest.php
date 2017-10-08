@@ -85,9 +85,9 @@ class EdgeCasesTest extends TestCase
         echo "\n";
         echo "Debug for java big memory test\n";
         echo "Released memory must be approx equal to initial memory\n";
-        echo '- Initial memory   : ' . number_format($initial_mem, 0, '.', ',') . "\n";
-        echo '- Max memory       : ' . number_format($full_mem, 0, '.', ',') . "\n";
-        echo '- After release    : ' . number_format($released_mem, 0, '.', ',') . "\n";
+        echo '- Initial memory   : '.number_format($initial_mem, 0, '.', ',')."\n";
+        echo '- Max memory       : '.number_format($full_mem, 0, '.', ',')."\n";
+        echo '- After release    : '.number_format($released_mem, 0, '.', ',')."\n";
         echo "\n";
 
         if (defined('HHVM_VERSION')) {

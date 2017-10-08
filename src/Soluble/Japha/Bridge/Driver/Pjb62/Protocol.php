@@ -142,9 +142,6 @@ class Protocol
         return Pjb62Driver::getJavaBridgeHeader('X_JAVABRIDGE_OVERRIDE_HOSTS_REDIRECT', $_SERVER);
     }
 
-    /**
-     * @param SocketHandler $socketHandler
-     */
     public function setSocketHandler(SocketHandler $socketHandler): void
     {
         $this->socketHandler = $socketHandler;

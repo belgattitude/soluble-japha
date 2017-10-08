@@ -69,7 +69,7 @@ class JDBCPerformanceTest extends TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            self::assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+            self::assertFalse(true, 'Cannot connect: '.$e->getMessage());
         }
 
         $stmt = $conn->createStatement();
@@ -103,7 +103,7 @@ class JDBCPerformanceTest extends TestCase
         try {
             $conn = $this->driverManager->createConnection($dsn);
         } catch (\Exception $e) {
-            self::assertFalse(true, 'Cannot connect: ' . $e->getMessage());
+            self::assertFalse(true, 'Cannot connect: '.$e->getMessage());
         }
 
         $stmt = $conn->createStatement();

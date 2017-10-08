@@ -460,7 +460,7 @@ class Client
             default:
                 $this->protocol->handler->shutdownBrokenConnection(
                     sprintf(
-                        'Parser error, check the backend for details, $name: %s, ' .
+                        'Parser error, check the backend for details, $name: %s, '.
                         '$st params: %s',
                         $name,
                         json_encode($st)
@@ -493,8 +493,8 @@ class Client
             $this->protocol->writeString($arg);
         } elseif (is_object($arg)) {
             if (!$arg instanceof JavaType) {
-                $msg = "Client failed to writeArg(), IllegalArgument 'arg:" . get_class($arg) . "' not a Java object, using NULL instead";
-                $this->logger->error("[soluble-japha] $msg (" . __METHOD__ . ')');
+                $msg = "Client failed to writeArg(), IllegalArgument 'arg:".get_class($arg)."' not a Java object, using NULL instead";
+                $this->logger->error("[soluble-japha] $msg (".__METHOD__.')');
                 //trigger_error($msg, E_USER_WARNING);
                 $this->protocol->writeObject(null);
             } else {
@@ -675,7 +675,7 @@ class Client
             $res = call_user_func_array($ob, $res);
             if (is_object($res) && (!($res instanceof JavaType))) {
                 $msg = "Client failed to applyArg(), Object returned from '$name()' is not a Java object";
-                $this->logger->warning("[soluble-japha] $msg (" . __METHOD__ . ')');
+                $this->logger->warning("[soluble-japha] $msg (".__METHOD__.')');
                 trigger_error($msg, E_USER_WARNING);
 
                 $this->protocol->invokeBegin(0, 'makeClosure');
@@ -692,8 +692,8 @@ class Client
             $this->protocol->writeException($e->__java, $trace);
             $this->protocol->resultEnd();
         } catch (\Throwable $ex) {
-            $msg = 'Unchecked exception detected in callback (' . $ex->__toString() . ')';
-            $this->logger->error("[soluble-japha] $msg (" . __METHOD__ . ')');
+            $msg = 'Unchecked exception detected in callback ('.$ex->__toString().')';
+            $this->logger->error("[soluble-japha] $msg (".__METHOD__.')');
             trigger_error($msg, E_USER_WARNING);
             throw new Exception\RuntimeException($msg);
         }

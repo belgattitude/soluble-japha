@@ -8,7 +8,7 @@
  * @license   MIT License https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.md
  */
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__.'/../../vendor/autoload.php';
 
 use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
@@ -19,7 +19,7 @@ try {
         //'servlet_address' => 'localhost:8080/JavaBridgeSpringboot/servlet.phpjavabridge'
     ]);
 } catch (\Exception $e) {
-    die('Error connecting: ' . $e->getMessage());
+    die('Error connecting: '.$e->getMessage());
 }
 
 $iterations = 10;

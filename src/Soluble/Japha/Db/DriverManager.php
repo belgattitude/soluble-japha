@@ -54,7 +54,7 @@ class DriverManager
     {
         if (!is_string($dsn) || trim($dsn) == '') {
             $message = 'DSN param must be a valid (on-empty) string';
-            throw new Exception\InvalidArgumentException(__METHOD__ . ' ' . $message);
+            throw new Exception\InvalidArgumentException(__METHOD__.' '.$message);
         }
 
         $class = $this->ba->javaClass('java.lang.Class');
@@ -105,11 +105,11 @@ class DriverManager
         if (count($options) > 0) {
             $tmp = [];
             foreach ($options as $key => $value) {
-                $tmp[] = urlencode($key) . '=' . urlencode($value);
+                $tmp[] = urlencode($key).'='.urlencode($value);
             }
-            $extras = '&' . implode('&', $tmp);
+            $extras = '&'.implode('&', $tmp);
         }
 
-        return "jdbc:$driver://$host/$db?user=$user&password=$password" . $extras;
+        return "jdbc:$driver://$host/$db?user=$user&password=$password".$extras;
     }
 }

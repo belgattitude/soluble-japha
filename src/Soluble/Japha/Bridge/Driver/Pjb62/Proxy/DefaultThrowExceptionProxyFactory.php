@@ -77,7 +77,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
             $exceptionClass = $this->defaultException;
         }
 
-        $cls = '\\Soluble\\Japha\\Bridge\\Exception\\' . $exceptionClass;
+        $cls = '\\Soluble\\Japha\\Bridge\\Exception\\'.$exceptionClass;
 
         // Public message, mask any login/passwords
         $message = preg_replace('/user=([^&\ ]+)|password=([^&\ ]+)/', '****', $message);

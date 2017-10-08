@@ -167,8 +167,8 @@ class JavaProxy implements JavaType
         try {
             return (string) $this->__client->invokeMethod(0, 'ObjectToString', [$this]);
         } catch (Exception\JavaException $ex) {
-            $msg = 'Exception in Java::__toString(): ' . HelperFunctions::java_truncate((string) $ex);
-            $this->__client->getLogger()->warning("[soluble-japha] $msg (" . __METHOD__ . ')');
+            $msg = 'Exception in Java::__toString(): '.HelperFunctions::java_truncate((string) $ex);
+            $this->__client->getLogger()->warning("[soluble-japha] $msg (".__METHOD__.')');
             trigger_error($msg, E_USER_WARNING);
 
             return '';

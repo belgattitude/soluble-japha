@@ -180,7 +180,7 @@ class SimpleHttpHandler extends SocketHandler
 
         return ($this->java_servlet == 'User' &&
                 array_key_exists('PHP_SELF', $_SERVER) &&
-                array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . 'javabridge' : null;
+                array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'].'javabridge' : null;
     }
 
     public function getWebApp(): string
@@ -228,7 +228,7 @@ class SimpleHttpHandler extends SocketHandler
         try {
             $streamSocket = new StreamSocket(
                 $this->ssl === 'ssl' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP,
-                $this->host . ':' . $channelName,
+                $this->host.':'.$channelName,
                 self::DEFAULT_CONNECT_TIMEOUT,
                 [],
                 true

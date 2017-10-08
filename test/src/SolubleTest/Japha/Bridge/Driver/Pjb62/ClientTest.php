@@ -15,7 +15,6 @@ use Soluble\Japha\Bridge\Adapter;
 use Soluble\Japha\Bridge\Driver\Pjb62\Client;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
 use PHPUnit\Framework\TestCase;
-use Soluble\Japha\Bridge\Driver\Pjb62\Protocol;
 
 class ClientTest extends TestCase
 {
@@ -73,7 +72,6 @@ class ClientTest extends TestCase
         self::assertSame(8192, $client->java_recv_size);
         self::assertSame('ISO-8859-1', $client->getParam(Client::PARAM_JAVA_INTERNAL_ENCODING));
         self::assertInstanceOf(NullLogger::class, $client->getLogger());
-        //self::assertEquals($params, $client->getParams());
         self::assertEquals($conn['servlet_host'], $client->getServerName());
         $enc = $this->client->getParam(Client::PARAM_JAVA_INTERNAL_ENCODING);
         self::assertEquals('UTF-8', $enc);
@@ -119,18 +117,5 @@ class ClientTest extends TestCase
 
         $client = new Client($params, new NullLogger());
         $client->setExitCode(1);
-        /*
-        $clientMock = $this->getMockBuilder(Client::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-
-        $protocolStub = $this->prophesize(Protocol::class);
-        $protocolStub->writeExitCode()->shouldBeCalled();
-        $protocolStub->writeExitCode();
-
-        $clientMock->protocol = $protocolStub;
-        $clientMock->setExitCode(0);
-        */
     }
 }

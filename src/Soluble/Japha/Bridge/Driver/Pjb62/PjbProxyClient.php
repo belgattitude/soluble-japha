@@ -163,7 +163,7 @@ class PjbProxyClient implements ClientInterface
         if (self::$instance === null) {
             if ($options === null) {
                 throw new Exception\InvalidUsageException(
-                    'Cannot instanciate PjbProxyClient without "$options" the first time, ' .
+                    'Cannot instanciate PjbProxyClient without "$options" the first time, '.
                     'or the instance have been unregistered since'
                 );
             }
@@ -196,7 +196,7 @@ class PjbProxyClient implements ClientInterface
             $options = $this->options;
 
             if (!isset($options['servlet_address'])) {
-                throw new Exception\InvalidArgumentException(__METHOD__ . ' Missing required parameter servlet_address');
+                throw new Exception\InvalidArgumentException(__METHOD__.' Missing required parameter servlet_address');
             }
 
             $connection = static::parseServletUrl($options['servlet_address']);
@@ -322,7 +322,7 @@ class PjbProxyClient implements ClientInterface
             // Will eventually throws ClassNotFoundException
             $class = $this->getJavaClass($name);
         } elseif (!$class instanceof Interfaces\JavaObject) {
-            throw new Exception\InvalidArgumentException(__METHOD__ . 'Class $class parameter must be of Interfaces\JavaClass, Interfaces\JavaObject or string');
+            throw new Exception\InvalidArgumentException(__METHOD__.'Class $class parameter must be of Interfaces\JavaClass, Interfaces\JavaObject or string');
         }
 
         return self::getClient()->invokeMethod(0, 'instanceOf', [$object, $class]);
@@ -436,7 +436,7 @@ class PjbProxyClient implements ClientInterface
         $url = parse_url($servlet_address);
 
         if ($url === false || !isset($url['host'])) {
-            throw new Exception\InvalidArgumentException(__METHOD__ . " Cannot parse url '$servlet_address'");
+            throw new Exception\InvalidArgumentException(__METHOD__." Cannot parse url '$servlet_address'");
         }
 
         $scheme = '';

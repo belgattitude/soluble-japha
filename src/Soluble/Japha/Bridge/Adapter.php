@@ -78,7 +78,7 @@ class Adapter
         $driver_class = self::$registeredDrivers[$driver] ?? null;
 
         if ($driver_class === null) {
-            throw new Exception\UnsupportedDriverException(__METHOD__ . " Driver '$driver' is not supported");
+            throw new Exception\UnsupportedDriverException(__METHOD__." Driver '$driver' is not supported");
         }
 
         $this->driver = new $driver_class($options, $logger);

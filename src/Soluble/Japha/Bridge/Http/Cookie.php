@@ -41,7 +41,7 @@ class Cookie
             $cookieParts[] = self::serializePHPCookies($k, $v);
         }
 
-        return 'Cookie: ' . implode(';', $cookieParts);
+        return 'Cookie: '.implode(';', $cookieParts);
     }
 
     /**
@@ -67,7 +67,7 @@ class Cookie
 
             case 'array':
                 foreach ($cookieValue as $cookieValueKey => $cookieValueValue) {
-                    $cookieParts[] = self::serializePHPCookies($cookieName . "[$cookieValueKey]", $cookieValueValue);
+                    $cookieParts[] = self::serializePHPCookies($cookieName."[$cookieValueKey]", $cookieValueValue);
                 }
                 break;
 
@@ -76,14 +76,14 @@ class Cookie
                 break;
 
             case 'boolean':
-                $cookieParts[] = "$urlEncodedCookieName=" . ($cookieValue ? '1' : '0');
+                $cookieParts[] = "$urlEncodedCookieName=".($cookieValue ? '1' : '0');
                 break;
 
             // It's a security risk to serialize an object and send it as a cookie
             case 'object':
                 // Intentional fallthrough
             default:
-                $cookieParts[] = "$urlEncodedCookieName=" . self::UNSUPPORTED_TYPE_VALUE;
+                $cookieParts[] = "$urlEncodedCookieName=".self::UNSUPPORTED_TYPE_VALUE;
                 break;
         }
 

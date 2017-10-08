@@ -72,9 +72,9 @@ class ThrowExceptionProxyFactory extends ExceptionProxyFactory
         if (PjbProxyClient::getInstance()->getOption('java_prefer_values') || ($result->__hasDeclaredExceptions === 'T')) {
             throw $result;
         } else {
-            $msg = 'Unchecked exception detected: ' . HelperFunctions::java_truncate($result->__toString());
+            $msg = 'Unchecked exception detected: '.HelperFunctions::java_truncate($result->__toString());
             // Log error
-            $this->client->getLogger()->critical("[soluble-japha] $msg (" . __METHOD__ . ')');
+            $this->client->getLogger()->critical("[soluble-japha] $msg (".__METHOD__.')');
             trigger_error($msg, E_USER_WARNING);
         }
     }

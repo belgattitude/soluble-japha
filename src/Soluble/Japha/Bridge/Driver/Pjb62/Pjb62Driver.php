@@ -67,11 +67,11 @@ class Pjb62Driver extends AbstractDriver
         } catch (Exception\ConnectionException $e) {
             $address = $options['servlet_address'];
             $msg = "Cannot connect to php-java-bridge server on '$address', server didn't respond.";
-            $this->logger->critical("[soluble-japha] $msg (" . $e->getMessage() . ')');
+            $this->logger->critical("[soluble-japha] $msg (".$e->getMessage().')');
             throw $e;
         } catch (Exception\InvalidArgumentException $e) {
             $msg = 'Invalid arguments, cannot initiate connection to java-bridge.';
-            $this->logger->error("[soluble-japha] $msg (" . $e->getMessage() . ')');
+            $this->logger->error("[soluble-japha] $msg (".$e->getMessage().')');
             throw $e;
         }
     }
@@ -376,7 +376,7 @@ class Pjb62Driver extends AbstractDriver
         $matches = [];
         preg_match('/^\[class (.+)\:/', $inspect, $matches);
         if (!isset($matches[1]) || $matches[1] == '') {
-            throw new Exception\UnexpectedException(__METHOD__ . ' Cannot determine class name');
+            throw new Exception\UnexpectedException(__METHOD__.' Cannot determine class name');
         }
 
         return $matches[1];

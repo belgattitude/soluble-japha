@@ -8,10 +8,10 @@
  * @license   MIT License https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.md
  */
 
-if (!$loader = @include __DIR__ . '/../vendor/autoload.php') {
-    die('You must set up the project dependencies, run the following commands:' . PHP_EOL .
-            'curl -s http://getcomposer.org/installer | php' . PHP_EOL .
-            'php composer.phar install' . PHP_EOL);
+if (!$loader = @include __DIR__.'/../vendor/autoload.php') {
+    die('You must set up the project dependencies, run the following commands:'.PHP_EOL.
+            'curl -s http://getcomposer.org/installer | php'.PHP_EOL.
+            'php composer.phar install'.PHP_EOL);
 }
 
 ini_set('display_errors', 'true');
@@ -23,4 +23,4 @@ if (defined('HHVM_VERSION')) {
     ini_set('memory_limit', '384M');
 }
 
-$loader = require __DIR__ . '/../vendor/autoload.php';
+$loader = require __DIR__.'/../vendor/autoload.php';
