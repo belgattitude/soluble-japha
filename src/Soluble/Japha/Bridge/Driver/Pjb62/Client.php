@@ -47,6 +47,32 @@ use Soluble\Japha\Bridge\Driver\Pjb62\Utils\HelperFunctions;
 
 class Client
 {
+    public const PARAM_JAVA_HOSTS = 'JAVA_HOSTS';
+    public const PARAM_JAVA_SERVLET = 'JAVA_SERVLET';
+    public const PARAM_JAVA_AUTH_USER = 'JAVA_AUTH_USER';
+    public const PARAM_JAVA_AUTH_PASSWORD = 'JAVA_AUTH_PASSWORD';
+    public const PARAM_JAVA_DISABLE_AUTOLOAD = 'JAVA_DISABLE_AUTOLOAD';
+    public const PARAM_JAVA_PREFER_VALUES = 'JAVA_PREFER_VALUES';
+    public const PARAM_JAVA_SEND_SIZE = 'JAVA_SEND_SIZE';
+    public const PARAM_JAVA_RECV_SIZE = 'JAVA_RECV_SIZE';
+    public const PARAM_JAVA_LOG_LEVEL = 'JAVA_LOG_LEVEL';
+    public const PARAM_JAVA_INTERNAL_ENCODING = 'JAVA_INTERNAL_ENCODING';
+    public const PARAM_XML_PARSER_FORCE_SIMPLE_PARSER = 'XML_PARSER_FORCE_SIMPLE_PARSER';
+
+    public const DEFAULT_PARAMS = [
+        self::PARAM_JAVA_HOSTS => 'localhost',
+        self::PARAM_JAVA_SERVLET => 'JavaBridge/servlet.phpjavabridge',
+        self::PARAM_JAVA_AUTH_USER => null,
+        self::PARAM_JAVA_AUTH_PASSWORD => null,
+        self::PARAM_JAVA_DISABLE_AUTOLOAD => true,
+        self::PARAM_JAVA_PREFER_VALUES => true,
+        self::PARAM_JAVA_SEND_SIZE => 8192,
+        self::PARAM_JAVA_RECV_SIZE => 8192,
+        self::PARAM_JAVA_LOG_LEVEL => null,
+        self::PARAM_JAVA_INTERNAL_ENCODING => 'UTF-8',
+        self::PARAM_XML_PARSER_FORCE_SIMPLE_PARSER => false
+    ];
+
     /**
      * @var array
      */
@@ -192,16 +218,6 @@ class Client
     public $java_send_size;
 
     /**
-     * @var int
-     */
-    protected $default_buffer_size = 8192;
-
-    /**
-     * @var string
-     */
-    protected $internal_encoding = 'UTF-8';
-
-    /**
      * @var LoggerInterface
      */
     protected $logger;
@@ -211,27 +227,15 @@ class Client
      */
     public function __construct(ArrayObject $params, LoggerInterface $logger)
     {
-        $this->params = $params;
+        $this->params = new ArrayObject(array_merge(self::DEFAULT_PARAMS, (array) $params));
+
         $this->logger = $logger;
 
-        if (array_key_exists('JAVA_SEND_SIZE', $params) && $params['JAVA_SEND_SIZE'] != 0) {
-            $this->java_send_size = $params['JAVA_SEND_SIZE'];
-        } else {
-            $this->java_send_size = $this->default_buffer_size;
-        }
+        $this->java_send_size = $this->params[self::PARAM_JAVA_SEND_SIZE];
+        $this->java_recv_size = $this->params[self::PARAM_JAVA_RECV_SIZE];
 
-        if (array_key_exists('JAVA_RECV_SIZE', $params) && $params['JAVA_RECV_SIZE'] != 0) {
-            $this->java_recv_size = $params['JAVA_RECV_SIZE'];
-        } else {
-            $this->java_recv_size = $this->default_buffer_size;
-        }
-
-        if (isset($params['internal_encoding'])) {
-            $this->internal_encoding = $params['internal_encoding'];
-        }
-
-        $this->java_hosts = $params['JAVA_HOSTS'];
-        $this->java_servlet = $params['JAVA_SERVLET'];
+        $this->java_hosts = $this->params['JAVA_HOSTS'];
+        $this->java_servlet = $this->params['JAVA_SERVLET'];
 
         $this->RUNTIME = [];
         $this->RUNTIME['NOTICE'] = '***USE echo $adapter->getDriver()->inspect(jVal) OR print_r($adapter->values(jVal)) TO SEE THE CONTENTS OF THIS JAVA OBJECT!***';
@@ -401,9 +405,9 @@ class Client
                 array_push($this->stack, $this->arg = $newArg);
                 break;
             case 'P':
-                if ($arg->type == 'H') {
+                if ($arg->type === 'H') {
                     $s = $st['t'];
-                    if ($s[0] == 'N') {
+                    if ($s[0] === 'N') {
                         $arg->setIndex($this->getExact($st['v']));
                     } else {
                         $arg->setIndex($this->parser->getData($st['v']));
@@ -417,12 +421,12 @@ class Client
                 break;
             case 'B':
                 $s = $st['v'];
-                $arg->setResult($s[0] == 'T');
+                $arg->setResult($s[0] === 'T');
                 break;
             case 'L':
                 $sign = $st['p'];
                 $val = $this->getExact($st['v']);
-                if ($sign[0] == 'A') {
+                if ($sign[0] === 'A') {
                     $val *= -1;
                 }
                 $arg->setResult($val);
@@ -431,7 +435,7 @@ class Client
                 $arg->setResult($this->getInexact($st['v']));
                 break;
             case 'V':
-                if ($st['n'] != 'T') {
+                if ($st['n'] !== 'T') {
                     $arg->setVoidSignature();
                 }
                 // possible bugfix, the break was missing here
@@ -444,7 +448,7 @@ class Client
             case 'O':
                 $arg->setFactory($this->getProxyFactory($st['p']));
                 $arg->setResult($this->asyncCtx = $this->getExact($st['v']));
-                if ($st['n'] != 'T') {
+                if ($st['n'] !== 'T') {
                     $arg->setSignature($st['m']);
                 }
                 break;
@@ -538,9 +542,8 @@ class Client
     protected function writeArgs(array $args): void
     {
         $this->inArgs = true;
-        $n = count($args);
-        for ($i = 0; $i < $n; ++$i) {
-            $this->writeArg($args[$i]);
+        foreach ($args as $arg) {
+            $this->writeArg($arg);
         }
         $this->inArgs = false;
     }
@@ -556,9 +559,8 @@ class Client
         $this->protocol->createObjectBegin($name);
         $this->writeArgs($args);
         $this->protocol->createObjectEnd();
-        $val = $this->getInternalResult();
 
-        return $val;
+        return $this->getInternalResult();
     }
 
     /**
@@ -693,8 +695,7 @@ class Client
             $msg = 'Unchecked exception detected in callback (' . $ex->__toString() . ')';
             $this->logger->error("[soluble-japha] $msg (" . __METHOD__ . ')');
             trigger_error($msg, E_USER_WARNING);
-            $uncheckedException = new Exception\RuntimeException($msg);
-            throw $uncheckedException;
+            throw new Exception\RuntimeException($msg);
         }
         $this->isAsync = $isAsync;
         $this->methodCache = $methodCache;
@@ -909,18 +910,10 @@ class Client
      *
      * @param string $param
      *
-     * @return string|int
+     * @return mixed
      */
     public function getParam($param)
     {
         return $this->params[$param];
-    }
-
-    /**
-     * @return string
-     */
-    public function getInternalEncoding(): string
-    {
-        return $this->internal_encoding;
     }
 }

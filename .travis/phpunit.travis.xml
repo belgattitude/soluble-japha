@@ -34,7 +34,7 @@
         -->
 
         <server name="AUTORUN_PJB_STANDALONE" value="false" />
-        <server name="PJB_SERVLET_ADDRESS" value="http://127.0.0.1:8083/servlet.phpjavabridge" />
+        <server name="PJB_SERVLET_ADDRESS" value="http://travis:travis@127.0.0.1:8083/servlet.phpjavabridge" />
 
         <!--
             Configure connection to mysql server for testing 

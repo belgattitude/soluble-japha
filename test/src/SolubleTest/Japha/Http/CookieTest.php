@@ -15,19 +15,25 @@ use PHPUnit\Framework\TestCase;
 
 class CookieTest extends TestCase
 {
+    public function testNullHeaderLine()
+    {
+        self::assertNull(Cookie::getCookiesHeaderLine([]));
+    }
+
     /**
      * @dataProvider cookiesProvider
      */
     public function testGetCookiesHeaderLine(array $cookies, $expectedString)
     {
-        $expectedString = "Cookie: $expectedString\r\n";
+        $expectedString = "Cookie: $expectedString";
         $cookieString = Cookie::getCookiesHeaderLine($cookies);
 
         $urlDecodedString = urldecode($cookieString);
-        self::assertEquals($expectedString, $urlDecodedString, 'test that cookie was correctly serialized');
+
+        self::assertSame($expectedString, $urlDecodedString, 'test that cookie was correctly serialized');
     }
 
-    public function cookiesProvider()
+    public function cookiesProvider(): array
     {
         return [
             // scenario: single scalar
@@ -101,7 +107,7 @@ class CookieTest extends TestCase
                 ],
                 // Serialized string
                 'dateTimeObject=' . Cookie::UNSUPPORTED_TYPE_VALUE . ';function=' . Cookie::UNSUPPORTED_TYPE_VALUE
-            ]
+            ],
         ];
     }
 }

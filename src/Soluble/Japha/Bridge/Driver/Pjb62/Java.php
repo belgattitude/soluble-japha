@@ -58,7 +58,7 @@ class Java extends AbstractJava
     public function __construct(string $name, ...$args)
     {
         $this->__client = PjbProxyClient::getInstance()->getClient();
-        $this->__internal_encoding = $this->__client->getInternalEncoding();
+        $this->__internal_encoding = $this->__client->getParam(Client::PARAM_JAVA_INTERNAL_ENCODING);
 
         $client = $this->__client;
 

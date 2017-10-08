@@ -39,6 +39,7 @@ namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Exception\ConnectionException;
 use Soluble\Japha\Bridge\Http\Cookie;
+use Soluble\Japha\Bridge\Socket\StreamSocket;
 
 class SimpleHttpTunnelHandler extends SimpleHttpHandler
 {
@@ -57,6 +58,8 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      */
     protected $isRedirect;
 
+    protected $httpHeadersPayload;
+
     /**
      * @param Protocol $protocol
      * @param string   $ssl
@@ -68,10 +71,11 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      *
      * @throws ConnectionException
      */
-    public function __construct($protocol, $ssl, $host, $port, $java_servlet, $java_recv_size, $java_send_size)
+    public function __construct(Protocol $protocol, $ssl, $host, $port, $java_servlet, $java_recv_size, $java_send_size)
     {
         parent::__construct($protocol, $ssl, $host, $port, $java_servlet, $java_recv_size, $java_send_size);
         $this->open();
+        $this->httpHeadersPayload = $this->getHttpHeadersPayload();
     }
 
     public function createSimpleChannel()
@@ -91,36 +95,26 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     }
 
     /**
-     * @param resource    $socket
-     * @param int|null    $errno
-     * @param string|null $errstr
-     *
-     * @throws ConnectionException
-     */
-    protected function checkSocket($socket, $errno = null, $errstr = null)
-    {
-        if (!$socket) {
-            $msg = "Could not connect to the JEE server {$this->ssl}{$this->host}:{$this->port}. Please start it.";
-            if ($errstr !== null || $errno !== null) {
-                $msg .= '(errno:' . $errno . ',' . $errstr . ')';
-            }
-            $logger = $this->protocol->getClient()->getLogger();
-            $logger->critical("[soluble-japha] $msg." . __METHOD__);
-            throw new ConnectionException(__METHOD__ . ' ' . $msg);
-        }
-    }
-
-    /**
      * @throws ConnectionException
      */
     protected function open()
     {
-        $errno = null;
-        $errstr = null;
-
-        $location = $this->ssl . $this->host;
-        $socket = @fsockopen($location, $this->port, $errno, $errstr, 20);
-        $this->checkSocket($socket, $errno, $errstr);
+        try {
+            $streamSocket = new StreamSocket(
+                $this->ssl === 'ssl' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP,
+                $this->host . ':' . $this->port,
+                self::DEFAULT_CONNECT_TIMEOUT
+            );
+            $socket = $streamSocket->getSocket();
+        } catch (\Throwable $e) {
+            $logger = $this->protocol->getClient()->getLogger();
+            $logger->critical(sprintf(
+                '[soluble-japha] %s (%s)',
+                $e->getMessage(),
+                __METHOD__
+            ));
+            throw new ConnectionException($e->getMessage(), $e->getCode());
+        }
         stream_set_timeout($socket, -1);
         $this->socket = $socket;
     }
@@ -193,33 +187,53 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         return (string) $response;
     }
 
-    protected function getBodyFor($compat, $data)
+    protected function getBodyFor($compat, $data): string
     {
-        $len = dechex(2 + strlen($data));
+        $length = dechex(2 + strlen($data));
 
-        return "Cache-Control: no-cache\r\nPragma: no-cache\r\nTransfer-Encoding: chunked\r\n\r\n${len}\r\n\177${compat}${data}\r\n";
+        return "\r\n${length}\r\n\177${compat}${data}\r\n";
+    }
+
+    protected function getHttpHeadersPayload(): string
+    {
+        $headers = [
+            "PUT {$this->getWebApp()} HTTP/1.1",
+            "Host: {$this->host}:{$this->port}",
+            'Cache-Control: no-cache',
+            'Pragma: no-cache',
+            'Transfer-Encoding: chunked',
+        ];
+
+        if (($cookieHeaderLine = Cookie::getCookiesHeaderLine()) !== null) {
+            $headers[] = $cookieHeaderLine;
+        }
+
+        if (($context = trim($this->getContext())) !== '') {
+            $headers[] = $context;
+        }
+
+        $client = $this->protocol->getClient();
+        if (($user = $client->getParam(Client::PARAM_JAVA_AUTH_USER)) !== null) {
+            $password = $client->getParam(Client::PARAM_JAVA_AUTH_PASSWORD);
+            $encoded_credentials = base64_encode("{$user}:{$password}");
+            $headers[] = "Authorization: Basic {$encoded_credentials}";
+        }
+
+        return implode("\r\n", $headers);
     }
 
     public function write(string $data): ?int
     {
         $compat = PjbProxyClient::getInstance()->getCompatibilityOption($this->protocol->client);
-        $this->headers = null;
-        $socket = $this->socket;
-        $webapp = $this->getWebApp();
-        $cookies = Cookie::getCookiesHeaderLine();
-        $context = $this->getContext();
-        $res = 'PUT ';
-        $res .= $webapp;
-        $res .= " HTTP/1.1\r\n";
-        $res .= "Host: {$this->host}:{$this->port}\r\n";
-        $res .= $context;
-        $res .= $cookies;
-        $res .= $this->getBodyFor($compat, $data);
-        $count = fwrite($socket, $res);
+        $this->headers = null; // reset headers
+
+        $request = $this->httpHeadersPayload . "\r\n" . $this->getBodyFor($compat, $data);
+
+        $count = @fwrite($this->socket, $request);
         if ($count === false) {
             $this->shutdownBrokenConnection('Cannot write to socket, broken connection handle');
         }
-        $flushed = fflush($socket);
+        $flushed = fflush($this->socket);
         if ($flushed === false) {
             $this->shutdownBrokenConnection('Cannot flush to socket, broken connection handle');
         }
@@ -238,13 +252,13 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
             $this->headers['http_error'] = $code;
         }
         while ($str = trim(fgets($this->socket, $this->java_recv_size))) {
-            if ($str[0] == 'X') {
+            if ($str[0] === 'X') {
                 if (!strncasecmp('X_JAVABRIDGE_REDIRECT', $str, 21)) {
                     $this->headers['redirect'] = trim(substr($str, 22));
                 } elseif (!strncasecmp('X_JAVABRIDGE_CONTEXT', $str, 20)) {
                     $this->headers['context'] = trim(substr($str, 21));
                 }
-            } elseif ($str[0] == 'S') {
+            } elseif ($str[0] === 'S') {
                 if (!strncasecmp('SET-COOKIE', $str, 10)) {
                     $str = substr($str, 12);
                     $this->cookies[] = $str;
@@ -259,14 +273,14 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
                     }
                     $this->doSetCookie($cookie[0], $cookie[1], $path);
                 }
-            } elseif ($str[0] == 'C') {
+            } elseif ($str[0] === 'C') {
                 if (!strncasecmp('CONTENT-LENGTH', $str, 14)) {
                     $this->headers['content_length'] = trim(substr($str, 15));
                     $this->hasContentLength = true;
                 } elseif (!strncasecmp('CONNECTION', $str, 10) && !strncasecmp('close', trim(substr($str, 11)), 5)) {
                     $this->headers['connection_close'] = true;
                 }
-            } elseif ($str[0] == 'T') {
+            } elseif ($str[0] === 'T') {
                 if (!strncasecmp('TRANSFER-ENCODING', $str, 17) && !strncasecmp('chunked', trim(substr($str, 18)), 7)) {
                     $this->headers['transfer_chunked'] = true;
                 }
@@ -279,9 +293,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      */
     protected function getSimpleChannel()
     {
-        //public function __construct($peer, $host, $recv_size, $send_size)
-
-        // Originally found in Pjb - no sense
+        // Originally bug found in Pjb
         //return new ChunkedSocketChannel($this->socket, $this->protocol, $this->host);
         return new ChunkedSocketChannel($this->socket, $this->host, $this->java_recv_size, $this->java_send_size);
     }

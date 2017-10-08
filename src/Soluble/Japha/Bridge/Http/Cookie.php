@@ -27,12 +27,13 @@ class Cookie
      *
      * @param array $cookies if null
      *
-     * @return string
+     * @return string|null
      */
-    public static function getCookiesHeaderLine(array $cookies = null): string
+    public static function getCookiesHeaderLine(array $cookies = null): ?string
     {
-        if ($cookies === null) {
-            $cookies = $_COOKIE;
+        $cookies = $cookies ?? $_COOKIE;
+        if (empty($cookies)) {
+            return null;
         }
 
         $cookieParts = [];
@@ -40,13 +41,7 @@ class Cookie
             $cookieParts[] = self::serializePHPCookies($k, $v);
         }
 
-        if (!count($cookieParts)) {
-            return '';
-        }
-
-        $fullCookieString = 'Cookie: ' . implode(';', $cookieParts) . "\r\n";
-
-        return  $fullCookieString;
+        return 'Cookie: ' . implode(';', $cookieParts);
     }
 
     /**

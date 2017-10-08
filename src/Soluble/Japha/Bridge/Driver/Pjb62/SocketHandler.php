@@ -103,7 +103,7 @@ class SocketHandler
 
     public function dieWithBrokenConnection(string $msg = ''): void
     {
-        if ($msg == '') {
+        if ($msg === '') {
             $msg = 'Unkown error: please see back end log for detail';
         }
 
@@ -113,7 +113,6 @@ class SocketHandler
         $client->getLogger()->critical("[soluble-japha] Broken connection: $msg, check the backend log for details\"  (" . __METHOD__ . ')');
 
         PjbProxyClient::unregisterInstance();
-
         throw new BrokenConnectionException("Broken connection: $msg, check the backend log for details");
     }
 

@@ -231,7 +231,7 @@ class Benchmark
     /**
      * @var array
      */
-    public $iterations = [1, 10, 100];
+    public $iterations = [1, 100, 1000, 10000];
 
     public function __construct()
     {

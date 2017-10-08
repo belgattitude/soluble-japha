@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * soluble-japha / PHPJavaBridge driver client.
  *
@@ -38,8 +40,13 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Exception\ConnectionException;
+use Soluble\Japha\Bridge\Socket\StreamSocket;
+
 class SimpleHttpHandler extends SocketHandler
 {
+    const DEFAULT_CONNECT_TIMEOUT = 20.0;
+
     public $headers;
 
     /**
@@ -154,13 +161,11 @@ class SimpleHttpHandler extends SocketHandler
      */
     public function getContext()
     {
-        if ($this->cachedValues['getContext'] === null) {
+        if (!array_key_exists('getContext', $this->cachedValues)) {
             $ctx = $this->getContextFromCgiEnvironment();
-            $context = '';
             if ($ctx) {
-                $context = sprintf("X_JAVABRIDGE_CONTEXT: %s\r\n", $ctx);
+                $this->cachedValues['getContext'] = sprintf('X_JAVABRIDGE_CONTEXT: %s', $ctx);
             }
-            $this->cachedValues['getContext'] = $context;
         }
 
         return $this->cachedValues['getContext'];
@@ -176,23 +181,13 @@ class SimpleHttpHandler extends SocketHandler
         return ($this->java_servlet == 'User' &&
                 array_key_exists('PHP_SELF', $_SERVER) &&
                 array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . 'javabridge' : null;
-        /*
-        return (JAVA_SERVLET == "User" &&
-                array_key_exists('PHP_SELF', $_SERVER) &&
-                array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['PHP_SELF'] . "javabridge" : null;
-         *
-         *
-         */
     }
 
-    public function getWebApp()
+    public function getWebApp(): string
     {
         $context = $this->getWebAppInternal();
         if (null === $context) {
             $context = $this->java_servlet;
-        }
-        if ($context[0] != '/') {
-            $context = '/JavaBridge/JavaBridge.phpjavabridge';
         }
 
         return $context;
@@ -222,36 +217,35 @@ class SimpleHttpHandler extends SocketHandler
     }
 
     /**
-     * @param string $channelName
+     * @param string $channelName generally the tcp port on which to connect
      *
      * @return SocketChannelP
      *
-     * @throws Exception\IllegalStateException
+     * @throws Exception\ConnectException
      */
-    public function getChannel($channelName)
+    public function getChannel(string $channelName): SocketChannelP
     {
-        $errstr = null;
-        $errno = null;
-
-        /*
-        // prototype
-        $context = stream_context_create([
-        //    'http' => [
-        //        'protocol_version' => "1.1"
-        //    ]
-        ]);
-        $address = $this->host . $this->getWebApp() .  ':' . $channelName;
-        $peer = stream_socket_client($address, $errno, $errstr, 20, STREAM_CLIENT_PERSISTENT, $context);
-        */
-
-        $peer = pfsockopen($this->host, $channelName, $errno, $errstr, 20);
-        if (!$peer) {
-            throw new Exception\IllegalStateException("No ContextServer for {$this->host}:{$channelName}. Error: $errstr ($errno)\n");
+        try {
+            $streamSocket = new StreamSocket(
+                $this->ssl === 'ssl' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP,
+                $this->host . ':' . $channelName,
+                self::DEFAULT_CONNECT_TIMEOUT,
+                [],
+                true
+            );
+            $socket = $streamSocket->getSocket();
+        } catch (\Throwable $e) {
+            $logger = $this->protocol->getClient()->getLogger();
+            $logger->critical(sprintf(
+                '[soluble-japha] %s (%s)',
+                $e->getMessage(),
+                __METHOD__
+            ));
+            throw new ConnectionException($e->getMessage(), $e->getCode());
         }
+        stream_set_timeout($socket, -1);
 
-        stream_set_timeout($peer, -1);
-
-        return new SocketChannelP($peer, $this->host, $this->java_recv_size, $this->java_send_size);
+        return new SocketChannelP($socket, $this->host, $this->java_recv_size, $this->java_send_size);
     }
 
     public function keepAlive(): void

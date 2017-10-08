@@ -201,15 +201,18 @@ class PjbProxyClient implements ClientInterface
 
             $connection = static::parseServletUrl($options['servlet_address']);
 
-            $params = new ArrayObject();
-            $params['JAVA_HOSTS'] = $connection['servlet_host'];
-            $params['JAVA_SERVLET'] = $connection['servlet_uri'];
-            $params['JAVA_DISABLE_AUTOLOAD'] = $options['java_disable_autoload'];
-            $params['JAVA_PREFER_VALUES'] = $options['java_prefer_values'];
-            $params['JAVA_SEND_SIZE'] = $options['java_send_size'];
-            $params['JAVA_RECV_SIZE'] = $options['java_recv_size'];
-            $params['JAVA_LOG_LEVEL'] = $options['java_log_level'];
-            $params['XML_PARSER_FORCE_SIMPLE_PARSER'] = $options['force_simple_xml_parser'];
+            $params = new ArrayObject([
+                Client::PARAM_JAVA_HOSTS => $connection['servlet_host'],
+                Client::PARAM_JAVA_SERVLET => $connection['servlet_uri'],
+                Client::PARAM_JAVA_AUTH_USER => $connection['auth_user'],
+                Client::PARAM_JAVA_AUTH_PASSWORD => $connection['auth_password'],
+                Client::PARAM_JAVA_DISABLE_AUTOLOAD => $options['java_disable_autoload'],
+                Client::PARAM_JAVA_PREFER_VALUES => $options['java_prefer_values'],
+                Client::PARAM_JAVA_SEND_SIZE => $options['java_send_size'],
+                Client::PARAM_JAVA_RECV_SIZE => $options['java_recv_size'],
+                Client::PARAM_JAVA_LOG_LEVEL => $options['java_log_level'],
+                Client::PARAM_XML_PARSER_FORCE_SIMPLE_PARSER => $options['force_simple_xml_parser'],
+            ]);
 
             self::$client = new Client($params, $this->logger);
 
@@ -431,6 +434,7 @@ class PjbProxyClient implements ClientInterface
     public static function parseServletUrl(string $servlet_address): array
     {
         $url = parse_url($servlet_address);
+
         if ($url === false || !isset($url['host'])) {
             throw new Exception\InvalidArgumentException(__METHOD__ . " Cannot parse url '$servlet_address'");
         }
@@ -444,8 +448,10 @@ class PjbProxyClient implements ClientInterface
         $path = $url['path'] ?? '';
 
         $infos = [
-            'servlet_host' => "${scheme}${host}:${port}",
-            'servlet_uri' => "$path",
+            'servlet_host' => "{$scheme}{$host}:{$port}",
+            'servlet_uri' => $path,
+            'auth_user' => $url['user'] ?? null,
+            'auth_password' => $url['pass'] ?? null,
         ];
 
         return $infos;
@@ -491,18 +497,15 @@ class PjbProxyClient implements ClientInterface
     public static function unregisterInstance(): void
     {
         if (self::$client !== null) {
-            // TODO CHECK WITH SESSIONS
-            //if (session_id()) {
-            //    session_write_close();
-            //}
-            //if (!isset(self::$client->protocol) || self::$client->inArgs) {
-            //return;
-            //}
+            // TODO check with sessions
+            /*
+            if (session_id()) {
+                session_write_close();
+            }*/
             if (self::$client->preparedToSendBuffer) {
                 self::$client->sendBuffer .= self::$client->preparedToSendBuffer;
             }
 
-            //  if (is_resource(self::$client->protocol->handler->socket ?? null)) {
             try {
                 self::$client->sendBuffer .= self::$client->protocol->getKeepAlive();
                 self::$client->protocol->flush();
@@ -514,7 +517,7 @@ class PjbProxyClient implements ClientInterface
             // ADDED AN IF TO CHECK THE CHANNEL In CASE OF
             //
             if (isset(self::$client->protocol->handler->channel) &&
-                    !preg_match('/EmptyChannel/', get_class(self::getClient()->protocol->handler->channel))) {
+                    false === strpos(get_class(self::getClient()->protocol->handler->channel), '/EmptyChannel/')) {
                 try {
                     self::$client->protocol->keepAlive();
                 } catch (\Throwable $e) {

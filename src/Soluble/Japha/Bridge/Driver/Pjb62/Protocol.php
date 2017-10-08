@@ -110,7 +110,7 @@ class Protocol
     public function __construct(Client $client, $java_hosts, $java_servlet, $java_recv_size, $java_send_size)
     {
         $this->client = $client;
-        $this->internal_encoding = $client->getInternalEncoding();
+        $this->internal_encoding = $client->getParam(Client::PARAM_JAVA_INTERNAL_ENCODING);
         $this->java_hosts = $java_hosts;
         $this->java_servlet = $java_servlet;
         $this->java_recv_size = $java_recv_size;
@@ -162,7 +162,7 @@ class Protocol
     /**
      * @param string $java_hosts
      */
-    public function setHost($java_hosts): void
+    public function setHost(string $java_hosts): void
     {
         $hosts = explode(';', $java_hosts);
         //$hosts = explode(";", JAVA_HOSTS);
