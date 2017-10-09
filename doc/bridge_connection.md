@@ -19,7 +19,7 @@ use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 use Soluble\Japha\Bridge\Exception as BridgeException;
 
 $options = [     
-    'servlet_address' => 'localhost:8080/MyJavaBridge/servlet.phpjavabridge'
+    'servlet_address' => 'http://localhost:8080/MyJavaBridge/servlet.phpjavabridge'
 ];
 
 try {
@@ -38,11 +38,11 @@ The `Soluble\Japha\Bridge\Adapter` constructor requires `$options`, an associati
 
 | Parameter        | Description                              |
 |------------------|------------------------------------------|
-|`servlet_address` | Servlet address: &lt;host&gt;:&lt;port&gt;/&lt;uri&gt;     |
-|`driver`          | (Optional) defaults to `pjb62` driver implementation.      |
+|`servlet_address` | In the form: `http(s)://<host>:<port>/<context_uri>/servlet.phpjavabridge`     |
+
 !!! tip
-    The `servlet_address` &lt;uri&gt; should ends with the **'servlet.phpjavabridge'** file,
-    i.e: 'localhost:8080/path/servlet.phpjavabridge'.  
+    Since v2.4.0, you can also provide basic auth in the `servlet_address`, i.e.
+    `http://user:password@localhost:8083/JavaBridge/servlet.phpjavabridge`.  
 
 
 | Advanced params     | Description                              |
@@ -51,6 +51,7 @@ The `Soluble\Japha\Bridge\Adapter` constructor requires `$options`, an associati
 |`java_recv_size`     | Socket read buffer, by default `8192`. |
 |`java_log_level`     | To enable java side logging level, by default `null`. |
 |`force_simple_xml_parser` | By default `false`: force the Use the php xml parser instead of native xml_parser(). |
+|`driver`             | Defaults to `pjb62` driver implementation.      |
 |`java_prefer_values` | By default `true`, see warning below. |
 
 
@@ -106,6 +107,7 @@ During initialization with the BridgeAdapter, the following exceptions could hap
 | ExceptionClass                           | Description                 |
 |------------------------------------------|-----------------------------|
 |`Soluble\Japha\Bridge\Exception\ConnectionException`        | Server not available *(network port is unreachable)*     |
+|`Soluble\Japha\Bridge\Exception\AuthenticationException`    | Invalid credentials given in basic auth *(check config)*   |
 |`Soluble\Japha\Bridge\Exception\ConfigurationException`     | Invalid connection parameter *(check config)*          |
 |`Soluble\Japha\Bridge\Exception\UnsupportedDriverException` | Specified driver is not supported *(check config)*             |
 |`Soluble\Japha\Bridge\Exception\InvalidArgumentException`   | Invalid argument in constructor *(check usage)*   |

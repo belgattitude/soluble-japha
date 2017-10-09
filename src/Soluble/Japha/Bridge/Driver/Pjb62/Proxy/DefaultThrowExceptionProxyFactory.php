@@ -109,12 +109,25 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
             $message,
             $cause,
             $stackTrace,
-                      $javaExceptionClass,
+            $javaExceptionClass,
             $code,
             $driverException,
             null
         );
 
+        $this->logException($e, $exceptionClass);
+
         return $e;
+    }
+
+    protected function logException(\Throwable $e, string $exceptionClass): void
+    {
+        $this->logger->error(sprintf(
+            '[soluble-japha] Encountered exception %s: %s, code %s (%s)',
+            $exceptionClass,
+            $e->getMessage(),
+            $e->getCode() ?? '?',
+            get_class($e)
+        ));
     }
 }

@@ -460,8 +460,7 @@ class Client
             default:
                 $this->protocol->handler->shutdownBrokenConnection(
                     sprintf(
-                        'Parser error, check the backend for details, $name: %s, '.
-                        '$st params: %s',
+                        'Parser error, check the backend for details, "$name": %s, "$st": %s',
                         $name,
                         json_encode($st)
                     )

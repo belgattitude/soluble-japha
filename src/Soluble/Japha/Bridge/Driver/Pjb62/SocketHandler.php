@@ -37,8 +37,6 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException;
-
 class SocketHandler
 {
     /**
@@ -101,24 +99,15 @@ class SocketHandler
         $this->channel->keepAlive();
     }
 
-    public function dieWithBrokenConnection(string $msg = ''): void
+    public function shutdownBrokenConnection(string $msg = '', int $code = null): void
     {
-        if ($msg === '') {
-            $msg = 'Unkown error: please see back end log for detail';
-        }
+        $msg = $msg ?? 'Broken connection: Unkown error, please see back end log for detail';
 
         // Log error
         $client = $this->protocol->getClient();
+        $client->getLogger()->critical("[soluble-japha] $msg\"  (".__METHOD__.')');
 
-        $client->getLogger()->critical("[soluble-japha] Broken connection: $msg, check the backend log for details\"  (".__METHOD__.')');
-
-        PjbProxyClient::unregisterInstance();
-        throw new BrokenConnectionException("Broken connection: $msg, check the backend log for details");
-    }
-
-    public function shutdownBrokenConnection(string $msg = ''): void
-    {
         $this->channel->shutdownBrokenConnection();
-        $this->dieWithBrokenConnection($msg);
+        PjbProxyClient::unregisterAndThrowBrokenConnectionException($msg, $code);
     }
 }

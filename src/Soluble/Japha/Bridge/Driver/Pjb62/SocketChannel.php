@@ -81,17 +81,23 @@ abstract class SocketChannel extends EmptyChannel
 
     public function fread(int $size): ?string
     {
-        $read = fread($this->peer, $size);
+        $read = @fread($this->peer, $size);
         if ($read === false) {
-            PjbProxyClient::unregisterInstance();
-            throw new BrokenConnectionException('Broken socket communication with the php-java-bridge (read)');
+            PjbProxyClient::unregisterAndThrowBrokenConnectionException(
+                sprintf(
+                    'Broken socket communication with the php-java-bridge while reading socket (%s).',
+                    __METHOD__
+                )
+            );
+        } else {
+            return $read;
         }
-
-        return $read;
     }
 
     public function shutdownBrokenConnection(?string $msg = ''): void
     {
-        fclose($this->peer);
+        if (is_resource($this->peer)) {
+            fclose($this->peer);
+        }
     }
 }

@@ -57,7 +57,7 @@ class ErrorLoggerTest extends TestCase
         $this->adapter = new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
-        ]);
+        ], $this->logger);
     }
 
     /**
@@ -73,7 +73,7 @@ class ErrorLoggerTest extends TestCase
         PjbProxyClient::unregisterInstance();
         $logged = false;
         try {
-            $ba = new Adapter([
+            new Adapter([
                 'driver' => 'pjb62',
                 //'servlet_address' => $this->servlet_address . 'urldoesnotexists'
                 'servlet_address' => 'http://127.0.0.1:12345/servlet.phpjavabridge'
@@ -90,8 +90,8 @@ class ErrorLoggerTest extends TestCase
         }
     }
 
-    /*
-    public function testNoSuchMethodExceptionMustBeLogged() {
+    public function testNoSuchMethodExceptionMustBeLogged()
+    {
         $ba = $this->adapter;
 
         try {
@@ -99,12 +99,9 @@ class ErrorLoggerTest extends TestCase
             $string->anInvalidMethod();
             self::assertFalse(true, 'This code cannot be reached');
         } catch (Exception\NoSuchMethodException $e) {
-
-            $mustContain = '[soluble-japha] Cannot connect to php-java-bridge server';
-            $logged = $this->loggerTestHandler->hasCriticalThatContains($mustContain);
+            $logged = $this->loggerTestHandler->hasErrorThatContains('Soluble\Japha\Bridge\Exception\NoSuchMethodException')
+                && $this->loggerTestHandler->hasErrorThatContains('Invoke failed: [[o:String]]->anInvalidMethod.');
             self::assertTrue($logged, 'Assert that logger actually logs connection exception');
-
         }
-
-    }*/
+    }
 }

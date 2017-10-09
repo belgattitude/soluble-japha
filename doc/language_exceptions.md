@@ -15,6 +15,9 @@ the Java/JVM exception, you can use the following methods:
   For example: java.lang.java.lang.NoSuchMethodException, ...
 - `JavaException::getStackTrace()` will give you the JVM stacktrace.
 
+!!! tip
+    From version 2.4.0, JavaExceptions are logged. See how to inject
+    a PSR-3 logger in the [bridge_connection section](./bridge_connection.md)
 
 ```php
 <?php

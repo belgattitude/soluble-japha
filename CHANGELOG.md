@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.4.0 (2017-09-19)
+
+### Added 
+
+- Added support for basic authentication in connection servlet_address.
+
+  ```php
+  <?php
+  $ba = new BridgeAdapter([
+      'servlet_address' => 'http://user:pass@localhost:8080/MyJavaBridge/servlet.phpjavabridge'
+  ]);    
+  ```
+
+- Added `AuthenticationException` (ConnectionException).
+      
+- Logger now logs java exceptions (NoSuchProcedureException,... at error level). 
+
+### Fixed
+
+- Notice and warnings when a BrokenConnection is encountered.
+
 ## 2.3.0 (2017-09-19)
 
 ### Improved 

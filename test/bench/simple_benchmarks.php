@@ -34,7 +34,11 @@ try {
     ]);
     $init = $ba->java('java.lang.String');
 } catch (\Exception $e) {
-    die('Error connecting: '.$e->getMessage());
+    die(sprintf(
+        'Error connecting: %s (%s)',
+        $e->getMessage(),
+        get_class($e)
+    ));
 }
 $end_connection_time = $bm->getTimeMs();
 $connection_time = $bm->getFormattedTimeMs($start_connection_time, $end_connection_time);

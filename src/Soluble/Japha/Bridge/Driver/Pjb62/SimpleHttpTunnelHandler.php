@@ -88,10 +88,12 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $this->createSimpleChannel();
     }
 
-    public function shutdownBrokenConnection(string $msg = ''): void
+    public function shutdownBrokenConnection(string $msg = '', int $code = null): void
     {
-        fclose($this->socket);
-        $this->dieWithBrokenConnection($msg);
+        if (is_resource($this->socket)) {
+            fclose($this->socket);
+        }
+        PjbProxyClient::unregisterAndThrowBrokenConnectionException($msg, $code);
     }
 
     /**
@@ -161,7 +163,9 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
             $this->parseHeaders();
         }
 
-        if (isset($this->headers['http_error'])) {
+        $http_error = $this->headers['http_error'] ?? null;
+
+        if ($http_error !== null) {
             $str = null;
             if (isset($this->headers['transfer_chunked'])) {
                 $str = $this->fread($this->java_recv_size);
@@ -176,7 +180,12 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
                 $str = fread($this->socket, $this->java_recv_size);
             }
             $str = ($str === false || $str === null) ? '' : $str;
-            $this->shutdownBrokenConnection($str);
+
+            if ($http_error === 401) {
+                $this->shutdownBrokenConnection('Authentication exception', 401);
+            } else {
+                $this->shutdownBrokenConnection($str);
+            }
         }
 
         $response = $this->fread($this->java_recv_size);
@@ -233,7 +242,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         if ($count === false) {
             $this->shutdownBrokenConnection('Cannot write to socket, broken connection handle');
         }
-        $flushed = fflush($this->socket);
+        $flushed = @fflush($this->socket);
         if ($flushed === false) {
             $this->shutdownBrokenConnection('Cannot flush to socket, broken connection handle');
         }
@@ -241,14 +250,18 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         return (int) $count;
     }
 
-    protected function parseHeaders()
+    protected function parseHeaders(): void
     {
         $this->headers = [];
 
-        $line = trim(fgets($this->socket, $this->java_recv_size));
+        $res = @fgets($this->socket, $this->java_recv_size);
+        if ($res === false) {
+            $this->shutdownBrokenConnection('Cannot parse headers, socket cannot be read.');
+        }
+        $line = trim($res);
         $ar = explode(' ', $line);
         $code = ((int) $ar[1]);
-        if ($code != 200) {
+        if ($code !== 200) {
             $this->headers['http_error'] = $code;
         }
         while ($str = trim(fgets($this->socket, $this->java_recv_size))) {
@@ -293,8 +306,6 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      */
     protected function getSimpleChannel()
     {
-        // Originally bug found in Pjb
-        //return new ChunkedSocketChannel($this->socket, $this->protocol, $this->host);
         return new ChunkedSocketChannel($this->socket, $this->host, $this->java_recv_size, $this->java_send_size);
     }
 

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Monolog\Logger;
 use Soluble\Japha\Bridge\Exception;
 use Soluble\Japha\Interfaces;
 use Soluble\Japha\Bridge\Driver\ClientInterface;
@@ -25,6 +26,8 @@ class PjbProxyClient implements ClientInterface
      * @var PjbProxyClient|null
      */
     protected static $instance;
+
+    protected static $unregistering = false;
 
     /**
      * @var array
@@ -227,6 +230,8 @@ class PjbProxyClient implements ClientInterface
      * Return Pjb62 internal client.
      *
      * @return Client
+     *
+     * @throws Exception\BrokenConnectionException
      */
     public static function getClient(): Client
     {
@@ -298,8 +303,6 @@ class PjbProxyClient implements ClientInterface
      */
     public function inspect(Interfaces\JavaType $object): string
     {
-        //$client = self::getClient();
-        //return $client->invokeMethod(0, "inspect", array($object));
         return self::getClient()->invokeMethod(0, 'inspect', [$object]);
     }
 
@@ -478,8 +481,6 @@ class PjbProxyClient implements ClientInterface
     /**
      * Return specific option.
      *
-     * @param $name
-     *
      * @return mixed
      */
     public function getOption(string $name)
@@ -491,17 +492,57 @@ class PjbProxyClient implements ClientInterface
         return $this->options[$name];
     }
 
+    public function getLogger(): LoggerInterface
+    {
+        return $this->logger;
+    }
+
+    /**
+     * @throws Exception\BrokenConnectionException|Exception\AuthenticationException
+     */
+    public static function unregisterAndThrowBrokenConnectionException(string $message = null, int $code = null): void
+    {
+        if (self::$instance !== null) {
+            $message = $message ?? 'undefined messsage';
+
+            switch ($code) {
+                case 401:
+                    $exception = new Exception\AuthenticationException(sprintf(
+                        'Java bridge authentication failure: code: %s',
+                        $code
+                    ));
+                    break;
+                default:
+                    $exception = new Exception\BrokenConnectionException(sprintf(
+                        'Java bridge broken connection: "%s" (code: %s)',
+                        $message,
+                        $code
+                    ));
+            }
+            try {
+                self::$instance->getLogger()->critical(sprintf(
+                    '[soluble-japha] BrokenConnectionException to "%s": "%s" (code: "%s")',
+                    self::$instance->getOption('servlet_address'),
+                    $message,
+                    $code ?? '?'
+                ));
+            } catch (\Throwable $e) {
+                // discard logger errors
+            }
+
+            self::unregisterInstance();
+            throw $exception;
+        }
+    }
+
     /**
      * Clean up PjbProxyClient instance.
      */
     public static function unregisterInstance(): void
     {
-        if (self::$client !== null) {
-            // TODO check with sessions
-            /*
-            if (session_id()) {
-                session_write_close();
-            }*/
+        if (!self::$unregistering && self::$client !== null) {
+            self::$unregistering = true;
+
             if (self::$client->preparedToSendBuffer) {
                 self::$client->sendBuffer .= self::$client->preparedToSendBuffer;
             }
@@ -517,7 +558,7 @@ class PjbProxyClient implements ClientInterface
             // ADDED AN IF TO CHECK THE CHANNEL In CASE OF
             //
             if (isset(self::$client->protocol->handler->channel) &&
-                    false === strpos(get_class(self::getClient()->protocol->handler->channel), '/EmptyChannel/')) {
+                false === strpos(get_class(self::getClient()->protocol->handler->channel), '/EmptyChannel/')) {
                 try {
                     self::$client->protocol->keepAlive();
                 } catch (\Throwable $e) {
@@ -528,6 +569,7 @@ class PjbProxyClient implements ClientInterface
             self::$client = null;
             self::$instance = null;
             self::$instanceOptionsKey = null;
+            self::$unregistering = false;
         }
     }
 }

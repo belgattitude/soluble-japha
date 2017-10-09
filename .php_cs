@@ -33,7 +33,7 @@ return PhpCsFixer\Config::create()
         'blank_line_before_return' => true,
         'cast_spaces' => true,
         'class_definition' => ['singleLine' => true],
-        'concat_space' => ['spacing' => "none"], // Different from symfony (none)
+        'concat_space' => ['spacing' => "none"],
         'declare_equal_normalize' => true,
         'function_typehint_space' => true,
         'hash_to_slash_comment' => true,
