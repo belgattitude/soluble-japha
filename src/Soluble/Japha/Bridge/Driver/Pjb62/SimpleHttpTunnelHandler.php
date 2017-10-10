@@ -103,7 +103,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     {
         try {
             $streamSocket = new StreamSocket(
-                $this->ssl === 'ssl' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP,
+                $this->ssl === 'ssl://' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP,
                 $this->host.':'.$this->port,
                 self::DEFAULT_CONNECT_TIMEOUT
             );

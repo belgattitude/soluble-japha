@@ -28,7 +28,7 @@ build:
 
 filter:
     excluded_paths:
-        - "tests/"
+        - "test/*"
         - "doc/*"
         # Everything in a root level "tests" directory will be excluded
     dependency_paths:

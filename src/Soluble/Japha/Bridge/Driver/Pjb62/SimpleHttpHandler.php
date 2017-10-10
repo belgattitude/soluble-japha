@@ -227,7 +227,7 @@ class SimpleHttpHandler extends SocketHandler
     {
         try {
             $streamSocket = new StreamSocket(
-                $this->ssl === 'ssl' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP,
+                $this->ssl === 'ssl://' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP,
                 $this->host.':'.$channelName,
                 self::DEFAULT_CONNECT_TIMEOUT,
                 [],
