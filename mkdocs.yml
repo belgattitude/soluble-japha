@@ -49,10 +49,14 @@ pages:
 
 
 # Documentation and theme
-theme: 'material'
+theme:
+  name: material
 
-# Options
-extra:
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  language: en
   logo:
     icon: 'thumbs_up_down'
   #logo: 'images/logo.svg'
@@ -62,6 +66,12 @@ extra:
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
+
+  feature:
+    tabs: true
+
+# Options
+extra:
   # If extra_css defined here ->
   # -> WARNING -  Config value: 'extra_css'.
   #    This behavior is deprecated. In version 1.0 and later they will need to be explicitly listed in the 'extra_css' config setting.
