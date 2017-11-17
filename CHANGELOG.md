@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   
 ### Q&A
 
-- Added mutation testing (infection)  
+- Added mutation testing with [infection/infection](https://github.com/infection/infection)  
 
 ## 2.4.1 (2017-10-10)
 
