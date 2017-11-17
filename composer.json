@@ -58,6 +58,6 @@
         "monolog/monolog": "PSR-3 comptatible logger"
     },
     "archive": {
-        "exclude": ["psalm.xml", ".sami.php", "phpstan.neon", "test", "doc", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
+        "exclude": ["requirements.txt", "psalm.xml", ".sami.php", "phpstan.neon", "test", "doc", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
     }
 }

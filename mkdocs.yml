@@ -12,6 +12,8 @@ copyright: 'Copyright &copy; 2017 Sébastien Vanvelthem'
 
 docs_dir: doc
 site_dir: build/doc
+edit_uri: https://github.com/belgattitude/soluble-japha/edit/master/doc/
+
 pages:
     - { 'Introduction': index.md }
     - { 'Getting started': [
