@@ -161,7 +161,7 @@ class PjbProxyClient implements ClientInterface
      *
      * @return PjbProxyClient
      */
-    public static function getInstance(?array $options = null, ?LoggerInterface $logger = null): PjbProxyClient
+    public static function getInstance(?array $options = null, ?LoggerInterface $logger = null): self
     {
         if (self::$instance === null) {
             if ($options === null) {

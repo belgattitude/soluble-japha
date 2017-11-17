@@ -23,7 +23,7 @@ interface JavaObject extends JavaType, \ArrayAccess, \IteratorAggregate
      *
      * @return JavaObject Java('java.lang.Class')
      */
-    public function getClass(): JavaObject;
+    public function getClass(): self;
 
     /**
      * Delegate the magic method __get() to the java object

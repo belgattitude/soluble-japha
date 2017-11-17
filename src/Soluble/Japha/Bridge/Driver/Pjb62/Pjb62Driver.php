@@ -100,7 +100,7 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             $class = $this->pjbProxyClient->getJavaClass($class_name);
-        } catch (Pjb62BrokenConnectionException|Exception\InvalidUsageException $e) {
+        } catch (Pjb62BrokenConnectionException | Exception\InvalidUsageException $e) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
@@ -117,7 +117,7 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             $java = new Java($class_name, ...$args);
-        } catch (Pjb62BrokenConnectionException|Exception\InvalidUsageException $e) {
+        } catch (Pjb62BrokenConnectionException | Exception\InvalidUsageException $e) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
@@ -161,7 +161,7 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             return $this->pjbProxyClient->invokeMethod($javaObject, $method, $args);
-        } catch (Pjb62BrokenConnectionException|Exception\InvalidUsageException $e) {
+        } catch (Pjb62BrokenConnectionException | Exception\InvalidUsageException $e) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
@@ -178,7 +178,7 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             return $this->pjbProxyClient::getClient()->getContext();
-        } catch (Pjb62BrokenConnectionException|Exception\InvalidUsageException $e) {
+        } catch (Pjb62BrokenConnectionException | Exception\InvalidUsageException $e) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
@@ -207,7 +207,7 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             return $this->pjbProxyClient::getClient()->getSession();
-        } catch (Pjb62BrokenConnectionException|Exception\InvalidUsageException $e) {
+        } catch (Pjb62BrokenConnectionException | Exception\InvalidUsageException $e) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
@@ -226,7 +226,7 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             $inspect = $this->pjbProxyClient->inspect($javaObject);
-        } catch (Pjb62BrokenConnectionException|Exception\InvalidUsageException $e) {
+        } catch (Pjb62BrokenConnectionException | Exception\InvalidUsageException $e) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
@@ -243,7 +243,7 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             return $this->pjbProxyClient->isInstanceOf($javaObject, $className);
-        } catch (Pjb62BrokenConnectionException|Exception\InvalidUsageException $e) {
+        } catch (Pjb62BrokenConnectionException | Exception\InvalidUsageException $e) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
@@ -258,7 +258,7 @@ class Pjb62Driver extends AbstractDriver
     {
         try {
             return $this->pjbProxyClient->getValues($javaObject);
-        } catch (Pjb62BrokenConnectionException|Exception\InvalidUsageException $e) {
+        } catch (Pjb62BrokenConnectionException | Exception\InvalidUsageException $e) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException($e->getMessage(), $e->getCode(), $e);
         }
