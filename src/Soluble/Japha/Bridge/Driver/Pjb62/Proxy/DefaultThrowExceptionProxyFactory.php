@@ -59,7 +59,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
      *
      * @return Exception\JavaExceptionInterface
      */
-    protected function getExceptionFromResult(Pjb62\Exception\JavaException $result): Exception\JavaExceptionInterface
+    private function getExceptionFromResult(Pjb62\Exception\JavaException $result): Exception\JavaExceptionInterface
     {
         $found = false;
         $exceptionClass = '';
@@ -120,7 +120,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
         return $e;
     }
 
-    protected function logException(\Throwable $e, string $exceptionClass): void
+    private function logException(\Throwable $e, string $exceptionClass): void
     {
         $this->logger->error(sprintf(
             '[soluble-japha] Encountered exception %s: %s, code %s (%s)',

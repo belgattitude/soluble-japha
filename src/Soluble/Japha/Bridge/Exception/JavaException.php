@@ -70,7 +70,7 @@ class JavaException extends Exception implements JavaExceptionInterface
      *
      * @param Exception $driverException
      */
-    protected function setDriverException(Exception $driverException): void
+    private function setDriverException(Exception $driverException): void
     {
         $this->driverException = $driverException;
     }
@@ -87,10 +87,8 @@ class JavaException extends Exception implements JavaExceptionInterface
 
     /**
      * Set Java cause.
-     *
-     * @param string $cause
      */
-    protected function setCause(string $cause): void
+    private function setCause(string $cause): void
     {
         $this->cause = $cause;
     }
@@ -104,9 +102,9 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * @param string $stackTrace
+     * Set JVM Stack trace.
      */
-    protected function setStackTrace(string $stackTrace): void
+    private function setStackTrace(string $stackTrace): void
     {
         $this->stackTrace = $stackTrace;
     }
@@ -128,9 +126,9 @@ class JavaException extends Exception implements JavaExceptionInterface
     }
 
     /**
-     * @param string $javaClassName
+     * Set java exception class name.
      */
-    protected function setJavaClassName(string $javaClassName): void
+    private function setJavaClassName(string $javaClassName): void
     {
         $this->javaClassName = $javaClassName;
     }

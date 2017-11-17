@@ -81,7 +81,7 @@ class SimpleParser implements ParserInterface
         $this->type = $this->VOJD;
     }
 
-    public function RESET(): void
+    private function RESET(): void
     {
         $this->type = $this->VOJD;
         $this->level = 0;
@@ -94,7 +94,7 @@ class SimpleParser implements ParserInterface
     /**
      * @param string $c
      */
-    public function APPEND($c)
+    protected function APPEND($c)
     {
         if ($this->i >= $this->len - 1) {
             $this->s = str_repeat($this->s, 2);
@@ -103,7 +103,7 @@ class SimpleParser implements ParserInterface
         $this->s[$this->i++] = $c;
     }
 
-    public function CALL_BEGIN()
+    protected function CALL_BEGIN()
     {
         $pt = &$this->tag[1]->strings;
         $st = &$this->tag[2]->strings;
@@ -117,14 +117,14 @@ class SimpleParser implements ParserInterface
         $this->handler->begin($name, $ar);
     }
 
-    public function CALL_END()
+    private function CALL_END()
     {
         $t = &$this->tag[0]->strings[0];
         $name = $t->string[$t->off];
         $this->handler->end($name);
     }
 
-    public function PUSH($t)
+    protected function PUSH($t)
     {
         $str = &$this->tag[$t]->strings;
         $n = &$this->tag[$t]->n;

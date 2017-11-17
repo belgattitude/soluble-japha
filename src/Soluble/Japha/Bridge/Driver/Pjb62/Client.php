@@ -355,7 +355,7 @@ class Client
      * @param Arg          $arg
      * @param CompositeArg $newArg
      */
-    protected function link(&$arg, &$newArg): void
+    private function link(&$arg, &$newArg): void
     {
         $arg->linkResult($newArg->val);
         $newArg->parentArg = $arg;
@@ -376,7 +376,7 @@ class Client
      *
      * @return mixed
      */
-    protected function getInexact($str)
+    private function getInexact($str)
     {
         $val = null;
         sscanf($str, '%e', $val);

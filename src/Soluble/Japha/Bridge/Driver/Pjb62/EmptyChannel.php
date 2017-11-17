@@ -86,12 +86,12 @@ class EmptyChannel
         return $this->handler->fread($size);
     }
 
-    public function getKeepAliveA(): string
+    protected function getKeepAliveA(): string
     {
         return '<F p="A" />';
     }
 
-    public function getKeepAliveE(): string
+    protected function getKeepAliveE(): string
     {
         return '<F p="E" />';
     }
@@ -110,13 +110,13 @@ class EmptyChannel
         throw new Exception\RuntimeException($msg);
     }
 
-    public function checkA($peer): void
+    protected function checkA($peer): void
     {
         $val = $this->res[6];
-        if ($val != 'A') {
+        if ($val !== 'A') {
             fclose($peer);
         }
-        if ($val != 'A' && $val != 'E') {
+        if ($val !== 'A' && $val !== 'E') {
             $this->error();
         }
     }
@@ -124,29 +124,29 @@ class EmptyChannel
     public function checkE(): void
     {
         $val = $this->res[6];
-        if ($val != 'E') {
+        if ($val !== 'E') {
             $this->error();
         }
     }
 
-    public function keepAliveS(): void
+    protected function keepAliveS(): void
     {
         $this->res = $this->fread(10);
     }
 
-    public function keepAliveSC(): void
+    protected function keepAliveSC(): void
     {
         $this->res = $this->fread(10);
         $this->fwrite('');
         $this->fread($this->recv_size);
     }
 
-    public function keepAliveH(): void
+    protected function keepAliveH(): void
     {
         $this->res = $this->handler->read(10);
     }
 
-    public function keepAlive(): void
+    protected function keepAlive(): void
     {
         $this->keepAliveH();
         $this->checkE();

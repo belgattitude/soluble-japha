@@ -253,7 +253,7 @@ class Adapter
      *
      * @param string $timezone
      */
-    protected function setJavaDefaultTimezone(string $timezone): void
+    private function setJavaDefaultTimezone(string $timezone): void
     {
         $this->getSystem()->setTimeZoneId($timezone);
     }
