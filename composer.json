@@ -33,6 +33,7 @@
     },
     "require-dev" : {
         "phpunit/phpunit": "^6.4.1",
+        "infection/infection": "^0.6.0",
         "friendsofphp/php-cs-fixer": "^2.7.1",
         "monolog/monolog": "^1.23.0",
         "phpstan/phpstan": "^0.8.5",
@@ -47,6 +48,7 @@
             "@cs-fix"
         ],
         "test": "vendor/bin/phpunit",
+        "test:mutation": "vendor/bin/infection --test-framework=phpunit --verbose --min-msi=60 --threads=4",
         "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
         "cs-fix": "vendor/bin/php-cs-fixer -v fix",
         "phpstan": "vendor/bin/phpstan analyse -l max -c phpstan.neon src",
@@ -58,6 +60,6 @@
         "monolog/monolog": "PSR-3 comptatible logger"
     },
     "archive": {
-        "exclude": ["requirements.txt", "psalm.xml", ".sami.php", "phpstan.neon", "test", "doc", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
+        "exclude": ["infection.json.dist", "requirements.txt", "psalm.xml", ".sami.php", "phpstan.neon", "test", "doc", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
     }
 }
