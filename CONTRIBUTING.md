@@ -37,3 +37,23 @@ $ composer check
 
 Thanks !!!
    
+
+## Keeping your fork up to date
+
+Best doc [https://help.github.com/articles/syncing-a-fork/](https://help.github.com/articles/syncing-a-fork/)
+
+```
+git remote add upstream git://github.com/belgattitude/soluble-japha.git
+git fetch upstream
+```
+### Updating your fork from original repo to keep up with their changes:
+
+```
+git checkout master
+git merge upstream/master
+```
+### Push 
+
+```
+git push
+```
