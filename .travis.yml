@@ -42,6 +42,7 @@ script:
   - ./vendor/bin/phpunit -c .travis/phpunit.travis.xml -v --coverage-clover=coverage.xml
   - if [[ $CS_CHECKS == true ]]; then ./vendor/bin/php-cs-fixer --diff --dry-run -v fix; fi
   - composer phpstan
+  - ./vendor/bin/infection --test-framework=phpunit --min-msi=60
 
 after_script:
   - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
