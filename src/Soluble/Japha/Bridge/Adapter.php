@@ -90,14 +90,14 @@ class Adapter
     }
 
     /**
-     * Create a new Java instance from a FQDN (constructor arguments are sent in a variadic way).
+     * Create a new Java instance from a FQCN (constructor arguments are sent in a variadic way).
      *
      * <code>
      * $hash   = $ba->java('java.util.HashMap', ['key' => '保éà']);
      * echo $hash->get('key'); // prints "保éà"
      * </code>
      *
-     * @param string     $class   Java class name (FQDN)
+     * @param string     $class   Java class name (FQCN)
      * @param mixed|null ...$args arguments passed to the constructor of the java object
      *
      * @throws \Soluble\Japha\Bridge\Exception\JavaException
@@ -132,7 +132,7 @@ class Adapter
      * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
      *
-     * @param string $class Java class name (FQDN)
+     * @param string $class Java class name (FQCN)
      *
      * @return Interfaces\JavaClass
      */
@@ -159,7 +159,7 @@ class Adapter
     }
 
     /**
-     * Return object java FQDN class name.
+     * Return object java FQCN class name.
      *
      * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *

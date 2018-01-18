@@ -51,7 +51,7 @@ class Protocol
     public $client;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $webContext;
 
@@ -299,8 +299,10 @@ class Protocol
 
     public function sendData(): void
     {
-        $this->handler->write($this->client->sendBuffer);
-        $this->client->sendBuffer = null;
+        if ($this->client->sendBuffer !== null) {
+            $this->handler->write($this->client->sendBuffer);
+            $this->client->sendBuffer = null;
+        }
     }
 
     public function flush(): void

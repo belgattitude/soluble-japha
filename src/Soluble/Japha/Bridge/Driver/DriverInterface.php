@@ -31,7 +31,7 @@ interface DriverInterface extends ConnectionInterface
      * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
      * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      *
-     * @param string     $class_name Java FQDN i.e: 'java.lang.String'
+     * @param string     $class_name Java FQCN i.e: 'java.lang.String'
      * @param mixed|null ...$args    arguments as variadic notation
      *
      * @return Interfaces\JavaObject
@@ -44,7 +44,7 @@ interface DriverInterface extends ConnectionInterface
      * @throws \Soluble\Japha\Bridge\Exception\BrokenConnectionException
      * @throws \Soluble\Japha\Bridge\Exception\ClassNotFoundException
      *
-     * @param string $class_name Java class FQDN i.e: 'java.lang.String'
+     * @param string $class_name Java class FQCN i.e: 'java.lang.String'
      *
      * @return Interfaces\JavaClass
      */

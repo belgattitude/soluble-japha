@@ -75,9 +75,9 @@ class SocketHandler
         $str = $this->channel->fread($size);
         if ($str === null) {
             $this->shutdownBrokenConnection('Cannot read from socket');
+        } else {
+            return $str;
         }
-
-        return $str;
     }
 
     public function fread(int $size): ?string

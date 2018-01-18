@@ -1,16 +1,25 @@
+includes:
+	#- vendor/phpstan/phpstan-strict-rules/rules.neon
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-phpunit/rules.neon
 parameters:
 	fileExtensions:
 		- php
 		- dist
 	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
+		# By nature the bridge proxies Java object and methods.
 		- '#Call to an undefined method Soluble\\Japha\\Interfaces\\JavaObject::#'
 		- '#Call to an undefined method Soluble\\Japha\\Interfaces\\JavaClass::#'
 		- '#Access to an undefined property Soluble\\Japha\\Interfaces\\JavaObject::\$#'
+		# Originally thoses classes does not call parent constructor (PHP4 leftoffs)
 		- '#Driver\\Pjb62\\JavaClass::__construct\(\) does not call parent constructor#'
 		- '#Driver\\Pjb62\\SocketChannel::__construct\(\) does not call parent constructor#'
 		- '#Driver\\Pjb62\\InternalJava::__construct\(\) does not call parent constructor#'
 		- '#Driver\\Pjb62\\JavaProxyProxy::__construct\(\) does not call parent constructor#'
 		- '#Driver\\Pjb62\\Exception\\InternalException::__construct\(\) does not call parent constructor#'
 		- '#Driver\\Pjb62\\SimpleHttpHandler::__construct\(\) does not call parent constructor#'
-		#- '#but returns PHPUnit_Framework_MockObject_MockObject#'
+		# To prevent issues in client. The type of $this->arg is known at runtime (Arg|CompositeArg)
+		- '#Call to an undefined method Soluble\\Japha\\Bridge\\Driver\\Pjb62\\Arg::setIndex\(\)#'
+		- '#Call to an undefined method Soluble\\Japha\\Bridge\\Driver\\Pjb62\\Arg::setNextIndex\(\)#'
+

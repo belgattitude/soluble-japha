@@ -20,7 +20,7 @@ class Cookie
     /**
      * Value used for values that cannot be serialized.
      */
-    const UNSUPPORTED_TYPE_VALUE = '__UNSUPPORTED_TYPE__';
+    public const UNSUPPORTED_TYPE_VALUE = '__UNSUPPORTED_TYPE__';
 
     /**
      * Serialize PHP's $_COOKIE values into a valid HTTP COOKIE string.
@@ -76,7 +76,7 @@ class Cookie
                 break;
 
             case 'boolean':
-                $cookieParts[] = "$urlEncodedCookieName=".($cookieValue ? '1' : '0');
+                $cookieParts[] = "$urlEncodedCookieName=".((bool) $cookieValue ? '1' : '0');
                 break;
 
             // It's a security risk to serialize an object and send it as a cookie

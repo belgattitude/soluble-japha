@@ -279,7 +279,7 @@ class PjbProxyClient implements ClientInterface
      *
      * @param Interfaces\JavaType|null $object a java object or type
      * @param string                   $method A method string
-     * @param mixed                    $args   Arguments to send to method
+     * @param array                    $args   Arguments to send to method
      *
      * @return mixed
      */
@@ -543,7 +543,7 @@ class PjbProxyClient implements ClientInterface
         if (!self::$unregistering && self::$client !== null) {
             self::$unregistering = true;
 
-            if (self::$client->preparedToSendBuffer) {
+            if ((self::$client->preparedToSendBuffer ?: '') !== '') {
                 self::$client->sendBuffer .= self::$client->preparedToSendBuffer;
             }
 

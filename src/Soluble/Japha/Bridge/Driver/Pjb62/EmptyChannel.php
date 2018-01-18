@@ -146,7 +146,7 @@ class EmptyChannel
         $this->res = $this->handler->read(10);
     }
 
-    protected function keepAlive(): void
+    public function keepAlive(): void
     {
         $this->keepAliveH();
         $this->checkE();

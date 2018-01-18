@@ -42,7 +42,7 @@ class JavaException extends Exception implements JavaExceptionInterface
      * @param string    $message
      * @param string    $javaCause
      * @param string    $stackTrace
-     * @param string    $javaClassName   originating java FQDN
+     * @param string    $javaClassName   originating java FQCN
      * @param int       $code
      * @param Exception $driverException
      * @param Exception $previous

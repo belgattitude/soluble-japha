@@ -52,7 +52,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     public $__client;
 
     /**
-     * @var JavaType|JavaProxy|ObjectIterator
+     * @var JavaType&JavaProxy&ObjectIterator
      */
     public $__delegate;
     protected $__serialID;
@@ -173,7 +173,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
     }
 
     /**
-     * @param mixed|null $args arguments
+     * @param mixed|null ...$args arguments
      *
      * @return ObjectIterator
      */

@@ -596,8 +596,6 @@ class Client
      * @param int    $object
      * @param string $property
      * @param mixed  $arg
-     *
-     * @return mixed
      */
     public function setProperty(int $object, string $property, $arg): void
     {

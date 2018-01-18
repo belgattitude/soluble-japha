@@ -52,7 +52,7 @@ class Java extends AbstractJava
     /**
      * Java constructor.
      *
-     * @param string     $name    Java FQDN or an array with JavaFQDN followed by params
+     * @param string     $name    Java FQCN or an array with JavaFQCN followed by params
      * @param mixed|null ...$args variadic parameters
      */
     public function __construct(string $name, ...$args)

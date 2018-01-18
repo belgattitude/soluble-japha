@@ -51,7 +51,7 @@ exception class thrown whenever a Java class is not found:
 use Soluble\Japha\Bridge\Exception;
 
 try {
-    $string = $ba->java('java.INVALID.FQDN', "Hello world");
+    $string = $ba->java('java.INVALID.FQCN', "Hello world");
 } catch (Exception\ClassNotFoundException $e) {    
     echo $e->getMessage();
     // -> "java.lang.ClassNotFoundException"

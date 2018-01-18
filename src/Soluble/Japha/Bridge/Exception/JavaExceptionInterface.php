@@ -35,9 +35,9 @@ interface JavaExceptionInterface
 
     /**
      * Return the originating Java Exception
-     * class name (FQDN).
+     * class name (FQCN).
      *
-     * @return string ava exception class name (FQDN)
+     * @return string ava exception class name (FQCN)
      */
     public function getJavaClassName(): string;
 }

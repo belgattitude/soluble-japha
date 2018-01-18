@@ -63,7 +63,7 @@ class StreamSocket implements StreamSocketInterface
      */
     protected function setTransport(string $transport)
     {
-        if (!in_array($transport, self::REGISTERED_TRANSPORTS)) {
+        if (!in_array($transport, self::REGISTERED_TRANSPORTS, true)) {
             throw new InvalidArgumentException(sprintf(
                 'Unsupported transport "%s" given (supported: %s)',
                 $transport,
@@ -92,8 +92,6 @@ class StreamSocket implements StreamSocketInterface
     }
 
     /**
-     * @return resource
-     *
      * @throws ConnectionException
      */
     protected function createSocket(): void

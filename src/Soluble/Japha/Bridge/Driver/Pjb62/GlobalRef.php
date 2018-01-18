@@ -50,9 +50,9 @@ class GlobalRef
     }
 
     /**
-     * @param JavaType|null $object
+     * @param JavaType|object|null $object
      *
-     * @return int|JavaType
+     * @return int|JavaType|object
      */
     public function add($object)
     {
@@ -64,7 +64,7 @@ class GlobalRef
     }
 
     /**
-     * @param $id
+     * @param int $id
      *
      * @return int|JavaType
      */

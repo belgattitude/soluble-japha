@@ -25,7 +25,7 @@
 ## Object instantiation
 
 Whenever you want to work with a Java Object you must instantiate it through 
-the `$ba->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)`. 
+the `$ba->java('[JAVA_FQCN]', $arg1=null, $arg2=null, ...)`. 
 
 ### Simple constructor
 
@@ -42,7 +42,7 @@ $hash   = $ba->java('java.util.HashMap', ['key1' => $string, 'key2' => 'hello'])
 ```
 
 !!! tip
-    The **[JAVA FQDN]** is the fully qualified java class name (case-sensitive) optionally 
+    The **[JAVA FQCN]** is the fully qualified java class name (case-sensitive) optionally 
     followed by a list of arguments (variadic notation: `BridgeAdapter::java(string $javaClass, ...$args)`).*  
 
 
@@ -65,7 +65,7 @@ $bigdec = $ba->java('java.math.BigDecimal', $bigint, $scale=2, $mathContext);
   
 ## Methods  
 
-After creating a java object with `$ba->java('[JAVA_FQDN]', $arg1=null, $arg2=null, ...)` you can call
+After creating a java object with `$ba->java('[JAVA_FQCN]', $arg1=null, $arg2=null, ...)` you can call
 any public methods on it. Keep it mind that Java supports [method overloading](https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html),
 so before calling a method, ensures parameters will match the desired method signature.
 
@@ -85,7 +85,7 @@ $index = $javaString->indexOf('key', $fromIndex=8);
 
 ## Classes
 
-Use the `$ba->javaClass('[JAVA FQDN]', $arg1=null, ...)` method instead of
+Use the `$ba->javaClass('[JAVA FQCN]', $arg1=null, ...)` method instead of
 `$ba->java()`...
 
 Take a look to the following example with [java.lang.System](https://docs.oracle.com/javase/7/docs/api/java/lang/System.html) class.   
@@ -166,7 +166,7 @@ if (isset($hashMap['test'])) {
 ## Inner classes
 
 Java supports inner classes *(classes as a class property)*. 
-To explicitly refer to an inner class, the `FQDN` separator must be a **`$`** sign instead
+To explicitly refer to an inner class, the `FQCN` separator must be a **`$`** sign instead
 of the regular `.`. 
 
 The following example makes use of the [Calendar.Builder](https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html) class:

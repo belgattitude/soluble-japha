@@ -9,7 +9,7 @@ To get the fully qualified java class name on an object, simply call:
 ```php
 <?php
 $javaString = $ba->java('java.lang.String', 'Hello World');
-$javaFQDN = $ba->getClassName($javaString);
+$javaFQCN = $ba->getClassName($javaString);
 // will print 'java.lang.String'
 ```
 
