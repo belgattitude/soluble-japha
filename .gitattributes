@@ -23,5 +23,5 @@
 /psalm.xml           export-ignore
 /requirements.txt    export-ignore
 /infection.local.dist export-ignore
-.travis              export-ignore
+/.travis              export-ignore
 
