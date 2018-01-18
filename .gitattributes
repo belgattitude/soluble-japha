@@ -22,5 +22,6 @@
 /phpunit.xml.dist    export-ignore
 /psalm.xml           export-ignore
 /requirements.txt    export-ignore
-/infection.json.dist export-ignore
+/infection.local.dist export-ignore
+.travis              export-ignore
 

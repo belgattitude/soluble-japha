@@ -1,0 +1,17 @@
+{
+  "source": {
+    "directories": [
+      "src"
+    ],
+    "exclude": [
+    ]
+  },
+  "timeout": 150,
+  "logs": {
+    "text": "infection-log.txt"
+  },
+  "phpUnit": {
+    "configDir": ".travis",
+    "customPath": "./vendor/bin/phpunit"
+  }
+}
