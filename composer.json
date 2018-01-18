@@ -50,7 +50,7 @@
             "@cs-fix"
         ],
         "test": "vendor/bin/phpunit",
-        "test:mutation": "vendor/bin/infection --test-framework=phpunit --verbose --min-msi=60 --threads=4",
+        "test:mutation": "vendor/bin/infection --test-framework=phpunit --verbose --min-msi=20 --min-covered-msi=25 --threads=4",
         "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
         "cs-fix": "vendor/bin/php-cs-fixer -v fix",
         "phpstan": "vendor/bin/phpstan analyse -l max -c phpstan.neon src",
