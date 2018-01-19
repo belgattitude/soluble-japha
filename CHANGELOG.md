@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.5.0 (2018-01-19)
 
-## Added
+### Added
 
 - Added `use_persistent_connection` in adapter connection. By default to `false` but can be enabled
   if connection times are problematic (not recommended if using basic auth).
