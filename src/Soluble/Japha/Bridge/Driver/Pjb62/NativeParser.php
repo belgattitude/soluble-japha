@@ -133,9 +133,14 @@ class NativeParser implements ParserInterface
             $this->event = false;
             $this->buf = $this->client->read($this->java_recv_size);
             $len = strlen($this->buf);
-            if (!xml_parse($this->parser, $this->buf, $len == 0)) {
+            if (!xml_parse($this->parser, $this->buf, $len === 0)) {
                 $this->client->protocol->handler->shutdownBrokenConnection(
-                    sprintf('protocol error: %s,%s at col %d. Check the back end log for OutOfMemoryErrors.', $this->buf, xml_error_string(xml_get_error_code($this->parser)), xml_get_current_column_number($this->parser))
+                    sprintf(
+                        'protocol error: "buf: {%s}", %s at col %d. Check the back end log for OutOfMemoryErrors.',
+                        $this->buf,
+                        xml_error_string(xml_get_error_code($this->parser)),
+                        xml_get_current_column_number($this->parser)
+                    )
                 );
             }
         } while (!$this->event || $this->level > 0);

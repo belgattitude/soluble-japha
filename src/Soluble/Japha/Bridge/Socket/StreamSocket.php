@@ -23,7 +23,11 @@ class StreamSocket implements StreamSocketInterface
         ]
     ];
 
-    public const DEFAULT_CONNECT_TIMEOUT = 5.0;
+    public const DEFAULT_CONNECT_TIMEOUTS = [
+        'HOST_127.0.0.1' => 5.0,
+        'HOST_localhost' => 5.0,
+        'DEFAULT' => 20.0
+    ];
 
     /**
      * @var resource
@@ -39,29 +43,42 @@ class StreamSocket implements StreamSocketInterface
     /**
      * @param string  $transport      tcp, ssl... see self::TRANSPORT
      * @param string  $address        ip:port
-     * @param float   $connectTimeout connection timeout in seconds (float)
+     * @param float   $connectTimeout connection timeout in seconds (double: i.e: 5.0)
      * @param mixed[] $streamContext  see stream_context_create()
      * @param bool    $persistent     whether to use persistent connections
      */
     public function __construct(
         string $transport,
-                                string $address,
-                                float $connectTimeout = self::DEFAULT_CONNECT_TIMEOUT,
-                                array $streamContext = self::DEFAULT_CONTEXT,
-                                bool $persistent = false
+        string $address,
+        float $connectTimeout = null,
+        array $streamContext = self::DEFAULT_CONTEXT,
+        bool $persistent = false
     ) {
         $this->setTransport($transport);
         $this->address = $address;
-        $this->connectTimeout = $connectTimeout;
+        $this->setConnectTimeout($connectTimeout);
         $this->streamContext = $streamContext;
         $this->persistent = $persistent;
         $this->createSocket();
     }
 
+    protected function setConnectTimeout(float $timeout = null): void
+    {
+        if ($timeout === null) {
+            list($host) = explode(':', $this->address);
+            if (array_key_exists("HOST_$host", self::DEFAULT_CONNECT_TIMEOUTS)) {
+                $timeout = self::DEFAULT_CONNECT_TIMEOUTS["HOST_$host"];
+            } else {
+                $timeout = self::DEFAULT_CONNECT_TIMEOUTS['DEFAULT'];
+            }
+        }
+        $this->connectTimeout = $timeout;
+    }
+
     /**
      * @throws InvalidArgumentException when getting an unsupported transport
      */
-    protected function setTransport(string $transport)
+    protected function setTransport(string $transport): void
     {
         if (!in_array($transport, self::REGISTERED_TRANSPORTS, true)) {
             throw new InvalidArgumentException(sprintf(
@@ -78,6 +95,11 @@ class StreamSocket implements StreamSocketInterface
         return $this->transport;
     }
 
+    public function getConnectTimeout(): float
+    {
+        return $this->connectTimeout;
+    }
+
     /**
      * @return resource php socket
      */
@@ -89,6 +111,16 @@ class StreamSocket implements StreamSocketInterface
     public function getStreamAddress(): string
     {
         return sprintf('%s://%s', $this->getTransport(), $this->address);
+    }
+
+    /**
+     * Whether the connection is persistent or not.
+     *
+     * @return bool
+     */
+    public function isPersistent(): bool
+    {
+        return $this->persistent;
     }
 
     /**

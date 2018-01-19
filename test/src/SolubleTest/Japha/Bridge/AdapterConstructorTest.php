@@ -59,7 +59,7 @@ class AdapterConstructorTest extends TestCase
     {
         $this->expectException('Soluble\Japha\Bridge\Exception\InvalidArgumentException');
 
-        $ba = new Adapter([
+        new Adapter([
             'driver' => 'Pjb62',
             'missing_servlet_address' => ''
         ]);
@@ -68,7 +68,7 @@ class AdapterConstructorTest extends TestCase
     public function testConstructorThrowsInvalidArgumentException2()
     {
         $this->expectException('Soluble\Japha\Bridge\Exception\InvalidArgumentException');
-        $ba = new Adapter([
+        new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => 'an invalid url'
         ]);
@@ -86,7 +86,7 @@ class AdapterConstructorTest extends TestCase
         self::assertEquals('Europe/London', $javaTz);
     }
 
-    public function testConstructorWithDefaultriver()
+    public function testConstructorWithDefaultriver(): void
     {
         $ba = new Adapter([
             'servlet_address' => $this->servlet_address,
@@ -96,10 +96,10 @@ class AdapterConstructorTest extends TestCase
         self::assertEquals(Pjb62Driver::class, $driverClass);
     }
 
-    public function testConstructorSetsInvalidDefaultTimeZoneThrowsException()
+    public function testConstructorSetsInvalidDefaultTimeZoneThrowsException(): void
     {
         $this->expectException('Soluble\Japha\Util\Exception\UnsupportedTzException');
-        $ba = new Adapter([
+        new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
             'java_default_timezone' => 'InvalidTimezone'
@@ -114,7 +114,7 @@ class AdapterConstructorTest extends TestCase
         // and should produce an error
         $unsupportedJavaTz = 'Factory';
 
-        $ba = new Adapter([
+        new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
             'java_default_timezone' => $unsupportedJavaTz

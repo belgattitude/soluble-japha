@@ -58,6 +58,7 @@ class Client
     public const PARAM_JAVA_LOG_LEVEL = 'JAVA_LOG_LEVEL';
     public const PARAM_JAVA_INTERNAL_ENCODING = 'JAVA_INTERNAL_ENCODING';
     public const PARAM_XML_PARSER_FORCE_SIMPLE_PARSER = 'XML_PARSER_FORCE_SIMPLE_PARSER';
+    public const PARAM_USE_PERSISTENT_CONNECTION = 'USE_PERSISTENT_CONNECTION';
 
     public const DEFAULT_PARAMS = [
         self::PARAM_JAVA_HOSTS => 'localhost',
@@ -70,7 +71,8 @@ class Client
         self::PARAM_JAVA_RECV_SIZE => 8192,
         self::PARAM_JAVA_LOG_LEVEL => null,
         self::PARAM_JAVA_INTERNAL_ENCODING => 'UTF-8',
-        self::PARAM_XML_PARSER_FORCE_SIMPLE_PARSER => false
+        self::PARAM_XML_PARSER_FORCE_SIMPLE_PARSER => false,
+        self::PARAM_USE_PERSISTENT_CONNECTION => false
     ];
 
     /**

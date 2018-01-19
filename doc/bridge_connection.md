@@ -39,6 +39,7 @@ The `Soluble\Japha\Bridge\Adapter` constructor requires `$options`, an associati
 | Parameter        | Description                              |
 |------------------|------------------------------------------|
 |`servlet_address` | In the form: `http(s)://<host>:<port>/<context_uri>/servlet.phpjavabridge`     |
+|`use_persistent_connection`     | Since @2.5.0. By default `false`, set `true` for better connection times if needed. |
 
 !!! tip
     Since v2.4.0, you can also provide basic auth in the `servlet_address`, i.e.

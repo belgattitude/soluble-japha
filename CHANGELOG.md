@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.5.0 (2018-01-19)
+
+## Added
+
+- Added `use_persistent_connection` in adapter connection. By default to `false` but can be enabled
+  if connection times are problematic (not recommended if using basic auth).
+
 ## 2.4.3 (2018-01-18)
 
 ### Updated
@@ -28,7 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Bugfix
 
-- Regression with https connection introduced in 2.4.0
+- Regression with `https` connection introduced in 2.4.0
 
 ## 2.4.0 (2017-10-09)
 

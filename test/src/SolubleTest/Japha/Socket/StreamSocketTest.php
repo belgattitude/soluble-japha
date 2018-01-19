@@ -40,6 +40,7 @@ class StreamSocketTest extends TestCase
     public function testThrowsConnectionException(): void
     {
         $this->expectException(\Soluble\Japha\Bridge\Exception\ConnectionException::class);
+        //$this->expectExceptionMessage('cooo');
         new StreamSocket(
             StreamSocket::TRANSPORT_TCP,
             '128.23.60.12:73567',
@@ -91,5 +92,62 @@ class StreamSocketTest extends TestCase
         $transport = $scheme === 'https' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP;
 
         self::assertSame("$transport://$host:$port", $streamSocket->getStreamAddress());
+    }
+
+    public function testGetConnectTimeoutWithDefaults(): void
+    {
+        $streamSocketMock = $this->getMockBuilder(StreamSocket::class)
+             ->enableOriginalConstructor()
+             ->setMethods(['checkSocket', 'createSocket']);
+
+        $streamSocket = $streamSocketMock->setConstructorArgs([
+            StreamSocket::TRANSPORT_TCP,
+            '127.0.0.1:8080',
+            1.5
+        ])->getMock();
+        self::assertSame(1.5, $streamSocket->getConnectTimeout());
+
+        $streamSocket = $streamSocketMock->setConstructorArgs([
+            StreamSocket::TRANSPORT_TCP,
+            '127.0.0.1:8080'
+        ])->getMock();
+        self::assertSame(StreamSocket::DEFAULT_CONNECT_TIMEOUTS['HOST_127.0.0.1'], $streamSocket->getConnectTimeout());
+
+        $streamSocket = $streamSocketMock->setConstructorArgs([
+            StreamSocket::TRANSPORT_TCP,
+            'localhost:8080'
+        ])->getMock();
+        self::assertSame(StreamSocket::DEFAULT_CONNECT_TIMEOUTS['HOST_localhost'], $streamSocket->getConnectTimeout());
+
+        $streamSocket = $streamSocketMock->setConstructorArgs([
+            StreamSocket::TRANSPORT_TCP,
+            '257.257.257.257:8080'
+        ])->getMock();
+        self::assertSame(StreamSocket::DEFAULT_CONNECT_TIMEOUTS['DEFAULT'], $streamSocket->getConnectTimeout());
+    }
+
+    public function testIsPersistent(): void
+    {
+        $streamSocketMock = $this->getMockBuilder(StreamSocket::class)
+            ->enableOriginalConstructor()
+            ->setMethods(['checkSocket', 'createSocket']);
+
+        // DEFAULT
+        $streamSocket = $streamSocketMock->setConstructorArgs([
+            StreamSocket::TRANSPORT_TCP,
+            '127.0.0.1:8080',
+            null
+        ])->getMock();
+        self::assertFalse($streamSocket->isPersistent());
+
+        // TRUE
+        $streamSocket = $streamSocketMock->setConstructorArgs([
+            StreamSocket::TRANSPORT_TCP,
+            '127.0.0.1:8080',
+            null,
+            [],
+            $persistent = true,
+        ])->getMock();
+        self::assertTrue($streamSocket->isPersistent());
     }
 }

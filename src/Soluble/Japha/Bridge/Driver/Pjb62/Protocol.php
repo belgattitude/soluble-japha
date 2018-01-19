@@ -147,6 +147,9 @@ class Protocol
         $this->socketHandler = $socketHandler;
     }
 
+    /**
+     * @throws BrokenConnectionException
+     */
     public function getSocketHandler(): SocketHandler
     {
         if ($this->socketHandler === null) {
@@ -236,30 +239,38 @@ class Protocol
     }
 
     /**
+     * @param string $channelName With format <host:port>. If host is omitted, '127.0.0.1' by default
+     *
      * @throws ConnectionException
      * @throws Exception\IOException
      */
-    public function createSimpleHandler(?string $name = ''): SocketHandler
+    public function createSimpleHandler(string $channelName): SocketHandler
     {
-        $channelName = $name;
-        $errno = null;
-        $errstr = null;
         if (is_numeric($channelName)) {
-            $peer = @pfsockopen($host = '127.0.0.1', $channelName, $errno, $errstr, 5);
+            $host = '127.0.0.1';
+            $port = $channelName;
         } else {
-            $type = $channelName[0];
-            list($host, $channelName) = explode(':', $channelName);
-            $peer = pfsockopen($host, $channelName, $errno, $errstr, 20);
-            if (!$peer) {
-                throw new ConnectionException("No Java server at $host:$channelName. Error message: $errstr ($errno)");
-            }
+            list($host, $port) = explode(':', $channelName);
         }
+        $timeout = in_array($host, ['localhost', '127.0.0.1']) ? 5 : 20;
+        $peer = pfsockopen($host, $port, $errno, $errstr, $timeout);
+        if (!$peer) {
+            throw new ConnectionException(
+                sprintf(
+                    'No Java server at %s:%s. Error message: %s (errno: %s)',
+                    $host,
+                    $port,
+                    $errstr,
+                    $errno
+                )
+            );
+        }
+
         stream_set_timeout($peer, -1);
         $handler = new SocketHandler($this, new SocketChannelP($peer, $host, $this->java_recv_size, $this->java_send_size));
-        //$compatibility = java_getCompatibilityOption($this->client);
         $compatibility = PjbProxyClient::getInstance()->getCompatibilityOption($this->client);
         $this->write("\177$compatibility");
-        $this->serverName = "127.0.0.1:$channelName";
+        $this->serverName = "$host:$port";
 
         return $handler;
     }
@@ -270,7 +281,6 @@ class Protocol
         $java_servlet = $this->java_servlet;
 
         return ($java_hosts && (!$java_servlet || ($java_servlet === 'Off'))) ? $java_hosts : null;
-        //return (JAVA_HOSTS && (!JAVA_SERVLET || (JAVA_SERVLET == "Off"))) ? JAVA_HOSTS : null;
     }
 
     public function createHandler()

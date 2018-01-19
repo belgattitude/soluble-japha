@@ -97,6 +97,7 @@ abstract class SocketChannel extends EmptyChannel
     public function shutdownBrokenConnection(?string $msg = ''): void
     {
         if (is_resource($this->peer)) {
+            fflush($this->peer);
             fclose($this->peer);
         }
     }

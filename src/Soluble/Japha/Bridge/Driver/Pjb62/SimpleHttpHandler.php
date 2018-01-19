@@ -45,8 +45,6 @@ use Soluble\Japha\Bridge\Socket\StreamSocket;
 
 class SimpleHttpHandler extends SocketHandler
 {
-    const DEFAULT_CONNECT_TIMEOUT = 20.0;
-
     public $headers;
 
     /**
@@ -124,7 +122,8 @@ class SimpleHttpHandler extends SocketHandler
     }
 
     /**
-     * @throws Exception\IllegalStateException on channel creation error
+     * @throws Exception\IllegalStateException     on channel creation error
+     * @throws Exception\BrokenConnectionException if all goes wrong
      */
     protected function createChannel()
     {
@@ -147,7 +146,7 @@ class SimpleHttpHandler extends SocketHandler
                 $this->protocol->handler->shutdownBrokenConnection('Broken local connection handle');
             }
             $this->protocol->client->sendBuffer = null;
-            $ret2 = $this->protocol->handler->read(1);
+            $this->protocol->handler->read(1);
         }
     }
 
@@ -193,6 +192,9 @@ class SimpleHttpHandler extends SocketHandler
         return $context;
     }
 
+    /**
+     * @throws Exception\BrokenConnectionException
+     */
     public function write(string $data): ?int
     {
         return $this->protocol->getSocketHandler()->write($data);
@@ -209,7 +211,7 @@ class SimpleHttpHandler extends SocketHandler
     }
 
     /**
-     * @param int $size
+     * @throws Exception\BrokenConnectionException
      */
     public function read(int $size): string
     {
@@ -225,13 +227,14 @@ class SimpleHttpHandler extends SocketHandler
      */
     public function getChannel(string $channelName): SocketChannelP
     {
+        $persistent = $this->protocol->client->getParam(Client::PARAM_USE_PERSISTENT_CONNECTION);
         try {
             $streamSocket = new StreamSocket(
                 $this->ssl === 'ssl://' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP,
                 $this->host.':'.$channelName,
-                self::DEFAULT_CONNECT_TIMEOUT,
+                null,
                 [],
-                true
+                $persistent
             );
             $socket = $streamSocket->getSocket();
         } catch (\Throwable $e) {

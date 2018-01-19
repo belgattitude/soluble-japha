@@ -62,6 +62,7 @@ class System
      * Set system default timezone.
      *
      * @throws UnsupportedTzException
+     * @throws Bridge\Exception\JavaException
      *
      * @param string|Interfaces\JavaObject|\DateTimeZone $timezone timezone id, Java(java.util.Timezone) or php DateTimeZone
      */

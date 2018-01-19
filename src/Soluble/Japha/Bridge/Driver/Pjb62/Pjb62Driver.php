@@ -37,6 +37,7 @@ class Pjb62Driver extends AbstractDriver
      *
      * $ba = new Pjb62Driver([
      *     'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge'
+     *      //'use_persistent_connection' => false,
      *      //'java_default_timezone' => null,
      *      //'java_prefer_values' => true,
      *      //'java_log_level' => null,

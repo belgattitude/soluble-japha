@@ -58,6 +58,9 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
      */
     protected $isRedirect;
 
+    /**
+     * @var string
+     */
     protected $httpHeadersPayload;
 
     /**
@@ -91,6 +94,7 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     public function shutdownBrokenConnection(string $msg = '', int $code = null): void
     {
         if (is_resource($this->socket)) {
+            fflush($this->socket);
             fclose($this->socket);
         }
         PjbProxyClient::unregisterAndThrowBrokenConnectionException($msg, $code);
@@ -102,10 +106,13 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
     protected function open()
     {
         try {
+            $persistent = $this->protocol->client->getParam(Client::PARAM_USE_PERSISTENT_CONNECTION);
             $streamSocket = new StreamSocket(
                 $this->ssl === 'ssl://' ? StreamSocket::TRANSPORT_SSL : StreamSocket::TRANSPORT_TCP,
                 $this->host.':'.$this->port,
-                self::DEFAULT_CONNECT_TIMEOUT
+                null,
+                StreamSocket::DEFAULT_CONTEXT,
+                $persistent
             );
             $socket = $streamSocket->getSocket();
         } catch (\Throwable $e) {
@@ -240,11 +247,21 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
 
         $count = @fwrite($this->socket, $request);
         if ($count === false) {
-            $this->shutdownBrokenConnection('Cannot write to socket, broken connection handle');
+            $this->shutdownBrokenConnection(
+                sprintf(
+                    'Cannot write to socket, broken connection handle: %s',
+                error_get_last()
+            )
+            );
         }
         $flushed = @fflush($this->socket);
         if ($flushed === false) {
-            $this->shutdownBrokenConnection('Cannot flush to socket, broken connection handle');
+            $this->shutdownBrokenConnection(
+                sprintf(
+                    'Cannot flush to socket, broken connection handle: %s',
+                error_get_last()
+            )
+            );
         }
 
         return (int) $count;

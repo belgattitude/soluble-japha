@@ -37,6 +37,8 @@ class PjbProxyClient implements ClientInterface
         'java_log_level' => null,
         'java_send_size' => 8192,
         'java_recv_size' => 8192,
+        // By default do not use persistent connection
+        'use_persistent_connection' => false,
         // java_prefer_values=true is the default working mode
         // of the soluble-japha client... It may be less efficient,
         // because it casts java String, Boolean, Integer... objects
@@ -48,7 +50,7 @@ class PjbProxyClient implements ClientInterface
         'java_prefer_values' => true,
         // use SimpleParser (pure PHP code) even if NativeParser (based on xml_* php functions) may be used
         // should only be used to workaround bugs or limitations regarding the xml extension
-        'force_simple_xml_parser' => false
+        'force_simple_xml_parser' => false,
     ];
 
     /**
@@ -121,14 +123,16 @@ class PjbProxyClient implements ClientInterface
      *  $options can be :
      *  "java_send_size" => 8192,
      *  "java_recv_size" => 8192,
+     *  "use_persistent_connection" => false
      *  "java_log_level' => null,
      *  "java_prefer_values" => true (see note)
      *
      * <code>
      *    $options = [
-     *      'servlet_address' => 'http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge'
+     *      "servlet_address" => 'http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge'
      *      "java_send_size" => 8192,
      *      "java_recv_size" => 8192,
+     *      "use_persistent_connection" => false,
      *      "internal_encoding" => 'UTF-8'
      *    ];
      *    $pjb = PjbProxyClient::getInstance($options, $logger);
@@ -215,6 +219,7 @@ class PjbProxyClient implements ClientInterface
                 Client::PARAM_JAVA_RECV_SIZE => $options['java_recv_size'],
                 Client::PARAM_JAVA_LOG_LEVEL => $options['java_log_level'],
                 Client::PARAM_XML_PARSER_FORCE_SIMPLE_PARSER => $options['force_simple_xml_parser'],
+                Client::PARAM_USE_PERSISTENT_CONNECTION => $options['use_persistent_connection']
             ]);
 
             self::$client = new Client($params, $this->logger);
