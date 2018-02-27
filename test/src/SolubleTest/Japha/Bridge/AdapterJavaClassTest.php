@@ -40,7 +40,6 @@ class AdapterJavaClassTest extends TestCase
         \SolubleTestFactories::startJavaBridgeServer();
 
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
-
         $this->adapter = new Adapter([
             'driver' => 'Pjb62',
             'servlet_address' => $this->servlet_address,
