@@ -54,6 +54,7 @@ class Adapter
      *      //'java_default_timezone' => null,
      *      //'java_prefer_values' => true,
      *      //'force_simple_xml_parser' => false
+     *      //'java_log_level' => null // set it to 1,2,3,4 to see errors in tomcat log
      *    ]);
      *
      * </code>
@@ -64,8 +65,8 @@ class Adapter
      * @throws Exception\ConfigurationException
      * @throws Exception\ConnectionException
      *
-     * @param array           $options
-     * @param LoggerInterface $logger  any PSR-3 compatible logger
+     * @param array<string, mixed> $options
+     * @param LoggerInterface      $logger  any PSR-3 compatible logger
      */
     public function __construct(array $options, LoggerInterface $logger = null)
     {
