@@ -69,8 +69,8 @@ The `Soluble\Japha\Bridge\Adapter` constructor requires `$options`, an associati
     pure-php implementation of the xml parser. This can fix possible issues with
     the native xml parser when the size of an xml message exceeds 10M. 
     Before applying this feature, always check whether it's your only option... 
-              
 
+             
 ### Optional PSR-3 logger
 
 Optionally you can send any PSR-3 logger as the second parameter, for example with monolog :
@@ -128,6 +128,19 @@ During initialization with the BridgeAdapter, the following exceptions could hap
     end up with the `BrokenConnectionException`. Fix your config to the correct bridge address.
        
     
+### Server debugging
+
+Debugging can be enabled through the connection (@see java_log_level). Depending on your setup, they
+might be stored in tomcat logs.  
+
+- 0: Log nothing, not even fatal errors.
+- 1: Log fatal system errors such as "out of memory error".
+- 2: Log java exceptions.
+- 3: Log verbose, e.g.: "JavaBridge version x.y.z started"
+- 4: Log debug messages, including the c/s communication protocol.
+- 5: Log method invocations, including method selection.
+- 6: Reserved for internal use. Log messages which may be useful
+      to debug certain parts of the bridge.
 
 
 
