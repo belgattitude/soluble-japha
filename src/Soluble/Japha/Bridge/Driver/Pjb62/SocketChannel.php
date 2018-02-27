@@ -70,7 +70,7 @@ abstract class SocketChannel extends EmptyChannel
 
     public function fwrite(string $data): ?int
     {
-        $written = fwrite($this->peer, $data);
+        $written = @fwrite($this->peer, $data);
         if ($written === false) {
             PjbProxyClient::unregisterInstance();
             throw new BrokenConnectionException('Broken socket communication with the php-java-bridge (write)');
