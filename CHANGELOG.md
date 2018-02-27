@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.5.1 (2018-xx-xx) NOT YETT RELEASED
+
+### Fixes
+
+- Fix a possible fwrite warning in SocketChannel (handled by an exception anyway). 
+
 ## 2.5.0 (2018-01-19)
 
 ### Added
@@ -502,4 +508,3 @@ This release has been tested with the latest official phpjavabridge 7.1.3.
 ## 0.10.0 (2016-05-13)
 
 - Drop PHP 5.3 support (use < 0.10.0 if 5.3 is required)
-  
