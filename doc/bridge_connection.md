@@ -43,14 +43,15 @@ The `Soluble\Japha\Bridge\Adapter` constructor requires `$options`, an associati
 
 !!! tip
     Since v2.4.0, you can also provide basic auth in the `servlet_address`, i.e.
-    `http://user:password@localhost:8083/JavaBridge/servlet.phpjavabridge`.  
+    `http://user:password@localhost:8083/JavaBridge/servlet.phpjavabridge`. If
+    using basic_auth, avoid setting `use_persistent_connection` to true. 
 
 
 | Advanced params     | Description                              |
 |---------------------|------------------------------------------|
 |`java_send_size`     | Socket write buffer, by default `8192`. |
 |`java_recv_size`     | Socket read buffer, by default `8192`. |
-|`java_log_level`     | To enable java side logging level, by default `null`. |
+|`java_log_level`     | Log level on server (tomcat) side, by default `null`. |
 |`force_simple_xml_parser` | By default `false`: force the Use the php xml parser instead of native xml_parser(). |
 |`driver`             | Defaults to `pjb62` driver implementation.      |
 |`java_prefer_values` | By default `true`, see warning below. |
