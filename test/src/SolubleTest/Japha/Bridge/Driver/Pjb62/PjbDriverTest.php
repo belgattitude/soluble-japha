@@ -12,6 +12,7 @@ namespace SolubleTest\Japha\Bridge\Driver\Pjb62;
 
 use Psr\Log\NullLogger;
 use Soluble\Japha\Bridge\Adapter;
+use Soluble\Japha\Bridge\Driver\Pjb62\Client;
 use Soluble\Japha\Bridge\Driver\Pjb62\InternalJava;
 use Soluble\Japha\Bridge\Driver\Pjb62\Pjb62Driver;
 use Soluble\Japha\Bridge\Driver\Pjb62\PjbProxyClient;
@@ -167,6 +168,8 @@ class PjbDriverTest extends TestCase
         $pjbProxyClient = $ba->getDriver()->getClient();
 
         self::assertEquals(4, $pjbProxyClient->getOption('java_log_level'));
+
+        self::assertEquals(4, $pjbProxyClient->getClient()->getParam(Client::PARAM_JAVA_LOG_LEVEL));
     }
 
     public function testInstanciateThrowsBrokenConnectionException()
