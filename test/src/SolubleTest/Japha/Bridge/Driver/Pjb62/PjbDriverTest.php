@@ -151,6 +151,24 @@ class PjbDriverTest extends TestCase
         self::assertEquals('', Pjb62Driver::getJavaBridgeHeader('NOTHING', $headersToTest));
     }
 
+    public function testJavaLogLevelIsPassedToClient()
+    {
+        PjbProxyClient::unregisterInstance();
+
+        $ba = new Adapter([
+            'driver' => 'Pjb62',
+            'servlet_address' => $this->servlet_address,
+            'java_log_level' => 4
+        ]);
+
+        /**
+         * @var PjbProxyClient
+         */
+        $pjbProxyClient = $ba->getDriver()->getClient();
+
+        self::assertEquals(4, $pjbProxyClient->getOption('java_log_level'));
+    }
+
     public function testInstanciateThrowsBrokenConnectionException()
     {
         $this->expectException(BrokenConnectionException::class);
