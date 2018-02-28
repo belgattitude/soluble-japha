@@ -54,7 +54,7 @@ class Adapter
      *      //'java_default_timezone' => null,
      *      //'java_prefer_values' => true,
      *      //'force_simple_xml_parser' => false
-     *      //'java_log_level' => null // set it to 1,2,3,4 to see errors in tomcat log
+     *      //'java_log_level' => null // set it to 0,1,2,3,4,5,6 to see errors in tomcat log
      *    ]);
      *
      * </code>
