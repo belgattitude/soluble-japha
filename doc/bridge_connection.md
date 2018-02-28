@@ -130,8 +130,7 @@ During initialization with the BridgeAdapter, the following exceptions could hap
     
 ### Server debugging
 
-Debugging can be enabled through the connection (@see java_log_level). Depending on your setup, they
-might be stored in tomcat logs.  
+Debugging can be enabled through the connection (@see java_log_level). 
 
 - 0: Log nothing, not even fatal errors.
 - 1: Log fatal system errors such as "out of memory error".
@@ -142,5 +141,7 @@ might be stored in tomcat logs.
 - 6: Reserved for internal use. Log messages which may be useful
       to debug certain parts of the bridge.
 
+
+> If using tomcat logged messages will be present in catalina.out. 
 
 
