@@ -81,7 +81,6 @@ class AdapterConstructorTest extends TestCase
             'servlet_address' => $this->servlet_address,
             'java_default_timezone' => 'Europe/London'
         ]);
-
         $javaTz = $ba->getSystem()->getTimeZoneId();
         self::assertEquals('Europe/London', $javaTz);
     }
