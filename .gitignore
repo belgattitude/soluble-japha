@@ -17,3 +17,4 @@ infection-log.txt
 .travis/target
 .travis/*.log
 .travis/*.pid
+deploy_doc.sh
