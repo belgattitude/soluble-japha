@@ -198,6 +198,12 @@ Experiments
 * This code is principally developed and maintained by [Sébastien Vanvelthem](https://github.com/belgattitude).
 * Special thanks to [all of these awesome contributors](https://github.com/belgattitude/soluble-japha/network/members)
 * This project is based on the Java.inc work made by the [PHPJavaBridge developers](http://php-java-bridge.sourceforge.net/pjb/contact.php#code_contrib). 
+
+### Special mention
+
+Grateful thanks to JetBrains for granting an opensource license of PHPStorm and Idea. Really recommend !!!
+
+[![PHPStorm](./doc/images/phpstorm.svg)](https://www.jetbrains.com)
   
 ## Coding standards and interop
 
