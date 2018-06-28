@@ -128,7 +128,7 @@ class StreamSocket implements StreamSocketInterface
      */
     protected function createSocket(): void
     {
-        $this->socket = @stream_socket_client(
+        $socket = @stream_socket_client(
             $this->getStreamAddress(),
             $errno,
             $errstr,
@@ -136,18 +136,7 @@ class StreamSocket implements StreamSocketInterface
             $this->getStreamFlags(),
             $this->getStreamContext()
         );
-        $this->checkSocket($this->socket, $errno, $errstr);
-    }
 
-    /**
-     * @param resource|false $socket
-     * @param int|null       $errno
-     * @param string|null    $errstr
-     *
-     * @throws ConnectionException
-     */
-    protected function checkSocket($socket, int $errno = null, string $errstr = null): void
-    {
         if ($socket === false || !is_resource($socket)) {
             $msg = sprintf(
                 "Could not connect to the php-java-bridge server '%s'. Please start it. (err: %s, %s)",
@@ -157,6 +146,8 @@ class StreamSocket implements StreamSocketInterface
             );
             throw new ConnectionException($msg);
         }
+
+        $this->socket = $socket;
     }
 
     protected function getStreamFlags(): int
