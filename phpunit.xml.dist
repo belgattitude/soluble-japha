@@ -8,26 +8,25 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false"
          bootstrap="./test/bootstrap.php"
 >
 
     <php>
-        <!-- 
+        <!--
             AUTORUN_PJB_STANDALONE : boolean
-              
+
               * Only work on Linux system with a JVM installed *
-              
+
               If you want to automatically download, install and run
               the original PHPJavaBridge standalone server. This
               feature allows CI systems to run tests with minimal
               configuration.An correct example of servlet_address
               could be http://127.0.0.1:8083/servlet.phpjavabridge,
               Feel free to change the port.
-              
+
               (if false, you have to get a tomcat server running)
         -->
-        
+
         <server name="AUTORUN_PJB_STANDALONE" value="true" />
         <server name="PJB_SERVLET_ADDRESS" value="http://127.0.0.1:8083/servlet.phpjavabridge" />
 
@@ -38,17 +37,17 @@
         -->
         <!--
         <server name="AUTORUN_PJB_STANDALONE" value="false" />
-        <server name="PJB_SERVLET_ADDRESS" value="http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge" />       
+        <server name="PJB_SERVLET_ADDRESS" value="http://127.0.0.1:8080/javabridge-bundle/servlet.phpjavabridge" />
         -->
-        
-		
+
+
         <!--
-            Configure connection to mysql server for testing 
+            Configure connection to mysql server for testing
             mysql jdbc connection
 
         -->
         <server name="JAPHA_ENABLE_JDBC_TESTS" value="false" />
-        
+
         <server name="MYSQL_DRIVER" value="Mysqli" />
         <server name="MYSQL_HOSTNAME" value="127.0.0.1" />
         <server name="MYSQL_USERNAME" value="root" />
@@ -62,7 +61,7 @@
         <server name="JAPHA_ENABLE_GSON_TESTS" value="false" />
 
 
-        <server name="PHPUNIT_CACHE_DIR" value="./test/tmp/cache" />		          
+        <server name="PHPUNIT_CACHE_DIR" value="./test/tmp/cache" />
         <ini name="date.timezone" value="Europe/Brussels"/>
 
         <!-- Default charset: Still errors if different from UTF-8 -->
@@ -78,7 +77,7 @@
             <directory>./test/src/SolubleTest/Japha</directory>
         </testsuite>
     </testsuites>
-    
+
     <filter>
         <whitelist>
             <directory>./src</directory>
@@ -91,6 +90,6 @@
     </filter>
     <logging>
         <log type="coverage-clover" target="./test/build/logs/clover.xml"/>
-        <log type="coverage-html" target="./test/build/html-coverage" charset="UTF-8" yui="true" highlight="false" lowUpperBound="35" highLowerBound="70"/>
-    </logging>		
+        <log type="coverage-html" target="./test/build/html-coverage" />
+    </logging>
 </phpunit>
