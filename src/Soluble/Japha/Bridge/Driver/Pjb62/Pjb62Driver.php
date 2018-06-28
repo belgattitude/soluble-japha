@@ -289,36 +289,37 @@ class Pjb62Driver extends AbstractDriver
     /**
      * Cast internal objects to a new type.
      *
-     * @param Interfaces\JavaObject|JavaType $javaObject
-     * @param string                         $cast_type
+     * @param Interfaces\JavaObject|JavaType|mixed $javaObject
+     * @param string                               $cast_type
      *
      * @return mixed
      */
     public static function castPjbInternal($javaObject, string $cast_type)
     {
-        if (!$javaObject instanceof JavaType) {
-            $first_char = strtoupper($cast_type[0]);
-            switch ($first_char) {
-                case 'S':
-                    return (string) $javaObject;
-                case 'B':
-                    return (bool) $javaObject;
-                case 'L':
-                case 'I':
-                    return (int) $javaObject;
-                case 'D':
-                case 'F':
-                    return (float) $javaObject;
-                case 'N':
-                    return null;
-                case 'A':
-                    return (array) $javaObject;
-                case 'O':
-                    return (object) $javaObject;
-            }
+        if ($javaObject instanceof JavaType) {
+            return $javaObject->__cast($cast_type);
         }
 
-        return $javaObject->__cast($cast_type);
+        // mixed (string | int | bool)
+        $first_char = strtoupper($cast_type[0]);
+        switch ($first_char) {
+            case 'S':
+                return (string) $javaObject;
+            case 'B':
+                return (bool) $javaObject;
+            case 'L':
+            case 'I':
+                return (int) $javaObject;
+            case 'D':
+            case 'F':
+                return (float) $javaObject;
+            case 'N':
+                return null;
+            case 'A':
+                return (array) $javaObject;
+            case 'O':
+                return (object) $javaObject;
+        }
     }
 
     /**
