@@ -254,7 +254,7 @@ class Protocol
         }
         $timeout = in_array($host, ['localhost', '127.0.0.1']) ? 5 : 20;
         $peer = pfsockopen($host, $port, $errno, $errstr, $timeout);
-        if (!$peer) {
+        if (!\is_resource($peer)) {
             throw new ConnectionException(
                 sprintf(
                     'No Java server at %s:%s. Error message: %s (errno: %s)',
