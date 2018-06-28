@@ -136,8 +136,11 @@ class TimeZone
          * @var string
          */
         $javaTimezone = (string) $tz->getID();
-        if ($javaTimezone == 'GMT' && $phpTimezone != 'GMT') {
-            $msg = "The timezone id '$id' could not be understood by JVM (JVM returned defaulted to GMT)";
+        if ($javaTimezone === 'GMT' && $phpTimezone !== 'GMT') {
+            $msg = sprintf(
+                "The timezone id '%s' could not be understood by JVM (JVM returned defaulted to GMT)",
+                $id instanceof DateTimeZone ? $id->getName() : $id
+            );
             throw new Exception\UnsupportedTzException($msg);
         }
 
