@@ -20,6 +20,16 @@ Check phpunit works by running
 $ ./vendor/bin/phpunit
 ```
 
+### Optional: db install
+
+```
+mysql -u <user> -p -e 'create database phpunit_soluble_test_db'
+zcat test/data/mysql/schema.sql.gz | mysql -u <user> -p phpunit_soluble_test_db
+zcat test/data/mysql/data.sql.gz | mysql -u <user> -p phpunit_soluble_test_db
+```
+Then activate jdbc tests in `phpunit.xml`
+
+
 ### Source modification
 
 1. Create a new branch from master (i.e. feature/24)
