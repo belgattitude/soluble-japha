@@ -417,13 +417,13 @@ class PjbProxyClient implements ClientInterface
                 $client = $client = self::getClient();
             }
 
-            $java_prefer_values = $this->getOption('java_prefer_values');
+            $java_prefer_values = (int) $this->getOption('java_prefer_values');
             $java_log_level = $this->getOption('java_log_level');
             $compatibility = ($client->RUNTIME['PARSER'] === 'NATIVE') ? (0103 - $java_prefer_values) : (0100 + $java_prefer_values);
             if (is_int($java_log_level)) {
                 $compatibility |= 128 | (7 & $java_log_level) << 2;
             }
-            $this->compatibilityOption = chr($compatibility);
+            $this->compatibilityOption = \chr((int) $compatibility);
         }
 
         return $this->compatibilityOption;
