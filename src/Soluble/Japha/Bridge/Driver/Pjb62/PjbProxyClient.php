@@ -423,7 +423,7 @@ class PjbProxyClient implements ClientInterface
             if (is_int($java_log_level)) {
                 $compatibility |= 128 | (7 & $java_log_level) << 2;
             }
-            $this->compatibilityOption = \chr((int) $compatibility);
+            $this->compatibilityOption = \chr($compatibility);
         }
 
         return $this->compatibilityOption;
@@ -490,7 +490,7 @@ class PjbProxyClient implements ClientInterface
      */
     public function getOption(string $name)
     {
-        if (!array_key_exists($name, $this->options)) {
+        if (!$this->options->offsetExists($name)) {
             throw new Exception\InvalidArgumentException("Option '$name' does not exists'");
         }
 
