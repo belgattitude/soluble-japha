@@ -4,7 +4,7 @@ This document shows how to deploy the bridge as a servlet on the Tomcat server.
 
 ### Install tomcat
 
-A generic Tomcat installation is located [here](./server/install_tomcat.html).
+A generic Tomcat installation is located [here](./install_server.md).
 
 
 ### Create a java bridge deployable .war file.
