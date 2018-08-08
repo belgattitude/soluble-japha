@@ -671,7 +671,7 @@ class Client
             if ((($object == null) && !function_exists($name)) || (!($object == null) && !method_exists($object, $name))) {
                 throw new Exception\JavaException('java.lang.NoSuchMethodError', (string) $name);
             }
-            $res = call_user_func_array($ob, $res);
+            $res = call_user_func($ob, $res);
             if (is_object($res) && (!($res instanceof JavaType))) {
                 $msg = "Client failed to applyArg(), Object returned from '$name()' is not a Java object";
                 $this->logger->warning("[soluble-japha] $msg (".__METHOD__.')');
