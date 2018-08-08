@@ -324,8 +324,9 @@ class Pjb62Driver extends AbstractDriver
 
     /**
      * {@inheritdoc}
+     * @param Interfaces\JavaObject|int|float $javaObject
      */
-    public function cast(Interfaces\JavaObject $javaObject, string $cast_type)
+    public function cast($javaObject, string $cast_type)
     {
         /* @todo see how can it be possible to clean up to new structure
             const CAST_TYPE_STRING  = 'string';
