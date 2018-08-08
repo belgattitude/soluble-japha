@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Soluble\Japha\Bridge\Exception;
 
-interface JavaExceptionInterface
+interface JavaExceptionInterface extends \Throwable
 {
     /**
      * Return Java cause. The cause differs from getMessage() as
