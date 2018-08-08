@@ -37,7 +37,8 @@
         "monolog/monolog": "^1.23.0",
         "phpstan/phpstan": "^0.10",
         "phpstan/phpstan-strict-rules": "^0.10",
-        "phpstan/phpstan-phpunit": "^0.10"
+        "phpstan/phpstan-phpunit": "^0.10",
+        "infection/infection": "^0.9.0"
     },
     "scripts": {
         "check": [
