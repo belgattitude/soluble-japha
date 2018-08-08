@@ -4,11 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.5.2 (2018-XX-XX)
+## 2.5.2 (2018-08-08)
 
 ### Fixes
 
-- Minor: fix possible typeerror in exception message in `Util\TimeZone`
+- Minor fix: interface `JavaExceptionInterface` now extends `\Throwable`
+- Minor fix: possible type error in exception message in `Util\TimeZone`
+- Minor fix: use offsetExists instead of array_key_exists in `PjbProxyClient::getOption(string $name)`
 
 ## 2.5.1 (2018-02-28) 
 
