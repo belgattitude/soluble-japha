@@ -99,12 +99,12 @@ abstract class AbstractDriver implements DriverInterface
      *
      * @throws \Soluble\Japha\Bridge\Exception\RuntimeException
      *
-     * @param Interfaces\JavaObject $javaObject
+     * @param Interfaces\JavaObject|int|float|array|bool $javaObject
      * @param string                $cast_type
      *
      * @return mixed
      */
-    abstract public function cast(Interfaces\JavaObject $javaObject, string $cast_type);
+    abstract public function cast($javaObject, string $cast_type);
 
     /**
      * {@inheritdoc}
