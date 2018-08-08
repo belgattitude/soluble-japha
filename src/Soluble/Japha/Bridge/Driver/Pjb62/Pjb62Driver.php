@@ -324,6 +324,7 @@ class Pjb62Driver extends AbstractDriver
 
     /**
      * {@inheritdoc}
+     *
      * @param Interfaces\JavaObject|int|float $javaObject
      */
     public function cast($javaObject, string $cast_type)

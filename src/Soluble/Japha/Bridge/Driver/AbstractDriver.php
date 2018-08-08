@@ -100,7 +100,7 @@ abstract class AbstractDriver implements DriverInterface
      * @throws \Soluble\Japha\Bridge\Exception\RuntimeException
      *
      * @param Interfaces\JavaObject|int|float|array|bool $javaObject
-     * @param string                $cast_type
+     * @param string                                     $cast_type
      *
      * @return mixed
      */
