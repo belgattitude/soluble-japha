@@ -8,9 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixes
 
+- Fix: Fix exception message for `SimpleHttpTunnelHandler` errors. `error_get_last()` is now serialized.
 - Minor fix: interface `JavaExceptionInterface` now extends `\Throwable`
 - Minor fix: possible type error in exception message in `Util\TimeZone`
 - Minor fix: use offsetExists instead of array_key_exists in `PjbProxyClient::getOption(string $name)`
+- Minor fix: use of `call_user_func` instead of `call_user_func_array` in `Client`.
+
+#### Updated
+
+- Q&A tools update: phpstan....
 
 ## 2.5.1 (2018-02-28) 
 
