@@ -6,6 +6,8 @@ parameters:
 	fileExtensions:
 		- php
 		- dist
+	excludes_analyse:
+		- src/Soluble/Japha/Bridge/Driver/Pjb62/NativeParser.php
 	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
 		# By nature the bridge proxies Java object and methods.
