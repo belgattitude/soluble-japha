@@ -1,2 +1,7 @@
-mkdocs>=0.17.1
-mkdocs-material>=2.0.4
+mkdocs>=1.0.0
+Pygments>=2.2
+pymdown-extensions>=4.11
+mkdocs-material>=3.0.0
+
+# Temporary fix for build errors on Travis
+tornado<5

@@ -8,13 +8,13 @@ repo_name: 'soluble-japha'
 repo_url: 'https://github.com/belgattitude/soluble-japha'
 
 # Copyright
-copyright: 'Copyright &copy; 2017 Sébastien Vanvelthem'
+copyright: 'Copyright &copy; 2018 Sébastien Vanvelthem'
 
 docs_dir: doc
 site_dir: build/doc
 edit_uri: https://github.com/belgattitude/soluble-japha/edit/master/doc/
 
-pages:
+nav:
     - { 'Introduction': index.md }
     - { 'Getting started': [
             { 'PHP install': install_client.md },
