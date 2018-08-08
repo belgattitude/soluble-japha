@@ -51,7 +51,7 @@
         "test:mutation": "vendor/bin/infection --configuration=infection.local.json --test-framework=phpunit --verbose --min-msi=20 --min-covered-msi=25 --threads=4",
         "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
         "cs-fix": "vendor/bin/php-cs-fixer -v fix",
-        "phpstan": "vendor/bin/phpstan analyse -l max -c phpstan.neon src",
+        "phpstan": "vendor/bin/phpstan analyse -l 5 -c phpstan.neon src",
         "build-doc": "mkdocs build && sami.phar update ./.sami.php",
         "apigen": "apigen.phar generate --config=./.apigen.yml",
         "sami": "sami.phar update ./.sami.php"
