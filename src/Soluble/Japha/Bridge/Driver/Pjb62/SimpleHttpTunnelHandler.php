@@ -250,8 +250,8 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
             $this->shutdownBrokenConnection(
                 sprintf(
                     'Cannot write to socket, broken connection handle: %s',
-                error_get_last()
-            )
+                    json_encode(error_get_last())
+                )
             );
         }
         $flushed = @fflush($this->socket);
@@ -259,8 +259,8 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
             $this->shutdownBrokenConnection(
                 sprintf(
                     'Cannot flush to socket, broken connection handle: %s',
-                error_get_last()
-            )
+                    json_encode(error_get_last())
+                )
             );
         }
 
