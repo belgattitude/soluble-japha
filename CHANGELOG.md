@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 2.6.3 (2018-12-22)
+
+### Fixes
+
+- Cast port to integer in Ptotocol.php (minor)
+
+### Updated
+
+- Tests for PHP 7.3, Q&A travis
+
 ## 2.6.2 (2018-08-08)
 
 ### Fixes
