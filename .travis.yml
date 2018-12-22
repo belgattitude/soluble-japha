@@ -12,6 +12,7 @@ matrix:
         - PHPSTAN=true
         - INFECTION=true
     - php: 7.2
+    - php: 7.3
     - php: nightly
   allow_failures:
     - php: nightly
@@ -19,10 +20,6 @@ matrix:
 before_script:
   # Debug Java version
   - java -version
-  # Enable HHVM config
-  - echo "hhvm.php7.all = 1" > /tmp/hhvm.php.ini
-  - echo "hhvm.hack.lang.look_for_typechecker = 0" >> /tmp/hhvm.php.ini
-  - phpenv config-add /tmp/hhvm.php.ini
   # Creating the test database
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
   - mysql -e "create database phpunit_soluble_test_db;" -uroot
