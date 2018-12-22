@@ -253,7 +253,7 @@ class Protocol
             list($host, $port) = explode(':', $channelName);
         }
         $timeout = in_array($host, ['localhost', '127.0.0.1']) ? 5 : 20;
-        $peer = pfsockopen($host, $port, $errno, $errstr, $timeout);
+        $peer = pfsockopen($host, (int) $port, $errno, $errstr, $timeout);
         if (!\is_resource($peer)) {
             throw new ConnectionException(
                 sprintf(
