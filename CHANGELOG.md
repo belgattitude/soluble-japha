@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixes
 
-- Cast port to integer in Ptotocol.php (minor)
+- Cast port to integer in Protocol.php (minor)
 
 ### Updated
 
