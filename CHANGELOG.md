@@ -12,7 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 
-- Tests for PHP 7.3, Q&A travis
+- Tests for PHP 7.3, Q&A travis.
+  **Wow 20-30% less memory used from PHP7.2 !!! and faster too ;)**
 
 ## 2.6.2 (2018-08-08)
 
