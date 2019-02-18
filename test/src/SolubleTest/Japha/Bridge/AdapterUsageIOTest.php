@@ -76,15 +76,15 @@ class AdapterUsageIOTest extends TestCase
         $socket->startHandshake();
         $bufferedWriter = $ba->java(
             'java.io.BufferedWriter',
-                    $ba->java(
+            $ba->java(
                         'java.io.OutputStreamWriter',
-                            $socket->getOutputStream()
+                        $socket->getOutputStream()
                     )
                 );
 
         $bufferedReader = $ba->java(
             'java.io.BufferedReader',
-                    $ba->java(
+            $ba->java(
                         'java.io.InputStreamReader',
                         $socket->getInputStream()
                     )
