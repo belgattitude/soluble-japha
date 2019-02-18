@@ -76,19 +76,13 @@ class AdapterUsageIOTest extends TestCase
         $socket->startHandshake();
         $bufferedWriter = $ba->java(
             'java.io.BufferedWriter',
-            $ba->java(
-                        'java.io.OutputStreamWriter',
-                        $socket->getOutputStream()
-                    )
-                );
+            $ba->java('java.io.OutputStreamWriter', $socket->getOutputStream())
+        );
 
         $bufferedReader = $ba->java(
             'java.io.BufferedReader',
-            $ba->java(
-                        'java.io.InputStreamReader',
-                        $socket->getInputStream()
-                    )
-                );
+            $ba->java('java.io.InputStreamReader', $socket->getInputStream())
+        );
 
         $bufferedWriter->write('GET / HTTP/1.0');
         $bufferedWriter->newLine();

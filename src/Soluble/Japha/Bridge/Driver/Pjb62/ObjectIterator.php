@@ -44,6 +44,9 @@ use Soluble\Japha\Interfaces\JavaObject;
 
 class ObjectIterator implements Iterator
 {
+    /**
+     * @var array
+     */
     private $var;
 
     /**

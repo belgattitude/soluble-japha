@@ -24,4 +24,11 @@ parameters:
 		# To prevent issues in client. The type of $this->arg is known at runtime (Arg|CompositeArg)
 		- '#Call to an undefined method Soluble\\Japha\\Bridge\\Driver\\Pjb62\\Arg::setIndex\(\)#'
 		- '#Call to an undefined method Soluble\\Japha\\Bridge\\Driver\\Pjb62\\Arg::setNextIndex\(\)#'
+		-
+			message: '#Result of method (.*)JavaProxy::offsetSet\(\) \(void\) is used.#'
+			path: src/Soluble/Japha/Bridge/Driver/Pjb62/AbstractJava.php
+		-
+			message: '#Result of method (.*)JavaProxy::offsetUnset\(\) \(void\) is used.#'
+			path: src/Soluble/Japha/Bridge/Driver/Pjb62/AbstractJava.php
+
 

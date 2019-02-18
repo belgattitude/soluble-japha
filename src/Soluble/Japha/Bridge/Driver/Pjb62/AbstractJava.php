@@ -47,12 +47,12 @@ use Soluble\Japha\Interfaces;
 abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaType, Interfaces\JavaObject
 {
     /**
-     * @var Client
+     * @var Client|string|null
      */
     public $__client;
 
     /**
-     * @var JavaType&JavaProxy&ObjectIterator
+     * @var JavaType&JavaProxy
      */
     public $__delegate;
     protected $__serialID;
