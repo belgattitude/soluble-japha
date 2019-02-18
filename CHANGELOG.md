@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-### 2.6.3 (2018-12-22)
+## 2.x.x (2019-xx-xx)
+
+### Updated
+
+- License year
+- phpstan 0.11
+
+## 2.6.3 (2018-12-22)
 
 ### Fixes
 
