@@ -10,7 +10,7 @@ matrix:
         - CS_CHECKS=true
         - SEND_COVERAGE=true
         - PHPSTAN=true
-        - INFECTION=true
+        - INFECTION=false
     - php: 7.2
     - php: 7.3
     - php: nightly
