@@ -9,6 +9,7 @@
          processIsolation="false"
          stopOnFailure="false"
          bootstrap="../test/bootstrap.php"
+         executionOrder="default"
 >
 
     <php>
