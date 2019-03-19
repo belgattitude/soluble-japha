@@ -30,5 +30,7 @@ parameters:
 		-
 			message: '#Result of method (.*)JavaProxy::offsetUnset\(\) \(void\) is used.#'
 			path: src/Soluble/Japha/Bridge/Driver/Pjb62/AbstractJava.php
-
+		-
+			message: '#Instanceof between null and Soluble\\Japha\\Bridge\\Driver\\Pjb62\\ApplyArg will always evaluate to false#'
+			path: src/Soluble/Japha/Bridge/Driver/Pjb62/Client.php
 
