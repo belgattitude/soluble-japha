@@ -25,7 +25,7 @@ class Cookie
     /**
      * Serialize PHP's $_COOKIE values into a valid HTTP COOKIE string.
      *
-     * @param array $cookies if null
+     * @param array<string, string> $cookies if null
      *
      * @return string|null
      */
