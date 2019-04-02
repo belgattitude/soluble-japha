@@ -366,7 +366,7 @@ class Client
     /**
      * @param string $str
      *
-     * @return int
+     * @return int|float
      */
     protected function getExact($str)
     {
