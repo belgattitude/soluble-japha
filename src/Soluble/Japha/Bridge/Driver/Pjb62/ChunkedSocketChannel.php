@@ -39,6 +39,7 @@ declare(strict_types=1);
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException;
 use Soluble\Japha\Bridge\Exception;
 
 class ChunkedSocketChannel extends SocketChannel
@@ -60,9 +61,19 @@ class ChunkedSocketChannel extends SocketChannel
         return $written;
     }
 
+    /**
+     * @throws BrokenConnectionException
+     */
     public function fread(int $size): ?string
     {
-        $length = hexdec(fgets($this->peer, $this->recv_size));
+        $line = fgets($this->peer, $this->recv_size);
+        if ($line === false) {
+            throw new BrokenConnectionException(
+                'Cannot read from socket'
+            );
+        }
+
+        $length = (int) hexdec($line);
         $data = '';
         while ($length > 0) {
             $str = fread($this->peer, $length);
