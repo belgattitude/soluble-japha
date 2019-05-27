@@ -219,7 +219,7 @@ class Protocol
             if ($webCtx) {
                 $webCtx = substr($s, $webCtx + 1);
             }
-            $this->webContext = $webCtx;
+            $this->webContext = (string) $webCtx;
         } else {
             $hostVec = $this->getHost();
             if ($ssl = $hostVec[0]) {
