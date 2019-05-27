@@ -41,6 +41,7 @@ declare(strict_types=1);
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
 use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException;
+use Soluble\Japha\Bridge\Exception\ConfigurationException;
 use Soluble\Japha\Bridge\Exception\ConnectionException;
 
 class Protocol
@@ -185,7 +186,8 @@ class Protocol
     }
 
     /**
-     * @return SimpleHttpHandler|HttpTunnelHandler
+     * @return HttpTunnelHandler|SimpleHttpHandler
+     * @throws Exception\IllegalStateException
      */
     public function createHttpHandler()
     {
@@ -219,7 +221,12 @@ class Protocol
             if ($webCtx) {
                 $webCtx = substr($s, $webCtx + 1);
             }
-            $this->webContext = (string) $webCtx;
+            if (!is_string($webCtx)) {
+                throw new ConfigurationException(
+                    'Cannot get a valid context'
+                );
+            }
+            $this->webContext = $webCtx;
         } else {
             $hostVec = $this->getHost();
             if ($ssl = $hostVec[0]) {
