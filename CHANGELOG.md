@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Dev
 
-- Deps and q&a tools update
+- Deps and q&a tools update (phpstan 0.11...)
+- License year
 
 ## 2.6.3 (2018-12-22)
 
