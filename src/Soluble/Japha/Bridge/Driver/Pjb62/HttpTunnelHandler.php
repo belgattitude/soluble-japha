@@ -53,6 +53,7 @@ class HttpTunnelHandler extends SimpleHttpTunnelHandler
                     'Cannot read from socket.'
                 );
             }
+
             return $data;
         } else {
             return parent::fread($size);

@@ -187,6 +187,7 @@ class Protocol
 
     /**
      * @return HttpTunnelHandler|SimpleHttpHandler
+     *
      * @throws Exception\IllegalStateException
      */
     public function createHttpHandler()
