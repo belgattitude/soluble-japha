@@ -33,12 +33,12 @@
     },
     "require-dev" : {
         "phpunit/phpunit": "^7.5",
-        "friendsofphp/php-cs-fixer": "^2.14.2",
+        "friendsofphp/php-cs-fixer": "^2.15",
         "monolog/monolog": "^1.23.0",
         "phpstan/phpstan": "^0.11",
         "phpstan/phpstan-strict-rules": "^0.11",
         "phpstan/phpstan-phpunit": "^0.11",
-        "infection/infection": "^0.12"
+        "infection/infection": "^0.13"
     },
     "scripts": {
         "check": [
@@ -52,7 +52,7 @@
         "test:mutation": "vendor/bin/infection --configuration=infection.json --test-framework=phpunit --verbose --min-msi=20 --min-covered-msi=25 --threads=4",
         "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
         "cs-fix": "vendor/bin/php-cs-fixer -v fix",
-        "phpstan": "vendor/bin/phpstan analyse -l 5 -c phpstan.neon src",
+        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon src",
         "build-doc": "mkdocs build && sami.phar update ./.sami.php",
         "apigen": "apigen.phar generate --config=./.apigen.yml",
         "sami": "sami.phar update ./.sami.php"
