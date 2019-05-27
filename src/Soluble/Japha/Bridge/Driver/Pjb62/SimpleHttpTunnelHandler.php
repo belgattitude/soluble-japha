@@ -37,6 +37,7 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException;
 use Soluble\Japha\Bridge\Exception\ConnectionException;
 use Soluble\Japha\Bridge\Http\Cookie;
 use Soluble\Japha\Bridge\Socket\StreamSocket;
@@ -128,9 +129,19 @@ class SimpleHttpTunnelHandler extends SimpleHttpHandler
         $this->socket = $socket;
     }
 
+    /**
+     * @throws BrokenConnectionException
+     */
     public function fread(int $size): ?string
     {
-        $length = hexdec(fgets($this->socket, $this->java_recv_size));
+        $line = fgets($this->socket, $this->java_recv_size);
+        if ($line === false) {
+            throw new BrokenConnectionException(
+                'Cannot read from socket'
+            );
+        }
+
+        $length = (int) hexdec($line);
         $data = '';
         while ($length > 0) {
             $str = fread($this->socket, $length);
