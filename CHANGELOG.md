@@ -4,12 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.x.x (2019-xx-xx)
+## 2.6.4 (2019-05-27)
 
-### Updated
+### Improved 
 
-- License year
-- phpstan 0.11
+- Detection of broken socket connection during operation.
+- Minor typehints 
+
+### Dev
+
+- Deps and q&a tools update
 
 ## 2.6.3 (2018-12-22)
 
@@ -19,8 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 
-- Tests for PHP 7.3, Q&A travis.
-  **Wow 20-30% less memory used from PHP7.2 !!! and faster too ;)**
+- Tests for PHP 7.3, Q&A travis.  
 
 ## 2.6.2 (2018-08-08)
 
