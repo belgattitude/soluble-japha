@@ -366,11 +366,11 @@ class Client
     /**
      * @param string $str
      *
-     * @return int|float
+     * @return int
      */
     protected function getExact($str)
     {
-        return hexdec($str);
+        return (int) hexdec($str);
     }
 
     /**
