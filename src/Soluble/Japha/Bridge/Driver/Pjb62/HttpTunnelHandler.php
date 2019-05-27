@@ -37,12 +37,22 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Driver\Pjb62\Exception\BrokenConnectionException;
+
 class HttpTunnelHandler extends SimpleHttpTunnelHandler
 {
+    /**
+     * @throws BrokenConnectionException
+     */
     public function fread(int $size): ?string
     {
         if ($this->hasContentLength) {
-            return fread($this->socket, $this->headers['content_length']);
+            $data = fread($this->socket, $this->headers['content_length']);
+            if ($data === false) {
+                throw new BrokenConnectionException(
+                    'Cannot read from socket.'
+                );
+            }
         } else {
             return parent::fread($size);
         }
@@ -51,7 +61,12 @@ class HttpTunnelHandler extends SimpleHttpTunnelHandler
     public function fwrite(string $data): ?int
     {
         if ($this->hasContentLength) {
-            return fwrite($this->socket, $data);
+            $return = fwrite($this->socket, $data);
+            if ($return === false) {
+                throw new BrokenConnectionException(
+                    'Cannot write from socket.'
+                );
+            }
         } else {
             return parent::fwrite($data);
         }
