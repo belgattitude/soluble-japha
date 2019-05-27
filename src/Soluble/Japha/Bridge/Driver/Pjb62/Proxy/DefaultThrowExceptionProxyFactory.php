@@ -61,10 +61,9 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
      */
     private function getExceptionFromResult(Pjb62\Exception\JavaException $result): Exception\JavaExceptionInterface
     {
-        $found = false;
-        $exceptionClass = '';
-
         $message = $result->__get('message')->__toString();
+
+        $found = false;
 
         foreach ($this->msgPatternsMapping as $exceptionClass => $pattern) {
             if (preg_match($pattern, $message)) {
@@ -75,12 +74,12 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
 
         if (!$found) {
             $exceptionClass = $this->defaultException;
+        } else {
+            $exceptionClass = '';
         }
 
         $cls = '\\Soluble\\Japha\\Bridge\\Exception\\'.$exceptionClass;
 
-        // Public message, mask any login/passwords
-        $message = preg_replace('/user=([^&\ ]+)|password=([^&\ ]+)/', '****', $message);
         $stackTrace = $result->getCause()->__toString();
         $code = $result->getCode();
 
@@ -89,22 +88,32 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
             $driverException = $result;
         }
 
+        // Public message, mask any login/passwords
+        $message = preg_replace('/user=([^&\ ]+)|password=([^&\ ]+)/', '****', $message);
+
         // Getting original class name from cause
-        preg_match('/Cause: ([^:]+):/', $message, $matches);
-        if (count($matches) > 1) {
-            $javaExceptionClass = $matches[1];
+        $javaExceptionClass = 'Unkwown java exception';
+        $cause = 'Unknown cause';
+
+        if (is_string($message)) {
+            preg_match('/Cause: ([^:]+):/', $message, $matches);
+            if (count($matches) > 1) {
+                $javaExceptionClass = $matches[1];
+            }
+
+            // Getting cause from message
+            $tmp = explode('Cause: ', $message);
+            if (count($tmp) > 1) {
+                array_shift($tmp);
+                $cause = trim(implode(', ', $tmp));
+            } else {
+                $cause = $message;
+            }
         } else {
-            $javaExceptionClass = 'unkwown';
+            $message = 'Empty message';
         }
 
-        // Getting cause from message
-        $tmp = explode('Cause: ', $message);
-        if (count($tmp) > 1) {
-            array_shift($tmp);
-            $cause = trim(implode(', ', $tmp));
-        } else {
-            $cause = $message;
-        }
+
         $e = new $cls(
             $message,
             $cause,
