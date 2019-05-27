@@ -50,8 +50,7 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
      */
     public function checkResult(Pjb62\Exception\JavaException $result): void
     {
-        $exception = $this->getExceptionFromResult($result);
-        throw $exception;
+        throw $this->getExceptionFromResult($result);
     }
 
     /**
@@ -61,25 +60,21 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
      */
     private function getExceptionFromResult(Pjb62\Exception\JavaException $result): Exception\JavaExceptionInterface
     {
-        $message = $result->__get('message')->__toString();
+        $message = (string) $result->__get('message')->__toString();
 
-        $found = false;
+        $exceptionClass = $this->defaultException;
 
-        foreach ($this->msgPatternsMapping as $exceptionClass => $pattern) {
+        foreach ($this->msgPatternsMapping as $key => $pattern) {
             if (preg_match($pattern, $message)) {
-                $found = true;
+                $exceptionClass = (string) $key;
                 break;
             }
         }
 
-        if (!$found) {
-            $exceptionClass = $this->defaultException;
-        } else {
-            $exceptionClass = '';
-        }
-
         $cls = '\\Soluble\\Japha\\Bridge\\Exception\\'.$exceptionClass;
 
+        // Public message, mask any login/passwords
+        $message = preg_replace('/user=([^&\ ]+)|password=([^&\ ]+)/', '****', $message);
         $stackTrace = $result->getCause()->__toString();
         $code = $result->getCode();
 
@@ -88,32 +83,22 @@ class DefaultThrowExceptionProxyFactory extends Pjb62\ThrowExceptionProxyFactory
             $driverException = $result;
         }
 
-        // Public message, mask any login/passwords
-        $message = preg_replace('/user=([^&\ ]+)|password=([^&\ ]+)/', '****', $message);
-
         // Getting original class name from cause
-        $javaExceptionClass = 'Unkwown java exception';
-        $cause = 'Unknown cause';
-
-        if (is_string($message)) {
-            preg_match('/Cause: ([^:]+):/', $message, $matches);
-            if (count($matches) > 1) {
-                $javaExceptionClass = $matches[1];
-            }
-
-            // Getting cause from message
-            $tmp = explode('Cause: ', $message);
-            if (count($tmp) > 1) {
-                array_shift($tmp);
-                $cause = trim(implode(', ', $tmp));
-            } else {
-                $cause = $message;
-            }
+        preg_match('/Cause: ([^:]+):/', $message, $matches);
+        if (count($matches) > 1) {
+            $javaExceptionClass = $matches[1];
         } else {
-            $message = 'Empty message';
+            $javaExceptionClass = 'Unknown java exception class';
         }
 
-
+        // Getting cause from message
+        $tmp = explode('Cause: ', $message);
+        if (count($tmp) > 1) {
+            array_shift($tmp);
+            $cause = trim(implode(', ', $tmp));
+        } else {
+            $cause = $message;
+        }
         $e = new $cls(
             $message,
             $cause,
