@@ -8,7 +8,7 @@ repo_name: 'soluble-japha'
 repo_url: 'https://github.com/belgattitude/soluble-japha'
 
 # Copyright
-copyright: 'Copyright &copy; 2018 Sébastien Vanvelthem'
+copyright: 'Copyright &copy; 2017-2019 Sébastien Vanvelthem'
 
 docs_dir: doc
 site_dir: build/doc
@@ -16,19 +16,20 @@ edit_uri: https://github.com/belgattitude/soluble-japha/edit/master/doc/
 
 nav:
     - { 'Introduction': index.md }
-    - { 'Getting started': [
+    - { 'Installation': [
             { 'PHP install': install_client.md },
             { 'JavaBridge server': install_server.md }
         ]
       }
+    - { 'Connection' :  bridge_connection.md }
     - { 'Usage' : [
-          { 'Connection': bridge_connection.md },
+
           { 'Language basics': language_basics.md },
           { 'Useful functions': language_useful_functions.md },
           { 'Handling exceptions': language_exceptions.md },
-          { 'Recipes': language_recipes.md }
 
       ]}
+    - { 'Recipes': language_recipes.md }
     - { 'Performance' : [
           { 'How it works': bridge_how_it_works.md },
           { 'Optimizations': language_optimizations.md },
@@ -55,8 +56,8 @@ theme:
   name: material
 
   # Don't include MkDocs' JavaScript
-  include_search_page: false
-  search_index_only: true
+  #include_search_page: false
+  #search_index_only: true
 
   language: en
   logo:
@@ -66,11 +67,11 @@ theme:
     primary: 'deep-orange'
     accent: 'light blue'
   font:
-    text: 'Roboto'
+    text: 'Lato'
     code: 'Roboto Mono'
 
   feature:
-    tabs: true
+    tabs: false
 
 # Options
 extra:
@@ -86,7 +87,7 @@ extra:
       link: 'https://github.com/belgattitude/soluble-japha'
 
 extra_css:
-  - 'stylesheets/extra.css'
+  #- 'stylesheets/extra.css'
   - 'stylesheets/monokai.css'
 
 google_analytics:
@@ -96,14 +97,19 @@ google_analytics:
 # Extensions
 markdown_extensions:
   - markdown.extensions.admonition
-  - markdown.extensions.codehilite(guess_lang=false)
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
   - markdown.extensions.footnotes
   - markdown.extensions.meta
-  - markdown.extensions.toc(permalink=true)
+  - markdown.extensions.toc:
+      permalink: true
   - pymdownx.arithmatex
-  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.betterem
+  #      smart_enable: all
   - pymdownx.caret
   - pymdownx.critic
+  - pymdownx.details
   - pymdownx.emoji:
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
   - pymdownx.inlinehilite
@@ -111,5 +117,5 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
-  - pymdownx.tasklist(custom_checkbox=true)
+  - pymdownx.tasklist
   - pymdownx.tilde
