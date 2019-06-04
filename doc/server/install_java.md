@@ -6,10 +6,29 @@
 
 !!! tip
     On Ubuntu, you can either choose the default OpenJdk or
-    install the official Oracle JDK (through an additional software repository). 
-    The Oracle JDK is recommended.
+    install the official Oracle JDK (through an additional software repository).
+    Note that Oracle change its business policy recently (jdk not free anymore)  
     
+    
+
+#### OpenJdk 
+
+OpenJdk versions 7, 8 and 11 can be installed through the official repos 
+starting Ubuntu trusty and are maintained by Canonical.
+
+```console
+$ sudo apt-get install openjdk-11-jdk
+```
+
+To set the system wide default jdk, simply launch the `update-alternatives` command :
+
+```console
+$ sudo update-alternatives --config java
+```
+
 #### Oracle JDK
+
+> Deprecated install notes
 
 The Oracle JDK is available through an external ppa repository.
 
@@ -26,20 +45,6 @@ To set the system wide default jdk, simply install the `oracle-javaX-set-default
 $ sudo apt-get install oracle-java8-set-default
 ```
 
-#### OpenJdk 
-
-OpenJdk versions 7 and 8 can be installed through the official repos 
-starting Ubuntu trusty and are maintained by Canonical.
-
-```console
-$ sudo apt-get install openjdk-8-jdk
-```
-
-To set the system wide default jdk, simply launch the `update-alternatives` command :
-
-```console
-$ sudo update-alternatives --config java
-```
 
 ### Redhat / Centos
 
@@ -63,4 +68,3 @@ See also this [question](https://access.redhat.com/documentation/en-US/JBoss_Ent
 ## Windows and Mac OS/X
 
 Platform binaries are available at the [official oracle page](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-   
