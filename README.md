@@ -179,20 +179,6 @@ If you like to contribute, see the [contribution guidelines](https://github.com/
 All P/R are warmly welcomed. 
                          
    
-## Future ideas
-
-Short term
-
-- [ ] Achieve at least 80% of unit testing for legacy code.
-- [ ] Remove obsolete code from PJB62 driver (will also increase coverage)
-- [ ] Work on performance
-
-Experiments
-
-- [ ] Improve proxy and use of [ProxyManager](https://github.com/Ocramius/ProxyManager)
-- [ ] Drop XML protocol in favour of protocol buffers or [GRPC](http://www.grpc.io/) 
-- [ ] Create a JSR-223 php extension in Go, like this [experiment](https://github.com/do-aki/gophp_sample)
-
 ### Credits
 
 * This code is principally developed and maintained by [Sébastien Vanvelthem](https://github.com/belgattitude).
