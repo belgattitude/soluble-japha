@@ -13,9 +13,11 @@ matrix:
         - PHPSTAN=true
         - INFECTION=false
     - php: 7.3
+    - php: 7.4snapshot
     - php: nightly
   allow_failures:
     - php: nightly
+    - php: 7.4snapshot
 
 before_script:
   # Debug Java version
@@ -36,7 +38,7 @@ before_script:
   # and show the log file
   - sleep 6 && cat ./.travis/webapp-runner.8083.log
   - composer --ignore-platform-reqs install
-    
+
 script:
   - ./vendor/bin/phpunit -c .travis/phpunit.xml -v --coverage-clover=coverage.xml
   - if [[ $CS_CHECKS == true ]]; then ./vendor/bin/php-cs-fixer --diff --dry-run -v fix; fi
