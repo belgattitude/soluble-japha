@@ -1,15 +1,30 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## 2.7.0 (2019-12-21)
+
+### Added
+
+- PHP 7.4 support
+
+### Improved
+
+- Few phpdoc added
+
+### Dev
+
+- Testing re-enabled with pjbserver-tools
+- phpstan ^0.12
 
 ## 2.6.4 (2019-05-27)
 
-### Improved 
+### Improved
 
 - Detection of broken socket connection during operation.
-- Minor typehints 
+- Minor typehints
 
 ### Dev
 
@@ -24,7 +39,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 
-- Tests for PHP 7.3, Q&A travis.  
+- Tests for PHP 7.3, Q&A travis.
 
 ## 2.6.2 (2018-08-08)
 
@@ -40,7 +55,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Q&A tools update: phpstan....
 
-## 2.5.1 (2018-02-28) 
+## 2.5.1 (2018-02-28)
 
 ### Added
 
@@ -48,7 +63,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixes
 
-- Minor: Fix a possible fwrite warning in SocketChannel (handled by an exception anyway). 
+- Minor: Fix a possible fwrite warning in SocketChannel (handled by an exception anyway).
 
 ## 2.5.0 (2018-01-19)
 
@@ -61,7 +76,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 
-- Updated to phpstan 0.9 
+- Updated to phpstan 0.9
 
 ### Fixes
 
@@ -72,10 +87,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Improvements
 
 - Refactored some internal methods visibility (protected/private)
-  
+
 ### Q&A
 
-- Added mutation testing with [infection/infection](https://github.com/infection/infection)  
+- Added mutation testing with [infection/infection](https://github.com/infection/infection)
 
 ## 2.4.1 (2017-10-10)
 
@@ -85,7 +100,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.4.0 (2017-10-09)
 
-### Added 
+### Added
 
 - Added support for basic authentication in connection servlet_address.
 
@@ -93,12 +108,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   <?php
   $ba = new BridgeAdapter([
       'servlet_address' => 'http://user:pass@localhost:8080/MyJavaBridge/servlet.phpjavabridge'
-  ]);    
+  ]);
   ```
 
 - Added `AuthenticationException` (ConnectionException).
-      
-- Logger now logs java exceptions (NoSuchProcedureException,... at error level). 
+
+- Logger now logs java exceptions (NoSuchProcedureException,... at error level).
 
 ### Fixed
 
@@ -106,13 +121,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.3.0 (2017-09-19)
 
-### Improved 
+### Improved
 
 - More typehints in internal PJB62 driver.
 
 ## 2.2.4 (2017-09-02)
 
-### Improved 
+### Improved
 
 - Catch `Throwable` instead of `Exception` in driver and client.
 - Dev updated to PHPUnit 6+
@@ -123,7 +138,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Improved
 
-- Now `Adapter` defaults to `pjb62` driver.  
+- Now `Adapter` defaults to `pjb62` driver.
 - Unit tests, preliminary work to update to phpunit 6+
 
 ## 2.2.2 (2017-08-17)
@@ -162,7 +177,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Improved
 
-- Some more polishing for types (PHP 7.1)  
+- Some more polishing for types (PHP 7.1)
 - Minor optimization, using `empty` instead of `count`.
 
 ## 2.1.0 (2017-07-13)
@@ -173,11 +188,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### 2.0.0 (2017-06-29)
 
-This release requires PHP7.1 !!! 
+This release requires PHP7.1 !!!
 
 While major version have been incremented, the api between `v1.4.0` and `2.0.0` has remained the same.
-In other words no breaking changes should happen (BC preserved). 
- 
+In other words no breaking changes should happen (BC preserved).
+
 ### Changed
 
 - Support for PHP7.1 only `declare(strict_types=1)`.
@@ -190,7 +205,7 @@ In other words no breaking changes should happen (BC preserved).
 
 ### Fixed
 
-- Fix call to `PjbProxyClient::getInstance()->destroy()` in favour of `PjbProxyClient::unregisterIntance()`. 
+- Fix call to `PjbProxyClient::getInstance()->destroy()` in favour of `PjbProxyClient::unregisterIntance()`.
 
 ## 1.4.4 (2017-05-28)
 
@@ -207,17 +222,17 @@ In other words no breaking changes should happen (BC preserved).
 
 ### Fixed
 
-- Temporarily remove phpstan from require-dev. It will be re-added in 2.0 due 
+- Temporarily remove phpstan from require-dev. It will be re-added in 2.0 due
   to possible issues with plaform requirements.
   If you want to install, add to your require-dev: `"phpstan/phpstan": "^0.7.0"`
 - More typehints fixed or added
-- Unit tests autoloading is now fixed. 
+- Unit tests autoloading is now fixed.
 
 ### 1.4.2 (2017-05-18)
 
 ### Fixed
 
-- Fixed some invalid typehints thanks to phpstan !!! 
+- Fixed some invalid typehints thanks to phpstan !!!
 
 ### Added
 
@@ -228,7 +243,7 @@ In other words no breaking changes should happen (BC preserved).
 ### Added
 
 - Created `Soluble\Japha\Bridge\Exception\BrokenConnectionException` to mask
-  internal pjb62 drive BrokenConnectionException. Documented in DriverInterface as well.  
+  internal pjb62 drive BrokenConnectionException. Documented in DriverInterface as well.
 
 ### Fixed
 
@@ -242,24 +257,24 @@ In other words no breaking changes should happen (BC preserved).
 
 - PHPDoc, magic methods `__call()`, `__get()` and `__set()` nows inform
   about possible exception. Thanks @marcospassos for persisting on this.
-  
+
 
 ## 1.4.0 (2017-04-25)
 
 ## Added
 
-- `Interfaces\JavaObject` exposes magic methods `__call()`, `__get()` and `__set()` 
-   to better reflect that method calls and property accesses 
+- `Interfaces\JavaObject` exposes magic methods `__call()`, `__get()` and `__set()`
+   to better reflect that method calls and property accesses
    will be delegated to the remote Java object.
-   
+
 ## Changed
-  
+
 - Possible bc-break in undocumented feature. The `DB\DriverManager::getJdbcDSN()` has changed its signature
   and starts now with the driver name. An `$options` array allows to pass extra options.
-    
+
 ## Improved
-    
-- Serialization with `__sleep()` and `__wakeup()` has preliminary test support    
+
+- Serialization with `__sleep()` and `__wakeup()` has preliminary test support
 
 ## 1.3.1 (2017-04-23)
 
@@ -267,35 +282,35 @@ This release has been tested with the latest official phpjavabridge 7.1.3.
 
 ## Added
 
-- Pjb62\Driver added method `setExitCode(int $code)` from 7.1.3 upstream merge, 
+- Pjb62\Driver added method `setExitCode(int $code)` from 7.1.3 upstream merge,
   requires PHP 7.1.3+ to be interpreted on the bridge side.
 
 ## 1.3.0 (2017-04-23)
 
 ## Added
 
-- `Interfaces\JavaObject` now implements `ArrayAccess` 
+- `Interfaces\JavaObject` now implements `ArrayAccess`
   the following code is possible without calling java methods:
-  
+
   ```php
   $hashMap = $ba->java('java.util.HashMap');
   $hashMap['key'] = 'cool';
   if (isset($hashMap['key']) {
-     echo $hashMap['key']; 
+     echo $hashMap['key'];
      unset $hashMap['key'];
   }
-  ``` 
-   
-- Added convenience exception: `NoSuchFieldException`   
+  ```
+
+- Added convenience exception: `NoSuchFieldException`
 
 ## Changed
 
-- Possible bc-break in undocumented `Adapter` option: `java_default_timezone`. 
+- Possible bc-break in undocumented `Adapter` option: `java_default_timezone`.
   It won't fall back to php default timezone if null. This feature is subject to caution.
 - Removed last `func_get_args` uses, replaced by PHP5.6 variadic notation in `AbstractJava` and `JavaException`.
-- `Interfaces\JavaObject` now implements `IteratorAggregate`, this behaviour was 
+- `Interfaces\JavaObject` now implements `IteratorAggregate`, this behaviour was
   already working but not *statically* stated.
-      
+
 ## Documentation
 
 - Setting the default java timezone with `TimeZone.setDefault()` should be avoided
@@ -327,27 +342,27 @@ This release has been tested with the latest official phpjavabridge 7.1.3.
 ### Documentation
 
 - Added documentation for inner class support.
-- Added recipes for gson, json-io serialization. 
+- Added recipes for gson, json-io serialization.
 
 
 ## 1.2.1 (2017-03-21)
 
 ### Fixed
 
-- Minor fix, wrong message referring to legacy `java_inspect` and `java_values`. 
+- Minor fix, wrong message referring to legacy `java_inspect` and `java_values`.
 
 ## 1.2.0 (2017-03-06)
 
 ### Added
 
-- New driver methods: `setFileEncoding()` and `getConnectionOptions()` currently internal use only. 
+- New driver methods: `setFileEncoding()` and `getConnectionOptions()` currently internal use only.
 - Support for php-java-bridge 7.0.0.
 - Possibility to call servlet methods from the driver `$ba->getDriver()->invoke(null, 'myMethod', [$params])`.
 
 ### Improved
 
-- Set utf-8 by default for html_special_chars (no need to set in php.ini) 
-- Replaces array_push($arr, $val) by $arr[] = $val for little perf improvement in Driver 
+- Set utf-8 by default for html_special_chars (no need to set in php.ini)
+- Replaces array_push($arr, $val) by $arr[] = $val for little perf improvement in Driver
 - Removed devDependency on devster/ubench for simple benchmarks.
 
 ### Fixed
@@ -376,15 +391,15 @@ This release has been tested with the latest official phpjavabridge 7.1.3.
 
 ### Fixed
 
-- Minor bug in JDBC unit tests when mysql-connector is >= 6.0 
+- Minor bug in JDBC unit tests when mysql-connector is >= 6.0
 
-### Added 
+### Added
 
 - Huge documentation update
 
 ## 1.0.0 (2017-02-17)
 
-### Added 
+### Added
 
 - `DriverInterface::values()` method added.
 - Doc: considerations and best practices
@@ -393,14 +408,14 @@ This release has been tested with the latest official phpjavabridge 7.1.3.
 
 ## 1.0.0 (2017-02-12)
 
-### Added 
+### Added
 
 - `DriverInterface::values()` method added.
 - Doc: considerations and best practices
 - More JDBC tests some optimizations examples with `DriverInterface::values()`
 
 
-## 0.14.4 (2017-02-09) 
+## 0.14.4 (2017-02-09)
 
 ### Added
 
@@ -409,25 +424,25 @@ This release has been tested with the latest official phpjavabridge 7.1.3.
 - Credits updated for the refactored Pjb62 client driver
 
 
-## 0.14.3 (2017-02-02) 
+## 0.14.3 (2017-02-02)
 
 ### Added
 
 - Minor improvement for timezone interop (code cleanup).
 
 
-## 0.14.2 (2017-01-30) 
+## 0.14.2 (2017-01-30)
 
 ### Added
 
 - Unit tests handles phpjavabridge 6.2.11-dev.
 
 ## 0.14.1 (2017-01-15)
-   
+
 ### Improved
 
 - Better detection of broken connections `BrokenConnectionException`
-- Improved tests suite for tomcat 
+- Improved tests suite for tomcat
 
 ## 0.14.0 (2017-01-14)
 
@@ -437,10 +452,10 @@ This release has been tested with the latest official phpjavabridge 7.1.3.
   Support for PHP 5.5 has been dropped, due to usage of
   variadic functions. The API is still the same, and if you
   require PHP5.5 support, please install the v0.13.0 instead.
-  
-  A branch have been saved for [pre-5.6](https://github.com/belgattitude/soluble-japha/tree/pre5.6_0.13.0) support. 
+
+  A branch have been saved for [pre-5.6](https://github.com/belgattitude/soluble-japha/tree/pre5.6_0.13.0) support.
   It can be used to provide 0.13.x patches for php5.5.
-   
+
 ### Improved
 
 - Better logging support and error reporting [see #22](https://github.com/belgattitude/soluble-japha/issues/22).
@@ -467,14 +482,14 @@ This release has been tested with the latest official phpjavabridge 7.1.3.
 - Support for `getClassName()` in Adapter, Close [#30](https://github.com/belgattitude/soluble-japha/issues/30)
 - Support for `invoke()` method in Driver. Close [28](https://github.com/belgattitude/soluble-japha/issues/28)
 - Support for `getClassName()` and `inspect()` methods in DriverInterface. Close [#29](https://github.com/belgattitude/soluble-japha/issues/29)
-- Added `JavaException::getJavaClassName()` method to improve exception handling. Close [31](https://github.com/belgattitude/soluble-japha/issues/31)  
+- Added `JavaException::getJavaClassName()` method to improve exception handling. Close [31](https://github.com/belgattitude/soluble-japha/issues/31)
 - Support for `getJavaContext()` in Driver
 
 ### Changed
 
 - Update pjbserver-tools devDependencies to ^2.1.0
 - [Unit tests] JDBC tests are now disabled by default in `phpunit.xml.dist`.
-- [Unit tests] Improved test suite, larger tests files have been splitted.   
+- [Unit tests] Improved test suite, larger tests files have been splitted.
 
 ## 0.11.9 (2016-10-13)
 
@@ -494,7 +509,7 @@ This release has been tested with the latest official phpjavabridge 7.1.3.
 
 - [#24](https://github.com/belgattitude/soluble-japha/pull/24) fix an old issue
   preventing 'array' cookies to be correctly forwarded to java bridge. Thanks
-  [Diego Sainz](https://github.com/diegosainz) for the fix. 
+  [Diego Sainz](https://github.com/diegosainz) for the fix.
 
 
 ## 0.11.8 (2016-09-14)
@@ -539,7 +554,7 @@ This release has been tested with the latest official phpjavabridge 7.1.3.
 
 - [BC-Break] Split legacy pjb62 compatibility layer in a separate repo
   If you still require the legacy compatibility mode you need to add
-  the 'soluble\japha-pjb62-compat' to your composer deps 
+  the 'soluble\japha-pjb62-compat' to your composer deps
 - [Enhancement] Removed all global constants
 - [Enhancement] Fixed some scrutinizer issues
 - [Enhancement] Removed obsolete autoloader code
