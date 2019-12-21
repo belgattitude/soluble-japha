@@ -34,4 +34,18 @@ parameters:
 		-
 			message: '#Instanceof between null and Soluble\\Japha\\Bridge\\Driver\\Pjb62\\ApplyArg will always evaluate to false#'
 			path: src/Soluble/Japha/Bridge/Driver/Pjb62/Client.php
-
+		-
+			message: '#should return string(.*) but return statement is missing#'
+			path: src/Soluble/Japha/Bridge/Driver/Pjb62/SocketChannel.php
+		-
+			message: '#should return string(.*) but return statement is missing#'
+			path: src/Soluble/Japha/Bridge/Driver/Pjb62/SocketHandler.php
+		-
+			message: '#should return int|null but return statement is missing#'
+			path: src/Soluble/Japha/Bridge/Driver/Pjb62/HttpTunnelHandler.php
+		-
+			message: '#between 1 and 1 is always false#'
+			path: src/Soluble/Japha/Bridge/Driver/Pjb62/Client.php
+		-
+			message: '#Unreachable statement - code above always terminates.#'
+			path: src/Soluble/Japha/Bridge/Driver/Pjb62/Client.php
