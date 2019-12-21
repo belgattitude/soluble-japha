@@ -37,6 +37,9 @@
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
+use Soluble\Japha\Bridge\Exception\AuthenticationException;
+use Soluble\Japha\Bridge\Exception\BrokenConnectionException;
+
 class SocketHandler
 {
     /**
@@ -66,9 +69,7 @@ class SocketHandler
     }
 
     /**
-     * @param int $size
-     *
-     * @return string
+     * @throws BrokenConnectionException
      */
     public function read(int $size): string
     {
@@ -99,6 +100,10 @@ class SocketHandler
         $this->channel->keepAlive();
     }
 
+    /**
+     * @throws BrokenConnectionException|AuthenticationException
+     * @return never
+     */
     public function shutdownBrokenConnection(string $msg = '', int $code = null): void
     {
         $msg = $msg ?? 'Broken connection: Unkown error, please see back end log for detail';
