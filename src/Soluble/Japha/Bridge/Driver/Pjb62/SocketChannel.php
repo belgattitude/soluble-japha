@@ -41,7 +41,14 @@ use Soluble\Japha\Bridge\Exception\BrokenConnectionException;
 
 abstract class SocketChannel extends EmptyChannel
 {
+    /**
+     * @var resource
+     */
     public $peer;
+
+    /**
+     * @var string
+     */
     public $host;
 
     /**
@@ -68,12 +75,19 @@ abstract class SocketChannel extends EmptyChannel
         $this->send_size = $send_size;
     }
 
+    /**
+     * @throws BrokenConnectionException
+     */
     public function fwrite(string $data): ?int
     {
         $written = @fwrite($this->peer, $data);
         if ($written === false) {
-            PjbProxyClient::unregisterInstance();
-            throw new BrokenConnectionException('Broken socket communication with the php-java-bridge (write)');
+            PjbProxyClient::unregisterAndThrowBrokenConnectionException(
+                sprintf(
+                    'Broken socket communication with the php-java-bridge while reading socket (%s).',
+                    __METHOD__
+                )
+            );
         }
 
         return $written;
