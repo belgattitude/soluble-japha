@@ -102,6 +102,7 @@ class SocketHandler
 
     /**
      * @throws BrokenConnectionException|AuthenticationException
+     *
      * @return never
      */
     public function shutdownBrokenConnection(string $msg = '', int $code = null): void

@@ -31,7 +31,6 @@ class SolubleTestFactories
         // For multiple ways phpunit return true
         if ($_SERVER['AUTORUN_PJB_STANDALONE'] === true ||
             $_SERVER['AUTORUN_PJB_STANDALONE'] === 'true') {
-
             if (self::$standaloneServer === null) {
                 $server_address = self::getJavaBridgeServerAddress();
                 //$url = parse_url($server_address, PHP_URL_HOST);
@@ -43,8 +42,8 @@ class SolubleTestFactories
                         __DIR__.'/resources/*.jar',
                     ],
                     'server_jar' => __DIR__.'/../vendor/belgattitude/pjbserver-tools/resources/pjb713_standalone/JavaBridge.jar',
-                    'log_file' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'soluble-japha-pjbserver.log',
-                    'pid_file' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'soluble-japha-pjbserver.pid',
+                    'log_file' => sys_get_temp_dir().DIRECTORY_SEPARATOR.'soluble-japha-pjbserver.log',
+                    'pid_file' => sys_get_temp_dir().DIRECTORY_SEPARATOR.'soluble-japha-pjbserver.pid',
                 ];
 
                 $config = new StandaloneServer\Config($params);
