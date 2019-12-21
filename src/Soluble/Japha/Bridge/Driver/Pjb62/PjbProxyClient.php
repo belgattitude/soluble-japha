@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-use Monolog\Logger;
 use Soluble\Japha\Bridge\Exception;
 use Soluble\Japha\Interfaces;
 use Soluble\Japha\Bridge\Driver\ClientInterface;
