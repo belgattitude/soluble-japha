@@ -60,6 +60,9 @@ class HttpTunnelHandler extends SimpleHttpTunnelHandler
         }
     }
 
+    /**
+     * @throws BrokenConnectionException
+     */
     public function fwrite(string $data): ?int
     {
         if ($this->hasContentLength) {
