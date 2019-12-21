@@ -13,11 +13,10 @@ matrix:
         - PHPSTAN=true
         - INFECTION=false
     - php: 7.3
-    - php: 7.4snapshot
+    - php: 7.4
     - php: nightly
   allow_failures:
     - php: nightly
-    - php: 7.4snapshot
 
 before_script:
   # Debug Java version
