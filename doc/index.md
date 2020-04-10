@@ -56,7 +56,7 @@ try {
 
 ## Use cases
 
-**Expand the PHP horizons to the Java ecosystem**, especially whenever you want
+**Expand the PHP horizons to the Java ecosystem** whenever you want
 to take advantage of
 
 - some compelling libraries *([Jasperreports](http://community.jaspersoft.com/project/jasperreports-library), [CoreNLP](http://stanfordnlp.github.io/CoreNLP/), [FlyingSaucer](https://github.com/flyingsaucerproject/flyingsaucer/releases), [Jsoup](https://jsoup.org/)...)*
