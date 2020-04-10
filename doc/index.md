@@ -64,11 +64,6 @@ to take advantage of
 - when a pure-PHP alternative does not exists *(Android, driver, closed api, enterprise...)*
 - or simply for the fun of it.
 
-!!! warning
-
-    The freedom allowed by `soluble-japha` is not fit for every scenarios.
-    Be sure to read the [considerations](#considerations) and [performance](#performance)
-    sections to learn more.
 
 ## Features
 
@@ -122,7 +117,6 @@ All P/R are warmly welcomed.
 
 ## License
 
-The MIT License (MIT). Copyright (c) 2013-2020 Vanvelthem Sébastien
+Published under the [MIT License](https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.md). Copyright (c) 2013-2020 Vanvelthem Sébastien
 
-See the details [here](https://github.com/belgattitude/soluble-japha/blob/master/LICENSE.txt)
 
