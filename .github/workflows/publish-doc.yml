@@ -3,7 +3,7 @@ name: publish-doc
 on:
   push:
     branches:
-      - dev
+      - master
     paths:
      - "doc/**"
      - "mkdocs.yml"
