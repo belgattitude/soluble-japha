@@ -1,52 +1,35 @@
 # PHP installation
 
-## Quick install
-
-The `soluble-japha` client supports [composer](http://getcomposer.org/). In your project directory, simply type:
-
-```bash
-$ composer require soluble/japha
-```
-
-*Once done, jump to the [server install](./install_server.md) step or
-read the notes below for more information about composer support and
-requirements.*
-
--------
-
-## Requirements
-
-- PHP 5.5+, 7.1+ or HHVM 3.2
-- PHP xml extensions enabled (domxml)
-
-### Versions
-
 === "PHP7.1+"
-    For PHP7.1+, use the ^2.6.0 version.
+    *For PHP7.1+, use the ^2.6.0 version.*
     ```bash
     $ composer require soluble/japha
     ```
 
 === "PHP 5.6"
-    For PHP5.6, use the ^1.0.0 version.
+    *For PHP5.6, use the ^1.0.0 version.*
 
     ```bash
     $ composer require "soluble/japha@^1.4.0"
     ```
-    !!! tip
-        While the `^2.0` version is PHP7.1 only, there were no bc-break with the `1.4.0`.
-
 
 === "PHP 5.5"
-    For PHP5.5, use the ^0.13.0 version.
+    *For PHP5.5, use the ^0.13.0 version.*
 
     ```bash
     $ composer require "soluble/japha@^0.13.0"
     ```
 
+----
 
 
-## Composer notes
+!!! tip
+    Once done, jump to the [server install](./install_server.md) step.
+
+-------
+
+
+## Notes
 
 If you're not familiar with composer you can jump
 to the official [install docs](https://getcomposer.org/doc/00-intro.md),
