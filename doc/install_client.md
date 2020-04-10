@@ -9,7 +9,7 @@
 === "PHP7.1"
 
     ```bash
-    $ composer require "soluble/japha@^2.6.0"
+    $ composer require "soluble/japha@^2.7.0"
     ```
 
 === "PHP 5.6"
