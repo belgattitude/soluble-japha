@@ -1,13 +1,13 @@
 # PHP installation
 
 === "PHP7.1+"
-    *For PHP7.1+, use the ^2.6.0 version.*
+
     ```bash
     $ composer require soluble/japha
     ```
 
 === "PHP 5.6"
-    *For PHP5.6, use the ^1.0.0 version.*
+    *For PHP5.6, use the ^1.0.0 version, BC compat with ^2.0.0.*
 
     ```bash
     $ composer require "soluble/japha@^1.4.0"
