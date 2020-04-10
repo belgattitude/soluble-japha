@@ -1,94 +1,97 @@
 site_name: 'soluble-japha'
-site_description: 'PHP Java interop'
 site_author: 'Sébastien Vanvelthem'
 site_url: http://docs.soluble.io/soluble-japha/
+site_description: >-
+  PHP java bridge client from JVM interoperability.
 
 # Repository
 repo_name: 'soluble-japha'
 repo_url: 'https://github.com/belgattitude/soluble-japha'
 
 # Copyright
-copyright: 'Copyright &copy; 2017-2019 Sébastien Vanvelthem'
+copyright: 'Copyright &copy; 2017-2020 Sébastien Vanvelthem'
 
 docs_dir: doc
 site_dir: build/doc
 edit_uri: https://github.com/belgattitude/soluble-japha/edit/master/doc/
 
+
 nav:
-    - { 'Introduction': index.md }
-    - { 'Installation': [
-            { 'PHP install': install_client.md },
-            { 'JavaBridge server': install_server.md }
-        ]
-      }
-    - { 'Connection' :  bridge_connection.md }
-    - { 'Usage' : [
+  - { 'Introduction': index.md }
+  - { 'Installation': [
+  { 'PHP install': install_client.md },
+  { 'JavaBridge server': install_server.md }
+  ]
+  }
+  - { 'Connection':  bridge_connection.md }
+  - { 'Usage': [
 
-          { 'Language basics': language_basics.md },
-          { 'Useful functions': language_useful_functions.md },
-          { 'Handling exceptions': language_exceptions.md },
+  { 'Language basics': language_basics.md },
+  { 'Useful functions': language_useful_functions.md },
+  { 'Handling exceptions': language_exceptions.md },
 
-      ]}
-    - { 'Recipes': language_recipes.md }
-    - { 'Performance' : [
-          { 'How it works': bridge_how_it_works.md },
-          { 'Optimizations': language_optimizations.md },
-          { 'Benchmarks': bridge_benchmarks.md },
-        ]
-      }
-    - { 'Advanced' : [
-          { 'Servlet functions': bridge_servlet_functions.md },
-          { 'Servlet session': bridge_servlet_session.md },
-          { 'Servlet context': bridge_servlet_context.md }
-      ]}
-    - { 'Notes' : [
-          { 'Limitations': notes_limitations.md },
-          { 'Legacy version': notes_legacy.md },
-          { 'Java install': server/install_java.md },
-          { 'Tomcat install': server/install_tomcat.md },
+  ]}
+  - { 'Recipes': language_recipes.md }
+  - { 'Performance': [
+  { 'How it works': bridge_how_it_works.md },
+  { 'Optimizations': language_optimizations.md },
+  { 'Benchmarks': bridge_benchmarks.md },
+  ]
+  }
+  - { 'Advanced': [
+  { 'Servlet functions': bridge_servlet_functions.md },
+  { 'Servlet session': bridge_servlet_session.md },
+  { 'Servlet context': bridge_servlet_context.md }
+  ]}
+  - { 'Notes': [
+  { 'Limitations': notes_limitations.md },
+  { 'Legacy version': notes_legacy.md },
+  { 'Java install': server/install_java.md },
+  { 'Tomcat install': server/install_tomcat.md },
 
-      ]}
-    - { 'Standards & quality': notes_implementation.md }
+  ]}
+  - { 'Standards & quality': notes_implementation.md }
 
 
 # Documentation and theme
 theme:
   name: material
 
+  # 404 page
+  #static_templates:
+  #  - 404.html
+
   # Don't include MkDocs' JavaScript
-  #include_search_page: false
-  #search_index_only: true
+  include_search_page: false
+  search_index_only: true
 
   language: en
-  logo:
-    icon: 'thumbs_up_down'
-  #logo: 'images/logo.svg'
+  features:
+    #- tabs
+    - instant
   palette:
-    primary: 'deep-orange'
-    accent: 'light blue'
+    primary: deep-orange
+    accent: light blue
   font:
-    text: 'Lato'
-    code: 'Roboto Mono'
+    text: Lato
+    #code: Fira Code
 
-  feature:
-    tabs: false
+# Plugins
+plugins:
+  - search
 
-# Options
+# Extras
 extra:
-  # If extra_css defined here ->
-  # -> WARNING -  Config value: 'extra_css'.
-  #    This behavior is deprecated. In version 1.0 and later they will need to be explicitly listed in the 'extra_css' config setting.
-  #extra_css:
-  #  - 'stylesheets/extra.css'
-  #  - 'stylesheets/monokai.css'
-  # Has been modev out of 'extra' section, see extra_css below
   social:
-    - type: 'github'
-      link: 'https://github.com/belgattitude/soluble-japha'
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/belgattitude/soluble-japha
 
+extra_javascript:
+  - _assets/js/mermaid-8.4.8.min.js
 extra_css:
-  #- 'stylesheets/extra.css'
-  - 'stylesheets/monokai.css'
+  - _assets/css/mermaid.css
+  - _assets/css/monokai.css
+  - _assets/css/style.css
 
 google_analytics:
   - 'UA-92890300-1'
@@ -97,6 +100,7 @@ google_analytics:
 # Extensions
 markdown_extensions:
   - markdown.extensions.admonition
+  - markdown.extensions.attr_list
   - markdown.extensions.codehilite:
       guess_lang: false
   - markdown.extensions.def_list
@@ -105,17 +109,34 @@ markdown_extensions:
   - markdown.extensions.toc:
       permalink: true
   - pymdownx.arithmatex
-  - pymdownx.betterem
-  #      smart_enable: all
+  - pymdownx.betterem:
+      smart_enable: all
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
+      emoji_index: !!python/name:pymdownx.emoji.twemoji
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
+        # - pymdownx.highlight:
+      #     linenums_style: pymdownx-inline
   - pymdownx.inlinehilite
-  - pymdownx.magiclink
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.superfences
-  - pymdownx.tasklist
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.tilde
+
+
