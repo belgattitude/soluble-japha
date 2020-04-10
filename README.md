@@ -13,7 +13,7 @@ In short **soluble-japha** allows to write Java code in PHP and interact with th
 
 ----
 
-> Read the [http://docs.soluble.io/soluble-japha](https://docs.soluble.io/soluble-japha)
+> Read the doc on [https://belgattitude.github.io/soluble-japha](https://belgattitude.github.io/soluble-japha)
 > website for complete information
 
 ----
