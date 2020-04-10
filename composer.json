@@ -28,18 +28,18 @@
     },
     "require": {
         "ext-xml": "*",
-        "php": "^7.1",
+        "php": "^7.2",
         "psr/log": "^1.0"
     },
     "require-dev" : {
         "phpunit/phpunit": "^7.5",
         "friendsofphp/php-cs-fixer": "^2.15",
-        "monolog/monolog": "^1.0 || ^2.0",
+        "monolog/monolog": "^2.0",
         "phpstan/phpstan": "^0.12.9",
         "phpstan/phpstan-strict-rules": "^0.12",
         "phpstan/phpstan-phpunit": "^0.12",
         "belgattitude/pjbserver-tools": "^3.0",
-        "infection/infection": "^0.13 || ^0.14"
+        "infection/infection": "^0.14"
     },
     "scripts": {
         "check": [
