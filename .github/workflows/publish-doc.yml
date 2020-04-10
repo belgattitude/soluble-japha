@@ -7,6 +7,7 @@ on:
     paths:
      - "doc/**"
      - "mkdocs.yml"
+     - ".github/workflows/**"
 
 jobs:
   build:
