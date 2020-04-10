@@ -1,0 +1,1350 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="PHP java bridge client from JVM interoperability.">
+      
+      
+        <link rel="canonical" href="http://docs.soluble.io/soluble-japha/language_basics/">
+      
+      
+        <meta name="author" content="Sébastien Vanvelthem">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.0.2">
+    
+    
+      
+        <title>Language basics - soluble-japha</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.07c9fbf5.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ecd4686e.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ff7043">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Lato",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../_assets/css/mermaid.css">
+    
+      <link rel="stylesheet" href="../_assets/css/monokai.css">
+    
+      <link rel="stylesheet" href="../_assets/css/style.css">
+    
+    
+      
+        
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-92890300-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="deep-orange" data-md-color-accent="light-blue">
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#language-basics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="http://docs.soluble.io/soluble-japha/" title="soluble-japha" class="md-header-nav__button md-logo" aria-label="soluble-japha">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            soluble-japha
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Language basics
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/belgattitude/soluble-japha/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    soluble-japha
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="http://docs.soluble.io/soluble-japha/" title="soluble-japha" class="md-nav__button md-logo" aria-label="soluble-japha">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
+
+    </a>
+    soluble-japha
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/belgattitude/soluble-japha/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    soluble-japha
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Installation
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Installation" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Installation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../install_client/" title="PHP install" class="md-nav__link">
+      PHP install
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../install_server/" title="JavaBridge server" class="md-nav__link">
+      JavaBridge server
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../bridge_connection/" title="Connection" class="md-nav__link">
+      Connection
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Usage
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Usage" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Language basics
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Language basics" class="md-nav__link md-nav__link--active">
+      Language basics
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#object-instantiation" class="md-nav__link">
+    Object instantiation
+  </a>
+  
+    <nav class="md-nav" aria-label="Object instantiation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simple-constructor" class="md-nav__link">
+    Simple constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overloaded-constructor" class="md-nav__link">
+    Overloaded constructor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-methods" class="md-nav__link">
+    Static methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    Constants
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterables" class="md-nav__link">
+    Iterables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arrayaccess" class="md-nav__link">
+    ArrayAccess
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inner-classes" class="md-nav__link">
+    Inner classes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datatypes" class="md-nav__link">
+    Datatypes
+  </a>
+  
+    <nav class="md-nav" aria-label="Datatypes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scalar-types" class="md-nav__link">
+    Scalar types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array-types" class="md-nav__link">
+    Array types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-null-and-booleans" class="md-nav__link">
+    Testing null and booleans
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-dates" class="md-nav__link">
+    Working with dates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timezones" class="md-nav__link">
+    Timezones
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    Resources
+  </a>
+  
+    <nav class="md-nav" aria-label="Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io-streams" class="md-nav__link">
+    IO streams
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../language_useful_functions/" title="Useful functions" class="md-nav__link">
+      Useful functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../language_exceptions/" title="Handling exceptions" class="md-nav__link">
+      Handling exceptions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../language_recipes/" title="Recipes" class="md-nav__link">
+      Recipes
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Performance
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Performance" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Performance
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bridge_how_it_works/" title="How it works" class="md-nav__link">
+      How it works
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../language_optimizations/" title="Optimizations" class="md-nav__link">
+      Optimizations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bridge_benchmarks/" title="Benchmarks" class="md-nav__link">
+      Benchmarks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Advanced
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bridge_servlet_functions/" title="Servlet functions" class="md-nav__link">
+      Servlet functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bridge_servlet_session/" title="Servlet session" class="md-nav__link">
+      Servlet session
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bridge_servlet_context/" title="Servlet context" class="md-nav__link">
+      Servlet context
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Notes
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Notes" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+        </span>
+        Notes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notes_limitations/" title="Limitations" class="md-nav__link">
+      Limitations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notes_legacy/" title="Legacy version" class="md-nav__link">
+      Legacy version
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../server/install_java/" title="Java install" class="md-nav__link">
+      Java install
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../server/install_tomcat/" title="Tomcat install" class="md-nav__link">
+      Tomcat install
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../notes_implementation/" title="Standards & quality" class="md-nav__link">
+      Standards & quality
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#object-instantiation" class="md-nav__link">
+    Object instantiation
+  </a>
+  
+    <nav class="md-nav" aria-label="Object instantiation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simple-constructor" class="md-nav__link">
+    Simple constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overloaded-constructor" class="md-nav__link">
+    Overloaded constructor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-methods" class="md-nav__link">
+    Static methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    Constants
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterables" class="md-nav__link">
+    Iterables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arrayaccess" class="md-nav__link">
+    ArrayAccess
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inner-classes" class="md-nav__link">
+    Inner classes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datatypes" class="md-nav__link">
+    Datatypes
+  </a>
+  
+    <nav class="md-nav" aria-label="Datatypes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scalar-types" class="md-nav__link">
+    Scalar types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array-types" class="md-nav__link">
+    Array types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-null-and-booleans" class="md-nav__link">
+    Testing null and booleans
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-dates" class="md-nav__link">
+    Working with dates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timezones" class="md-nav__link">
+    Timezones
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    Resources
+  </a>
+  
+    <nav class="md-nav" aria-label="Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io-streams" class="md-nav__link">
+    IO streams
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/belgattitude/soluble-japha/edit/master/doc/language_basics.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="language-basics">Language basics<a class="headerlink" href="#language-basics" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Coding Java from PHP is relatively similar to an equivalent pure Java code. To 
+avoid confusion while developing you must keep aware that:    </p>
+<ol>
+<li>Java supports <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html">overloading</a> for methods (and constructors).</li>
+<li>PHP have the <em>multipurpose</em> array for everything, Java does not. See <a href="#array-types">here</a> to learn more.</li>
+<li>DateTime and timezones are handled differenlty, see <a href="#working-with-dates">here</a> to learn more.</li>
+<li>Java supports inner classes. See <a href="#inner-classes">here</a>          </li>
+</ol>
+<p>And remember  </p>
+<ol>
+<li>While array and scalar types (int, string, bool, float) are automatically casted, 
+testing on <code>null</code> and <code>booleans</code> requires the use of <code>$ba-&gt;isNull()</code> and <code>$ba-&gt;isTrue()</code> 
+methods. See <a href="#testing-null-and-booleans">here</a> to learn more.</li>
+<li>PHP use the <code>::</code> for static method calls and constants where Java does not <code>.</code>.          </li>
+</ol>
+<p>soluble-japha brings solutions to those problems, but primary reflexes might not work (i.e. you try
+to call a static java method through the bridge with '::' instead of the regular '-&gt;'...)</p>
+</div>
+<h2 id="object-instantiation">Object instantiation<a class="headerlink" href="#object-instantiation" title="Permanent link">&para;</a></h2>
+<p>Whenever you want to work with a Java Object you must instantiate it through 
+the <code>$ba-&gt;java('[JAVA_FQCN]', $arg1=null, $arg2=null, ...)</code>. </p>
+<h3 id="simple-constructor">Simple constructor<a class="headerlink" href="#simple-constructor" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$ba</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Soluble\Japha\Bridge\Adapter</span><span class="p">([</span>
+    <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pjb62&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;servlet_address&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost:8083/servlet.phpjavabridge&#39;</span>
+<span class="p">]);</span>
+
+<span class="nv">$string</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello world&#39;</span><span class="p">);</span>
+<span class="nv">$hash</span>   <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.util.HashMap&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;key1&#39;</span> <span class="o">=&gt;</span> <span class="nv">$string</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;hello&#39;</span><span class="p">]);</span>
+</code></pre></div>
+
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <strong>[JAVA FQCN]</strong> is the fully qualified java class name (case-sensitive) optionally 
+followed by a list of arguments (variadic notation: <code>BridgeAdapter::java(string $javaClass, ...$args)</code>).*  </p>
+</div>
+<h3 id="overloaded-constructor">Overloaded constructor<a class="headerlink" href="#overloaded-constructor" title="Permanent link">&para;</a></h3>
+<p>In case of multiple constructor signatures <em>(PHP does not have constructor overloading)</em>, look at :</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$mathContext</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.math.MathContext&#39;</span><span class="p">,</span> <span class="nv">$precision</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
+<span class="nv">$bigint</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.math.BigInteger&#39;</span><span class="p">,</span> <span class="mi">123456</span><span class="p">);</span>
+<span class="nv">$bigdec</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.math.BigDecimal&#39;</span><span class="p">,</span> <span class="nv">$bigint</span><span class="p">,</span> <span class="nv">$scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="nv">$mathContext</span><span class="p">);</span>
+</code></pre></div>
+
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Refer to the <a href="https://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html#constructor_summary">BigDecimal</a> 
+constructor to learn how it has been selected from the provided arguments.  </p>
+</div>
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<p>After creating a java object with <code>$ba-&gt;java('[JAVA_FQCN]', $arg1=null, $arg2=null, ...)</code> you can call
+any public methods on it. Keep it mind that Java supports <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html">method overloading</a>,
+so before calling a method, ensures parameters will match the desired method signature.</p>
+<p>For example the <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html#indexOf(java.lang.String)">java.lang.String</a> object exposes
+two methods for <code>indexOf()</code></p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$javaString</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;A key is a key!&#39;</span><span class="p">);</span>
+<span class="nv">$index</span> <span class="o">=</span> <span class="nv">$javaString</span><span class="o">-&gt;</span><span class="na">indexOf</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">);</span>
+<span class="c1">// Will print 2, the selected method is `java.lang.String#indexOf(String str)`</span>
+
+<span class="nv">$index</span> <span class="o">=</span> <span class="nv">$javaString</span><span class="o">-&gt;</span><span class="na">indexOf</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="nv">$fromIndex</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span>
+<span class="c1">// Will print 11, the selected method is `java.lang.String#indexOf(String, $fromIndex)`</span>
+</code></pre></div>
+
+<h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
+<p>Use the <code>$ba-&gt;javaClass('[JAVA FQCN]', $arg1=null, ...)</code> method instead of
+<code>$ba-&gt;java()</code>...</p>
+<p>Take a look to the following example with <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html">java.lang.System</a> class.   </p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$system</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">javaClass</span><span class="p">(</span><span class="s1">&#39;java.lang.System&#39;</span><span class="p">);</span>
+<span class="k">echo</span>  <span class="nv">$system</span><span class="o">-&gt;</span><span class="na">getProperties</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;java.vm_name&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<h2 id="static-methods">Static methods<a class="headerlink" href="#static-methods" title="Permanent link">&para;</a></h2>
+<p>Static methods are called like regular php methods (no <code>::</code>).</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$calendar</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">javaClass</span><span class="p">(</span><span class="s1">&#39;java.util.Calendar&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">();</span>
+</code></pre></div>
+
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Note the use of <code>$ba-&gt;javaClass(...)</code> instead of <code>$ba-&gt;java(...)</code> to refer to
+the java class and call the static method on it. Remember to use it whenever 
+you face a factory, singleton or a generic static method.     </p>
+</div>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
+<p>Constants on java classes are called like regular properties (no <code>::</code>).</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="c1">// $ba = new BridgeAdapter(...); </span>
+
+<span class="nv">$tzClass</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">javaClass</span><span class="p">(</span><span class="s1">&#39;java.util.TimeZone&#39;</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$tz</span><span class="o">-&gt;</span><span class="na">getDisplayName</span><span class="p">(</span><span class="k">false</span><span class="p">,</span> <span class="nv">$tzClass</span><span class="o">-&gt;</span><span class="na">SHORT</span><span class="p">);</span>
+</code></pre></div>
+
+<h2 id="iterables">Iterables<a class="headerlink" href="#iterables" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Iterations have a cost on performance, and looping over large
+sets is highly discouraged. See how you can improve speed with
+the <a href="../language_optimizations/#values-method">values() method</a>.</p>
+</div>
+<p>You can use standard <code>foreach</code>, <code>while</code>, <code>for</code>,... to loop over Java iterable objects (Map, Collection, List...).</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="c1">// $ba = new BridgeAdapter(...); </span>
+
+<span class="nv">$properties</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">javaClass</span><span class="p">(</span><span class="s1">&#39;java.lang.System&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getProperties</span><span class="p">();</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$properties</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">&quot;</span><span class="si">$key</span><span class="s2">: </span><span class="si">$value\n</span><span class="s2">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="arrayaccess">ArrayAccess<a class="headerlink" href="#arrayaccess" title="Permanent link">&para;</a></h2>
+<p><code>Interfaces\JavaObject</code> implements <code>ArrayAccess</code> which allows to write
+maps, arrays... in a more convenient way. An example with <code>HashMap</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="c1">// $ba = new BridgeAdapter(...); </span>
+
+<span class="nv">$hashMap</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">javaClass</span><span class="p">(</span><span class="s1">&#39;java.util.HashMap&#39;</span><span class="p">);</span>
+<span class="nv">$hashMap</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Cool&#39;</span><span class="p">;</span>  <span class="c1">// equivalent to `$hashMap-&gt;put(&#39;test&#39;, &#39;Cool&#39;);`</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$hashMap</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="nb">unset</span><span class="p">(</span><span class="nv">$hashMap</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="inner-classes">Inner classes<a class="headerlink" href="#inner-classes" title="Permanent link">&para;</a></h2>
+<p>Java supports inner classes <em>(classes as a class property)</em>. 
+To explicitly refer to an inner class, the <code>FQCN</code> separator must be a <strong><code>$</code></strong> sign instead
+of the regular <code>.</code>. </p>
+<p>The following example makes use of the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html">Calendar.Builder</a> class:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="c1">// $ba = new BridgeAdapter(...); </span>
+
+<span class="c1">// NOTICE THE DOLLAR SIGN in &#39;Calendar$Builder&#39;</span>
+<span class="nv">$builder</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.util.Calendar$Builder&#39;</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">getClassName</span><span class="p">(</span><span class="nv">$builder</span><span class="p">);</span> <span class="c1">// will print &#39;java.util.Calendar$Builder&#39;</span>
+
+<span class="nv">$calendar</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">setCalendarType</span><span class="p">(</span><span class="s1">&#39;gregory&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">build</span><span class="p">();</span>
+<span class="k">echo</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">getClassName</span><span class="p">(</span><span class="nv">$calendar</span><span class="p">);</span> <span class="c1">// will print &#39;java.util.GregorianCalendar&#39; </span>
+</code></pre></div>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As PHP will interpret the <code>$</code> as a variable, be sure to use
+single-quotes to hold the class name.</p>
+</div>
+<h2 id="datatypes">Datatypes<a class="headerlink" href="#datatypes" title="Permanent link">&para;</a></h2>
+<h3 id="scalar-types">Scalar types<a class="headerlink" href="#scalar-types" title="Permanent link">&para;</a></h3>
+<p>The PHP scalar types: <code>string</code>, <code>int</code>, <code>float</code> and <code>boolean</code> can be sent
+as parameters to Java methods or constructors transparently: </p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$price</span> <span class="o">=</span> <span class="mf">12.99</span><span class="p">;</span>
+<span class="nv">$quantity</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.lang.Integer&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="nv">$jstring</span>  <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello world&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Be aware that Java often use object versions of scalars, like
+<code>java.lang.String</code>, <code>java.lang.Integer</code>, <code>java.lang.Boolean</code>...
+In those cases, remember they generally provides methods to
+retrieve the scalar value. For example:      </p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$quantity</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.lang.Integer&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="nv">$total</span> <span class="o">=</span> <span class="nv">$quantity</span><span class="o">-&gt;</span><span class="na">intValue</span><span class="p">()</span> <span class="o">*</span> <span class="mf">12.99</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;Total id %.2f&#39;</span><span class="p">,</span> <span class="nv">$total</span><span class="p">);</span> <span class="c1">// -&gt; 1299.00</span>
+</code></pre></div>
+
+</div>
+<h3 id="array-types">Array types<a class="headerlink" href="#array-types" title="Permanent link">&para;</a></h3>
+<p>The PHP multi-purpose array has not equivalent in Java and you'll often
+use Java objects like Map, HashMap, Collection, List, Vector... instead. </p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;John Doe&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span> <span class="o">=&gt;</span> <span class="mi">26</span><span class="p">];</span>
+<span class="nv">$hashMap</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.util.HashMap&#39;</span><span class="p">,</span> <span class="nv">$array</span><span class="p">);</span>
+</code></pre></div>
+
+<p>While you can generally send the parameters as a standard php array, to
+get an array back you can use the fast <code>values()</code> method:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="c1">// with HashMap</span>
+<span class="nv">$input_array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;John Doe&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span> <span class="o">=&gt;</span> <span class="mi">26</span><span class="p">];</span>
+<span class="nv">$hashMap</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.util.HashMap&#39;</span><span class="p">,</span> <span class="nv">$input_array</span><span class="p">);</span>
+<span class="nv">$output_array</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">values</span><span class="p">(</span><span class="nv">$hashMap</span><span class="p">);</span>
+<span class="c1">// $input_array === $output_array</span>
+
+<span class="c1">// With ArrayList</span>
+<span class="nv">$arrayList</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.util.ArrayList&#39;</span><span class="p">);</span>
+<span class="nv">$arrayList</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">);</span>
+<span class="nv">$arrayList</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;World&#39;</span><span class="p">);</span>
+
+<span class="nv">$array</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">values</span><span class="p">(</span><span class="nv">$arrayList</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">());</span>
+<span class="c1">// $array == [&#39;Hello&#39;, &#39;World&#39;];</span>
+</code></pre></div>
+
+<p>or iterate the object (ok for small sets).</p>
+<h3 id="testing-null-and-booleans">Testing null and booleans<a class="headerlink" href="#testing-null-and-booleans" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Testing null and boolean:</p>
+<p>Due to internal proxying between java and php objects, 'null', 'false' and 'true' values 
+must be tested through the bridge object. Otherwise the test is made the php proxied object
+and not its value.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="c1">// $ba = new BridgeAdapter(...); </span>
+
+<span class="nv">$javaBoolean</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.lang.Boolean&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">isTrue</span><span class="p">(</span><span class="nv">$javaBoolean</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">&quot;Yes, it is.&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nv">$javaBoolean</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.lang.Boolean&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">isTrue</span><span class="p">(</span><span class="nv">$javaBoolean</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">&quot;Yes, it is not.&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">isNull</span><span class="p">(</span><span class="nv">$rs</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$rs</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<h3 id="working-with-dates">Working with dates<a class="headerlink" href="#working-with-dates" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Dates are not (yet) automatically casted between Java and PHP. Keep in mind that </p>
+<ul>
+<li>Internally the JVM works with milliseconds, PHP with to microseconds (7.1 introduced milli). </li>
+<li>Timezones might differs between runtimes. Check your configuration.</li>
+</ul>
+</div>
+<p>As an example, the <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html">java.util.Date</a> allows
+creation of dates based on a timestamp expressed in milliseconds : </p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="c1">// $ba = new BridgeAdapter(...); </span>
+
+<span class="nv">$phpDate</span> <span class="o">=</span> <span class="nx">\DateTime</span><span class="o">::</span><span class="na">createFromFormat</span><span class="p">(</span><span class="s1">&#39;Y-m-d&#39;</span><span class="p">,</span> <span class="s1">&#39;2016-12-21&#39;</span><span class="p">);</span>
+<span class="nv">$milli</span> <span class="o">=</span> <span class="nv">$phpDate</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">;</span> <span class="c1">// Internally the JVM handles milliseconds</span>
+                                       <span class="c1">// In order to create a new Java date, </span>
+                                       <span class="c1">// php dates must be converted accordingly.</span>
+                                       <span class="c1">// The &#39;U&#39; allows formatting the date as</span>
+                                       <span class="c1">// microseconds since epoch time, just multiply</span>
+                                       <span class="c1">// by 1000 to get milliseconds.</span>
+                                       <span class="c1">// Alternatively you can use </span>
+                                       <span class="c1">// $milli = strtotime(&#39;2016-12-21&#39;) * 1000;  </span>
+
+<span class="nv">$javaDate</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.util.Date&#39;</span><span class="p">,</span> <span class="nv">$milli</span><span class="p">);</span>
+
+<span class="nv">$simpleDateFormat</span><span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s2">&quot;java.text.SimpleDateFormat&quot;</span><span class="p">,</span> <span class="s1">&#39;yyyy-MM-dd&#39;</span><span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$simpleDateFormat</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="nv">$javaDate</span><span class="p">);</span>
+
+<span class="c1">// Will print: &quot;2016-12-21&quot;</span>
+</code></pre></div>
+
+<p>Alternatively you can use the <a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html">java.text.SimpleDateFormatter</a> object 
+to parse the date string without the php conversion.  </p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="c1">// $ba = new BridgeAdapter(...); </span>
+
+<span class="nv">$date</span> <span class="o">=</span> <span class="s1">&#39;2016-12-21&#39;</span><span class="p">;</span>
+<span class="nv">$simpleDateFormat</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s2">&quot;java.text.SimpleDateFormat&quot;</span><span class="p">,</span> <span class="s1">&#39;yyyy-MM-dd&#39;</span><span class="p">);</span>
+<span class="nv">$javaDate</span> <span class="o">=</span> <span class="nv">$simpleDateFormat</span><span class="o">-&gt;</span><span class="na">parse</span><span class="p">(</span><span class="nv">$date</span><span class="p">);</span> <span class="c1">// This is a Java date</span>
+<span class="k">echo</span> <span class="nv">$simpleDateFormat</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="nv">$javaDate</span><span class="p">);</span>
+<span class="c1">// Will print: &quot;2016-12-21&quot;</span>
+</code></pre></div>
+
+<h3 id="timezones">Timezones<a class="headerlink" href="#timezones" title="Permanent link">&para;</a></h3>
+<p>Timezones might differ from PHP and the JVM runtimes. In that case, dates between PHP and Java
+are not guaranteed to be the same (think of 2016-12-31 23:00:00 in London and Paris)</p>
+<p>In most cases those differences can be easily fixed by ensuring both the JVM and PHP configurations 
+use the same timezone. </p>
+<p>Another option is to pass the current timezone in the formatter :</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$pattern</span> <span class="o">=</span> <span class="s2">&quot;yyyy-MM-dd HH:mm&quot;</span><span class="p">;</span>
+<span class="nv">$formatter</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s2">&quot;java.text.SimpleDateFormat&quot;</span><span class="p">,</span> <span class="nv">$pattern</span><span class="p">);</span>
+<span class="nv">$tz</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">javaClass</span><span class="p">(</span><span class="s1">&#39;java.util.TimeZone&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getTimezone</span><span class="p">(</span><span class="s2">&quot;Europe/Paris&quot;</span><span class="p">);</span>
+<span class="nv">$formatter</span><span class="o">-&gt;</span><span class="na">setTimeZone</span><span class="p">(</span><span class="nv">$tz</span><span class="p">);</span>
+</code></pre></div>
+
+<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p>PHP resources like pointer to a file or a network socket cannot be
+exchanged between runtimes.  </p>
+<h3 id="io-streams">IO streams<a class="headerlink" href="#io-streams" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For performance, operations on resources (like iterating over a file)
+is highly discouraged. They should be made on their own environment.</p>
+</div>
+<p>As an example</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$bufferedReader</span> <span class="o">=</span> <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.io.BufferedReader&#39;</span><span class="p">,</span>
+                        <span class="nv">$ba</span><span class="o">-&gt;</span><span class="na">java</span><span class="p">(</span><span class="s1">&#39;java.io.FileReader&#39;</span><span class="p">,</span> <span class="no">__FILE__</span><span class="p">)</span>
+                  <span class="p">);</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../bridge_connection/" title="Connection" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Connection
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../language_useful_functions/" title="Useful functions" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Useful functions
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" /></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2017-2020 Sébastien Vanvelthem
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="https://github.com/belgattitude/soluble-japha" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
+      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.config.pipeline": "trimmer, stopWordFilter", "clipboard.copy": "Copy to clipboard", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.config.lang": "en", "clipboard.copied": "Copied to clipboard"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: ["instant"],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.7f7c8775.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../_assets/js/mermaid-8.4.8.min.js"></script>
+      
+    
+  </body>
+</html>
