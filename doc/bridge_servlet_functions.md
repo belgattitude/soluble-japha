@@ -1,9 +1,8 @@
 # Servlet functions
 
 It's possible to call a specific java servlet function with the `$ba->getDriver()->invoke()`
-method. Just ensure the first parameter is null. For a list a functions, refer to 
-the [JavaBridge class](http://docs.soluble.io/php-java-bridge/api/index.html?io/soluble/pjb/bridge/JavaBridge.html).
- 
+method. Just ensure the first parameter is null.
+
 ## Example
 
 ```php
@@ -13,7 +12,7 @@ the [JavaBridge class](http://docs.soluble.io/php-java-bridge/api/index.html?io/
 use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
 $ba = new BridgeAdapter([
-                           'driver' => 'Pjb62',  
+                           'driver' => 'Pjb62',
                            'servlet_address' => 'localhost:8089/servlet.phpjavabridge'
                         ]);
 
