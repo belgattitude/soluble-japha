@@ -1,9 +1,15 @@
 # PHP installation
 
-=== "PHP7.1+"
+=== "PHP7.2+"
 
     ```bash
     $ composer require soluble/japha
+    ```
+
+=== "PHP7.1"
+
+    ```bash
+    $ composer require "soluble/japha@^2.6.0"
     ```
 
 === "PHP 5.6"
