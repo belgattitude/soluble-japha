@@ -876,20 +876,20 @@
                 <h1 id="javabridge-server-installation">Javabridge server installation<a class="headerlink" href="#javabridge-server-installation" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>A Javabridge server is required and acts as an intermediate between 
+<p>A Javabridge server is required and acts as an intermediate between
 the JVM and PHP runtime. Here's the steps to customize, build and run your own instance.
 Don't be afraid, it takes few minutes.</p>
 </div>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <ul>
 <li>An installed <a href="../server/install_java/">OpenJDK or OracleJDK, 7 or 8+</a> <em>(JRE is sufficient for running)</em>.</li>
-<li>The recommended <a href="../server/install_tomcat/">Apache Tomcat</a> server for deployments 
-  <em>(any servlet 2.5+ spec container should work)</em> or the <a href="https://github.com/jsimone/webapp-runner">webapp-runner</a> 
+<li>The recommended <a href="../server/install_tomcat/">Apache Tomcat</a> server for deployments
+  <em>(any servlet 2.5+ spec container should work)</em> or the <a href="https://github.com/jsimone/webapp-runner">webapp-runner</a>
   for standalone.</li>
 </ul>
 <h2 id="java-installation">Java installation<a class="headerlink" href="#java-installation" title="Permanent link">&para;</a></h2>
 <p>On ubuntu based systems, you can install java by typing:</p>
-<div class="highlight"><pre><span></span><code>$ sudo apt-get install openjdk-8-jdk  
+<div class="highlight"><pre><span></span><code>$ sudo apt-get install openjdk-8-jdk
 </code></pre></div>
 
 <p><em>For other recipes and systems, refer to the <a href="../server/install_java/">extended java installation notes</a>.</em></p>
@@ -897,13 +897,13 @@ Don't be afraid, it takes few minutes.</p>
 <h2 id="quick-install">Quick install<a class="headerlink" href="#quick-install" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The quick install instructions are based on the <strong>forked <a href="https://github.com/belgattitude/php-java-bridge">php-java-bridge</a> 
-server</strong>. </p>
+<p>The quick install instructions are based on the <strong>forked <a href="https://github.com/belgattitude/php-java-bridge">php-java-bridge</a>
+server</strong>.</p>
 <p>They promote the recommended installation workflow based on <a href="../server/install_tomcat/">Tomcat</a>,
 a popular servlet container server widely available nowadays <em>(i.e: Digitalocean droplets...)</em>.</p>
 <p>A optional section describe how to use the <a href="https://github.com/jsimone/webapp-runner">webapp-runner</a>
 instead of <em>regular</em> Tomcat install. This allows to start, control the bridge server
-straight from the command line (standalone) or deploy on some cloud services (i.e. Heroku).   </p>
+straight from the command line (standalone) or deploy on some cloud services (i.e. Heroku).</p>
 <p><em>For spring-boot support, you can also look at <a href="#alternative-install">Alternative installation section</a>.</em></p>
 </div>
 <h3 id="build-and-customize">Build and customize<a class="headerlink" href="#build-and-customize" title="Permanent link">&para;</a></h3>
@@ -915,18 +915,18 @@ $ unzip pjb.zip <span class="o">&amp;&amp;</span> <span class="nb">cd</span> php
 <span class="c1">#    Example below contains some pre-made gradle init scripts</span>
 <span class="c1">#    to include jasperreports and mysql-connector libraries to the</span>
 <span class="c1">#    build. They are optional, remove the (-I) parts or provide</span>
-<span class="c1">#    your own.       </span>
+<span class="c1">#    your own.</span>
 $ ./gradlew war <span class="se">\</span>
          -I init-scripts/init.jasperreports.gradle <span class="se">\</span>
          -I init-scripts/init.mysql.gradle
-<span class="c1"># The build files are generated in the &#39;/build/libs&#39; folder.          </span>
+<span class="c1"># The build files are generated in the &#39;/build/libs&#39; folder.</span>
 </code></pre></div>
 
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>As shown above, adding library dependencies can be done easily through gradle
-init-scripts arguments (-I). To learn mode, have a look to 
-<a href="https://github.com/belgattitude/php-java-bridge/blob/master/init-scripts/README.md">some pre-made init scripts</a> 
+init-scripts arguments (-I). To learn mode, have a look to
+<a href="https://github.com/belgattitude/php-java-bridge/blob/master/init-scripts/README.md">some pre-made init scripts</a>
 included in the latest distribution or provide your own.</p>
 </div>
 <h3 id="deploy-and-run">Deploy and run<a class="headerlink" href="#deploy-and-run" title="Permanent link">&para;</a></h3>
@@ -934,51 +934,51 @@ included in the latest distribution or provide your own.</p>
 <p class="admonition-title">Danger</p>
 <p>For security reasons, the Javabridge server cannot be exposed on a public
 network. It must be limited to interactions on the same host/network
-and should be executed with the same user as the php client (not root). 
-Bind Tomcat to localhost or setup a firewall where applicable.   </p>
+and should be executed with the same user as the php client (not root).
+Bind Tomcat to localhost or setup a firewall where applicable.</p>
 </div>
 <h4 id="option-1-tomcat">Option 1: Tomcat<a class="headerlink" href="#option-1-tomcat" title="Permanent link">&para;</a></h4>
-<p>Ensure Tomcat is <a href="../server/install_tomcat/">installed</a> or 
+<p>Ensure Tomcat is <a href="../server/install_tomcat/">installed</a> or
 quickly run <code>sudo apt-get install tomcat8</code> on Ubuntu based systems,
 then copy the builded war file in the tomcat webapps folder.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 3. Deploy or update the servlet on Tomcat:</span>
 <span class="c1">#    Example below is based on Ubuntu with Tomcat8</span>
 <span class="c1">#    and can be applied in the same way for other systems,</span>
 <span class="c1">#    just replace the webapp directory location.</span>
-$ cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war       
+$ cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war
 </code></pre></div>
 
-<p>Tomcat will automatically deploy and register the servlet. Wait few seconds and point 
-your browser to <a href="http://localhost:8080/MyJavaBridge">http://localhost:8080/MyJavaBridge</a> 
-<em>(note the <code>/MyJavaBridge</code> uri corresponds to the deployed war filename, easily changeable)</em> 
+<p>Tomcat will automatically deploy and register the servlet. Wait few seconds and point
+your browser to <a href="http://localhost:8080/MyJavaBridge">http://localhost:8080/MyJavaBridge</a>
+<em>(note the <code>/MyJavaBridge</code> uri corresponds to the deployed war filename, easily changeable)</em>
 and check the landing page:</p>
 <p><img alt="" src="../images/bridge_landing.png" title="Landing screenshot" /></p>
 <h4 id="option-2-standalone">Option 2: Standalone<a class="headerlink" href="#option-2-standalone" title="Permanent link">&para;</a></h4>
 <p>The <a href="https://github.com/jsimone/webapp-runner">webapp-runner</a> actually embeds a
 <em>standalone runnable</em> Tomcat and is a viable option for those who don't want to
-install an additional system wide server. </p>
+install an additional system wide server.</p>
 <p>You can download the webapp-runner on <a href="">maven central</a> or alternatively
 from the command line:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Get the latest webapp-runner from maven.</span>
-$ <span class="nb">export</span> <span class="nv">WR_VERSION</span><span class="o">=</span><span class="s2">&quot;8.5.15.1&quot;</span><span class="p">;</span>
-$ wget http://central.maven.org/maven2/com/github/jsimone/webapp-runner/<span class="si">${</span><span class="nv">WR_VERSION</span><span class="si">}</span>/webapp-runner-<span class="si">${</span><span class="nv">WR_VERSION</span><span class="si">}</span>.jar<span class="s2">&quot; -O webapp-runner.jar</span>
+$ <span class="nb">export</span> <span class="nv">WR_VERSION</span><span class="o">=</span><span class="s2">&quot;9.0.27.1&quot;</span><span class="p">;</span>
+$ <span class="nv">WEBAPP_RUNNER_URL</span><span class="o">=</span><span class="s2">&quot;https://repo.maven.apache.org/maven2/com/github/jsimone/webapp-runner/</span><span class="si">${</span><span class="nv">WR_VERSION</span><span class="si">}</span><span class="s2">/webapp-runner-</span><span class="si">${</span><span class="nv">WR_VERSION</span><span class="si">}</span><span class="s2">.jar&quot;</span>
 </code></pre></div>
 
 <p>Run your server <code>JavaBridgeTemplate.war</code> file with the webapp-runner:</p>
-<div class="highlight"><pre><span></span><code>$ java -jar webapp-runner.jar /path/to/JavaBridgeTemplate.war --port <span class="m">8093</span> 
+<div class="highlight"><pre><span></span><code>$ java -jar webapp-runner.jar /path/to/JavaBridgeTemplate.war --port <span class="m">8093</span>
 </code></pre></div>
 
 <p>See travis example script <a href="https://github.com/belgattitude/soluble-japha/blob/master/.travis/launch_javabridge_server.sh">here</a>.</p>
 <h3 id="using-the-bridge">Using the bridge<a class="headerlink" href="#using-the-bridge" title="Permanent link">&para;</a></h3>
-<p>Once the connection is working, jump to the <a href="../bridge_connection/">Getting started and how to connect section</a>. </p>
+<p>Once the connection is working, jump to the <a href="../bridge_connection/">Getting started and how to connect section</a>.</p>
 <hr />
 <h2 id="alternative-install">Alternative install<a class="headerlink" href="#alternative-install" title="Permanent link">&para;</a></h2>
 <div class="admonition summary">
 <p class="admonition-title">Summary</p>
 <p>This install method should be considered whenever you need a standalone binary or
-intend to develop your own java classes in a sprint-boot architecture. </p>
+intend to develop your own java classes in a sprint-boot architecture.</p>
 </div>
-<p>This alternative install method is based on the <a href="https://github.com/belgattitude/pjb-starter-springboot">pjb-starter-springboot</a> 
+<p>This alternative install method is based on the <a href="https://github.com/belgattitude/pjb-starter-springboot">pjb-starter-springboot</a>
 starter kit. In comparison to the quick installation above:</p>
 <ul>
 <li>Provide also a binary runnable from the cli (standalone / embedded Tomcat 8.5+).</li>
@@ -988,7 +988,7 @@ starter kit. In comparison to the quick installation above:</p>
 <li>Might not include the latest release of the bridge (not as frequently updated).</li>
 </ul>
 <p>Please check the <a href="https://github.com/belgattitude/pjb-starter-springboot">pjb-starter-springboot</a>
-to get the latest instructions or follow the procedure below:    </p>
+to get the latest instructions or follow the procedure below:</p>
 <h3 id="build-and-customize_1">Build and customize<a class="headerlink" href="#build-and-customize_1" title="Permanent link">&para;</a></h3>
 <p>The instructions are very similar from the barebone PHP/Javabridge installation described above:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. Clone the pjb-starter-springboot skeleton (-b to checkout a specific release)</span>
@@ -998,18 +998,18 @@ $ <span class="nb">cd</span> pjb-starter-springboot
 <span class="c1">#    Example below contains some pre-made gradle init scripts</span>
 <span class="c1">#    to include jasperreports and mysql-connector libraries to the</span>
 <span class="c1">#    build. They are optional, remove the (-I) parts or provide</span>
-<span class="c1">#    your own.       </span>
+<span class="c1">#    your own.</span>
 $ ./gradlew build <span class="se">\</span>
          -I init-scripts/init.jasperreports.gradle <span class="se">\</span>
          -I init-scripts/init.mysql.gradle
-<span class="c1"># The build files are generated in the &#39;/build/libs&#39; folder.          </span>
+<span class="c1"># The build files are generated in the &#39;/build/libs&#39; folder.</span>
 </code></pre></div>
 
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>As shown above, adding library dependencies can be done easily through gradle
-init-scripts arguments (-I). To learn mode, have a look to 
-<a href="https://github.com/belgattitude/pjb-starter-sprinboot/blob/master/init-scripts/README.md">some pre-made init scripts</a> 
+init-scripts arguments (-I). To learn mode, have a look to
+<a href="https://github.com/belgattitude/pjb-starter-sprinboot/blob/master/init-scripts/README.md">some pre-made init scripts</a>
 included in the latest distribution or provide your own.</p>
 </div>
 <p>And check the <code>build\libs</code> directory for the following files:</p>
@@ -1037,11 +1037,11 @@ included in the latest distribution or provide your own.</p>
 <h3 id="run-in-standalone">Run in standalone<a class="headerlink" href="#run-in-standalone" title="Permanent link">&para;</a></h3>
 <p>You can easily run the a <code>JavaBridgeStandalone.jar</code> file from the cli:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Run the PHPJavaBridge server in standalone</span>
-$ java -jar ./build/libs/JavaBridgeStandalone.jar -Dserver_port<span class="o">=</span><span class="m">8089</span>   
+$ java -jar ./build/libs/JavaBridgeStandalone.jar -Dserver_port<span class="o">=</span><span class="m">8089</span>
 </code></pre></div>
 
 <p>Check the <a href="http://localhost:8089">landing page</a> for status and
-use the connection <code>localhost:8089/servlet.phpjavabridge</code> in your 
+use the connection <code>localhost:8089/servlet.phpjavabridge</code> in your
 bridge connection parameters.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1049,44 +1049,44 @@ bridge connection parameters.</p>
 how it compares from a regular tomcat deployment? One important difference
 concerns the system integration and with the provided OS version:</p>
 <ul>
-<li>Error and log files are maintained and rotated in standard directories.  </li>
-<li>Automatic startup is provided out-of-the-box. </li>
+<li>Error and log files are maintained and rotated in standard directories.</li>
+<li>Automatic startup is provided out-of-the-box.</li>
 </ul>
-<p>And if standalone gives a lot of freedom, it comes with the need to 
-control the service by yourself (supervisord or cli scripts...). Up to you 
+<p>And if standalone gives a lot of freedom, it comes with the need to
+control the service by yourself (supervisord or cli scripts...). Up to you
 to decide which method is applicable, the pjb-starter-springboot
-offers both posibilities. </p>
+offers both posibilities.</p>
 </div>
 <h3 id="run-on-tomcat">Run on Tomcat<a class="headerlink" href="#run-on-tomcat" title="Permanent link">&para;</a></h3>
-<p>Ensure Tomcat is <a href="../server/install_tomcat/">installed</a> or 
+<p>Ensure Tomcat is <a href="../server/install_tomcat/">installed</a> or
 quickly run <code>sudo apt-get install tomcat8</code> on Ubuntu based systems,
 then copy the builded war file in the tomcat webapps folder.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 3. Deploy or update the servlet on Tomcat:</span>
 <span class="c1">#    Example below is based on Ubuntu with Tomcat8</span>
 <span class="c1">#    and can be applied in the same way for other systems,</span>
 <span class="c1">#    just replace the webapp directory location.</span>
-$ cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war       
+$ cp ./build/libs/JavaBridgeTemplate.war /var/lib/tomcat8/webapps/MyJavaBridge.war
 </code></pre></div>
 
-<p>Tomcat will automatically deploy and register the servlet. Wait few seconds and point 
-your browser to <a href="http://localhost:8080/MyJavaBridge">http://localhost:8080/MyJavaBridge</a> 
-<em>(note the <code>/MyJavaBridge</code> uri corresponds to the deployed war filename, easily changeable)</em> 
+<p>Tomcat will automatically deploy and register the servlet. Wait few seconds and point
+your browser to <a href="http://localhost:8080/MyJavaBridge">http://localhost:8080/MyJavaBridge</a>
+<em>(note the <code>/MyJavaBridge</code> uri corresponds to the deployed war filename, easily changeable)</em>
 and check the landing page:</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>For obvious security reasons, the Javabridge server cannot be exposed on a public
 network. It must be limited to interactions on the same host/network
-and should be executed with the same user as the php client (not root). 
-Bind Tomcat to localhost or setup a firewall where applicable.   </p>
+and should be executed with the same user as the php client (not root).
+Bind Tomcat to localhost or setup a firewall where applicable.</p>
 </div>
 <hr />
 <h2 id="composer-install">Composer install<a class="headerlink" href="#composer-install" title="Permanent link">&para;</a></h2>
-<p>As a third alternative, the <a href="https://github.com/belgattitude/pjbserver-tools">pjbserver-tools standalone server</a> 
+<p>As a third alternative, the <a href="https://github.com/belgattitude/pjbserver-tools">pjbserver-tools standalone server</a>
 offer a pre-made server binary and can be installed straight from composer.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The pjbserver-tools package is not fit for production usage (yet), its best use is for
-unit-tests (travis...) or local development only.  </p>
+unit-tests (travis...) or local development only.</p>
 </div>
                 
               
@@ -1169,7 +1169,7 @@ unit-tests (travis...) or local development only.  </p>
     </div>
     
       <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.other": "# matching documents", "search.config.lang": "en", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.config.pipeline": "trimmer, stopWordFilter"}</script>
+      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "search.config.separator": "[\\s\\-]+", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.other": "# matching documents", "search.result.none": "No matching documents", "search.config.lang": "en", "search.result.placeholder": "Type to start searching", "clipboard.copy": "Copy to clipboard", "search.result.one": "1 matching document"}</script>
       
       <script>
         app = initialize({
