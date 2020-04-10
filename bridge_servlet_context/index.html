@@ -670,7 +670,7 @@
                 
                 
                 <h1 id="servlet-context">Servlet context<a class="headerlink" href="#servlet-context" title="Permanent link">&para;</a></h1>
-<p>If the bridge is deployed on Tomcat (not the standalone version), you can access the servlet context through 
+<p>If the bridge is deployed on Tomcat (not the standalone version), you can access the servlet context through
 the internal driver:</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
@@ -678,14 +678,13 @@ the internal driver:</p>
 <span class="k">use</span> <span class="nx">Soluble\Japha\Bridge\Adapter</span> <span class="k">as</span> <span class="nx">BridgeAdapter</span><span class="p">;</span>
 
 <span class="nv">$ba</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BridgeAdapter</span><span class="p">([</span>
-                           <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pjb62&#39;</span><span class="p">,</span>  
+                           <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pjb62&#39;</span><span class="p">,</span>
                            <span class="s1">&#39;servlet_address&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost:8089/servlet.phpjavabridge&#39;</span>
                         <span class="p">]);</span>
 
-<span class="c1">// $context is either </span>
-<span class="c1">//   JavaObject: Java(&#39;io.soluble.pjb.servlet.HttpContext&#39;) - for soluble/php-java-bridge 6.2.11+   </span>
+<span class="c1">// $context is either</span>
+<span class="c1">//   JavaObject: Java(&#39;io.soluble.pjb.servlet.HttpContext&#39;) - for soluble/php-java-bridge 6.2.11+</span>
 <span class="c1">//   JavaObject: Java(&#39;php.java.servlet.HttpContext&#39;) - for original php-java-bridge 6.2.1</span>
-<span class="c1">// @see http://docs.soluble.io/php-java-bridge/api/index.html?io/soluble/pjb/servlet/HttpContext.html</span>
 
 <span class="nv">$context</span> <span class="o">=</span> <span class="nv">$adapter</span><span class="o">-&gt;</span><span class="na">getDriver</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getContext</span><span class="p">();</span>
 
@@ -693,7 +692,6 @@ the internal driver:</p>
 <span class="c1">// $httpServletRequest is either</span>
 <span class="c1">//   JavaObject: Java(&#39;io.soluble.pjb.servlet.RemoteHttpServletRequest&#39;) - for soluble/php-java-bridge 6.2.11+</span>
 <span class="c1">//   JavaObject: Java(&#39;php.java.servlet.RemoteServletRequest&#39;) - for original php-java-bridge 6.2.1</span>
-<span class="c1">// @see http://docs.soluble.io/php-java-bridge/api/index.html?io/soluble/pjb/servlet/RemoteHttpServletContextFactory.html</span>
 
 <span class="nv">$httpServletRequest</span> <span class="o">=</span> <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">getHttpServletRequest</span><span class="p">();</span>
 
@@ -701,7 +699,7 @@ the internal driver:</p>
 <span class="c1">// $servlet is either</span>
 <span class="c1">//   JavaObject: Java(&#39;io.soluble.pjb.servlet.PhpJavaServlet&#39;) object for soluble/php-java-bridge 6.2.11+</span>
 <span class="c1">//   JavaObject: Java(&#39;php.java.servlet.PhpJavaServlet&#39;) - for original php-java-bridge 6.2.1</span>
-<span class="c1">// @see http://docs.soluble.io/php-java-bridge/api/index.html?io/soluble/pjb/servlet/PhpJavaServlet.html</span>
+
 <span class="nv">$servlet</span> <span class="o">=</span> <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">getServlet</span><span class="p">();</span>
 
 
@@ -794,7 +792,7 @@ the internal driver:</p>
     </div>
     
       <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "clipboard.copy": "Copy to clipboard", "search.result.other": "# matching documents", "clipboard.copied": "Copied to clipboard", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.placeholder": "Type to start searching", "search.config.lang": "en", "search.result.one": "1 matching document"}</script>
+      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.config.pipeline": "trimmer, stopWordFilter", "search.result.none": "No matching documents", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.result.other": "# matching documents", "search.result.one": "1 matching document", "clipboard.copy": "Copy to clipboard"}</script>
       
       <script>
         app = initialize({

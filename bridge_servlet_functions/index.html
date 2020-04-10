@@ -671,15 +671,14 @@
                 
                 <h1 id="servlet-functions">Servlet functions<a class="headerlink" href="#servlet-functions" title="Permanent link">&para;</a></h1>
 <p>It's possible to call a specific java servlet function with the <code>$ba-&gt;getDriver()-&gt;invoke()</code>
-method. Just ensure the first parameter is null. For a list a functions, refer to 
-the <a href="http://docs.soluble.io/php-java-bridge/api/index.html?io/soluble/pjb/bridge/JavaBridge.html">JavaBridge class</a>.</p>
+method. Just ensure the first parameter is null.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 
 <span class="k">use</span> <span class="nx">Soluble\Japha\Bridge\Adapter</span> <span class="k">as</span> <span class="nx">BridgeAdapter</span><span class="p">;</span>
 
 <span class="nv">$ba</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BridgeAdapter</span><span class="p">([</span>
-                           <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pjb62&#39;</span><span class="p">,</span>  
+                           <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pjb62&#39;</span><span class="p">,</span>
                            <span class="s1">&#39;servlet_address&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost:8089/servlet.phpjavabridge&#39;</span>
                         <span class="p">]);</span>
 
@@ -770,7 +769,7 @@ the <a href="http://docs.soluble.io/php-java-bridge/api/index.html?io/soluble/pj
     </div>
     
       <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "clipboard.copy": "Copy to clipboard", "search.result.other": "# matching documents", "clipboard.copied": "Copied to clipboard", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.placeholder": "Type to start searching", "search.config.lang": "en", "search.result.one": "1 matching document"}</script>
+      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.config.pipeline": "trimmer, stopWordFilter", "search.result.none": "No matching documents", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.result.other": "# matching documents", "search.result.one": "1 matching document", "clipboard.copy": "Copy to clipboard"}</script>
       
       <script>
         app = initialize({
