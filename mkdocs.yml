@@ -73,8 +73,8 @@ theme:
     primary: deep-orange
     accent: light blue
   font:
-    text: Lato
-    #code: Fira Code
+    text: IBM Plex Sans
+    code: Roboto Mono
 
 # Plugins
 plugins:
