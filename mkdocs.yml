@@ -87,15 +87,15 @@ extra:
       link: https://github.com/belgattitude/soluble-japha
 
 extra_javascript:
-  - _assets/js/mermaid-8.4.8.min.js
+  - _assets/js/mermaid-8.5.0.min.js
 extra_css:
   - _assets/css/mermaid.css
   - _assets/css/monokai.css
   - _assets/css/style.css
 
-google_analytics:
-  - 'UA-92890300-1'
-  - 'auto'
+#google_analytics:
+#  - 'UA-xxxxxxxx-x'
+#  - 'auto'
 
 # Extensions
 markdown_extensions:
