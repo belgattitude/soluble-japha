@@ -252,6 +252,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    How it works
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#considerations" class="md-nav__link">
     Considerations
   </a>
@@ -692,6 +699,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    How it works
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#considerations" class="md-nav__link">
     Considerations
   </a>
@@ -782,7 +796,7 @@ As meaningless examples:</p>
 
 <h2 id="use-cases">Use cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h2>
 <p><strong>Expand the PHP horizons to the Java ecosystem</strong> whenever you want
-to take advantage of</p>
+to quickly play with</p>
 <ul>
 <li>some compelling libraries <em>(<a href="http://community.jaspersoft.com/project/jasperreports-library">Jasperreports</a>, <a href="http://stanfordnlp.github.io/CoreNLP/">CoreNLP</a>, <a href="https://github.com/flyingsaucerproject/flyingsaucer/releases">FlyingSaucer</a>, <a href="https://jsoup.org/">Jsoup</a>...)</em></li>
 <li>benefit from JVM performances <em>(<a href="https://deeplearning4j.org/">Deeplearning4J</a>...)</em> or wrappers <em>(<a href="https://www.tensorflow.org/api_docs">TensorFlowApi</a></em>...)</li>
@@ -799,6 +813,15 @@ to take advantage of</p>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Network based communication between runtimes (<strong>no JVM startup effort</strong>).</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Solid foundation to create, develop <em>or publish</em> PHP wrappers over java libs.</li>
 </ul>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<div class="mermaid">sequenceDiagram
+    Note over SolubleJapha: Serialize call
+    SolubleJapha-&gt;&gt;+PHPJavaBridgeServer: XML Payload
+    Note over PHPJavaBridgeServer, JVM: Deserialize and init context
+    PHPJavaBridgeServer-&gt;JVM: Execute &lt;br /&gt;the call on the JVM
+    PHPJavaBridgeServer--&gt;&gt;-SolubleJapha: XML Payload
+    Note over SolubleJapha: Deserialize response</div>
+
 <h2 id="considerations">Considerations<a class="headerlink" href="#considerations" title="Permanent link">&para;</a></h2>
 <div class="admonition summary">
 <p class="admonition-title">Summary</p>
@@ -901,7 +924,7 @@ All P/R are warmly welcomed.</p>
     </div>
     
       <script src="assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.result.none": "No matching documents", "search.config.separator": "[\\s\\-]+", "clipboard.copy": "Copy to clipboard", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.lang": "en", "clipboard.copied": "Copied to clipboard", "search.result.placeholder": "Type to start searching", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.config.separator": "[\\s\\-]+", "search.config.lang": "en", "search.result.other": "# matching documents", "search.config.pipeline": "trimmer, stopWordFilter", "clipboard.copied": "Copied to clipboard", "search.result.placeholder": "Type to start searching", "clipboard.copy": "Copy to clipboard"}</script>
       
       <script>
         app = initialize({
