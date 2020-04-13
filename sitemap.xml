@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>http://docs.soluble.io/soluble-japha/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/install_client/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/install_server/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/bridge_connection/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/language_basics/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/language_useful_functions/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/language_exceptions/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/language_recipes/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/bridge_how_it_works/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/language_optimizations/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/bridge_benchmarks/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/bridge_servlet_functions/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/bridge_servlet_session/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/bridge_servlet_context/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/notes_limitations/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/notes_legacy/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/server/install_java/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/server/install_tomcat/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://docs.soluble.io/soluble-japha/notes_implementation/</loc>
-     <lastmod>2020-04-10</lastmod>
+     <lastmod>2020-04-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
