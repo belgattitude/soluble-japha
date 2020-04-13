@@ -74,7 +74,7 @@ theme:
     accent: light blue
   font:
     text: IBM Plex Sans
-    code: Roboto Mono
+    code: SFMono-Regular,Consolas,Menlo,monospace
 
 # Plugins
 plugins:
