@@ -57,7 +57,7 @@ try {
 ## Use cases
 
 **Expand the PHP horizons to the Java ecosystem** whenever you want
-to take advantage of
+to quickly play with
 
 - some compelling libraries *([Jasperreports](http://community.jaspersoft.com/project/jasperreports-library), [CoreNLP](http://stanfordnlp.github.io/CoreNLP/), [FlyingSaucer](https://github.com/flyingsaucerproject/flyingsaucer/releases), [Jsoup](https://jsoup.org/)...)*
 - benefit from JVM performances *([Deeplearning4J](https://deeplearning4j.org/)...)* or wrappers *([TensorFlowApi](https://www.tensorflow.org/api_docs)*...)
@@ -75,6 +75,19 @@ to take advantage of
 - [x] No need to write a service layer prior to usage (**the Java object is the contract**).
 - [x] Network based communication between runtimes (**no JVM startup effort**).
 - [x] Solid foundation to create, develop *or publish* PHP wrappers over java libs.
+
+## How it works
+
+
+```mermaid
+sequenceDiagram
+    Note over SolubleJapha: Serialize call
+    SolubleJapha->>+PHPJavaBridgeServer: XML Payload
+    Note over PHPJavaBridgeServer, JVM: Deserialize and init context
+    PHPJavaBridgeServer->JVM: Execute <br />the call on the JVM
+    PHPJavaBridgeServer-->>-SolubleJapha: XML Payload
+    Note over SolubleJapha: Deserialize response
+```
 
 ## Considerations
 
