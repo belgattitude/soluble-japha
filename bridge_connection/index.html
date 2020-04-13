@@ -772,12 +772,12 @@
                 
                 <h1 id="connecting-to-the-bridge">Connecting to the bridge<a class="headerlink" href="#connecting-to-the-bridge" title="Permanent link">&para;</a></h1>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>Connection to the bridge is made through the <code>Soluble\Japha\Bridge\Adapter</code>object 
-and should be initialized once <em>(similarly to a database connection)</em>. </p>
+<p>Connection to the bridge is made through the <code>Soluble\Japha\Bridge\Adapter</code>object
+and should be initialized once <em>(similarly to a database connection)</em>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Using a <code>container-interop</code> compatible container like
-<a href="https://github.com/zendframework/zend-servicemanager">zend-servicemanager</a> 
+<a href="https://docs.laminas.dev/laminas-servicemanager/">laminas-servicemanager</a>
 is encouraged.</p>
 </div>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
@@ -786,21 +786,21 @@ is encouraged.</p>
 <span class="k">use</span> <span class="nx">Soluble\Japha\Bridge\Adapter</span> <span class="k">as</span> <span class="nx">BridgeAdapter</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Soluble\Japha\Bridge\Exception</span> <span class="k">as</span> <span class="nx">BridgeException</span><span class="p">;</span>
 
-<span class="nv">$options</span> <span class="o">=</span> <span class="p">[</span>     
+<span class="nv">$options</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;servlet_address&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;http://localhost:8080/MyJavaBridge/servlet.phpjavabridge&#39;</span>
 <span class="p">];</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$ba</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BridgeAdapter</span><span class="p">(</span><span class="nv">$options</span><span class="p">);</span>    
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">BridgeException\ConnectionException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="nv">$ba</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BridgeAdapter</span><span class="p">(</span><span class="nv">$options</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">BridgeException\ConnectionException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Server is not reachable</span>
     <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
-<span class="p">}</span> 
+<span class="p">}</span>
 </code></pre></div>
 
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
 <h3 id="connection-params">Connection params<a class="headerlink" href="#connection-params" title="Permanent link">&para;</a></h3>
-<p>The <code>Soluble\Japha\Bridge\Adapter</code> constructor requires <code>$options</code>, an associative array with: </p>
+<p>The <code>Soluble\Japha\Bridge\Adapter</code> constructor requires <code>$options</code>, an associative array with:</p>
 <table>
 <thead>
 <tr>
@@ -823,7 +823,7 @@ is encouraged.</p>
 <p class="admonition-title">Tip</p>
 <p>Since v2.4.0, you can also provide basic auth in the <code>servlet_address</code>, i.e.
 <code>http://user:password@localhost:8083/JavaBridge/servlet.phpjavabridge</code>. If
-using basic_auth, avoid setting <code>use_persistent_connection</code> to true. </p>
+using basic_auth, avoid setting <code>use_persistent_connection</code> to true.</p>
 </div>
 <table>
 <thead>
@@ -862,17 +862,17 @@ using basic_auth, avoid setting <code>use_persistent_connection</code> to true. 
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>In short, setting <code>java_prefer_value</code> to <code>false</code> should theoretically give
-more performance at the cost of some more boilerplate in the code. As the perf 
+more performance at the cost of some more boilerplate in the code. As the perf
 improvements have not been measured in practice (yet), the default is <code>true</code> in the
 <code>soluble-japha</code> implementation. Better to not change it as it will bc-break
-your code.  </p>
+your code.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>force_simple_xml_parser</code> param can be set to <code>true</code> to force usage of the
 pure-php implementation of the xml parser. This can fix possible issues with
-the native xml parser when the size of an xml message exceeds 10M. 
-Before applying this feature, always check whether it's your only option... </p>
+the native xml parser when the size of an xml message exceeds 10M.
+Before applying this feature, always check whether it's your only option...</p>
 </div>
 <h3 id="optional-psr-3-logger">Optional PSR-3 logger<a class="headerlink" href="#optional-psr-3-logger" title="Permanent link">&para;</a></h3>
 <p>Optionally you can send any PSR-3 logger as the second parameter, for example with monolog :</p>
@@ -885,7 +885,7 @@ Before applying this feature, always check whether it's your only option... </p>
 <span class="k">use</span> <span class="nx">Monolog\Handler\StreamHandler</span><span class="p">;</span>
 
 <span class="nv">$options</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pjb62&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pjb62&#39;</span><span class="p">,</span>
     <span class="s1">&#39;servlet_address&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost:8089/servlet.phpjavabridge&#39;</span>
 <span class="p">];</span>
 
@@ -893,13 +893,13 @@ Before applying this feature, always check whether it's your only option... </p>
 <span class="nv">$logger</span><span class="o">-&gt;</span><span class="na">pushHandler</span><span class="p">(</span><span class="k">new</span> <span class="nx">StreamHandler</span><span class="p">(</span><span class="s1">&#39;path/to/your.log&#39;</span><span class="p">,</span> <span class="nx">Logger</span><span class="o">::</span><span class="na">WARNING</span><span class="p">));</span>
 
 <span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$ba</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BridgeAdapter</span><span class="p">(</span><span class="nv">$options</span><span class="p">,</span> <span class="nv">$logger</span><span class="p">);</span>    
+    <span class="nv">$ba</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BridgeAdapter</span><span class="p">(</span><span class="nv">$options</span><span class="p">,</span> <span class="nv">$logger</span><span class="p">);</span>
 <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception\ConnectionException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="c1">// The error has been logged in your log file, check for</span>
     <span class="c1">// &quot;[soluble-japha] Cannot connect to php-java-bridge server (...)&quot;</span>
 
-<span class="p">}</span> 
+<span class="p">}</span>
 </code></pre></div>
 
 <h2 id="errors-and-exceptions">Errors and exceptions<a class="headerlink" href="#errors-and-exceptions" title="Permanent link">&para;</a></h2>
@@ -940,7 +940,7 @@ Before applying this feature, always check whether it's your only option... </p>
 consider a running http(s) port as valid. This can lead to confusion if your connection
 params points to a different running servlet. In this case the <code>ConnectionException</code> won't be
 thrown but you'll experience a <code>Soluble\Japha\Bridge\Exception\BrokenConnectionException</code>
-when calling java objects. </p>
+when calling java objects.</p>
 <p>A classic example: you forgot to include the servlet uri in your connection params. Instead
 of setting <code>http://localhost:8080/MyJavaBridge/servlet.phpjavabridge</code>, you've passed
 <code>http://localhost:8080/servlet.phpjavabridge</code>. The connection will succeed <em>(no <code>ConnectionException</code> will be thrown)</em>
@@ -948,7 +948,7 @@ because there's a listening server. But once you'll call a method on the bridge 
 end up with the <code>BrokenConnectionException</code>. Fix your config to the correct bridge address.</p>
 </div>
 <h3 id="server-debugging">Server debugging<a class="headerlink" href="#server-debugging" title="Permanent link">&para;</a></h3>
-<p>Debugging can be enabled through the connection (<a class="magiclink magiclink-github magiclink-mention" href="https://github.com/see" title="GitHub User: see">@see</a> java_log_level). </p>
+<p>Debugging can be enabled through the connection (<a class="magiclink magiclink-github magiclink-mention" href="https://github.com/see" title="GitHub User: see">@see</a> java_log_level).</p>
 <ul>
 <li>0: Log nothing, not even fatal errors.</li>
 <li>1: Log fatal system errors such as "out of memory error".</li>
@@ -960,7 +960,7 @@ end up with the <code>BrokenConnectionException</code>. Fix your config to the c
       to debug certain parts of the bridge.</li>
 </ul>
 <blockquote>
-<p>If using tomcat logged messages will be present in catalina.out. </p>
+<p>If using tomcat logged messages will be present in catalina.out.</p>
 </blockquote>
                 
               
@@ -1043,7 +1043,7 @@ end up with the <code>BrokenConnectionException</code>. Fix your config to the c
     </div>
     
       <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.config.separator": "[\\s\\-]+", "search.result.one": "1 matching document", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.placeholder": "Type to start searching", "search.result.other": "# matching documents", "search.config.lang": "en", "search.result.none": "No matching documents", "clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard"}</script>
+      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.config.pipeline": "trimmer, stopWordFilter", "clipboard.copy": "Copy to clipboard", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en"}</script>
       
       <script>
         app = initialize({
