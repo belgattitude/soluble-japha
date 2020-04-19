@@ -69,9 +69,9 @@ theme:
   #features:
     #- tabs
     #- instant
-  #palette:
-  #  primary: deep-orange
-  #  accent: light blue
+  palette:
+    primary: deep-orange
+    accent: light blue
   font:
     text: IBM Plex Sans
     code: SFMono-Regular,Consolas,Menlo,monospace
