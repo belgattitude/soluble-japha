@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.8.1 (2020-07-10)
+
+### Changed
+
+- ArrayProxy, do not implement \ArrayAccess anymore, in [#58](https://github.com/belgattitude/soluble-japha/pull/58)
+
+### Dev
+
+- [Q&A] update phpstan and cs-fixer, in [#58](https://github.com/belgattitude/soluble-japha/pull/58)
+
 ## 2.8.0 (2020-04-10)
 
 ### Removed
