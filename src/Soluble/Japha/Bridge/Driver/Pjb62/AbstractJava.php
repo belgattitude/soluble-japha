@@ -209,6 +209,7 @@ abstract class AbstractJava implements \IteratorAggregate, \ArrayAccess, JavaTyp
         // suggest, let's try for a java method called offsetExists
         // with all the provided parameters
         array_unshift($args, $idx); // Will add idx at the beginning of args params
+
         return $this->__call('offsetExists', $args);
     }
 

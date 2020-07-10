@@ -39,7 +39,7 @@ declare(strict_types=1);
 
 namespace Soluble\Japha\Bridge\Driver\Pjb62;
 
-class ArrayProxy extends IteratorProxy implements \ArrayAccess
+class ArrayProxy extends IteratorProxy
 {
     /**
      * @param string $idx
