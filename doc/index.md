@@ -3,6 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/soluble/japha/v/stable.svg)](https://packagist.org/packages/soluble/japha)
 [![PHP Version](https://img.shields.io/badge/php-5.5+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
 [![PHP Version](https://img.shields.io/badge/php-7.1+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
+[![PHP Version](https://img.shields.io/badge/php-8.0+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
 [![codecov](https://codecov.io/gh/belgattitude/soluble-japha/branch/master/graph/badge.svg)](https://codecov.io/gh/belgattitude/soluble-japha)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/?branch=master)
 [![Total Downloads](https://poser.pugx.org/soluble/japha/downloads.png)](https://packagist.org/packages/soluble/japha)

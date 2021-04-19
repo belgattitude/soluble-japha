@@ -1,7 +1,7 @@
 # soluble-japha
 
-[![PHP Version](https://img.shields.io/badge/php-5.5+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
-[![PHP Version](https://img.shields.io/badge/php-7.1+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
+[![PHP Version](https://img.shields.io/badge/php-7.4+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
+[![PHP Version](https://img.shields.io/badge/php-8.0+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
 [![Build Status](https://travis-ci.org/belgattitude/soluble-japha.svg?branch=master)](https://travis-ci.org/belgattitude/soluble-japha)
 [![codecov](https://codecov.io/gh/belgattitude/soluble-japha/branch/master/graph/badge.svg)](https://codecov.io/gh/belgattitude/soluble-japha)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/belgattitude/soluble-japha/?branch=master)
@@ -118,12 +118,12 @@ to take advantage of
 
 ## Requirements
 
+- Version `^3.0` requires PHP 8.0 ![PHP Version](http://img.shields.io/badge/php-8.0+-ff69b4.svg)
 - Version `^2.0` requires PHP 7.1 ![PHP Version](http://img.shields.io/badge/php-7.1+-ff69b4.svg)
 
-> **Important**. There's **NO API BC-BREAK** between v0.13, v1.x and v2.x so you should be
+> **Important**. There's **NO API BC-BREAK** between v0.13, v1.x, v2.x and v3.x so you should be
 > able to upgrade safely between releases. The choice to increment version numbers to drop
 > support for older php versions was made to avoid any confusion with multiple php installs.
-
 
 
 If you're looking for compatibility with older PHP versions, note that:
