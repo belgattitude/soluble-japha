@@ -14,7 +14,7 @@ use Soluble\Japha\Bridge\Adapter as BridgeAdapter;
 
 ini_set('display_errors', 'true');
 
-$bm = new Benchmark();
+$bm = new SimpleBenchmark();
 
 $start_total_time = $bm->getTimeMs();
 
@@ -225,7 +225,7 @@ echo '- Connection time: '.$connection_time.PHP_EOL;
 echo '- Total time     : '.$total_time.PHP_EOL;
 echo PHP_EOL;
 
-class Benchmark
+class SimpleBenchmark
 {
     /**
      * @var bool
