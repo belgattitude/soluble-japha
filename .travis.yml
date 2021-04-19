@@ -2,6 +2,9 @@ dist: bionic
 language: php
 sudo: required
 
+services:
+  - mysql
+
 matrix:
   fast_finish: true
   include:
