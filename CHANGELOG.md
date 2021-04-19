@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.0.0 (2021-04-19)
+
+### New
+
+- PHP 8.0 support in [#60](https://github.com/belgattitude/soluble-japha/pull/60)
+
+### Changed
+
+- Minimum support for v3.0.0 is now PHP 7.4
+
+### Dev
+
+- [Q&A] update phpunit, phpstan and cs-fixer, in [#60](https://github.com/belgattitude/soluble-japha/pull/60)
+
+
 ## 2.8.1 (2020-07-10)
 
 ### Changed
