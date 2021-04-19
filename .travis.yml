@@ -5,6 +5,9 @@ sudo: required
 services:
   - mysql
 
+jdk:
+  - openjdk8
+
 matrix:
   fast_finish: true
   include:
