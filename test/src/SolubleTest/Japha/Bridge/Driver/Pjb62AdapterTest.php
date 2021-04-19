@@ -142,7 +142,7 @@ class Pjb62AdapterTest extends TestCase
         $properties = $system->getProperties();
 
         foreach ($properties as $key => $value) {
-            self::assertIsString( $key);
+            self::assertIsString($key);
             self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\InternalJava', $value);
         }
 

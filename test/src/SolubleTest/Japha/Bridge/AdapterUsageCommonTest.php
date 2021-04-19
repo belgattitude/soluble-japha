@@ -268,7 +268,7 @@ class AdapterUsageCommonTest extends TestCase
         $properties = $system->getProperties();
 
         foreach ($properties as $key => $value) {
-            self::assertIsString( $key);
+            self::assertIsString($key);
             self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $value);
 
             if ($key == 'java.version') {
@@ -281,7 +281,7 @@ class AdapterUsageCommonTest extends TestCase
         self::assertInstanceOf('Iterator', $iterator);
 
         foreach ($iterator as $key => $value) {
-            self::assertIsString( $key);
+            self::assertIsString($key);
             self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $value);
 
             if ($key == 'java.version') {

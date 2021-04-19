@@ -74,19 +74,19 @@ class AdapterJavaExceptionTest extends TestCase
             self::assertInstanceOf(Exception\JavaExceptionInterface::class, $e);
 
             $stackTrace = $e->getStackTrace();
-            self::assertIsString( $stackTrace);
+            self::assertIsString($stackTrace);
 
             $cause = $e->getCause();
-            self::assertIsString( $cause);
+            self::assertIsString($cause);
             self::assertStringStartsWith('java.lang.NoSuchMethodException: anInvalidMethod()', $cause);
 
             $message = $e->getMessage();
-            self::assertIsString( $message);
+            self::assertIsString($message);
             self::assertStringContainsString('java.lang.NoSuchMethodException', $message);
             self::assertStringContainsString('[[o:String]]->anInvalidMethod', $message);
 
             $javaClassName = $e->getJavaClassName();
-            self::assertIsString( $javaClassName);
+            self::assertIsString($javaClassName);
             self::assertEquals('java.lang.NoSuchMethodException', $javaClassName);
 
             $driverException = $e->getDriverException();
@@ -170,7 +170,7 @@ class AdapterJavaExceptionTest extends TestCase
             self::assertInstanceOf(Exception\RuntimeException::class, $e);
             self::assertInstanceOf(UnsupportedTzException::class, $e);
             self::assertTrue(true);
-            self::assertIsString( $e->__toString());
+            self::assertIsString($e->__toString());
         }
     }
 }

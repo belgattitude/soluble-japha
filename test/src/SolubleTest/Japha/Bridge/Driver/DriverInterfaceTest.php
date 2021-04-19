@@ -61,7 +61,7 @@ class DriverInterfaceTest extends TestCase
     {
         $javaString = $this->adapter->java('java.lang.String', 'Hello World');
         $inspected = $this->driver->inspect($javaString);
-        self::assertIsString( $inspected);
+        self::assertIsString($inspected);
         self::assertStringStartsWith('[class java.lang.String:', $inspected);
         self::assertStringContainsString('Constructors:', $inspected);
         self::assertStringContainsString('Fields:', $inspected);
