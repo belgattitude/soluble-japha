@@ -35,7 +35,7 @@ class DriverManagerTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!$this->isJdbcTestsEnabled()) {
             $this->markTestSkipped(
@@ -62,7 +62,7 @@ class DriverManagerTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -136,7 +136,7 @@ class DriverManagerTest extends TestCase
         $rs = $stmt->executeQuery('select * from product_category_translation limit 100');
         while ($rs->next()) {
             $category_id = $rs->getString('category_id');
-            self::assertInternalType('numeric', $category_id->__toString());
+            self::assertIsNumeric($category_id->__toString());
         }
         $ba = $this->adapter;
         if (!$ba->isNull($rs)) {

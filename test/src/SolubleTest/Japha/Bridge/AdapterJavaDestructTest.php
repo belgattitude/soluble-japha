@@ -33,7 +33,7 @@ class AdapterJavaDestructTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         \SolubleTestFactories::startJavaBridgeServer();
 
@@ -58,7 +58,7 @@ class AdapterJavaDestructTest extends TestCase
         $hmId = $hm->get__java();
         $hm2Id = $hm2->get__java();
 
-        self::assertInternalType('integer', $hmId);
+        self::assertIsInt($hmId);
         self::assertEquals($hmId, $hm2Id);
         self::assertGreaterThan(0, $hmId);
         self::assertEquals(8, $hm->get('my_key')->length());

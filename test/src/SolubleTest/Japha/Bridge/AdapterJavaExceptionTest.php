@@ -36,7 +36,7 @@ class AdapterJavaExceptionTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         \SolubleTestFactories::startJavaBridgeServer();
 
@@ -52,7 +52,7 @@ class AdapterJavaExceptionTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -74,19 +74,19 @@ class AdapterJavaExceptionTest extends TestCase
             self::assertInstanceOf(Exception\JavaExceptionInterface::class, $e);
 
             $stackTrace = $e->getStackTrace();
-            self::assertInternalType('string', $stackTrace);
+            self::assertIsString( $stackTrace);
 
             $cause = $e->getCause();
-            self::assertInternalType('string', $cause);
+            self::assertIsString( $cause);
             self::assertStringStartsWith('java.lang.NoSuchMethodException: anInvalidMethod()', $cause);
 
             $message = $e->getMessage();
-            self::assertInternalType('string', $message);
-            self::assertContains('java.lang.NoSuchMethodException', $message);
-            self::assertContains('[[o:String]]->anInvalidMethod', $message);
+            self::assertIsString( $message);
+            self::assertStringContainsString('java.lang.NoSuchMethodException', $message);
+            self::assertStringContainsString('[[o:String]]->anInvalidMethod', $message);
 
             $javaClassName = $e->getJavaClassName();
-            self::assertInternalType('string', $javaClassName);
+            self::assertIsString( $javaClassName);
             self::assertEquals('java.lang.NoSuchMethodException', $javaClassName);
 
             $driverException = $e->getDriverException();
@@ -170,7 +170,7 @@ class AdapterJavaExceptionTest extends TestCase
             self::assertInstanceOf(Exception\RuntimeException::class, $e);
             self::assertInstanceOf(UnsupportedTzException::class, $e);
             self::assertTrue(true);
-            self::assertInternalType('string', $e->__toString());
+            self::assertIsString( $e->__toString());
         }
     }
 }

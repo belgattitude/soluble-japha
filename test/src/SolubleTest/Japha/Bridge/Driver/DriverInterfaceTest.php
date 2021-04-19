@@ -31,7 +31,7 @@ class DriverInterfaceTest extends TestCase
      */
     protected $driver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         \SolubleTestFactories::startJavaBridgeServer();
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
@@ -46,7 +46,7 @@ class DriverInterfaceTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -61,12 +61,12 @@ class DriverInterfaceTest extends TestCase
     {
         $javaString = $this->adapter->java('java.lang.String', 'Hello World');
         $inspected = $this->driver->inspect($javaString);
-        self::assertInternalType('string', $inspected);
+        self::assertIsString( $inspected);
         self::assertStringStartsWith('[class java.lang.String:', $inspected);
-        self::assertContains('Constructors:', $inspected);
-        self::assertContains('Fields:', $inspected);
-        self::assertContains('Methods:', $inspected);
-        self::assertContains('Classes:', $inspected);
+        self::assertStringContainsString('Constructors:', $inspected);
+        self::assertStringContainsString('Fields:', $inspected);
+        self::assertStringContainsString('Methods:', $inspected);
+        self::assertStringContainsString('Classes:', $inspected);
     }
 
     public function testInvoke()

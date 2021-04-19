@@ -35,7 +35,7 @@ class JDBCPerformanceTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!$this->isJdbcTestsEnabled()) {
             $this->markTestSkipped(
@@ -57,7 +57,7 @@ class JDBCPerformanceTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -83,7 +83,7 @@ class JDBCPerformanceTest extends TestCase
 
         $titles = (array) $ba->getDriver()->values($list); // 1 round trip
 
-        self::assertContains('Jack', $titles);
+        self::assertStringContainsString('Jack', $titles);
 
         if (!$ba->isNull($rs)) {
             $rs->close();
@@ -117,7 +117,7 @@ class JDBCPerformanceTest extends TestCase
 
         $titles = (array) $ba->getDriver()->values($list); // 1 round trip
 
-        self::assertContains('Accessoires', $titles);
+        self::assertStringContainsString('Accessoires', $titles);
         self::assertArrayHasKey('PIAC', $titles);
         self::assertEquals('Accessoires', $titles['PIAC']);
 

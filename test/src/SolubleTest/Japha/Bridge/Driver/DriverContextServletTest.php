@@ -33,7 +33,7 @@ class DriverContextServletTest extends TestCase
      */
     protected $driver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         \SolubleTestFactories::startJavaBridgeServer();
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
@@ -48,7 +48,7 @@ class DriverContextServletTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -87,7 +87,7 @@ class DriverContextServletTest extends TestCase
             'io.soluble.pjb.servlet.PhpJavaServlet'
         ];
 
-        self::assertContains($className, $supported);
+        self::assertStringContainsString($className, $supported);
 
         //  From javax.servlet.GenericServlet
 

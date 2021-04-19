@@ -24,7 +24,7 @@ class StreamSocketTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         \SolubleTestFactories::startJavaBridgeServer();
 
@@ -78,7 +78,7 @@ class StreamSocketTest extends TestCase
     public function testGetSocket(): void
     {
         $streamSocket = $this->getWorkingStreamSocket();
-        self::assertInternalType('resource', $streamSocket->getSocket());
+        self::assertIsResource($streamSocket->getSocket());
     }
 
     public function testGetStreamAddress(): void

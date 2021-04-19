@@ -32,7 +32,7 @@ class AdapterUsageCommonTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         \SolubleTestFactories::startJavaBridgeServer();
 
@@ -48,7 +48,7 @@ class AdapterUsageCommonTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -238,7 +238,7 @@ class AdapterUsageCommonTest extends TestCase
         while (($line = $reader->readLine()) != null) {
             $content .= (string) $line.PHP_EOL;
         }
-        self::assertContains('testFileReader', $content);
+        self::assertStringContainsString('testFileReader', $content);
     }
 
     public function testForeach()
@@ -268,7 +268,7 @@ class AdapterUsageCommonTest extends TestCase
         $properties = $system->getProperties();
 
         foreach ($properties as $key => $value) {
-            self::assertInternalType('string', $key);
+            self::assertIsString( $key);
             self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $value);
 
             if ($key == 'java.version') {
@@ -281,7 +281,7 @@ class AdapterUsageCommonTest extends TestCase
         self::assertInstanceOf('Iterator', $iterator);
 
         foreach ($iterator as $key => $value) {
-            self::assertInternalType('string', $key);
+            self::assertIsString( $key);
             self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $value);
 
             if ($key == 'java.version') {
