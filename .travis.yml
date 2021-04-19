@@ -1,19 +1,23 @@
+dist: bionic
 language: php
 sudo: required
-dist: trusty
 
 matrix:
   fast_finish: true
   include:
-    - php: 7.2
+    - php: 8.0
       env:
         - CS_CHECKS=true
         - SEND_COVERAGE=true
         - PHPSTAN=true
         - INFECTION=false
-    - php: 7.3
     - php: 7.4
+      env:
+        - INFECTION=false
     - php: nightly
+      env:
+        - INFECTION=false
+        -
   allow_failures:
     - php: nightly
 
