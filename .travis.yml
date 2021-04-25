@@ -29,7 +29,7 @@ matrix:
 before_script:
   # Debug Java version
   - java -version
-  - update-alternatives
+  - update-alternatives --list java
   # Creating the test database
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
   - mysql -e "create database phpunit_soluble_test_db;" -uroot
