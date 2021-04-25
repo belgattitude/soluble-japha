@@ -35,11 +35,11 @@
         "phpunit/phpunit": "^9.5.4",
         "friendsofphp/php-cs-fixer": "v2.18.5",
         "monolog/monolog": "^2.2.0",
-        "phpstan/phpstan": "^0.12.83",
+        "phpstan/phpstan": "^0.12.84",
         "phpstan/phpstan-strict-rules": "^0.12.9",
         "phpstan/phpstan-phpunit": "^0.12.17",
         "belgattitude/pjbserver-tools": "^4.0",
-        "infection/infection": "^0.21.5",
+        "infection/infection": "^0.22.0",
         "dms/phpunit-arraysubset-asserts": "^v0.2.1"
     },
     "scripts": {
