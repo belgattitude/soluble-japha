@@ -39,7 +39,7 @@
         "phpstan/phpstan-strict-rules": "^0.12.9",
         "phpstan/phpstan-phpunit": "^0.12.17",
         "belgattitude/pjbserver-tools": "^3.1.0 || ^4.0",
-        "infection/infection": "^0.22.0",
+        "infection/infection": "^0.21.5",
         "dms/phpunit-arraysubset-asserts": "^v0.2.1"
     },
     "scripts": {
