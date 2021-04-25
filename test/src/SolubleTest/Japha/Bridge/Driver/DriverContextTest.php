@@ -84,7 +84,7 @@ class DriverContextTest extends TestCase
             $httpServletRequest = $context->getHttpServletRequest();
             self::assertInstanceOf(JavaObject::class, $httpServletRequest);
 
-            self::assertStringContainsString($this->driver->getClassName($httpServletRequest), [
+            self::assertContains($this->driver->getClassName($httpServletRequest), [
                 'io.soluble.pjb.servlet.RemoteHttpServletRequest',
                 'php.java.servlet.RemoteServletRequest',
                 'php.java.servlet.RemoteHttpServletRequest' // For Pjb713

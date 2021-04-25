@@ -83,7 +83,7 @@ class JDBCPerformanceTest extends TestCase
 
         $titles = (array) $ba->getDriver()->values($list); // 1 round trip
 
-        self::assertStringContainsString('Jack', $titles);
+        self::assertContains('Jack', $titles);
 
         if (!$ba->isNull($rs)) {
             $rs->close();
@@ -117,7 +117,7 @@ class JDBCPerformanceTest extends TestCase
 
         $titles = (array) $ba->getDriver()->values($list); // 1 round trip
 
-        self::assertStringContainsString('Accessoires', $titles);
+        self::assertContains('Accessoires', $titles);
         self::assertArrayHasKey('PIAC', $titles);
         self::assertEquals('Accessoires', $titles['PIAC']);
 

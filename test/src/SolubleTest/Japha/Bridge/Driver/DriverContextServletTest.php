@@ -87,7 +87,7 @@ class DriverContextServletTest extends TestCase
             'io.soluble.pjb.servlet.PhpJavaServlet'
         ];
 
-        self::assertStringContainsString($className, $supported);
+        self::assertContains($className, $supported);
 
         //  From javax.servlet.GenericServlet
 
