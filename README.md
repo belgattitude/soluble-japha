@@ -1,5 +1,6 @@
 # soluble-japha
 
+[![PHP Version](https://img.shields.io/badge/php-5.6+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
 [![PHP Version](https://img.shields.io/badge/php-7.4+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
 [![PHP Version](https://img.shields.io/badge/php-8.0+-ff69b4.svg)](https://packagist.org/packages/soluble/japha)
 [![Build Status](https://travis-ci.org/belgattitude/soluble-japha.svg?branch=master)](https://travis-ci.org/belgattitude/soluble-japha)
