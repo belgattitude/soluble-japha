@@ -69,7 +69,7 @@ class TimeZone
             $this->availableTz = [];
             $available = $this->timeZoneClass->getAvailableIDs();
             foreach ($available as $id) {
-                $this->availableTz[] = $id;
+                $this->availableTz[] = (string) $id;
             }
         }
 
