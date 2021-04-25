@@ -22,7 +22,7 @@ build:
             project_setup:
                 override: true
             environment:
-                php: 7.2
+                php: 8.0
             tests:
                 override: ['php-scrutinizer-run']
 
