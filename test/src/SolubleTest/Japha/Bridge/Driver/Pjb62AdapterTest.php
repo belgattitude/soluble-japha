@@ -30,7 +30,7 @@ class Pjb62AdapterTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
         $this->adapter = new Adapter([
@@ -43,7 +43,7 @@ class Pjb62AdapterTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -127,8 +127,8 @@ class Pjb62AdapterTest extends TestCase
 
         $properties = $system->getProperties();
         self::assertInstanceOf('Soluble\Japha\Interfaces\JavaObject', $properties);
-        //self::assertInternalType('string', $properties->__cast('string'));
-        //self::assertInternalType('string', $properties->__toString());
+        //self::assertIsString( $properties->__cast('string'));
+        //self::assertIsString( $properties->__toString());
 
         $vm_name = $properties->get('java.vm.name');
         self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\InternalJava', $vm_name);
@@ -142,7 +142,7 @@ class Pjb62AdapterTest extends TestCase
         $properties = $system->getProperties();
 
         foreach ($properties as $key => $value) {
-            self::assertInternalType('string', $key);
+            self::assertIsString($key);
             self::assertInstanceOf('Soluble\Japha\Bridge\Driver\Pjb62\InternalJava', $value);
         }
 

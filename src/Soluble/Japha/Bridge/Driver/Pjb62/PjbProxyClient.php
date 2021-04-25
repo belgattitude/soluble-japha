@@ -503,11 +503,13 @@ class PjbProxyClient implements ClientInterface
 
     /**
      * @throws Exception\BrokenConnectionException|Exception\AuthenticationException
+     *
+     * @return never
      */
     public static function unregisterAndThrowBrokenConnectionException(string $message = null, int $code = null): void
     {
         if (self::$instance !== null) {
-            $message = $message ?? 'undefined messsage';
+            $message = $message ?? 'undefined message';
 
             switch ($code) {
                 case 401:
@@ -537,6 +539,7 @@ class PjbProxyClient implements ClientInterface
             self::unregisterInstance();
             throw $exception;
         }
+        throw new Exception\BrokenConnectionException('No instance to remove');
     }
 
     /**

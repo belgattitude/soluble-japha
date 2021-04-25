@@ -31,7 +31,7 @@ class JavaTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
         $this->adapter = new Adapter([
@@ -44,7 +44,7 @@ class JavaTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -54,7 +54,7 @@ class JavaTest extends TestCase
             $ret = new Java('java.lang.String', null);
             self::assertFalse(true, 'Should throw a NullPointerException');
         } catch (JavaException $e) {
-            self::assertContains('NullPointerException', $e->getMessage());
+            self::assertStringContainsString('NullPointerException', $e->getMessage());
         }
     }
 

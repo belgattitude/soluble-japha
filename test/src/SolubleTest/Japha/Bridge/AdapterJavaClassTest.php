@@ -35,7 +35,7 @@ class AdapterJavaClassTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         \SolubleTestFactories::startJavaBridgeServer();
 
@@ -52,7 +52,7 @@ class AdapterJavaClassTest extends TestCase
 
         $cls = $ba->javaClass('java.util.HashMap');
         $className = $cls->getName();
-        self::assertInternalType('string', $className);
+        self::assertIsString($className);
         self::assertEquals('java.util.HashMap', $className);
     }
 

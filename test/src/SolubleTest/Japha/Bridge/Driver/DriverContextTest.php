@@ -33,7 +33,7 @@ class DriverContextTest extends TestCase
      */
     protected $driver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         \SolubleTestFactories::startJavaBridgeServer();
         $this->servlet_address = \SolubleTestFactories::getJavaBridgeServerAddress();
@@ -48,7 +48,7 @@ class DriverContextTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -107,16 +107,16 @@ class DriverContextTest extends TestCase
                 $this->driver->getClassName($httpServletRequest->getProtocol())
             );
 
-            self::assertContains('HTTP', (string) $httpServletRequest->getProtocol());
+            self::assertStringContainsString('HTTP', (string) $httpServletRequest->getProtocol());
 
             $requestUri = $httpServletRequest->getRequestUri();
             self::assertEquals('java.lang.String', $this->driver->getClassName($requestUri));
 
-            self::assertContains('.phpjavabridge', (string) $requestUri);
+            self::assertStringContainsString('.phpjavabridge', (string) $requestUri);
 
             $headerNames = $httpServletRequest->getHeaderNames();
 
-            self::assertContains('Enum', $this->driver->getClassName($headerNames));
+            self::assertStringContainsString('Enum', $this->driver->getClassName($headerNames));
 
             $headers = [];
             while ($headerNames->hasMoreElements()) {

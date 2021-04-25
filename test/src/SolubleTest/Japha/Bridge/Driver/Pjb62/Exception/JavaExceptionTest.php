@@ -23,8 +23,8 @@ class JavaExceptionTest extends TestCase
         $e = new JavaException('java.lang.Exception', 'cool');
         self::assertEquals('cool', $e->getMessage());
         self::assertNull($e->get__signature());
-        self::assertInternalType('int', $e->get__java());
-        self::assertInternalType('int', $e->__getJavaInternalObjectId());
+        self::assertIsInt($e->get__java());
+        self::assertIsInt($e->__getJavaInternalObjectId());
 
         $e2 = new JavaException('java.lang.Exception', 'cool3', $e);
         self::assertEquals('cool3', $e2->getMessage());
