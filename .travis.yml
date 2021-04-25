@@ -5,9 +5,6 @@ sudo: required
 services:
   - mysql
 
-jdk:
-  - openjdk8
-
 matrix:
   fast_finish: true
   include:
@@ -29,7 +26,6 @@ matrix:
 before_script:
   # Debug Java version
   - java -version
-  - update-alternatives --list java
   # Creating the test database
   - mysql -e "DROP DATABASE IF EXISTS phpunit_soluble_test_db;" -uroot
   - mysql -e "create database phpunit_soluble_test_db;" -uroot
