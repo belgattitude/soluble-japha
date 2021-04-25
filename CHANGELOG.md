@@ -12,7 +12,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Minimum support for v3.0.0 is now PHP 7.4
+- Dropped support for PHP versions below 7.4 in [#60](https://github.com/belgattitude/soluble-japha/pull/60)
+
+### Fixed
+
+- TimeZoneUtils: propertly casting timezone ids into string in [#60](https://github.com/belgattitude/soluble-japha/pull/60)
 
 ### Dev
 
