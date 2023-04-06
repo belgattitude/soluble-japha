@@ -64,5 +64,11 @@
     },
     "archive": {
         "exclude": ["infection.local.json", ".travis", "requirements.txt", "psalm.xml", ".sami.php", "phpstan.neon", "test", "doc", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
+    },
+    "config": {
+        "allow-plugins": {
+            "infection/extension-installer": true,
+            "ocramius/package-versions": true
+        }
     }
 }
